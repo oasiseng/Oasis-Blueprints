@@ -99,8 +99,10 @@ groups, so set each group's `start`.
 
 ## `criteria`
 
-`[{ "k": "Governing code and edition", "v": "" }]`. Leave `v` empty for anything the user did not
-state. It prints as a red Engineer chip and the user fills it in the editor.
+`[{ "k": "Governing code and edition", "v": "" }]`. Leave `v` empty for unsupported values.
+It prints as a red Engineer chip and the user fills it in the editor. Empty or whitespace-only
+criteria keep an automatic design-criteria item open even after other answers have been recorded.
+An existing unanswered item keyed `criteria` represents these blanks until it is answered.
 
 ## `openItems`
 
@@ -113,8 +115,12 @@ state. It prints as a red Engineer chip and the user fills it in the editor.
 - `key`: short, unique, letters and digits. It is how text and drawing code refer to the item.
 - `text`: what is needed, specific enough to answer in one line.
 - `who`: `Engineer`, `Field verify`, `Field measure, then engineer`, `Office`.
-- `answer`: empty while open. Once filled, the item moves to "Answered by the engineer", `{key}`
+- `answer`: empty while open. Once filled, the item moves to "Recorded answers", `{key}`
   prints the answer, and views that call `answer(P, 'key')` draw it in blue instead of red.
+
+An answer does not establish engineer approval or automatically update numeric geometry. Record its
+source and review status in the item text or project notes. Reconcile any changed sizes with
+`geometry` and all affected labels before rebuilding.
 
 Make an open item for every engineering value the user did not give, and for every existing condition
 the drawing assumes.
