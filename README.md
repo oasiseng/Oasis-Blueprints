@@ -44,17 +44,33 @@ Open the live sets in a browser. The project files that produced them are in `ex
 - **As a skill.** Download the skill zip from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/)
   and upload it where your assistant manages skills. The same folder loads in other assistants that
   support Agent Skills, including ChatGPT.
+- **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
+  (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
+  references, and licenses. Invoke `$oasis-blueprints` with the project sources and requested sheets.
 - **By hand.** Python 3 standard library only:
 
   ```bash
   cd skills/oasis-blueprints
-  python scripts/build.py assets/examples/deck/project.json deck.html --brand my-brand.json
+  python scripts/build.py assets/examples/deck/project.json deck.html
   python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
   ```
 
 Start with [`skills/oasis-blueprints/SKILL.md`](skills/oasis-blueprints/SKILL.md). A new kind of job is one
 JavaScript file of about 150 lines: see
 [`references/writing-views.md`](skills/oasis-blueprints/references/writing-views.md).
+
+Supply `--brand my-brand.json` when you have a company file. PDF export needs Playwright and Chromium
+in the Python environment used to run the script:
+
+```bash
+python -m pip install playwright
+python -m playwright install chromium
+python -m unittest discover -s tests -v
+```
+
+The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
+issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
+They validate drafting behavior, not structural adequacy or engineer approval.
 
 ## What the plugin runs, sends and fetches
 
@@ -76,7 +92,7 @@ shown in red, and it cannot be marked as issued until a licensed engineer has an
 
 - `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
 - `examples/sheet-sets/`: the example jobs (project file and previews); the built sets are linked above
-- `.claude-plugin/`: plugin manifest, so the repository installs as a Claude plugin (the listing icon is in the assets folder)
+- `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
 - `SPECIFICATION.md`, `library/`, `docs/`, `WindCalculations/`, `examples/*.json`: PCP, described below
 
 ## Also in this repository: PCP, the Project Context Protocol

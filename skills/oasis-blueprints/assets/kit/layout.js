@@ -17,6 +17,9 @@ function openItems(P) {
   const list = (P.openItems || []).filter(isOpen), p = P.project || {}, blank = [];
   if (!p.number) blank.push('project number'); if (!(P.people || {}).drawnBy) blank.push('drawn by'); if (!p.locality) blank.push('city, state and zip');
   if (blank.length) list.push({ title: 'Title block', text: 'Still blank: ' + blank.join(', ') + '.', who: 'Office', auto: true });
+  const missingCriteria = (P.criteria || []).filter(c => c.v == null || !String(c.v).trim());
+  if (missingCriteria.length && !list.some(o => o.key === 'criteria'))
+    list.push({ title: 'Design criteria', text: 'Complete the blank design criteria fields before issue.', who: 'Engineer', auto: true });
   return list;
 }
 const closedItems = P => (P.openItems || []).filter(o => !isOpen(o));
@@ -117,7 +120,7 @@ function sheetCover(P, G, sh, i, n, sheets) {
   const openL = openItems(P), closed = st.issue ? [] : closedItems(P);
   const open = openL.map((o, j) => `<div class="oi"><i class="tri"><b>${j + 1}</b></i><div><b>${esc(o.title)}</b><span>${rich(o.text, P)}</span><em>${esc(o.who || 'Engineer')}</em></div></div>`).join('');
   const done = closed.map(o => `<div class="oi done"><i class="ok"><svg viewBox="0 0 16 16"><path d="M3 8.6l3.2 3L13 4.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><div><b>${esc(o.title)}</b><span>${esc(o.answer)}</span></div></div>`).join('');
-  const crit = (P.criteria || []).map(c => `<tr><td>${esc(c.k)}</td><td>${c.v ? esc(c.v) : chip('r', 'Engineer')}</td></tr>`).join('');
+  const crit = (P.criteria || []).map(c => `<tr><td>${esc(c.k)}</td><td>${c.v != null && String(c.v).trim() ? esc(c.v) : chip('r', 'Engineer')}</td></tr>`).join('');
   const idx = sheets.map(s => `<tr><td><b>${esc(s.no)}</b></td><td>${esc(s.name)}</td><td>${esc(s.what || '')}</td></tr>`).join('');
   const body = `
   <div class="cover">
@@ -136,7 +139,7 @@ function sheetCover(P, G, sh, i, n, sheets) {
         <section class="panel grow"><div class="ph">Notes for this job</div><div class="pad notes" data-fit>${notes}</div></section>
       </div>
       <div class="col">
-        <section class="panel grow"><div class="ph ${openL.length ? 'red' : ''}">Open items for the engineer · ${openL.length || 'none'}</div><div class="pad" data-fit>${open}${openL.length ? `<p class="how">The set cannot be issued for permit or construction while this list has entries. Each item also shows in red where it applies on the drawings.</p>` : ''}${done ? `<h4 class="oih">Answered by the engineer</h4>${done}` : ''}</div></section>
+        <section class="panel grow"><div class="ph ${openL.length ? 'red' : ''}">Open items for the engineer · ${openL.length || 'none'}</div><div class="pad" data-fit>${open}${openL.length ? `<p class="how">The set cannot be issued for permit or construction while this list has entries. Each item also shows in red where it applies on the drawings.</p>` : ''}${done ? `<h4 class="oih">Recorded answers</h4>${done}` : ''}</div></section>
       </div>
     </div>
     <section class="panel reserved"><div class="ph">${esc(P.summary.reservedTitle || "Reserved: engineer's general structural notes")}</div><div class="pad" data-fit><p>${esc(P.summary.reserved || '')}</p></div></section>
