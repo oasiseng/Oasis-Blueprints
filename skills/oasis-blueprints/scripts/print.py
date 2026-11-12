@@ -10,7 +10,8 @@ Needs Playwright:  pip install playwright  &&  playwright install chromium
 Without it, open the HTML in Chrome or Edge and use the Print / Save as PDF button: the page is
 already set to 36 x 24 in, and the audit result shows at the top left of the screen.
 """
-import argparse, os, sys
+import argparse, sys
+from pathlib import Path
 
 
 def main():
@@ -31,7 +32,7 @@ def main():
         page = browser.new_page(viewport={"width": 3600, "height": 2500})
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
-        page.goto("file://" + os.path.abspath(a.html))
+        page.goto(Path(a.html).resolve().as_uri())
         try:
             page.wait_for_function("window.__ready === true", timeout=30000)
         except Exception:

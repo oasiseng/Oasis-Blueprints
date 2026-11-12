@@ -39,6 +39,9 @@ Built output is committed, so you can open it without installing anything.
 
 ## Use it
 
+- **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
+  (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
+  references, and licenses. Invoke `$oasis-blueprints` with the project sources and requested sheets.
 - **As a skill in Claude or ChatGPT.** Zip the folder (`cd skills && zip -r oasis-blueprints.zip oasis-blueprints`)
   and upload the zip where your app manages skills. Then ask for a drawing set and give it your job.
 - **As a Claude plugin.** This repository is a plugin (`.claude-plugin/plugin.json`) that carries the skill.
@@ -46,13 +49,26 @@ Built output is committed, so you can open it without installing anything.
 
   ```bash
   cd skills/oasis-blueprints
-  python scripts/build.py assets/examples/deck/project.json deck.html --brand my-brand.json
+  python scripts/build.py assets/examples/deck/project.json deck.html
   python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
   ```
 
 Start with [`skills/oasis-blueprints/SKILL.md`](skills/oasis-blueprints/SKILL.md). A new kind of job is one
 JavaScript file of about 150 lines: see
 [`references/writing-views.md`](skills/oasis-blueprints/references/writing-views.md).
+
+Supply `--brand my-brand.json` when you have a company file. PDF export needs Playwright and Chromium
+in the Python environment used to run the script:
+
+```bash
+python -m pip install playwright
+python -m playwright install chromium
+python -m unittest discover -s tests -v
+```
+
+The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
+issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
+They validate drafting behavior, not structural adequacy or engineer approval.
 
 ## Repository layout
 
