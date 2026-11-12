@@ -23,6 +23,6 @@
   ],
   "metadata": {
     "generated_from": "library/taxonomy/project-delivery-matrix.json",
-    "playbook_path": "WindCalculations/WC-DOOR"
+    "playbook_path": "oasiseng/windcalculations.com:playbooks/WC-DOOR"
   }
 }

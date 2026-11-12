@@ -93,7 +93,7 @@ shown in red, and it cannot be marked as issued until a licensed engineer has an
 - `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
 - `examples/sheet-sets/`: the example jobs (project file and previews); the built sets are linked above
 - `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
-- `SPECIFICATION.md`, `library/`, `docs/`, `WindCalculations/`, `examples/*.json`: PCP, described below
+- `SPECIFICATION.md`, `library/`, `docs/`, `examples/*.json`: PCP, described below
 
 ## Also in this repository: PCP, the Project Context Protocol
 
@@ -144,7 +144,6 @@ Most teams lose time because project context lives across docs, chat, and memory
 - `airtable/`: Airtable integration guidance
 - `templates/`: document templates used by PCP payloads
 - `docs/`: operational templates and reference docs
-- `WindCalculations/`: standardized wind-calculation subcategory playbooks
 
 ### Standardized engineering intake matrix
 
@@ -158,7 +157,7 @@ For teams mapping project types to default deliverables, required documents, and
 
 This gives you a machine-readable baseline for Airtable automations and bot task assignment.
 
-Wind subcategory playbooks are available under `WindCalculations/` and mapped in `library/taxonomy/project-delivery-matrix.json`.
+Wind subcategory playbooks now live in the [`oasiseng/windcalculations.com`](https://github.com/oasiseng/windcalculations.com/tree/main/playbooks) repository (`playbooks/`) and are mapped in `library/taxonomy/project-delivery-matrix.json`.
 
 ### Versioning
 

@@ -108,7 +108,7 @@ The taxonomy now includes a dedicated wind subcategory layer for `wind-calculati
 - `wind_calculations_subcategories`
 - `wind_subcategory_deliverable_matrix`
 
-Operational playbooks for each subcategory are in the root `WindCalculations/` folder.
+Operational playbooks for each subcategory are in the `playbooks/` folder of the [`oasiseng/windcalculations.com`](https://github.com/oasiseng/windcalculations.com/tree/main/playbooks) repository.
 
 ### Suggested additional Airtable fields
 
