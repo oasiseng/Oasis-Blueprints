@@ -1,103 +1,129 @@
 ---
 name: oasis-blueprints
-description: Create or revise construction drawing sheets as self-contained HTML and scaled PDFs, with plans, sections, details, title blocks, and tracked open items. Use for HTML drawing sets and permit-sheet drafting; not for structural design calculations or native CAD/DWG editing.
+description: Draw engineering and construction sheet sets as HTML and PDF - true-scale plans, sections, details, title block, your logo. Use for drawings, plan sheets, permit sets, or instead of CAD/DWG.
 ---
 
-# Oasis Blueprints
+# Oasis-Blueprints
 
-Draft a drawing set from project evidence: one editable, self-contained HTML file and, when available,
-a 36 × 24 in landscape PDF. The kit supplies a cover, one field sheet, and optional reserved sheets.
-It draws geometry and checks layout; it does not calculate structural adequacy or establish approval.
+Turn a described job into a drawing set that reads like a good instruction manual: one self-contained
+HTML file, 24 × 36 in sheets, every view at a stated true scale, a title block with the user's own
+company and logo, and a PDF for the building department. No CAD, no DWG.
 
-## Preserve the engineering record
+The set has two kinds of sheet. The **cover** is for the office and the plan reviewer: what the job is,
+scope, notes, design criteria, and the list of open items. The **field sheet** is for the person building
+it: a picture of the finished job, numbered steps with a small picture each, a plan, a section, and the
+connection details. Blue is new work, grey is existing, red is waiting on the engineer.
 
-- Use the user's dimensions, decisions, and supplied project documents. Identify the source and
-  revision of engineering values; distinguish proposed values from engineer-approved requirements.
-  Resolve conflicting sources before showing a value as settled.
-- Do not invent member sizes, spacing, connectors, anchors, embedment, footings, loads, capacities,
-  or code editions to complete a drawing. Track missing requirements as keyed `openItems`. An
-  explicitly requested engineering analysis is separate from this drafting kit.
-- Sample projects demonstrate layout, not suitable designs. Replace sample addresses, branding,
-  notes, geometry, and criteria with this project's evidence. Mark schematic geometry clearly;
-  do not dimension it as a selected design. Mark scanned, scaled, or assumed dimensions ± and
-  identify what needs field verification.
-- An entered answer records information; it does not establish who approved it. Preserve its
-  source and verification status in the item text or project notes. Keep new sets `draft` by default.
-  Use `review` when requested; change to `permit` or `construction` only on explicit direction
-  confirming engineer review and closure of all outstanding items. Never add a seal or signature.
+## The one rule: you are the drafter, not the engineer
 
-## Start from the project
+People build from drawings. A guessed anchor looks exactly as authoritative on a sheet as a calculated
+one, so a guess is worse than a blank.
 
-Inspect the relevant project files and existing drawing before asking for missing information.
-Collect scope, location, geometry and units, new versus existing work, supplied member/connection
-requirements, and title-block details. Ask only for information needed to proceed; record other
-unknowns as open items. A returned edited HTML or `.project.json` takes precedence over the older
-project copy for the user's edits. Preserve unrelated work and version standalone revisions.
+- Draw what the user gave you. Never supply a member size, spacing, fastener, anchor, embedment,
+  footing size, load, code edition or capacity from your own knowledge, and never "pick something
+  typical", even if asked. If the user wants a typical value, they can state it and it goes in as theirs.
+- Everything the drawing needs that the user did not give becomes an **open item**. Open items show
+  red on the sheets, are counted in the title block, and stop the set from being issued.
+- A value the user gives is recorded as the answer to its open item, in their words.
+- Status stays `draft` until the user says the engineer of record has closed every item. The set is
+  sealed and issued by a licensed engineer, not by this skill. Say so plainly when you deliver.
+- Dimensions that were scanned, scaled or assumed are marked ± (verify in field).
 
-Reuse a verified project `brand.json` or supplied company details. If creating one, adapt
-[assets/brand.example.json](assets/brand.example.json); leave unavailable fields blank and identify
-those gaps. Use the actual company name as a wordmark when no logo is available. Do not substitute
-sample branding or infer a license number.
+## Workflow
 
-## Choose the drawing resources
+### 1. Collect the job
 
-| Job type | Use | Resource |
+Ask only for what is missing, in one round: what is being built or repaired and where; overall
+dimensions and layout (a sketch, photo, scan or list of dimensions is fine); what is new and what is
+existing; member sizes and connectors the user has already decided; permit number if any; who drew
+and who checks. Do not interrogate the user about engineering values: missing ones become open items.
+
+### 2. Company block and logo (once)
+
+If there is no `brand.json` in the working folder, ask for the company name, address lines, licence
+number, phone, website, an optional logo image (PNG, SVG or JPG) and an optional accent colour. Save
+them as `brand.json` (copy `assets/brand.example.json`) and reuse it for every later job. With no logo
+the title block shows the company name as a wordmark. Never put this skill's name or anyone else's
+company in a user's title block.
+
+### 3. Pick or write the job type
+
+The drawing code for a kind of job is one JavaScript file. Two ship with the kit:
+
+| `jobType` | Draws | File |
 |---|---|---|
-| `deck` | Freestanding rectangular deck; inches or millimetres | [assets/views/deck.js](assets/views/deck.js) |
-| `sunroom` | Sloped roof on posts against a house; inches only | [assets/views/sunroom.js](assets/views/sunroom.js) |
-| Custom | A scope the supplied views do not represent | Read [references/writing-views.md](references/writing-views.md), then adapt `deck.js` beside the project file |
+| `sunroom` | Sloped roof on posts against a house: sunroom, porch, lean-to. Imperial only. | `assets/views/sunroom.js` |
+| `deck` | Freestanding rectangular deck on posts and footings. Inches or millimetres. | `assets/views/deck.js` |
 
-Keep job-specific drawing code beside the project, not inside the installed skill. Never force a
-project into an incompatible example. For each new or revised project, read
-[references/project-file.md](references/project-file.md) for the JSON contract and
-[references/sheet-standard.md](references/sheet-standard.md) for scale, status, and sheet conventions.
-Use [assets/examples/](assets/examples/) as schema examples only.
+If the job fits one, use it. If not, write a new `<jobType>.js` **beside the project file** (the skill
+folder may be read-only). Read `references/writing-views.md` first, and start from `assets/views/deck.js`:
+it is the unit-safe pattern. A job type is about 150 lines: a `derive` function, a plan, a section, two
+or three details, an isometric scene, and a `JOB` object that hands them to the layout.
 
-Keep all lengths in the declared unit system. Check positive dimensions and spacing, ordered
-coordinates, consistent units, and nonzero scale denominators before rendering. Do not convert an
-imperial project by changing only its `units` label. A custom view must validate its own geometry.
+### 4. Write the project file
 
-Give each open item a unique key. Use `{key}` in text and `answer(P, key)` in the view so the same
-answer appears throughout. Blank design criteria also remain outstanding. When an answer changes
-geometry, update the numeric geometry and related notes; entering answer text alone does not resize
-members, footings, or connections.
+One JSON file holds everything that is not drawing code: title block, geometry, the headline, key
+facts, steps, scope, notes, criteria, open items and the sheet list. Copy the nearest example
+(`assets/examples/*/project.json`) and read `references/project-file.md` for every field.
 
-## Build, inspect, and export
+Writing rules that make the set easy to follow (more in `references/sheet-standard.md`):
+- The headline says the whole job in one short sentence a homeowner would understand.
+- Steps are in build order, 3 to 5 of them, each one action.
+- Give each open item a `key`. Write `{key}` in any text where its answer belongs: it prints as a red
+  "Engineer" chip until answered, then as the answer. The drawing code reads the same answer.
 
-Resolve the script paths relative to this skill's installed folder. Quote absolute paths when the
-project is elsewhere or paths contain spaces. These examples assume the skill folder is current:
+### 5. Build
 
 ```bash
-python scripts/build.py /path/to/project.json /path/to/sheet-set.html --brand /path/to/brand.json
-python scripts/print.py /path/to/sheet-set.html /path/to/sheet-set.pdf --png /path/to/preview-
+python scripts/build.py project.json sheet-set.html --brand brand.json
 ```
 
-Omit `--brand` if none is supplied; the builder also checks beside the project and in the current
-folder. Use `--view /path/to/custom.js` for an explicitly selected view. Build requires only Python's
-standard library. PDF export and automated layout checks need Python Playwright plus Chromium
-(`python -m pip install playwright`, then `python -m playwright install chromium`) in that same
-Python environment. Prefer an available environment over changing system-wide dependencies.
+Standard library only, no network, no install. The output is one HTML file with fonts, code and
+project inside it.
 
-`print.py` exits 2 for layout/audit or script errors. Inspect the findings, correct their cause,
-rebuild, and rerun. Do not present a failed export as checked. Inspect every preview for overlaps,
-clipped notes, misplaced leaders, and legible dimensions. Verify PDF page size and measured-view
-scale; a 192 in span at 1:24 must occupy 8 in. Print at 100% on the specified paper size; resizing
-changes physical scale. The isometric illustration is not to scale.
+### 6. Check, and fix what the audit finds
 
-If PDF tooling is unavailable, deliver the HTML with that limitation stated. Open it in an available
-browser to inspect its layout badge and drawing, or state that visual/layout checking remains
-unverified. Manual Chrome/Edge Print / Save as PDF is an alternative, using actual size and the
-specified paper. Do not describe the layout audit as structural verification.
+```bash
+python scripts/print.py sheet-set.html sheet-set.pdf --png preview-
+```
 
-## Deliver and revise
+This prints the PDF with headless Chromium, runs the layout audit, and writes one PNG per sheet. It
+exits 2 if the audit finds anything. Fix every finding and rebuild; do not deliver a set with findings.
+Typical fixes: shorten or wrap a note, move a note's elbow, lower a view's scale, trim a detail.
+Then **look at the PNGs**: the audit catches overflow and wrong scale, not a leader crossing a
+dimension or two notes on top of each other.
 
-Provide the HTML and any checked PDF, the count and nature of open items, the set's actual status,
-and material assumptions or field checks. Briefly explain **Edit**, **Download project file**,
-**Download this HTML with my edits**, and **Print / Save as PDF** as relevant. Keep the editable
-project JSON and custom view with the project for later revisions; rebuild and recheck after edits.
+If Playwright or Chromium is not available (the script says so), skip the PDF: the HTML is the
+deliverable. Tell the user to open it in Chrome or Edge, read the badge at the top left
+("Layout OK" or the problems found), and use **Print / Save as PDF**. Ask them to paste any problem
+the badge reports so you can fix it.
 
-The current kit has one field sheet per set and fixed 36 × 24 in paper. Larger or different layouts
-require deliberate implementation and validation, not an unsupported promise in the deliverable.
+### 7. Deliver
 
-The reusable engine, layout, editor, and styles are in `assets/kit/`; embedded Barlow fonts and their
-license are in `assets/fonts/`. Keep these resources and [LICENSE.txt](LICENSE.txt) with the skill.
+Give the user the HTML (and the PDF if you made one), then say in a few lines:
+- how many open items there are and that the set is a draft until the engineer closes them;
+- that they can open the HTML, press **Edit**, type answers, fill the title block, swap the logo,
+  then **Download this HTML with my edits** and **Print / Save as PDF**;
+- anything you assumed, and every dimension you marked ±.
+
+### 8. Revise
+
+Change the project file (or the view), rebuild, re-check. If the user sends back an edited HTML or a
+downloaded `.project.json`, take the project from it rather than from your older copy: their answers
+are in there.
+
+## Files
+
+- `scripts/build.py` project file → HTML. `scripts/print.py` HTML → PDF, audit, previews.
+- `assets/kit/` the drawing kit (`kit.js`), sheet layout and audit (`layout.js`), in-browser editor
+  (`editor.js`), styles (`sheet.css`). Do not edit these for a job; put job-specific drawing in a view.
+- `assets/views/` job types. `assets/fonts/` Barlow (SIL OFL), embedded at build.
+- `assets/examples/` complete project files to copy. `assets/brand.example.json` company block.
+- `references/project-file.md` every field of the project file.
+- `references/writing-views.md` the drawing API and how to write a job type. Read before writing one.
+- `references/sheet-standard.md` what goes on each sheet, the colour code, wording, statuses.
+
+## Limits to be honest about
+
+One field sheet per set (plus cover and reserved sheets); sheets are 24 × 36 in; the isometric
+picture is not to scale; the kit draws and checks layout, it does not design or check structure.

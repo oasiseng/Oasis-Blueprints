@@ -6,12 +6,11 @@
 Exits 2 when the audit finds anything (overflow, wrong scale, open items on an issued set), so a set
 with problems is not issued by accident. --png also writes one image per sheet for a visual check.
 
-Needs Playwright:  pip install playwright  &&  playwright install chromium
+Needs Playwright and Chromium to be installed already. This script installs and downloads nothing.
 Without it, open the HTML in Chrome or Edge and use the Print / Save as PDF button: the page is
 already set to 36 x 24 in, and the audit result shows at the top left of the screen.
 """
-import argparse, sys
-from pathlib import Path
+import argparse, os, sys
 
 
 def main():
@@ -32,7 +31,7 @@ def main():
         page = browser.new_page(viewport={"width": 3600, "height": 2500})
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
-        page.goto(Path(a.html).resolve().as_uri())
+        page.goto("file://" + os.path.abspath(a.html))
         try:
             page.wait_for_function("window.__ready === true", timeout=30000)
         except Exception:

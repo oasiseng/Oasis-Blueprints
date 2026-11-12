@@ -41,13 +41,11 @@ states it on both sheets. A user's accent colour only tints their wordmark.
 
 ## Scale and size
 
-- Sheets are 24 × 36 in landscape. Print at 100% for the stated scale. An 11 × 17 print is
-  reduced to fit, not exactly half size; verify legibility and do not use its original scale labels.
+- Sheets are 24 × 36 in. Body text is sized to stay readable on an 11 × 17 half-size print.
 - Every measured view states its scale and carries a graphic scale bar; each sheet has a 1 in check
   square. The picture is labelled "Isometric · not to scale".
-- Usual imperial scales: plan ½" or ¼" = 1'-0" (1:24, 1:48), section ¾" or ½" = 1'-0"
-  (1:16, 1:24), details 3" or 1½" = 1'-0" (1:4, 1:8). Metric ratios such as 1:25 and 1:50
-  are separate scales, not equivalents of those imperial labels. The plan is the largest view.
+- Usual scales: plan ½" or ¼" = 1'-0" (1:25, 1:50), section ¾" or ½" (1:20, 1:25), details 3" or
+  1½" = 1'-0" (1:5, 1:10). The plan is the largest view on the sheet.
 
 ## Open items and status
 

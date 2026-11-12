@@ -4,8 +4,8 @@ Engineering and construction drawings as HTML. No CAD, no DWG.
 
 Building departments ask for a PDF, not a DWG. So the drawing can be a web page: one self-contained HTML
 file per job, 24 × 36 in sheets, every view at a stated true scale, printed to PDF by any browser.
-Oasis-Blueprints is an Agent Skill that makes Claude or ChatGPT draw that set from a described job, with
-your own company and logo in the title block.
+Oasis-Blueprints is an Agent Skill, packaged as a Claude plugin, that draws that set from a described job,
+with your own company and logo in the title block.
 
 ![Field sheet of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-field.png)
 
@@ -30,26 +30,25 @@ licensed engineer closes the open items and seals it.
 
 ## Examples
 
-Built output is committed, so you can open it without installing anything.
+Open the live sets in a browser. The project files that produced them are in `examples/sheet-sets/`.
 
 | Example | Job type | Open it |
 |---|---|---|
-| Sunroom repair | `sunroom` (existing + new, imperial) | [`sheet-set.pdf`](examples/sheet-sets/sunroom-repair/sheet-set.pdf) · [`sheet-set.html`](examples/sheet-sets/sunroom-repair/sheet-set.html) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
-| Freestanding deck | `deck` (all new, inches or millimetres) | [`sheet-set.pdf`](examples/sheet-sets/deck/sheet-set.pdf) · [`sheet-set.html`](examples/sheet-sets/deck/sheet-set.html) · [`project.json`](examples/sheet-sets/deck/project.json) |
+| Sunroom repair | `sunroom` (existing + new, imperial) | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
+| Freestanding deck | `deck` (all new, inches or millimeters) | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
 
 ## Use it
 
-- **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
-  (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
-  references, and licenses. Invoke `$oasis-blueprints` with the project sources and requested sheets.
-- **As a skill in Claude or ChatGPT.** Zip the folder (`cd skills && zip -r oasis-blueprints.zip oasis-blueprints`)
-  and upload the zip where your app manages skills. Then ask for a drawing set and give it your job.
-- **As a Claude plugin.** This repository is a plugin (`.claude-plugin/plugin.json`) that carries the skill.
+- **As a Claude plugin.** This repository is the plugin: `.claude-plugin/plugin.json` plus the skill in
+  `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
+- **As a skill.** Download the skill zip from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/)
+  and upload it where your assistant manages skills. The same folder loads in other assistants that
+  support Agent Skills, including ChatGPT.
 - **By hand.** Python 3 standard library only:
 
   ```bash
   cd skills/oasis-blueprints
-  python scripts/build.py assets/examples/deck/project.json deck.html
+  python scripts/build.py assets/examples/deck/project.json deck.html --brand my-brand.json
   python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
   ```
 
@@ -57,24 +56,27 @@ Start with [`skills/oasis-blueprints/SKILL.md`](skills/oasis-blueprints/SKILL.md
 JavaScript file of about 150 lines: see
 [`references/writing-views.md`](skills/oasis-blueprints/references/writing-views.md).
 
-Supply `--brand my-brand.json` when you have a company file. PDF export needs Playwright and Chromium
-in the Python environment used to run the script:
+## What the plugin runs, sends and fetches
 
-```bash
-python -m pip install playwright
-python -m playwright install chromium
-python -m unittest discover -s tests -v
-```
+The skill runs two Python scripts that ship in this repository, on the machine where the assistant runs code:
 
-The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
-issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
-They validate drafting behavior, not structural adequacy or engineer approval.
+- `scripts/build.py` reads your project file, your optional company file and logo, and the kit files that
+  ship with the skill, and writes one HTML file. Python standard library only.
+- `scripts/print.py` is optional. If Playwright and Chromium are already installed, it opens that HTML in
+  headless Chromium to save the PDF, run the layout check and write preview images. It installs nothing.
+
+It sends nothing and fetches nothing. There are no network calls, no credentials, no hooks, no MCP servers
+and no telemetry. The bundled Barlow fonts (SIL Open Font License) are copied into the output HTML so a
+sheet looks the same on every machine, and the output HTML makes no network requests either.
+
+A person stays in the loop by design: every set is a draft with its unanswered engineering questions
+shown in red, and it cannot be marked as issued until a licensed engineer has answered each one.
 
 ## Repository layout
 
 - `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
-- `examples/sheet-sets/`: example sheet sets built with it (project file, HTML, PDF, previews)
-- `.claude-plugin/`: plugin manifest, so the repository installs as a Claude plugin
+- `examples/sheet-sets/`: the example jobs (project file and previews); the built sets are linked above
+- `.claude-plugin/`: plugin manifest, so the repository installs as a Claude plugin (the listing icon is in the assets folder)
 - `SPECIFICATION.md`, `library/`, `docs/`, `WindCalculations/`, `examples/*.json`: PCP, described below
 
 ## Also in this repository: PCP, the Project Context Protocol
