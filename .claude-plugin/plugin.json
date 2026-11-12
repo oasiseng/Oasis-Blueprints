@@ -1,1 +1,10 @@
-
+{
+  "name": "oasis-blueprints",
+  "version": "0.2.0",
+  "description": "Draw engineering and construction sheet sets as HTML and PDF: true-scale plans, sections and details, a title block with your own company and logo, and open items the engineer must close before issue.",
+  "author": { "name": "Oasis Engineering, LLC" },
+  "homepage": "https://github.com/oasiseng/Oasis-Blueprints",
+  "repository": "https://github.com/oasiseng/Oasis-Blueprints",
+  "license": "MIT",
+  "keywords": ["engineering", "drafting", "drawings", "construction", "permit", "cad", "blueprints"]
+}
