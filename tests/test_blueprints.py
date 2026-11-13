@@ -69,6 +69,29 @@ class BlueprintTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 self.assertTrue(pdf.read_bytes().startswith(b"%PDF-"))
 
+    def test_detail_library_example_builds_with_clean_audit(self):
+        project = SKILL.parents[1] / "examples" / "sheet-sets" / "detail-library" / "project.json"
+        html = self.root / "detail-library.html"
+        result = subprocess.run([sys.executable, str(SKILL / "scripts" / "build.py"), str(project), str(html)],
+                                capture_output=True, text=True, encoding="utf-8")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertNotIn("not in the library", result.stderr)
+        self.open(html)
+        self.assertEqual(self.page.evaluate("window.__audit"), [])
+        sheets = json.loads(project.read_text(encoding="utf-8"))["sheets"]
+        self.assertEqual(self.page.locator(".sheet").count(), len(sheets))
+        self.assertEqual(self.page.locator(".miss").count(), 0)
+
+    def test_detail_missing_from_library_fails_audit(self):
+        project = json.loads((SKILL.parents[1] / "examples" / "sheet-sets" / "detail-library" / "project.json").read_text(encoding="utf-8"))
+        project.pop("library", None)   # the kit falls back to the library that ships with the repository
+        project["sheets"] = [{"no": "D1", "type": "details", "name": "Details", "details": ["62d7e973", "00000000"]}]
+        html = self.build(project, "missing-detail")
+        self.open(html)
+        audit = self.page.evaluate("window.__audit")
+        self.assertTrue(any("00000000" in line and "not in the library" in line for line in audit), audit)
+        self.assertEqual(self.page.locator(".miss").count(), 1)
+
     def test_imperial_and_metric_plan_have_same_physical_scale(self):
         imperial = self.sample()
         metric = copy.deepcopy(imperial)

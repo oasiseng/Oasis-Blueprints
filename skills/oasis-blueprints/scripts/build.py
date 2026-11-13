@@ -12,7 +12,7 @@ current folder. Anything set under "firm" in the project file wins over the bran
 Job type: the project's "jobType" picks the drawing code. --view FILE, else views/<jobType>.js or
 <jobType>.js beside the project file, else the views that ship with the kit.
 """
-import argparse, base64, datetime, json, mimetypes, os, sys
+import argparse, base64, datetime, glob, json, mimetypes, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 KIT = next(p for p in (os.path.join(HERE, "..", "assets"), HERE) if os.path.isdir(os.path.join(p, "kit")))
@@ -38,6 +38,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--brand", help="brand.json with the company block and logo")
     ap.add_argument("--view", help="drawing code for this job type (a .js file)")
+    ap.add_argument("--library", help="folder of library details (<id>.json), for sheets of type \"details\"")
     a = ap.parse_args()
     try:
         P = json.loads(read(a.project))
@@ -95,6 +96,28 @@ def main():
             else:
                 print("warning: image not found: %s (left out)" % src, file=sys.stderr)
                 m.pop("src")
+
+    # library details: a "details" sheet lists ids (and a job may list more under "libraryUse"). The ones used are read
+    # from the library folder and embedded, so the built file needs nothing beside it.
+    used = [r if isinstance(r, str) else (r or {}).get("id") for sh in P["sheets"] for r in (sh.get("details") or [])] + list(P.get("libraryUse") or [])
+    if used:
+        cur = P.get("library")
+        lib = cur if isinstance(cur, str) else (cur or {}).get("path")
+        dets = dict((cur or {}).get("details") or {}) if isinstance(cur, dict) else {}
+        # where to look: what the project or the command names, then a "details" folder beside the project, then the library
+        # that ships with the kit (assets/library, or library/details at the top of the repository)
+        roots = [r for r in (a.library, lib and os.path.join(pdir, lib), lib, os.path.join(pdir, "details"), os.path.join(KIT, "library"),
+                             os.path.join(KIT, "..", "..", "..", "library", "details")) if r]
+        for i in dict.fromkeys(x for x in used if x):
+            if i in dets:
+                continue
+            path = next((q for r in roots for g in (os.path.join(r, i + ".json"), os.path.join(r, "kit", i + ".json"), os.path.join(r, "*", i + ".json"), os.path.join(r, "kit", "*", i + ".json"))
+                         for q in sorted(glob.glob(g) if "*" in g else [g]) if os.path.exists(q)), None)   # the folder itself, its kit folder, then one level of subfolders (collections)
+            if path:
+                dets[i] = json.loads(read(path))
+            else:
+                print("warning: detail %s is not in the library (its panel on the sheet will say so)" % i, file=sys.stderr)
+        P["library"] = {"path": lib or "", "details": dets}
 
     job = P.get("jobType") or "sunroom"
     cands = [a.view, os.path.join(pdir, "views", job + ".js"), os.path.join(pdir, job + ".js"), os.path.join(KIT, "views", job + ".js")]
