@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 """build.py - one project file in, one self-contained HTML sheet set out.
 
     python build.py project.json sheet-set.html [--brand brand.json] [--view my-job.js]
@@ -19,6 +20,19 @@ KIT = next(p for p in (os.path.join(HERE, "..", "assets"), HERE) if os.path.isdi
 FONTS = [("Barlow", "barlow", [400, 500, 600, 700]),
          ("Barlow Condensed", "barlow-condensed", [600, 700]),
          ("Barlow Semi Condensed", "barlow-semi-condensed", [500, 600, 700])]
+# Where the kit comes from. Written into the head of every built HTML and shown at the foot of the editor panel.
+# It is never printed and it is plain text: no request is made. Change the links here only.
+ORIGIN = {"name": "Oasis-Blueprints", "by": "Oasis Engineering, LLC",
+          "repo": "https://github.com/oasiseng/Oasis-Blueprints", "site": "https://oasisengineering.com/blueprints/",
+          "notice": "MIT License, Copyright (c) 2026 Oasis Engineering, LLC"}
+HEAD_NOTE = """<meta name="generator" content="%(name)s (%(repo)s)">
+<!--
+  Drawn with %(name)s, the open-source drawing kit by %(by)s.
+  Source: %(repo)s
+  More:   %(site)s
+  The kit code in this file: %(notice)s. Keep this notice with any copy of it.
+  The drawing content is the work of whoever prepared it. This note is not printed.
+-->""" % ORIGIN
 
 
 def read(*parts):
@@ -135,12 +149,14 @@ def main():
 
     html = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sheet set</title>
+%s
 <style>
 %s%s
 </style></head><body>
 <div id="set"></div><div id="audit"></div>
 <script type="application/json" id="project">%s</script>
 <script>
+const ORIGIN = %s;
 %s
 %s
 %s
@@ -154,8 +170,8 @@ try { renderSet(PROJECT); } catch (e) { window.__errors.push(String(e && e.stack
   window.__ready = true;
 });
 </script></body></html>
-""" % (faces, read(KIT, "kit", "sheet.css"), json.dumps(P, ensure_ascii=False).replace("<", "\\u003c"),
-       read(KIT, "kit", "kit.js"), read(KIT, "kit", "layout.js"), read(view), read(KIT, "kit", "editor.js"))
+""" % (HEAD_NOTE, faces, read(KIT, "kit", "sheet.css"), json.dumps(P, ensure_ascii=False).replace("<", "\\u003c"),
+       json.dumps(ORIGIN), read(KIT, "kit", "kit.js"), read(KIT, "kit", "layout.js"), read(view), read(KIT, "kit", "editor.js"))
 
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     with open(a.out, "w", encoding="utf-8") as f:

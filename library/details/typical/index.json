@@ -1,5 +1,7 @@
 {
  "schema": "oasis-blueprints/detail-library/0.1",
+ "origin": "https://github.com/oasiseng/Oasis-Blueprints",
+ "license": "MIT License, Copyright (c) 2026 Oasis Engineering, LLC",
  "collection": "typical",
  "name": "Typical details",
  "made": "2026-11-13",

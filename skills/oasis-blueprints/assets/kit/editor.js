@@ -1,3 +1,4 @@
+// Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // editor.js — screen-only tools: fit to window, answer open items, fill the title block, set the company,
 // save and print. Nothing here prints, and nothing is stored in the browser: use the download buttons to keep edits.
 'use strict';
@@ -45,7 +46,8 @@ const EDITOR = (() => {
       ${P.firm.logo ? '<button data-a="nologo">Remove logo</button>' : ''}
       <h3>Save</h3>
       <button data-a="json">Download project file</button> <button data-a="html">Download this HTML with my edits</button>
-      <details><summary>Whole project file</summary><textarea id="ui-raw" rows="18" spellcheck="false">${esc(JSON.stringify(P, null, 2))}</textarea><button data-a="apply">Apply</button> <span id="ui-err"></span></details>`;
+      <details><summary>Whole project file</summary><textarea id="ui-raw" rows="18" spellcheck="false">${esc(JSON.stringify(P, null, 2))}</textarea><button data-a="apply">Apply</button> <span id="ui-err"></span></details>
+      <p class="hint src">Drawn with <a href="${esc(ORIGIN.repo)}" target="_blank" rel="noopener">${esc(ORIGIN.name)}</a>, open source from ${esc(ORIGIN.by)}. <a href="${esc(ORIGIN.site)}" target="_blank" rel="noopener">${esc(ORIGIN.site.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a></p>`;
   }
 
   function download(name, text, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }

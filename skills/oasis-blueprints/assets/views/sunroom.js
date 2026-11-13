@@ -1,3 +1,4 @@
+// Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // views/sunroom.js — job type "sunroom": a sloped roof on posts against a house (sunroom, porch, lean-to).
 // Everything is drawn from PROJECT.geometry, in inches. x runs along the house (door end at left),
 // y runs away from the house, z is up from the top of the slab.

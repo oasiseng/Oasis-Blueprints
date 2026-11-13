@@ -1,3 +1,4 @@
+/* Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC */
 /* sheet.css — 24 × 36 in sheets. Notes, callouts and dimensions are 9 pt or larger so a half-size print stays legible;
    field labels, chips and bubble sheet references go down to 7 pt. */
 @page { size: 36in 24in; margin: 0; }
@@ -259,3 +260,4 @@ svg.sbar { flex: 0 0 auto; font-family: var(--f-sk); }
 #ui .it b { display: block; } #ui .it span { display: block; color: #56637a; }
 #ui details { margin-top: 12px; } #ui summary { cursor: pointer; color: #56637a; } #ui-raw { font: 12px/1.35 ui-monospace, Consolas, monospace !important; }
 #ui-err { color: #c81d25; }
+#ui .src { margin: 16px 0 4px; font-size: 12px; } #ui .src a { color: inherit; }

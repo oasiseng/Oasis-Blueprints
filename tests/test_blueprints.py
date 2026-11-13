@@ -155,6 +155,23 @@ class BlueprintTests(unittest.TestCase):
         self.assertEqual(self.page.evaluate("PROJECT.openItems[0].answer"), "Recorded fixture answer")
         self.assertEqual(self.page.evaluate("PROJECT.status"), "draft")
         self.assertEqual(self.page.evaluate("openItems(PROJECT).length"), 7)
+        self.assertIn('<meta name="generator" content="Oasis-Blueprints', saved.read_text(encoding="utf-8"))
+        self.assertIn("Copyright (c) 2026 Oasis Engineering, LLC", saved.read_text(encoding="utf-8"))
+
+    def test_built_html_names_its_source_and_never_prints_it(self):
+        output = self.build(self.sample())
+        html = output.read_text(encoding="utf-8")
+        self.assertIn('<meta name="generator" content="Oasis-Blueprints (https://github.com/oasiseng/Oasis-Blueprints)">', html)
+        self.assertIn("MIT License, Copyright (c) 2026 Oasis Engineering, LLC", html)
+        self.assertNotIn("PCP Contributors", html)
+        self.open(output)
+        sheets = self.page.evaluate("[...document.querySelectorAll('.sheet')].map(s => s.innerText).join(' ')")
+        self.assertNotIn("Oasis-Blueprints", sheets)
+        self.assertNotIn("github.com", sheets)
+        self.page.locator('[data-a="edit"]').click()
+        self.assertEqual(self.page.locator("#ui .src a").count(), 2)
+        self.page.emulate_media(media="print")
+        self.assertEqual(self.page.evaluate("getComputedStyle(document.getElementById('ui')).display"), "none")
 
     def test_project_text_cannot_close_embedded_json_script(self):
         project = self.sample()

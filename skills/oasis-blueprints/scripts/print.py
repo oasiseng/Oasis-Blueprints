@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 """print.py - HTML sheet set to PDF with headless Chromium, plus the layout audit.
 
     python print.py sheet-set.html sheet-set.pdf [--png preview-]

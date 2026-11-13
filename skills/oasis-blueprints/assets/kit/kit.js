@@ -1,3 +1,4 @@
+// Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // kit.js — scale-true SVG drawing kit.
 // Model units are inches with y up. A view has a scale denominator `den` (model inches per sheet inch):
 // ½" = 1'-0" is den 24. Text and line weights are given in sheet points and converted, so they print

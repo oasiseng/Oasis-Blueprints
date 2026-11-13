@@ -112,10 +112,21 @@ The skill runs two Python scripts that ship in this repository, on the machine w
 
 It sends nothing and fetches nothing. There are no network calls, no credentials, no hooks, no MCP servers
 and no telemetry. The bundled Barlow fonts (SIL Open Font License) are copied into the output HTML so a
-sheet looks the same on every machine, and the output HTML makes no network requests either.
+sheet looks the same on every machine, and the output HTML makes no network requests either. The source
+note in each built HTML is static text: its two links are followed only if a person clicks them.
 
 A person stays in the loop by design: every set is a draft with its unanswered engineering questions
 shown in red, and it cannot be marked as issued until a licensed engineer has answered each one.
+
+## License and attribution
+
+MIT License, Copyright (c) 2026 Oasis Engineering, LLC. It covers the skill, the kit, the examples and the
+libraries. Anyone may fork it, change it and put their own company in the title block.
+
+The license notice stays with any copy of the kit. Each kit file starts with it, so each built HTML carries
+it. Each built HTML also has a source note in its head and one line at the foot of the Edit panel. None of
+that prints, appears in the PDF or makes a request. Drawings made with the kit belong to whoever prepared
+them.
 
 ## Repository layout
 
