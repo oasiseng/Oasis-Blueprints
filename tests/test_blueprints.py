@@ -127,6 +127,17 @@ class BlueprintTests(unittest.TestCase):
         pages = {p.stem for p in (folder / "types").glob("*.md")} - {"README"}
         self.assertEqual(pages, {Path(g["file"]).stem for g in index["groups"]})
 
+    def test_isometric_picture_is_not_mirrored(self):
+        # The viewer sits at +x, +y, +z, so +x must run to the left on screen and +y to the right.
+        self.open(self.build(self.sample()))
+        x, y = self.page.evaluate("[new Iso(48, 't').p(10, 0, 0)[0], new Iso(48, 't').p(0, 10, 0)[0]]")
+        self.assertLess(x, 0)
+        self.assertGreater(y, 0)
+
+    def test_public_deck_example_matches_the_bundled_one(self):
+        public = SKILL.parents[1] / "examples" / "sheet-sets" / "deck" / "project.json"
+        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "examples" / "deck" / "project.json").read_bytes())
+
     def test_imperial_and_metric_plan_have_same_physical_scale(self):
         imperial = self.sample()
         metric = copy.deepcopy(imperial)
