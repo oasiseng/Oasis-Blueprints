@@ -164,7 +164,7 @@ function libSvg(D, o = {}) {
   return v.svg();
 }
 
-// ---- isometric (30° axonometric). x runs right-down, y runs left-down, z is up. Viewer sits at +x, +y, +z. ----
+// ---- isometric (30° axonometric). x runs left-down, y runs right-down, z is up. Viewer sits at +x, +y, +z. ----
 function shade(hex, f) { // f > 0 lightens toward white, f < 0 darkens toward black
   const n = parseInt(hex.slice(1), 16), c = [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(f >= 0 ? v + (255 - v) * f : v * (1 + f)));
   return '#' + c.map(v => v.toString(16).padStart(2, '0')).join(''); }
@@ -172,7 +172,7 @@ function shade(hex, f) { // f > 0 lightens toward white, f < 0 darkens toward bl
 class Iso {
   constructor(den, id) { this.den = den; this.id = id; this.u = den * UPI / 72; this.items = []; this.over = []; }
   pt(n) { return n * this.u; }
-  p(x, y, z) { return [(x - y) * 0.8660254, (x + y) * 0.5 - z]; }
+  p(x, y, z) { return [(y - x) * 0.8660254, (x + y) * 0.5 - z]; }
   // box or sloped prism: zb / zt may be numbers or functions of y. order = paint layer; within a layer far paints first.
   solid(x0, x1, y0, y1, zb, zt, color, o = {}) { this.items.push({ k: 's', x0, x1, y0, y1, zb, zt, color, order: o.order || 0, key: (x0 + x1 + y0 + y1) / 2, o }); return this; }
   quad(pts, color, o = {}) { this.items.push({ k: 'q', pts, color, order: o.order || 0, key: pts.reduce((a, p) => a + p[0] + p[1], 0) / pts.length, o }); return this; }
