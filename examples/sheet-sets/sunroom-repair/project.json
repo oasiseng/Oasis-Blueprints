@@ -1,6 +1,6 @@
 {
   "schema": "oasis-blueprints/0.2",
-  "status": "draft",
+  "status": "construction",
   "firm": {
     "name": "Your Company",
     "wordmark": "Your Company",
@@ -17,7 +17,7 @@
     "title": "Rear Sunroom",
     "subtitle": "After-the-fact repair",
     "address": "123 Example St",
-    "locality": "Anytown, ST 00000",
+    "locality": "Anytown, FL 00000",
     "permit": "PERMIT-000000",
     "relatedPermit": "ROOF-000000",
     "relatedScope": "roofing",
@@ -31,30 +31,36 @@
   "issue": {
     "date": "2026-11-12",
     "rev": "0",
-    "revisions": []
+    "revisions": [
+      {
+        "no": "0",
+        "text": "Released for construction",
+        "date": "2026-11-12"
+      }
+    ]
   },
   "geometry": {
     "units": "in",
-    "source": "3D scan. Dimensions marked ± are to be verified in field.",
+    "source": "3D scan for the plan; clear heights as given by the engineer. Dimensions marked ± are to be verified in field.",
     "clearL": 254,
     "clearD": 140,
     "post": 3.5,
-    "roofL": 264,
-    "roofD": 144,
+    "roofL": 284.5,
+    "roofD": 155.25,
     "longBays": [
-      59,
-      67,
-      68,
-      63.5
+      64.375,
+      64.375,
+      64.375,
+      64.375
     ],
     "door": [
       53,
       89
     ],
     "rightMid": 70,
-    "slopeRise": 1,
-    "slopeRun": 12,
-    "h0": 99,
+    "slopeRise": 4,
+    "slopeRun": 141.75,
+    "h0": 102,
     "rafterDepth": 7.25,
     "beamDepth": 7.25,
     "rafterSpacing": 16,
@@ -74,21 +80,45 @@
         "sill": 34,
         "head": 80
       }
-    ]
+    ],
+    "roofing": "OC MODIFIED BITUMEN ROOF SYSTEM (FL19979-R3)",
+    "ledgerDepth": 7.25,
+    "lowClear": 98,
+    "slabT": 4,
+    "blockingNailing": "18\" O.C. (ASSUMED), V.I.F.",
+    "anchorDia": 0.5,
+    "anchorEmbed": 2,
+    "overhang": 12,
+    "lookoutSpacing": 24,
+    "fascia": "2×10",
+    "fasciaT": 1.5,
+    "fasciaD": 9.25,
+    "sheathing": "15/32\" APA-RATED PLYWOOD",
+    "sheathingT": 0.46875,
+    "fasciaNew": true,
+    "fasciaNailing": "(2) 16d NAILS AT EACH RAFTER",
+    "sheathingClips": "H-CLIPS @ 24\" O.C. MAX.",
+    "rail": "2×4",
+    "railH": 30,
+    "railNailing": "(2) 16d NAILS EACH END, TOE-NAILED CRISS-CROSS"
   },
   "summary": {
-    "headline": "New rafters, new columns, same sunroom.",
-    "text": "After-the-fact repair of the existing rear sunroom. New 2×8 roof rafters with hurricane ties, and every 4×4 column replaced with a pressure-treated column on a new post base. The beams, the slab, the footprint and the use stay as they are.",
-    "howToRead": "Start with the picture, then the steps. The plan, section and elevation give sizes and locations, and the details show each connection. Anything in red is waiting on the engineer.",
+    "headline": "New sheathing, rafters and columns. Same sunroom.",
+    "text": "After-the-fact repair of the existing rear sunroom. The roof sheathing and the 2×8 rafters were replaced during the roofing work and are recorded under this permit. All of the existing 4×4 columns are damaged: each is replaced with a pressure-treated column on a new post base, with a post cap at the beam. The contractor removes and replaces the screen. The beams, the slab, the footprint and the use stay as they are.",
+    "howToRead": "Start with the picture, then the steps. The plan, section and elevation give sizes and locations, and the details show each connection. Example set: the address, parcel, owner and lot are placeholders.",
     "sequenceNote": "The sequence is for orientation only. Means, methods, shoring design and site safety are the contractor's responsibility. Hold points shown here are in addition to the inspections required by the building department.",
-    "reserved": "The engineer's standard general notes go here: governing code and edition, wind design data and component pressures, lumber grades and preservative treatment, fasteners and connectors, concrete and anchors, and inspections. They are not part of this draft."
+    "generalNotesTitle": "General notes",
+    "generalNotesColumns": 8,
+    "generalNotesSize": 9.4,
+    "notesTitle": "Scope of work and general notes",
+    "notesSize": 10.5
   },
   "facts": [
     {
       "k": "Rafters",
       "tag": "N",
       "v": "2×8 @ 16\" o.c.",
-      "s": "Simpson H2.5A at each end"
+      "s": "H2.5AZ at the beam. Bear on the CMU wall"
     },
     {
       "k": "Beams",
@@ -100,118 +130,155 @@
       "k": "Columns",
       "tag": "N",
       "v": "PT 4×4",
-      "s": "Replace all. 10 shown, verify"
+      "s": "Replace all. Long side 5 ft o.c. nominal. At the beam: {beamToColumn}"
     },
     {
       "k": "Column bases",
       "tag": "N",
       "v": "ABU44Z",
-      "s": "Anchor to concrete: {anchor}"
+      "s": "Epoxy anchor, (1) 1/2 in., 2 in. min. embed: SET-3G or ET-3G"
     },
     {
       "k": "Roof",
       "tag": "Separate permit",
-      "v": "1:12 slope",
-      "s": "(E) plywood and mod-bit roofing"
+      "v": "Mod-bit roof",
+      "s": "Slope: {slope} (N) plywood 15/32 in., 10d @ 6 in. o.c."
     },
     {
       "k": "Size",
       "tag": "",
       "v": "22'-0\" × 12'-0\"",
-      "s": "Roof, out to out. Footprint unchanged"
+      "s": "Footprint, unchanged. Roof overhangs the beams by 12 in. on three sides."
     }
   ],
   "steps": [
     {
       "pic": "verify",
       "title": "Verify what is there",
-      "text": "Field-measure every dimension marked ± and anything not documented. Check the (E) beams and the affected framing for rot, deterioration, damage and WDO.",
+      "text": "Some of the work was done before this permit. Field-verify the (N) sheathing and rafters against these drawings, and every dimension marked ±. Check the (E) beams and the rest of the framing for rot, deterioration, damage and WDO. Any other damaged or compromised member is replaced as well.",
       "hold": "Report deficient conditions to the engineer for repair direction before anything is concealed."
     },
     {
       "pic": "shore",
-      "title": "Shore the roof",
-      "text": "Provide temporary shoring during column replacement."
+      "title": "Shore the roof, remove the screen",
+      "text": "Provide temporary shoring during column replacement. Remove the (E) screen. The contractor replaces it when the framing work is done."
     },
     {
       "pic": "columns",
       "title": "Replace the columns",
-      "text": "Replace all (E) 4×4 columns with (N) pressure-treated 4×4 columns at the existing locations. Set each one on a (N) Simpson ABU44Z anchored to the (E) concrete. Anchor: {anchor} Beam to column: {beamToColumn}",
+      "text": "Replace all (E) 4×4 columns with (N) pressure-treated 4×4 columns, long side equally spaced at 5 ft on center nominal. Set each on a (N) Simpson ABU44Z with (1) 1/2 in. concrete anchor, 2 in. min. embed, epoxy-set in the (E) 4 in. slab with Simpson SET-3G or ET-3G. Column to beam: {beamToColumn} Reinstall the (E) 2×4 blocking between the columns: (2) 16d toe-nails at each end.",
       "ref": "Details {d1} and {d2}"
     },
     {
       "pic": "rafters",
       "title": "Rafters and ties",
-      "text": "(N) 2×8 rafters at 16 in. o.c., with a (N) Simpson H2.5A at each end of each rafter.",
+      "text": "The (N) 2×8 rafters at 16 in. o.c. and the Simpson H2.5AZ at the beam end of every rafter were installed during the roofing work: verify in field, none are expected to be missing. The rafters rest on the (E) CMU wall; at the wall, Simpson MTSM16, H2.5A or equivalent, concealed, verify in field.",
       "ref": "Details {d2} and {d3}"
     },
     {
       "pic": "roof",
-      "title": "Roof deck and roofing",
-      "text": "(E) plywood decking with self-adhered modified-bitumen roofing, under separate permit {relatedPermit}. Verify the decking thickness and the extent of prior replacement."
+      "title": "Roof, then the screen",
+      "text": "(N) roof sheathing: 15/32 in. APA-rated plywood with H-clips at 24 in. o.c. max., nailed with 10d at 6 in. o.c. at edge and at field, and to the blocking at 18 in. o.c. (assumed). It was replaced with the OC Modified Bitumen Roof System (FL19979-R3) under roof permit {relatedPermit}: verify. Then replace the screen."
     }
   ],
   "scope": [
     {
       "kind": "n",
+      "item": "Roof sheathing",
+      "text": "Replace: 15/32 in. APA-rated plywood with H-clips at 24 in. o.c. max., 10d at 6 in. o.c. at edge and field, 18 in. o.c. at the blocking (assumed). Done during the roofing work; recorded under this permit. Verify in field."
+    },
+    {
+      "kind": "n",
       "item": "Roof rafters",
-      "text": "2×8 at 16 in. o.c. with Simpson H2.5A connectors at the ends."
+      "text": "Replace the roof rafters: 2×8 at 16 in. o.c., bearing on the existing CMU wall, Simpson H2.5AZ at the beam end of every rafter. At the wall: Simpson MTSM16, H2.5A or equivalent, concealed. 2×10 fascia board, (2) 16d nails at each rafter. Done during the roofing work; recorded under this permit. Verify in field."
     },
     {
       "kind": "n",
       "item": "Columns",
-      "text": "Replace all existing 4×4 columns with pressure-treated 4×4 columns at the existing locations."
+      "text": "Replace all existing 4×4 wood columns (all damaged) with pressure-treated 4×4 columns, long side 5 ft o.c. nominal. Reinstall the existing 2×4 blocking between them, (2) 16d toe-nails each end."
     },
     {
       "kind": "n",
       "item": "Column bases",
-      "text": "Simpson ABU44Z at each replacement column, anchored to the existing concrete. Anchorage: {anchor}"
+      "text": "Replace the corroded metal connectors with Simpson ABU44Z at each column. {anchor} Anchor: {anchorRod}"
+    },
+    {
+      "kind": "n",
+      "item": "Post caps",
+      "text": "At the top of each column, to the existing beam: {beamToColumn}"
+    },
+    {
+      "kind": "n",
+      "item": "Screen",
+      "text": "Existing screening to be removed and replaced by the contractor."
     },
     {
       "kind": "e",
-      "item": "Beams",
-      "text": "(2) 2×8 built-up beams, to remain. Check for rot, damage and WDO."
+      "item": "Beams and blocking",
+      "text": "(2) 2×8 built-up beams and the 2×8 blocking at the house wall, to remain. Assumed in good condition from visual observation only; the framing is painted. Any other damaged or compromised member is replaced as well."
     },
     {
       "kind": "e",
       "item": "Slab, footprint and use",
-      "text": "Existing concrete slab and foundation. Footprint, dimensions and use do not change."
+      "text": "Existing 4 in. concrete slab, to remain. Field verify. Footprint, dimensions and use do not change."
     },
     {
       "kind": "o",
       "item": "Roofing",
-      "text": "Existing plywood decking with self-adhered modified-bitumen roofing, under permit {relatedPermit}. Verify decking thickness and extent of prior replacement."
+      "text": "OC Modified Bitumen Roof System (FL19979-R3), under roof repair permit {relatedPermit}."
     }
   ],
   "notes": [
     {
-      "title": "Scope",
-      "start": 1,
+      "title": "Scope of work",
       "items": [
-        "These are after-the-fact and repair drawings for the existing non-habitable rear sunroom, under permit {permit}. The existing footprint, dimensions and use remain.",
-        "Work marked **(N)** is new repair work under this permit. Work marked **(E)** is existing and remains."
-      ]
+        "This plan set documents visible structural conditions and provides structural details and minimum requirements for the framing repairs of the existing non-habitable rear sunroom (screened porch) at the subject property, under permit {permit}.",
+        "**Scope of work under this permit:** replace the roof sheathing; replace the roof rafters and the 2×10 fascia board; replace all of the existing 4×4 wood columns, which are damaged, and the corroded metal connectors at their bases; reinstall the existing 2×4 blocking between the columns; remove and replace the screening.",
+        "**Work already performed.** Some of this work may have been done before this permit, including the sheathing and rafter replacement carried out during the roofing work under permit {relatedPermit}. That framing work is recorded under this permit. These drawings show the final conditions as they are expected to be. The contractor shall field verify all of them.",
+        "**Other members.** The existing 2×8 beams are assumed to be in good condition, from visual observation only: the framing is painted and could not be examined beneath the paint. The contractor shall determine whether any other members are damaged or otherwise compromised. Those shall be replaced as well.",
+        "Work marked **(N)** is repair work recorded under this permit, whether already performed or still to do. Work marked **(E)** is existing and remains."
+      ],
+      "start": 1
     },
     {
       "title": "Framing",
-      "start": 3,
+      "start": 6,
       "items": [
-        "**Roof rafters.** Nominal 2×8 at 16 in. o.c. with Simpson H2.5A connectors at the ends. Roof slope 1:12.",
-        "**Supporting beams.** (2) 2×8 built-up beams, existing to remain.",
-        "**Columns.** Replace all existing nominal 4×4 columns with new pressure-treated 4×4 wood columns at the existing locations.",
-        "**Column bases.** New Simpson ABU44Z at each replacement column, anchored to the existing concrete foundation. Anchorage: {anchor}",
-        "**Roof.** Existing plywood decking with self-adhered modified-bitumen roofing, part of permit {relatedPermit}. Verify decking thickness and extent of prior replacement."
+        "**Roof rafters.** Nominal 2×8 at 16 in. o.c., bearing on the existing CMU wall. Roof slope: {slope} Simpson H2.5AZ at the beam end of every rafter. At the wall: Simpson MTSM16, H2.5A or equivalent, concealed, V.I.F. The roof overhangs the beams by 12 in. on the three open sides, with a new 2×10 fascia board at the roof edge, (2) 16d nails at each rafter. At the two ends the overhang has blocking at 24 in. o.c., verify in field.",
+        "**Supporting beams.** (2) 2×8 built-up beams, existing to remain. Assumed to be in good condition from visual observation only.",
+        "**Blocking at the wall.** Existing 2×8 blocking between rafters, on the existing CMU wall, to remain. No hangers.",
+        "**Columns.** Replace all existing nominal 4×4 columns, which are damaged, with new pressure-treated 4×4 wood columns. Long-side columns equally spaced, 5 ft on center nominal. Column to beam: {beamToColumn}",
+        "**Column bases.** Remove the corroded metal bases. New Simpson ABU44Z at each replacement column. {anchor} Anchor rod: {anchorRod}",
+        "**Roof sheathing.** New 15/32 in. APA-rated plywood sheathing with H-clips at 24 in. o.c. max., nailed with {nailing}. Nailing terms: detail {x1} on {sheet}. To the blocking between rafters: nails at 18 in. o.c. (assumed), verify in field. Replaced with the OC Modified Bitumen Roof System (FL19979-R3) during the roofing work under permit {relatedPermit}.",
+        "**Screen.** Full height, on the outside of the columns. The contractor shall remove and replace the existing screen.",
+        "**Blocking and lattice.** Existing 2×4 horizontal blocking at 2 ft 6 in. ± braces the 4×4 columns. Reinstall it on the new columns with (2) 16d nails at each end, toe-nailed criss-cross. Existing decorative lattice below it, on the inside, between the columns. Both are separate from the screen."
       ]
     },
     {
       "title": "Before and during the work",
-      "start": 8,
+      "start": 14,
       "items": [
         "The contractor shall verify existing beams and affected framing for rot, deterioration, damage and wood-destroying organisms (WDO). Report deficient conditions to the engineer for repair direction before concealment. [HOLD]",
         "Provide temporary shoring during column replacement.",
         "Dimensions marked ± are from a 3D scan and shall be field verified. Field-measure dimensions not documented.",
-        "Connectors are shown schematically. Install Simpson Strong-Tie connectors per the manufacturer's instructions."
+        "Connectors are shown schematically. Install Simpson Strong-Tie connectors per the manufacturer's instructions.",
+        "The sheathing, the rafters and the H2.5AZ ties were installed during the roofing work. Verify in field if any are missing; none are expected.",
+        "The existing framing layout (beams on three sides, posts at the door jambs and wall ends) is from the scan: field verify.",
+        "Details {x1} and {x2} on {sheet} are the engineer's standard details for diaphragm nailing and the Simpson H2.5A tie, redrawn. This set uses H2.5AZ."
       ]
+    },
+    {
+      "title": "General notes",
+      "items": [
+        "The subject structure is considered a non-habitable structure. These drawings shall not be interpreted as a certification of occupancy classification or of a change of use.",
+        "These drawings are based on visual observation of accessible structural components only. No destructive testing, load testing, material testing, subsurface investigation, or concealed condition verification was performed unless specifically noted otherwise. Concealed connections, embedded posts, buried foundations, fasteners, and hidden structural conditions are excluded from this evaluation.",
+        "The contractor and/or owner shall verify all existing field conditions, dimensions, connections, framing configurations, and site conditions prior to commencement or continuation of work. Any discrepancies between field conditions and these drawings shall be reported to the engineer of record prior to proceeding with work.",
+        "These drawings shall be read in conjunction with any associated architectural, shop, manufacturer, or permit documents. Where structural requirements or details are provided, the structural drawings shall govern.",
+        "These documents are limited solely to the structural components identified herein.",
+        "These drawings cover after-the-fact work and the remaining repairs. Final acceptance, permit approval, and any required inspections shall remain subject to the authority having jurisdiction.",
+        "Any modifications, alterations, repairs, or field changes made after the date of observation shall require review by the engineer prior to implementation."
+      ],
+      "start": 21
     }
   ],
   "criteria": [
@@ -220,36 +287,48 @@
       "v": "Non-habitable sunroom"
     },
     {
+      "k": "Clear height, floor to rafter",
+      "v": "8'-6\" at the house, 8'-2\" at the low end"
+    },
+    {
       "k": "Roof slope",
-      "v": "1:12"
+      "v": "1:12, V.I.F."
     },
     {
       "k": "Governing code and edition",
-      "v": ""
+      "v": "2023 Florida Building Code, 8th Edition"
     },
     {
       "k": "Risk category",
-      "v": ""
+      "v": "I"
     },
     {
       "k": "Wind speed and exposure",
-      "v": ""
+      "v": "V = 131 mph ultimate, Exposure C"
     },
     {
-      "k": "Roof dead and live load",
-      "v": ""
+      "k": "Wind factors",
+      "v": "Kd = 0.85, G = 0.9, GCpi = ±0.18, mean roof height 12'"
     },
     {
-      "k": "Lumber grade and treatment",
-      "v": ""
+      "k": "Roof live and dead load",
+      "v": "20 psf live, 17 psf dead"
     },
     {
-      "k": "Connectors and fasteners",
-      "v": ""
+      "k": "Lumber",
+      "v": "So. Pine No. 2 joists. Pressure treated in contact with concrete or masonry"
+    },
+    {
+      "k": "Connectors",
+      "v": "Simpson Strong-Tie or approved equal, galvanized"
     },
     {
       "k": "Anchors to existing concrete",
-      "v": ""
+      "v": "(1) 1/2 in. concrete anchor, 2 in. min. embed. Epoxy: Simpson SET-3G or ET-3G"
+    },
+    {
+      "k": "Roof sheathing",
+      "v": "(N) 15/32 in. APA-rated plywood, H-clips at 24 in. o.c. max., 10d @ 6 in. o.c. edge and field"
     }
   ],
   "openItems": [
@@ -258,56 +337,84 @@
       "text": "The scan shows bays of 4'-11\", 5'-7\", 5'-8\" and 5'-3½\". Two are over the 5'-0\" maximum discussed. Columns are drawn at the existing locations.",
       "who": "Engineer: accept as measured, or relocate",
       "key": "spacing",
-      "answer": ""
+      "answer": "Show all at 5 ft on center. The columns are removed and replaced, so they are centred (equally spaced). Within tolerance."
     },
     {
       "title": "Heights",
       "text": "8'-3\" to the underside of the rafter at the house is from the scan. With a 1:12 slope the bottom of the beam lands near 6'-8\".",
       "who": "Field measure, then engineer",
       "key": "heights",
-      "answer": ""
+      "answer": "8'-6\" clear at the house (high end) and 8'-2\" clear at the low end, floor to rafter."
     },
     {
       "title": "Column base anchorage",
       "text": "Anchor type, size, embedment and edge distance for the ABU44Z into the existing concrete.",
       "who": "Engineer",
       "key": "anchor",
-      "answer": ""
+      "answer": "Remove the existing base. Epoxy-set the anchor into the existing slab with Simpson Strong-Tie SET-3G or ET-3G. Existing slab to remain."
+    },
+    {
+      "key": "anchorRod",
+      "title": "Anchor rod at the column bases",
+      "who": "Engineer",
+      "answer": "(1) 1/2\" concrete anchor, 2\" min. embed.",
+      "text": "The adhesive is given (SET-3G or ET-3G). The anchor rod diameter and embedment depth into the existing slab are not."
     },
     {
       "title": "Beam-to-column connection",
       "text": "Connection at the top of each new column to the existing (2) 2×8 beam.",
       "who": "Engineer",
       "key": "beamToColumn",
-      "answer": ""
+      "answer": "Simpson PC post cap, or equivalent."
     },
     {
       "title": "Existing framing layout",
-      "text": "Beams on three sides, a ledger at the house, and posts at the door jambs and wall ends are read from the scan, not confirmed.",
+      "text": "Per the engineer, the rafters rest on the CMU wall and the 2×8 at the wall is blocking between rafters, so no hangers. Beams on three sides and posts at the door jambs and wall ends are still read from the scan, not confirmed.",
       "who": "Field verify",
       "key": "framing",
-      "answer": ""
+      "answer": "Field verify. Roof sheathing to the blocking between rafters: nailing assumed at 18 in. o.c."
     },
     {
       "title": "Existing slab and foundation",
-      "text": "Thickness and condition under the column bases are not known.",
+      "text": "The existing slab is to remain. Its thickness and condition under the column bases are not known.",
       "who": "Field verify, then engineer",
       "key": "slab",
-      "answer": ""
+      "answer": "Existing 4 in. slab to remain. Field verify."
     },
     {
       "title": "What is already built",
-      "text": "The rafters and H2.5A ties are described as reported. Confirm which items are in place and which are still to do, so the steps and inspections read correctly.",
+      "text": "The rafters and H2.5AZ ties are described as reported. Confirm which items are in place and which are still to do, so the steps and inspections read correctly.",
       "who": "Engineer",
       "key": "built",
-      "answer": ""
+      "answer": "Already in place. Verify in field if any are missing; none expected."
     },
     {
       "title": "Design criteria and general notes",
       "text": "Code edition, wind data, material grades and the standard general notes for this sheet.",
       "who": "Engineer",
       "key": "criteria",
-      "answer": ""
+      "answer": "General notes and design data provided 2026-11-12, now on S0.0."
+    },
+    {
+      "key": "slope",
+      "title": "Roof slope",
+      "who": "Engineer",
+      "answer": "1:12, V.I.F.",
+      "text": "The clear heights given (8'-6\" at the house, 8'-2\" at the low end) are a 4 in. fall over about 11'-10\", roughly 3/8 in 12. Earlier notes say 1:12, which would be about a 12 in. fall. The section is drawn through the two heights. Confirm the slope to show."
+    },
+    {
+      "key": "nailing",
+      "title": "Roof sheathing nailing",
+      "who": "Engineer",
+      "answer": "10d @ 6\" o.c. at edge and 10d @ 6\" o.c. at field",
+      "text": "The source detail calls for edge nailing (E.N.) per plan. No nailing schedule has been given for the existing sheathing on the new rafters and at the ledger."
+    },
+    {
+      "key": "refDetails",
+      "title": "Reference details",
+      "who": "Engineer",
+      "answer": "Confirmed. The reference sheet was then dropped (2026-11-12): diaphragm nailing and the H2.5A tie are redrawn on S1.0; the rest is covered by details 4, 5 and 6.",
+      "text": "The standard details are shown as provided, not edited for this job. They call out H2.5A (this set uses H2.5AZ at the beam), a 2× fascia with (2) 16d nails at each rafter, an 18 in. maximum overhang, edge nailing per plan, an anchor bolt at the post base and a bond beam at the wall. Confirm they apply here as shown."
     }
   ],
   "sheets": [
@@ -315,20 +422,592 @@
       "no": "S0.0",
       "type": "cover",
       "name": "Cover, scope and notes",
-      "what": "For the office and the plan reviewer: scope, notes, criteria and open items."
+      "what": "Scope, notes, criteria, property and general notes."
     },
     {
       "no": "A0.1",
-      "type": "reserved",
+      "type": "site",
       "name": "Site plan",
-      "what": "Reserved. Site plan to be added."
+      "what": "Lot, existing buildings, setbacks and the area of work."
     },
     {
       "no": "S1.0",
       "type": "field",
       "name": "Framing plan, section and details",
-      "what": "For the field: the picture, the steps, the plan, the section and each connection."
+      "what": "The picture, the steps, plan, section and connections."
     }
   ],
-  "jobType": "sunroom"
+  "jobType": "sunroom",
+  "generalNotes": [
+    {
+      "title": "General",
+      "items": [
+        "The governing Code for this Project is the 2023 Florida Building Code, 8th Edition. This Code prescribes which edition of each referenced standard applies to this Project.",
+        "To the best of our knowledge, the Structural Drawings and these Specification Notes comply with the applicable requirements of the governing Building Code.",
+        "Construction is to comply with the requirements of the governing Building Code and all other applicable Federal, State, and Local Codes, Standards, Regulations and Laws.",
+        "The Structural Documents are to be used in conjunction with the Architectural Documents. If a conflict exists, the more stringent governs.",
+        "Details labeled \"TYP\" apply to all situations that are the same or similar to those specifically referenced, whether or not they are keyed in at each location. Questions regarding the applicability of typical details shall be resolved by the Architect.",
+        "Openings shown on Structural Drawings are only pictorial. See the Architectural and M.E.P. drawings for the size and location of openings in the structure.",
+        "Contractors who discover discrepancies, omissions or variations in the Contract Documents during bidding shall immediately notify the Architect. The Architect will resolve the condition and issue a written clarification.",
+        "The Contractor shall coordinate all Contract Documents with field conditions and dimensions and Project Shop Drawings prior to construction. Do not scale drawings; use only printed dimensions. Report any discrepancies in writing to the Architect prior to proceeding with work. Do not change size or location of structural members without written instructions from the Structural Engineer of Record.",
+        "The Contractor shall protect adjacent property, his own work and the public from harm. The Contractor is solely responsible for construction means and methods, and jobsite safety including all OSHA requirements.",
+        "The Structure is designed to be structurally sound when completed. Prior to completion, the Contractor is responsible for stability and temporary bracing, including, but not limited to, masonry walls. Wherever the Contractor is unsure of these requirements, the Contractor shall retain a Florida Licensed Engineer to design and inspect the temporary bracing and stability of the structure.",
+        "For installation of simpson strong-tie components and connectors, refer to manufacturer specifications.",
+        "Contractor shall exercise extreme caution in areas of buried utilities by calling sunshine one at 800-432-4770. The contractor is responsible for repairing and contacting all utilities.",
+        {
+          "text": "Design Superimposed Loads:",
+          "table": {
+            "head": [
+              "OCCUPANCY/USE",
+              "LIVE LOAD",
+              "DEAD LOAD"
+            ],
+            "rows": [
+              [
+                "Roof",
+                "20 psf",
+                "17 psf"
+              ],
+              [
+                "Attic",
+                "10 psf",
+                "5 psf"
+              ],
+              [
+                "Floor",
+                "40 psf",
+                "20 psf"
+              ],
+              [
+                "Wall",
+                "-",
+                "12 psf"
+              ],
+              [
+                "Deck",
+                "40 psf",
+                "15 psf"
+              ],
+              [
+                "Snow",
+                "4 psf",
+                "-"
+              ]
+            ]
+          }
+        },
+        {
+          "text": "Design Wind Loads",
+          "table": {
+            "rows": [
+              [
+                "Governing Code",
+                "2023 FBC"
+              ],
+              [
+                "Building Risk Category",
+                "I"
+              ],
+              [
+                "Ultimate Wind Speed",
+                "V = 131 mph"
+              ],
+              [
+                "Mean Roof Height",
+                "12'"
+              ],
+              [
+                "Directionality Factor",
+                "Kd = 0.85"
+              ],
+              [
+                "Gust-Effect Factor",
+                "G= 0.9"
+              ],
+              [
+                "Exposure",
+                "C"
+              ],
+              [
+                "Internal Pressure Coefficient",
+                "GCpi = ±0.18"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Demolition notes",
+      "items": [
+        "At all locations where new construction will interface with existing elements, cut through existing structure in straight and true lines to insure a neat interface.",
+        {
+          "text": "At all locations where the demolition of a concrete member leaves the ends of reinforcing steel exposed, provide the following:",
+          "sub": [
+            "Chip concrete from around the steel to a depth of 1\".",
+            "Cut off reinforcing steel not less than 3/4\" below the concrete surface.",
+            "Fill the cavity flush with a high modulus gel epoxy. See specifications for accepted manufacturers."
+          ]
+        },
+        "Before demolishing any structural element, install all required temporary and/or permanent bracing and supports.",
+        "Provide temporary closure of all roof fascia, wall and other openings to protect building from exposure to undesirable elements until new construction is weatherproofed, at which time such temporary construction shall be removed. All temporary exterior walls that are subject to wind loads are to be designed by a Florida Licensed Delegated Engineer.",
+        "Upon completion of new construction under each phase, all demolished areas shall be restored to acceptable usage according to the contract documents as determined by the Architect or Engineer."
+      ]
+    },
+    {
+      "title": "Shallow foundations",
+      "items": [
+        "As per visual inspection soil conditions at this site are sand & rock with a min bearing capacity of 2000 psf should other conditions or materials be encountered, the engineer shall be notified prior to proceeding with the work the architect or engineer shall supply a letter attesting that the site has been observed and the foundation conditions are similar to those upon which the design is based on.",
+        "Center all footings under their respective columns or walls, u.o.n."
+      ]
+    },
+    {
+      "title": "Excavation, backfill and dewatering",
+      "items": [
+        "The Contractor is solely responsible for all excavation procedures including lagging, shoring, and protection of adjacent property, structures, streets and utilities in accordance with the requirements of the local building department and OSHA regulations. Do not excavate within one foot of the angle of repose of any soil bearing foundation unless the foundation is properly protected against settlement.",
+        "Do not backfill against walls until 7 days after the walls are braced by the structure or are temporarily braced. Do not backfill cantilevered retaining walls until concrete is 28 days old. Do not backfill until after completion and inspection of any waterproofing.",
+        "The Contractor is responsible for the disposal of all accumulated water in a manner that does not inconvenience or damage the work."
+      ]
+    },
+    {
+      "title": "Slabs-on-grade",
+      "items": [
+        "Above subgrade, use fill containing not more than 10% passing #200 sieve and maximum 1 inch diameter. Compact to 95% of maximum dry density as determined by modified proctor ASTM D-1557. Each layer of fill shall not exceed 6\" loose thickness. Compact prior to placement of the next layer.",
+        "Fill placement and compaction shall be monitored and accepted by the testing agency. Take a min. of one field density test (ASTM D-1556 or D-2922) for each 2,500 square feet of each layer. The testing agency shall randomly select test locations.",
+        "For interior slabs place 10 mil polyethylene sheeting between soil and bottom of slab. Do not use any sheeting below exterior concrete slabs. Sheets shall be lapped 6” minimum and taped. Seal all penetrations, including pipes, with tape.",
+        "See the Architectural Drawings for slab-on-grade depressions and other requirements."
+      ]
+    },
+    {
+      "title": "Reinforced concrete",
+      "items": [
+        "Provide Structural Concrete and concreting practices complying with ACI 301 and 318.",
+        {
+          "text": "Provide structural concrete proportioned in accordance with ACI 318, Ch. 5.3, with a minimum ultimate compressive design strength in 28 days as follows:",
+          "table": {
+            "head": [
+              "Element",
+              "Strength"
+            ],
+            "rows": [
+              [
+                "Footings",
+                "3,000 psi"
+              ],
+              [
+                "Slabs-on-Grade",
+                "3,000 psi"
+              ]
+            ]
+          },
+          "after": "Submit statistical data, not more than one year old, for each class of concrete."
+        },
+        "Use normal weight concrete for all structural members. u.o.n.",
+        "Aggregates are to be clean, free of chlorides, and complying with ASTM C33 gradations. Maximum coarse aggregate size 1\" (C33 size 57). Minimum F.M. for fine aggregate is 2.4. Use admixtures conforming to ASTM C494. Provide type A, D, F or G admix in all structural concrete and Type D or G when ambient temperature is 85 degrees or higher. Design concrete, with strengths less than 4500 psi, with 4% +/- 1% entrained air, except for trowel finished floors. Do not use calcium chloride in any concrete.",
+        "Obtain composite samples of fresh concrete according to ASTM C172. Obtain at least one composite sample for each 100 cu. yd. or fraction thereof of each concrete mix placed each day. For slabs, increase frequency to each 50 cu. yd. or fraction placed each day. Take a slump test, ASTM C143, for each composite sample. Maximum permissible slump is 5 inches. Cast and laboratory cure one set of four compression test standard cylinders, per ASTM C31, for each composite sample. For pumped concrete, take sample at point of placement. Test, per ASTM C39, one cylinder at 7 days and three at 28 days. If one of the first two 28 day tests falls below the specified strength, test the remaining cylinder at 56 days. No concrete test will be accepted if concrete is tampered with in any way after sample is obtained. Repeat sampling if water is added after initial sample is obtained.",
+        {
+          "text": "Provide ASTM A-615 Grade 60 reinforcing steel. Reinforcing shall be accurately placed, rigidly supported and firmly tied in place, with appropriate bar supports and spacers. Conform to ACI 301, 315, 318 and CRSI Manual of Standard Practice. Lap continuous reinforcing 48 bar dia. Lap bottom steel over supports and top steel at midspan (u.o.n.). Hook discontinuous ends of all top bars and all bars in walls, u.o.n. Provide clear cover over reinforcing as follows:",
+          "table": {
+            "head": [
+              "Element",
+              "Bottom",
+              "Top",
+              "Sides"
+            ],
+            "rows": [
+              [
+                "Footings",
+                "3\"",
+                "3\"",
+                "3\""
+              ],
+              [
+                "Slabs-on-Grade - Interior",
+                "3\"",
+                "3/4\"",
+                "2\""
+              ],
+              [
+                "Slabs-on-Grade - Exterior",
+                "3\"",
+                "1 1/2\"",
+                "2\""
+              ]
+            ]
+          }
+        },
+        "Where specified, provide plain, cold-drawn electrically-welded wire reinforcement conforming to ASTM A-185. Supply in flat sheets only. Lap two mesh spacings. Use chairs to support wire fabric in the center of slab.",
+        "Utilities shall not penetrate beams or columns but may pass through slabs and walls individually, u.o.n. For openings 24\" long or less, cut reinforcing and replace alongside opening with splice bars of equivalent area with 48 bar diameter lap.",
+        "Where reinforcing steel congestion permits, conduit and pipes up to 1\" diameter may be embedded in concrete per ACI 318, Section 20.7. Space at 3 diameters o.c. Place between outer layers of reinforcing if conduits are significantly congested, additional reinforcing perpendicular to piping may be required. Requests to embed larger pipes should be accompanied by a detailed description and be submitted to the architect for evaluation.",
+        "Provide construction joints in accordance with ACI 318, Section 6.4. Provide keyways and adequate dowels. Submit drawings showing location of construction joints and direction of pour for review.",
+        "Provide 3/4\" chamfer for all exposed corners.",
+        "Provide reinforcing steel placer with a set of Structural Drawings for field reference. Inspect reinforcing steel placing from structural drawings."
+      ]
+    },
+    {
+      "title": "Concrete masonry",
+      "items": [
+        "Construct masonry in accordance with ACI 530/ASCE 5, \"Building Code Requirements for Concrete Masonry Structures\"; and ACI 530.1/ASCE 6, \"Specifications for the Design and Construction of Load-Bearing Concrete Masonry\".",
+        "The structure is supported by bearing walls, u.o.n. Erect masonry prior to casting concrete columns within bearing walls or casting beams and slabs supported by bearing walls.",
+        "Use 50% solid, nominal 8x8x16, concrete masonry units conforming to ASTM C90. Block net area compressive strength shall be 2,000 psi. Determine the minimum f'm of 1,500 psi by the unit test method or prism method. Lay up units in running bond. Sawcut units which are not in multiples of 8\". Units shall be at least 8\" long. Bond corners by lapping ends 8\" in successive vertical courses. Design of walls is based on a f'm of 2,000 psi.",
+        "Use Type S mortar in accordance with ASTM C270 except use Type M mortar below grade. Head and bed joints shall be 3/8\" for the thickness of the face shell. Webs are to be fully mortared in all courses of piers, columns and pilasters; in the starting course; and where an adjacent cell is to be grouted. Remove mortar protrusions extending 1/2\" or more into cells to be grouted.",
+        "Use standard (9 gauge) horizontal joint reinforcing in every other course. Joint reinforcing and anchors in exterior walls shall conform to ASTM A 153 Class B2, with a coating thickness of 1.50 oz/sf; conform to ASTM A 641 at interior walls. Overlap discontinuous ends 6\". Use prefabricated corners and tees. Use ladder type in walls with vertical reinforcing. Extend joint reinforcing a minimum of 4\" into tie columns.",
+        "Use fine grout conforming to ASTM C-476, with a minimum compressive strength of 2,500 psi in 28 days. Aggregate to conform to ASTM C404 for fine grout, with slump of 8\" to 10\". Grout all masonry containing reinforcing, all cells of 4 hour rated walls, and where indicated on the drawings. Allow mortar to cure 24 hours prior to grouting. Provide cleanout openings at the base of cells containing reinforcing steel to clean the cell and to tie the vertical bar to the dowel.",
+        "Use ASTM A-615 Grade 60 reinforcing steel. Reinforce walls where indicated on the drawings and at all intersections, each side of openings and at the ends of walls. Use bar spacers at 10'-0\" O/C where grout pour height exceeds 10'-0\".",
+        "Reinforced masonry wall construction shall be inspected by an Engineer or Architect in accordance with ACI 530.1/ASCE 6.",
+        "Where anchor bolts, wedge anchors or anchors set in epoxy are set in a masonry wall, fill cells with grout for bolted course, one course above and two courses below.",
+        "Provide lintels or headers with min. 8\" bearing over all masonry openings.",
+        "Use pressure-treated wood for wood in contact with masonry."
+      ]
+    },
+    {
+      "title": "Structural steel",
+      "items": [
+        "Fabricate and erect structural steel in conformance with AISC \"Specification for Structural Steel Buildings\", with Commentary, AISC “Code of Standard Practice for Steel Buildings and Bridges”, AISC “Specification for Structural Joints Using ASTM A325 and A490 Bolts, including Commentary” and all OSHA requirements.",
+        "Submit, to the Architect, complete fabrication and erection drawings prepared by or under the direct supervision of a Florida licensed engineer (Delegated Engineer). Details or connections changed or proposed by the fabricator shall be signed, sealed and dated by the Delegated Engineer.",
+        {
+          "text": "Fabricate structural steel shapes from the following materials:",
+          "table": {
+            "rows": [
+              [
+                "HSS Shapes",
+                "ASTM A500, GRADE B"
+              ],
+              [
+                "W Shapes",
+                "A992"
+              ],
+              [
+                "Continuity Plates",
+                "ASTM A572 (Fy=50 KSI)"
+              ],
+              [
+                "Other Shapes And Plates",
+                "ASTM A36"
+              ],
+              [
+                "Electrodes",
+                "ASTM E70XX"
+              ],
+              [
+                "Base Plates",
+                "ASTM A36"
+              ]
+            ]
+          }
+        },
+        "All shop and field welding procedures and personnel shall conform to AWS D1.1 Structural Welding Code- Steel. Use E70 series welding electrodes, u.o.n. Where necessary, remove galvanizing or primer prior to welding.",
+        "Cut, drill, or punch holes perpendicular to metal surfaces. Ream holes that must be enlarged to admit bolts as permitted by Architect. Do not enlarge unfair holes by burning or using drift pins.",
+        "Do not splice structural steel members except where indicated on the drawings.",
+        "Steel erector to furnish and install temporary bracing as necessary to provide a stable structure during construction.",
+        "See Architectural and Mechanical Drawings for miscellaneous steel not shown on the Structural Drawings.",
+        "Refer to Architectural Drawings for painting and fireproofing of structural steel. In the absence of other instructions, paint all non-galvanized steel with a lead and chromate free steel primer. Do not paint steel surfaces in contact with concrete or to be fireproofed."
+      ]
+    },
+    {
+      "title": "Wood",
+      "items": [
+        "All wood construction and connections shall conform to AITC “American Institute of Timber Construction” Manual, and the “National Design Specification (NDS) for Wood Construction”, 2018 Edition (ANSI/AWC NDS-2018), and Florida Building Code, Chapter 23.",
+        {
+          "text": "All member sizes are to be as shown on drawing and provide the following minimum properties:",
+          "table": {
+            "head": [
+              "Member",
+              "Species",
+              "Fb (psi)",
+              "E (psi)"
+            ],
+            "rows": [
+              [
+                "Joists",
+                "So. Pine No. 2",
+                "1,500",
+                "1,400,000"
+              ],
+              [
+                "Beam",
+                "Microllam® LVL",
+                "2,600",
+                "2,000,000"
+              ]
+            ]
+          }
+        },
+        "All wood in contact with concrete or masonry shall be pressure treated.",
+        "All bolts and bolted connections shall conform to ASTM A325, Anchor bolts is F1554-Grade 55. Use washers between wood and all bolt heads and nuts.",
+        "All metal wood connectors shall be galvanized and shall be manufactured by Simpson Strong Tie Co., or approved equal.",
+        "All joists shall be laterally supported at ends by solid blocking."
+      ]
+    },
+    {
+      "title": "Deflection design criteria",
+      "text": "All members (beams, slabs, trusses, joists, etc) composing floors have been designed and shall be designed by the delegated engineer for:",
+      "bullets": [
+        "Total load: Span/240",
+        "Reinforced concrete elements: LL + Long Term Span/380",
+        "Wall / Mullions: L/175",
+        "Stone tile supporting floors LL: Span/380"
+      ],
+      "after": "Roof members supporting non plaster cellings live: L/240, Total L/180"
+    },
+    {
+      "title": "Call before you dig",
+      "image": {
+        "src": "refs/811.png",
+        "width": 1.7,
+        "alt": "811. Know what is below. Call before you dig."
+      }
+    }
+  ],
+  "property": {
+    "rows": [
+      [
+        "Address",
+        "123 Example St, Anytown, FL 00000"
+      ],
+      [
+        "Parcel ID",
+        "00-00-00-0000-00000-0000"
+      ],
+      [
+        "Legal description",
+        "Example Subdivision, PB 00 PG 000, Lot 12"
+      ],
+      [
+        "Jurisdiction",
+        "Example County"
+      ],
+      [
+        "Owner of record",
+        "Example Owner"
+      ],
+      [
+        "Classification",
+        "Single family"
+      ],
+      [
+        "Zoning",
+        "Residential"
+      ],
+      [
+        "Lot",
+        "6,842 sq ft (0.16 acres)"
+      ],
+      [
+        "FEMA code",
+        "X"
+      ],
+      [
+        "Year built",
+        "1980s, one story"
+      ],
+      [
+        "Exterior wall",
+        "Concrete block stucco"
+      ],
+      [
+        "Roof",
+        "Gable or hip, asphalt or composition shingle"
+      ],
+      [
+        "Living area",
+        "1,516 sq ft"
+      ],
+      [
+        "Finished open porch",
+        "60 sq ft"
+      ],
+      [
+        "Unfinished screened porch",
+        "264 sq ft"
+      ]
+    ],
+    "source": "Example property record. Placeholder data, not a real parcel.",
+    "maps": [
+      {
+        "src": "maps/parcel-map.png",
+        "title": "Parcel map",
+        "credit": "Example parcel, not a real lot. Not to scale"
+      },
+      {
+        "src": "maps/key-plan.png",
+        "title": "Key plan",
+        "credit": "Area of work in blue. See A0.1. Not to scale"
+      }
+    ]
+  },
+  "site": {
+    "geometry": {
+      "units": "in",
+      "source": "Example lot and house footprint, made up for this public example: not a real parcel. Site numbers below are in feet. Driveway: 10 ft wide with a flare each side inside the lot at the front lot line.",
+      "street": "Example Drive",
+      "streetStripFt": 10,
+      "lot": {
+        "number": "12",
+        "rearRadiusFt": 540,
+        "frontRadiusFt": 440,
+        "rearArcFt": 75.4,
+        "frontArcFt": 61.44,
+        "northBearing": "S 76°30'00\" E",
+        "southBearing": "S 84°30'00\" E",
+        "northBearingDeg": 76.5,
+        "southBearingDeg": 84.5
+      },
+      "setbacks": {
+        "frontFt": 35,
+        "northFt": 7.5
+      },
+      "house": {
+        "widthFt": 50,
+        "wingWidthFt": 18,
+        "wingDepthFt": 38,
+        "mainDepthFt": 26,
+        "areaSf": 1516
+      },
+      "porch": {
+        "widthFt": 5,
+        "depthFt": 12,
+        "areaSf": 60
+      },
+      "sunroom": {
+        "widthFt": 22,
+        "depthFt": 12,
+        "fromNorthWallFt": 4,
+        "areaSf": 264
+      },
+      "driveway": {
+        "widthFt": 10,
+        "flareFt": 6,
+        "fromWingSouthFt": 0
+      }
+    },
+    "summary": {
+      "headline": "Existing rear sunroom to be repaired. Nothing on the site moves.",
+      "text": "Site plan for the repair of the existing 12 ft × 22 ft rear sunroom. The house, the front porch, the concrete driveway and the sunroom are existing and stay where they are. No change to footprint, setbacks or use."
+    },
+    "facts": [
+      {
+        "k": "Area of work",
+        "tag": "Repair",
+        "v": "12'-0\" × 22'-0\"",
+        "s": "[E] rear sunroom, 264 sq ft. Footprint unchanged"
+      },
+      {
+        "k": "Front setback",
+        "tag": "E",
+        "v": "{front}",
+        "s": "House to the front lot line. As given"
+      },
+      {
+        "k": "North side",
+        "tag": "E",
+        "v": "{north}",
+        "s": "House to the north lot line. As given"
+      },
+      {
+        "k": "South side",
+        "tag": "E",
+        "v": "{south}",
+        "s": "House to the south lot line. Worked out"
+      },
+      {
+        "k": "Rear",
+        "tag": "E",
+        "v": "{rear}",
+        "s": "Sunroom to the rear lot line. Worked out"
+      },
+      {
+        "k": "Lot",
+        "tag": "",
+        "v": "Lot 12",
+        "s": "About {lotArea} sq ft. Plat excerpt, no survey"
+      }
+    ],
+    "criteria": [
+      {
+        "k": "Address",
+        "v": "123 Example St, Anytown, FL 00000"
+      },
+      {
+        "k": "Lot",
+        "v": "Lot 12, from plat excerpt"
+      },
+      {
+        "k": "Subdivision, plat book and page, parcel ID",
+        "v": "Example Subdivision, PB 00 PG 000, Lot 12 · Parcel 00-00-00-0000-00000-0000"
+      },
+      {
+        "k": "Lot lines",
+        "v": "Front 61.44 ft arc · rear 75.40 ft arc · sides {side} ft ±"
+      },
+      {
+        "k": "Lot area",
+        "v": "{lotArea} sq ft ±"
+      },
+      {
+        "k": "(E) Residence",
+        "v": "1,516 sq ft, county record"
+      },
+      {
+        "k": "(E) Front porch",
+        "v": "60 sq ft, county record"
+      },
+      {
+        "k": "(E) Concrete driveway",
+        "v": "10 ft wide, street to house, with flares"
+      },
+      {
+        "k": "(E) Rear sunroom, to be repaired",
+        "v": "12 ft × 22 ft · 264 sq ft"
+      },
+      {
+        "k": "Front setback, house",
+        "v": "{front}, as given"
+      },
+      {
+        "k": "North side setback, house",
+        "v": "{north}, as given"
+      },
+      {
+        "k": "North side, sunroom",
+        "v": "{sunNorth}, worked out"
+      },
+      {
+        "k": "South side, house",
+        "v": "{south}, worked out"
+      },
+      {
+        "k": "Rear, sunroom",
+        "v": "{rear}, worked out"
+      },
+      {
+        "k": "Change to footprint, setbacks or use",
+        "v": "None"
+      },
+      {
+        "k": "Impervious area",
+        "v": "No changes to existing impervious area"
+      }
+    ],
+    "notes": [
+      {
+        "title": "General notes",
+        "start": 1,
+        "items": [
+          "THESE PLANS ARE FOR THE FRAMING REPAIRS OF THE EXISTING NON-HABITABLE SCREENED PORCH.",
+          "INDIVIDUAL CONTRACTORS TO PROVIDE THEIR OWN PLANNING AND PAPERWORK FOR PERMITTING AND APPROVAL.",
+          "AREAS TO BE PATCHED ARE INTENDED TO BE PATCHED WITH SIMILAR MATERIALS.",
+          "DURING THE CONSTRUCTION AND/OR MAINTENANCE OF THIS PROJECT, ALL SAFETY REGULATIONS ARE TO BE ENFORCED. THE CONTRACTOR OR HIS REPRESENTATIVE SHALL BE RESPONSIBLE FOR THE CONTROL AND SAFETY OF THE OF HIS/HER PERSONNEL. LABOR SAFETY REGULATIONS SHALL CONFORM TO THE PROVISIONS SET FORTH BY OSHA.",
+          "LOCATIONS, ELEVATIONS, AND DIMENSIONS OF EXISTING FIXTURES, STRUCTURES AND OTHER FEATURES ARE SHOWN ACCORDING TO THE BEST INFORMATION AVAILABLE AT THE TIME OF PREPARATION OF THESE PLANS. THE CONTRACTOR SHALL VERIFY THE LOCATIONS, ELEVATIONS AND DIMENSIONS OF ALL EXISTING FIXTURES, STRUCTURES AND OTHER FEATURES, AFFECTING THIS WORK, PRIOR TO CONSTRUCTION.",
+          "CONTRACTOR TO COORDINATE WITH COUNTY AND PERMITTING AUTHORITIES ANY INSPECTIONS OR APPROVALS NEEDED TO SATISFY PERMIT REQUIREMENTS. OMISSIONS OR CONFLICTS BETWEEN VARIOUS ELEMENTS OF THE DRAWINGS, NOTES, AND DETAILS SHALL BE BROUGHT TO THE ATTENTION OF THE ENGINEER OF RECORD AND RESOLVED WITH CITY OR COUNTY PRIOR TO PROCEEDING WITH THE WORK. THE CONTRACTOR IS RESPONSIBLE FOR REPAIRING ANY DAMAGE TO EXISTING FACILITIES, ABOVE OR BELOW GROUND, THAT MAY OCCUR AS A RESULT OF THE WORK PERFORMED, BY THE CONTRACTOR OR SUBCONTRACTORS, AS CALLED FOR IN THESE CONTRACT DOCUMENTS.",
+          "CONTRACTOR SHALL EXERCISE EXTREME CAUTION IN AREAS OF BURIED UTILITIES BY CALLING 811. THE CONTRACTOR IS RESPONSIBLE FOR REPAIRING AND CONTACTING ALL UTILITIES.",
+          "AN APPROVED SET OF PLANS SHALL BE MAINTAINED ON THE JOB SITE AT ALL TIMES PERMIT IS ACTIVE."
+        ]
+      },
+      {
+        "title": "Site plan note",
+        "text": "**SITE PLAN NOTE:** THIS SHEET IS NOT A LEGAL SURVEY. PROPOSED STRUCTURES ARE POSITIONED AS SHOWN BASED ON SURVEY PROVIDED BY OTHERS. AERIAL LAYOUT MAY DIFFER IN FIELD BASED ON TOPOGRAPHY, SOIL CONDITIONS, EXISTING TREES OR ANY NUMBER OF UNFORESEEN CONDITIONS. IN THE EVENT THAT THE HOME ORIENTATION IS ALTERED, NOTIFY THE ENGINEER TO REVIEW PRIOR TO ANY CONSTRUCTION COMMENCING. CONTRACTOR TO FIELD VERIFY ALL DIMENSIONS."
+      }
+    ]
+  }
 }
