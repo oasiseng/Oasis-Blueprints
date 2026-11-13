@@ -108,3 +108,5 @@ require deliberate implementation and validation, not an unsupported promise in 
 
 The reusable engine, layout, editor, and styles are in `assets/kit/`; embedded Barlow fonts and their
 license are in `assets/fonts/`. Keep these resources and [LICENSE.txt](LICENSE.txt) with the skill.
+The built HTML carries a source and license note in its head and at the top of the embedded kit code. It
+is not printed; leave it in place when editing a set.

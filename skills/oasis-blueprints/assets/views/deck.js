@@ -1,3 +1,4 @@
+// Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // views/deck.js — job type "deck": a freestanding rectangular deck on posts and footings. All new work.
 // x runs along the beams, y runs along the joists, z is up from grade.
 // This view is unit-safe: geometry may be in inches or millimetres. Sizes typed here in inches go through I(),

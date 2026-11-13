@@ -1,3 +1,4 @@
+// Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // sunroom.js — job-local drawing code for this project (kept beside the project file, not in the installed skill).
 // Based on the kit's "sunroom" job type: a sloped roof on posts against a house. Changes for this job: (E) CMU wall,
 // rafter-to-wall detail from the engineer's source detail, post cap, H2.5AZ ties, screen note, roofing product.

@@ -103,3 +103,7 @@ Every sheet: [1](typical/sheets/sheet-01.png) · [2](typical/sheets/sheet-02.png
 | `671f2130` | TYPICAL REBAR BENDS | Other | 3"=1'-0" | not yet |
 | `0bcac0b0` | TYPICAL S.W AT CORNER | Other | 1"=1'-0" | not yet |
 | `0fe85c4a` | VAULTED CEILING | Other | 1/2"=1'-0" | not yet |
+
+## Source and license
+
+From [Oasis-Blueprints](https://github.com/oasiseng/Oasis-Blueprints) by Oasis Engineering, LLC. MIT License, Copyright (c) 2026 Oasis Engineering, LLC. Keep this notice with any copy of the library.

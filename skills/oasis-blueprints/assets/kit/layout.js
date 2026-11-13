@@ -1,3 +1,4 @@
+// Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // layout.js — builds the sheets from PROJECT. Nothing here knows about a job type: the drawings come from JOB (see views/).
 'use strict';
 
