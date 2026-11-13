@@ -81,6 +81,21 @@ def main():
             firm.pop("logo")
     P["firm"] = firm
 
+    # images on the cover's property column and on figure sheets: paths become embedded images
+    images = list((P.get("property") or {}).get("maps") or [])
+    for sh in P["sheets"]:
+        images += sh.get("figures") or []
+    images += [g["image"] for g in P.get("generalNotes") or [] if g.get("image")]
+    for m in images:
+        src = m.get("src")
+        if src and not str(src).startswith("data:"):
+            path = next((p for p in (src, os.path.join(pdir, src)) if os.path.exists(p)), None)
+            if path:
+                m["src"] = data_uri(path)
+            else:
+                print("warning: image not found: %s (left out)" % src, file=sys.stderr)
+                m.pop("src")
+
     job = P.get("jobType") or "sunroom"
     cands = [a.view, os.path.join(pdir, "views", job + ".js"), os.path.join(pdir, job + ".js"), os.path.join(KIT, "views", job + ".js")]
     view = next((p for p in cands if p and os.path.exists(p)), None)

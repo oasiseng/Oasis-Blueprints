@@ -5,7 +5,7 @@ const STATUS = {
   draft:        { band: 'Draft · for engineer review · not for construction', box: ['Draft', 'For engineer review', 'Not for construction'], cls: 'st-draft', issue: false },
   review:       { band: 'Released for review · not for construction', box: ['Released for review', '', 'Not for construction'], cls: 'st-draft', issue: false },
   permit:       { band: '', box: ['Issued for permit', '', ''], cls: 'st-ok', issue: true },
-  construction: { band: '', box: ['Released for construction', '', ''], cls: 'st-ok', issue: true },
+  construction: { band: 'Released for construction', bandCls: 'rel', box: ['Released for construction', '', ''], cls: 'st-ok', issue: true },
 };
 // View numbers on the field sheet. Set while that sheet is laid out, so a note can say `SEE ${REF.d1}/${REF.sheet}`.
 let REF = {};
@@ -62,7 +62,7 @@ function titleBlock(P, sh, i, n) {
 
 function band(P) {
   const st = STATUS[P.status] || STATUS.draft, open = openItems(P).length;
-  return st.band ? `<div class="band">${esc(st.band)}${open ? ` · ${open} open item${open > 1 ? 's' : ''}` : ''}</div>` : `<div class="band quiet">${esc(P.project.title)}${P.project.address ? ' · ' + esc(P.project.address) : ''}</div>`;
+  return st.band ? `<div class="band ${st.bandCls || ''}">${esc(st.band)}${open ? ` · ${open} open item${open > 1 ? 's' : ''}` : ''}</div>` : `<div class="band quiet">${esc(P.project.title)}${P.project.address ? ' · ' + esc(P.project.address) : ''}</div>`;
 }
 function panel(num, title, den, svg, o = {}) {
   const scale = o.scale || (den ? 'Scale ' + scaleText(den) : '');
@@ -76,12 +76,12 @@ function legendHtml(P) {
   return `<div class="lg">
     <div><i class="sw n"></i><b>(N) New</b><span>${P.project.permit ? 'Work under permit ' + esc(P.project.permit) + '.' : 'New work.'} Blue on every view.</span></div>
     <div><i class="sw e"></i><b>(E) Existing</b><span>Stays in place. Grey on every view.</span></div>
-    <div><i class="tri"></i><b>Engineer</b><span>A value or decision the engineer still owes. Do not build from it until it is filled in.</span></div>
+    ${(STATUS[P.status] || {}).issue ? '' : `<div><i class="tri"></i><b>Engineer</b><span>A value or decision the engineer still owes. Do not build from it until it is filled in.</span></div>`}
     <div><i class="hd">Hold</i><b>Hold point</b><span>Stop and get the answer or inspection before going on.</span></div>
     <div><i class="pm">±</i><b>Not confirmed</b><span>Scanned, scaled or assumed. Verify in field (V.I.F.) before cutting.</span></div>
   </div>`;
 }
-const legendStrip = () => `<div class="lgs"><span><i class="sw n"></i>(N) New work</span><span><i class="sw e"></i>(E) Existing, stays</span><span><i class="tri"></i>Engineer still owes this</span><span><i class="hd">Hold</i>Stop and ask</span><span><i class="pm">±</i>Verify in field</span></div>`;
+const legendStrip = P => `<div class="lgs"><span><i class="sw n"></i>(N) New work</span><span><i class="sw e"></i>(E) Existing, stays</span>${P && (STATUS[P.status] || {}).issue ? '' : '<span><i class="tri"></i>Engineer still owes this</span>'}<span><i class="hd">Hold</i>Stop and ask</span><span><i class="pm">±</i>Verify in field</span></div>`;
 
 // ---------------------------------------------------------------- the field sheet: picture, steps, plan, section, details
 function sheetField(P, G, sh, i, n) {
@@ -97,7 +97,8 @@ function sheetField(P, G, sh, i, n) {
   <div class="head"><div class="job" data-fit><label>The job</label><h2>${esc(P.summary.headline)}</h2><p>${esc(P.summary.text)}</p></div><div class="facts" style="grid-template-columns:repeat(${Math.max(1, (P.facts || []).length)},1fr)">${facts}</div></div>
   <div class="main">
     <div class="col">
-      ${panel('', 'What you are building', 0, pic.svg(), { cls: 'p-iso' + (F.side ? '' : ' grow'), top: legendStrip(), note: F.pictureNote || '', scale: 'Isometric · not to scale', style: F.side ? `flex:0 0 ${F.pictureHeight || 10.2}in` : '' })}
+      ${panel('', 'What you are building', 0, pic.svg(), { cls: 'p-iso' + (F.side ? '' : ' grow'), top: legendStrip(P), note: F.pictureNote || '', scale: 'Isometric · not to scale', style: F.side ? `flex:0 0 ${F.pictureHeight || 10.2}in` : '' })}
+      ${(F.extras || []).length ? `<div class="xrow" style="flex:0 0 ${F.extrasHeight || 3.7}in;grid-template-columns:${F.extras.map(x => (x.flex || 1) + 'fr').join(' ')}">${F.extras.map((x, j) => view(x, 'x' + (j + 1), x.nts ? { scale: 'Not to scale' } : {})).join('')}</div>` : ''}
       ${F.side ? view(F.side, 'side', { cls: 'grow' }) : ''}
     </div>
     <div class="col">
@@ -112,6 +113,22 @@ function sheetField(P, G, sh, i, n) {
   return sheet(P, sh, i, n, 's-field', body);
 }
 
+// ---------------------------------------------------------------- optional cover blocks: property record, maps, general notes
+// "property": { rows: [[label, value]], source, maps: [{ src, title, credit }] }   adds a fifth column to the cover.
+function propertyHtml(P) {
+  const pr = P.property; if (!pr) return '';
+  const rows = (pr.rows || []).map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
+  const figs = (pr.maps || []).filter(m => m.src).map(m => `<section class="panel fig"><div class="view"><img src="${esc(m.src)}" alt="${esc(m.title || '')}"></div><footer class="vt"><span class="vn">${esc(m.title || '')}</span><span class="vs">${esc(m.credit || '')}</span></footer></section>`).join('');
+  return `<div class="col" data-fit data-name="Property column"><section class="panel grow"><div class="ph">Property</div><div class="pad" data-fit><table class="kv pk">${rows}</table>${pr.source ? `<p class="src">${esc(pr.source)}</p>` : ''}</div></section>${figs}</div>`;
+}
+// "generalNotes": [{ title, text?, items?: [string | { text, sub?: [string], table?: { head?, rows }, after? }], bullets?, after? }]
+// fills the band at the bottom of the cover, set in narrow columns.
+function generalNotesHtml(P) {
+  const tbl = t => `<table class="gt">${t.head ? `<tr>${t.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>` : ''}${t.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`;
+  const item = it => typeof it === 'string' ? `<li>${rich(it, P)}</li>` : `<li>${rich(it.text, P)}${it.sub ? `<ol type="a">${it.sub.map(x => `<li>${rich(x, P)}</li>`).join('')}</ol>` : ''}${it.table ? tbl(it.table) : ''}${it.after ? `<p>${rich(it.after, P)}</p>` : ''}</li>`;
+  return (P.generalNotes || []).map(g => `<h4>${esc(g.title)}</h4>${g.text ? `<p>${rich(g.text, P)}</p>` : ''}${g.items ? `<ol>${g.items.map(item).join('')}</ol>` : ''}${g.bullets ? `<ul>${g.bullets.map(b => `<li>${rich(b, P)}</li>`).join('')}</ul>` : ''}${g.after ? `<p>${rich(g.after, P)}</p>` : ''}${g.image && g.image.src ? `<img class="gimg" src="${esc(g.image.src)}" style="width:${+g.image.width || 1.6}in" alt="${esc(g.image.alt || g.title || '')}">` : ''}`).join('');
+}
+
 // ---------------------------------------------------------------- the office sheet: scope, notes, criteria, open items
 function sheetCover(P, G, sh, i, n, sheets) {
   const F = JOB.field || {}, cd = (P.scales || {}).cover || (typeof F.coverDen === 'function' ? F.coverDen(P, G) : F.coverDen) || 56, pic = JOB.picture(P, G, { den: cd, id: 'cov' }), st = STATUS[P.status] || STATUS.draft;
@@ -121,10 +138,11 @@ function sheetCover(P, G, sh, i, n, sheets) {
   const open = openL.map((o, j) => `<div class="oi"><i class="tri"><b>${j + 1}</b></i><div><b>${esc(o.title)}</b><span>${rich(o.text, P)}</span><em>${esc(o.who || 'Engineer')}</em></div></div>`).join('');
   const done = closed.map(o => `<div class="oi done"><i class="ok"><svg viewBox="0 0 16 16"><path d="M3 8.6l3.2 3L13 4.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><div><b>${esc(o.title)}</b><span>${esc(o.answer)}</span></div></div>`).join('');
   const crit = (P.criteria || []).map(c => `<tr><td>${esc(c.k)}</td><td>${c.v != null && String(c.v).trim() ? esc(c.v) : chip('r', 'Engineer')}</td></tr>`).join('');
+  const S0 = P.summary || {};
   const idx = sheets.map(s => `<tr><td><b>${esc(s.no)}</b></td><td>${esc(s.name)}</td><td>${esc(s.what || '')}</td></tr>`).join('');
   const body = `
-  <div class="cover">
-    <div class="ctop">
+  <div class="cover${P.property ? ' c5' : ''}${st.issue && !openL.length ? ' noopen' : ''}">
+    <div class="ctop"${S0.coverTop ? ` style="flex-basis:${+S0.coverTop}in"` : ''}>
       <div class="col">
         <section class="panel"><div class="pad job big" data-fit><label>The job</label><h2>${esc(P.summary.headline)}</h2><p>${esc(P.summary.text)}</p>${P.project.use ? `<p class="use">${esc(P.project.use)}</p>` : ''}</div></section>
         ${panel('', 'What this set covers', 0, pic.svg(), { cls: 'p-iso grow', note: 'Blue is new work', scale: 'Isometric · not to scale' })}
@@ -136,13 +154,16 @@ function sheetCover(P, G, sh, i, n, sheets) {
         <section class="panel grow"><div class="ph">Sheet index</div><div class="pad" data-fit><table class="idx">${idx}</table></div></section>
       </div>
       <div class="col">
-        <section class="panel grow"><div class="ph">Notes for this job</div><div class="pad notes" data-fit>${notes}</div></section>
+        <section class="panel grow"><div class="ph">${esc(S0.notesTitle || 'Notes for this job')}</div><div class="pad notes${S0.notesSize ? ' fs' : ''}" data-fit${S0.notesSize ? ` style="font-size:${+S0.notesSize}pt"` : ''}>${notes}</div></section>
       </div>
-      <div class="col">
+      ${st.issue && !openL.length ? '' : `      <div class="col">
         <section class="panel grow"><div class="ph ${openL.length ? 'red' : ''}">Open items for the engineer · ${openL.length || 'none'}</div><div class="pad" data-fit>${open}${openL.length ? `<p class="how">The set cannot be issued for permit or construction while this list has entries. Each item also shows in red where it applies on the drawings.</p>` : ''}${done ? `<h4 class="oih">Recorded answers</h4>${done}` : ''}</div></section>
-      </div>
+      </div>`}
+      ${propertyHtml(P)}
     </div>
-    <section class="panel reserved"><div class="ph">${esc(P.summary.reservedTitle || "Reserved: engineer's general structural notes")}</div><div class="pad" data-fit><p>${esc(P.summary.reserved || '')}</p></div></section>
+    ${(P.generalNotes || []).length
+      ? `<section class="panel gnotes"><div class="ph">${esc(S0.generalNotesTitle || 'General notes')}</div><div class="pad gn" data-fit style="columns:${+S0.generalNotesColumns || 8}${S0.generalNotesSize ? `;font-size:${+S0.generalNotesSize}pt` : ''}">${generalNotesHtml(P)}</div></section>`
+      : `<section class="panel reserved"><div class="ph">${esc(S0.reservedTitle || "Reserved: engineer's general structural notes")}</div><div class="pad" data-fit><p>${esc(S0.reserved || '')}</p></div></section>`}
   </div>`;
   return sheet(P, sh, i, n, 's-cover', body);
 }
@@ -152,16 +173,27 @@ function sheetReserved(P, G, sh, i, n) {
   return sheet(P, sh, i, n, 's-res', `<div class="resv"><div><h2>${esc(sh.name)}</h2><p>${esc(sh.what || '')}</p></div></div>`);
 }
 
+// ---------------------------------------------------------------- a sheet of figures: reference details supplied as images
+// sheet: { type: "figures", intro?, ppi?, figures: [{ src, title, note?, scale? }] }. Each image is shown at `ppi` pixels per inch
+// (72 by default) so screenshots are not blown up, and numbered 1, 2, 3 on this sheet.
+function sheetFigures(P, G, sh, i, n) {
+  const figs = (sh.figures || []).filter(f => f.src), zoom = 96 / (+sh.ppi || 72);
+  const body = `${sh.intro ? `<div class="figintro" data-fit>${rich(sh.intro, P)}</div>` : ''}
+  <div class="figs" data-fit data-name="Figures" style="--figzoom:${zoom.toFixed(4)}">${figs.map((f, j) => `<section class="panel figp"><div class="view"><img src="${esc(f.src)}" alt="${esc(f.title || '')}"></div><footer class="vt"><span class="vb">${j + 1}</span><span class="vn">${esc(f.title || '')}</span>${f.note ? `<span class="vx">${esc(f.note)}</span>` : ''}<span class="vs">${esc(f.scale || 'Not to scale')}</span></footer></section>`).join('')}</div>`;
+  return sheet(P, sh, i, n, 's-figs', body);
+}
+
 // View numbers: plan 1, section 2, then the optional side view, then the details in order.
 function setRefs(P) {
   const F = JOB.field, fs = (P.sheets || []).find(s => s.type === 'field') || {};
-  REF = { sheet: fs.no || '', plan: 1, section: 2 }; let k = 3; if (F.side) REF.side = k++; (F.details || []).forEach((d, j) => { REF['d' + (j + 1)] = k + j; });
+  REF = { sheet: fs.no || '', plan: 1, section: 2 }; let k = 3; if (F.side) REF.side = k++; (F.details || []).forEach((d, j) => { REF['d' + (j + 1)] = k++; });
+  (F.extras || []).forEach((d, j) => { REF['x' + (j + 1)] = k++; });   // small extra views under the picture: x1, x2 ...
 }
 
 function renderSet(P) {
   setUnits((P.geometry || {}).units); setRefs(P);
   const G = JOB.derive(P), sheets = P.sheets, n = sheets.length, set = document.getElementById('set');
-  const make = { cover: sheetCover, reserved: sheetReserved, field: sheetField };
+  const make = Object.assign({ cover: sheetCover, reserved: sheetReserved, field: sheetField, figures: sheetFigures }, typeof SHEET_TYPES !== 'undefined' ? SHEET_TYPES : {});   // a job file may add sheet types
   set.innerHTML = sheets.map((sh, i) => make[sh.type](P, G, sh, i, n, sheets)).join('');
   if ((P.firm || {}).accent) set.style.setProperty('--brand', P.firm.accent); else set.style.removeProperty('--brand');
   document.title = [P.project.address, P.project.title].filter(Boolean).join(' · ');
@@ -182,7 +214,7 @@ function fitViews() {
 }
 function audit(P) {
   const set = document.getElementById('set'), zoom = set.style.zoom; set.style.zoom = 1;   // measure at full size
-  const out = [], name = el => (el.closest('.sheet')?.dataset.sheet || '?') + ' · ' + (el.closest('.panel')?.querySelector('.vn, .ph')?.textContent || el.className);
+  const out = [], name = el => (el.closest('.sheet')?.dataset.sheet || '?') + ' · ' + (el.dataset.name || el.closest('.panel')?.querySelector('.vn, .ph')?.textContent || el.className);
   for (const v of document.querySelectorAll('.view')) { const s = v.querySelector('svg'); if (!s) continue; const a = v.getBoundingClientRect(), b = s.getBoundingClientRect();
     const dx = Math.max(a.left - b.left, b.right - a.right), dy = Math.max(a.top - b.top, b.bottom - a.bottom);
     if (dx > 1 || dy > 1) out.push(`${name(v)}: drawing is ${(Math.max(dx, 0) / 96).toFixed(2)} in too wide, ${(Math.max(dy, 0) / 96).toFixed(2)} in too tall for its box`); }

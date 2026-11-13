@@ -32,10 +32,21 @@ licensed engineer closes the open items and seals it.
 
 Open the live sets in a browser. The project files that produced them are in `examples/sheet-sets/`.
 
+- **Sunroom repair** is a finished set, released for construction, with three sheets: a cover (scope,
+  design criteria, property record and general notes), a site plan, and a framing sheet with the plan,
+  section and redrawn details. Its own drawing code, `sunroom.js`, sits beside its project file. Names,
+  address, permit numbers and the lot are placeholders.
+- **Freestanding deck** is a draft. It is the example that shows open items in red: the values the
+  engineer still owes, counted in the title block and blocking the set from being issued.
+
 | Example | Job type | Open it |
 |---|---|---|
-| Sunroom repair | `sunroom` (existing + new, imperial) | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
-| Freestanding deck | `deck` (all new, inches or millimeters) | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
+| Sunroom repair | `sunroom` (existing + new, imperial), 3 sheets, finished | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
+| Freestanding deck | `deck` (all new, inches or millimeters), draft with open items | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
+
+![Cover of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-cover.png)
+
+![Site plan of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-site.png)
 
 ## Use it
 
@@ -91,7 +102,8 @@ shown in red, and it cannot be marked as issued until a licensed engineer has an
 ## Repository layout
 
 - `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
-- `examples/sheet-sets/`: the example jobs (project file and previews); the built sets are linked above
+- `examples/sheet-sets/`: the example jobs (project file, previews, and for the sunroom its own drawing code and
+  cover figures); the built sets are linked above
 - `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
 - `SPECIFICATION.md`, `library/`, `docs/`, `examples/*.json`: PCP, described below
 
