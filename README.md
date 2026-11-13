@@ -42,11 +42,29 @@ Open the live sets in a browser. The project files that produced them are in `ex
 | Example | Job type | Open it |
 |---|---|---|
 | Sunroom repair | `sunroom` (existing + new, imperial), 3 sheets, finished | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
+| Detail library | `library` (sheets of standard details only), 12 sheets | [`project.json`](examples/sheet-sets/detail-library/project.json) · [sheet pictures](library/details/typical/sheets/) |
 | Freestanding deck | `deck` (all new, inches or millimeters), draft with open items | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
 
 ![Cover of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-cover.png)
 
 ![Site plan of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-site.png)
+
+## Detail library
+
+Standard construction details (slabs, footings, masonry walls, wood framing, roof framing) converted from
+CAD into data, so the kit draws them on a sheet at true scale with the same pens and fonts as the rest of
+the set. Each detail is one JSON file with an 8-character id. A collection is a folder under
+`library/details/` with its own `index.json`; the first is `typical`, with 72 details. A project lists the
+ids it needs on a sheet of type `details`.
+
+**A library detail is the engineer's drawing, not the drafter's.** It goes on a set only when the engineer
+of record says it applies, and nothing inside it (sizes, notes) is edited. The details in `typical` were
+converted by machine and are marked "checked by the engineer: not yet" in its index until each has been
+compared with its source.
+
+![First sheet of the typical details](library/details/typical/sheets/sheet-01.png)
+
+The full list, with every sheet, is in [`library/details/README.md`](library/details/README.md).
 
 ## Use it
 

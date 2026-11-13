@@ -1,0 +1,409 @@
+{
+ "schema": "oasis-blueprints/0.2",
+ "status": "draft",
+ "jobType": "library",
+ "firm": {
+  "name": "Your Company",
+  "wordmark": "Your Company",
+  "lines": [
+   "Street address",
+   "City, State ZIP",
+   "License no.",
+   "Phone",
+   "website"
+  ]
+ },
+ "project": {
+  "number": "LIB",
+  "title": "Typical details",
+  "subtitle": "Detail library",
+  "address": "Reference details",
+  "locality": ""
+ },
+ "people": {
+  "drawnBy": "",
+  "checkedBy": ""
+ },
+ "summary": {
+  "headline": "Detail library review",
+  "text": ""
+ },
+ "geometry": {
+  "units": "in"
+ },
+ "library": "../../../library/details/typical",
+ "sheets": [
+  {
+   "no": "D1",
+   "type": "details",
+   "name": "Foundation details",
+   "details": [
+    {
+     "id": "fb6b2fa5",
+     "note": "id fb6b2fa5"
+    },
+    {
+     "id": "5270bae9",
+     "note": "id 5270bae9"
+    },
+    {
+     "id": "307167c8",
+     "note": "id 307167c8"
+    },
+    {
+     "id": "df824626",
+     "note": "id df824626"
+    },
+    {
+     "id": "b410cd52",
+     "note": "id b410cd52"
+    },
+    {
+     "id": "74e3c3bb",
+     "note": "id 74e3c3bb"
+    },
+    {
+     "id": "97a9b3ba",
+     "note": "id 97a9b3ba"
+    },
+    {
+     "id": "cde3eaaa",
+     "note": "id cde3eaaa"
+    },
+    {
+     "id": "f74b5a43",
+     "note": "id f74b5a43"
+    },
+    {
+     "id": "62d7e973",
+     "note": "id 62d7e973"
+    },
+    {
+     "id": "1c6c3f53",
+     "note": "id 1c6c3f53"
+    },
+    {
+     "id": "8de7e595",
+     "note": "id 8de7e595"
+    },
+    {
+     "id": "8da3620f",
+     "note": "id 8da3620f"
+    },
+    {
+     "id": "842009f3",
+     "note": "id 842009f3"
+    },
+    {
+     "id": "e7fac14a",
+     "note": "id e7fac14a"
+    },
+    {
+     "id": "66a4f048",
+     "note": "id 66a4f048"
+    }
+   ]
+  },
+  {
+   "no": "D2",
+   "type": "details",
+   "name": "Foundation details",
+   "details": [
+    {
+     "id": "acbb4f00",
+     "note": "id acbb4f00"
+    },
+    {
+     "id": "e0f1541c",
+     "note": "id e0f1541c"
+    },
+    {
+     "id": "7fd7c8dc",
+     "note": "id 7fd7c8dc"
+    },
+    {
+     "id": "c837f3b5",
+     "note": "id c837f3b5"
+    },
+    {
+     "id": "ce0bbc73",
+     "note": "id ce0bbc73"
+    },
+    {
+     "id": "8afda42b",
+     "note": "id 8afda42b"
+    },
+    {
+     "id": "63d80e90",
+     "note": "id 63d80e90"
+    }
+   ]
+  },
+  {
+   "no": "D3",
+   "type": "details",
+   "name": "Foundation details",
+   "details": [
+    {
+     "id": "0e1c1c7b",
+     "note": "id 0e1c1c7b"
+    },
+    {
+     "id": "bc6f0581",
+     "note": "id bc6f0581"
+    }
+   ]
+  },
+  {
+   "no": "D4",
+   "type": "details",
+   "name": "Foundation details",
+   "details": [
+    {
+     "id": "6d083ed4",
+     "note": "id 6d083ed4"
+    }
+   ]
+  },
+  {
+   "no": "D5",
+   "type": "details",
+   "name": "Wall details",
+   "details": [
+    {
+     "id": "79d4258d",
+     "note": "id 79d4258d"
+    },
+    {
+     "id": "bdd52af6",
+     "note": "id bdd52af6"
+    },
+    {
+     "id": "b759977e",
+     "note": "id b759977e"
+    },
+    {
+     "id": "3883bbc0",
+     "note": "id 3883bbc0"
+    },
+    {
+     "id": "188587ed",
+     "note": "id 188587ed"
+    },
+    {
+     "id": "7afa61cc",
+     "note": "id 7afa61cc"
+    },
+    {
+     "id": "14f78936",
+     "note": "id 14f78936"
+    },
+    {
+     "id": "d266197f",
+     "note": "id d266197f"
+    },
+    {
+     "id": "9ace72b6",
+     "note": "id 9ace72b6"
+    }
+   ]
+  },
+  {
+   "no": "D6",
+   "type": "details",
+   "name": "Wall details",
+   "details": [
+    {
+     "id": "d3c48102",
+     "note": "id d3c48102"
+    },
+    {
+     "id": "3321c7a2",
+     "note": "id 3321c7a2"
+    }
+   ]
+  },
+  {
+   "no": "D7",
+   "type": "details",
+   "name": "Wall / Beam details",
+   "details": [
+    {
+     "id": "f30cc509",
+     "note": "id f30cc509"
+    },
+    {
+     "id": "16d2ab1d",
+     "note": "id 16d2ab1d"
+    },
+    {
+     "id": "bfe0d84d",
+     "note": "id bfe0d84d"
+    },
+    {
+     "id": "2932f86a",
+     "note": "id 2932f86a"
+    },
+    {
+     "id": "23bc244a",
+     "note": "id 23bc244a"
+    }
+   ]
+  },
+  {
+   "no": "D8",
+   "type": "details",
+   "name": "Post-Column / Joist-Floor / Roof details",
+   "details": [
+    {
+     "id": "fd2a2257",
+     "note": "id fd2a2257"
+    },
+    {
+     "id": "6f31a461",
+     "note": "id 6f31a461"
+    },
+    {
+     "id": "9007860d",
+     "note": "id 9007860d"
+    },
+    {
+     "id": "fe96eae3",
+     "note": "id fe96eae3"
+    },
+    {
+     "id": "b707e39c",
+     "note": "id b707e39c"
+    },
+    {
+     "id": "03539570",
+     "note": "id 03539570"
+    },
+    {
+     "id": "57331eeb",
+     "note": "id 57331eeb"
+    },
+    {
+     "id": "0fcc2854",
+     "note": "id 0fcc2854"
+    },
+    {
+     "id": "26d43a33",
+     "note": "id 26d43a33"
+    },
+    {
+     "id": "52d7338b",
+     "note": "id 52d7338b"
+    },
+    {
+     "id": "53841420",
+     "note": "id 53841420"
+    },
+    {
+     "id": "738adfa3",
+     "note": "id 738adfa3"
+    },
+    {
+     "id": "680dd459",
+     "note": "id 680dd459"
+    },
+    {
+     "id": "b65380c8",
+     "note": "id b65380c8"
+    }
+   ]
+  },
+  {
+   "no": "D9",
+   "type": "details",
+   "name": "Roof / Connection / Door-Window details",
+   "details": [
+    {
+     "id": "fff21c7f",
+     "note": "id fff21c7f"
+    },
+    {
+     "id": "05a90a9c",
+     "note": "id 05a90a9c"
+    },
+    {
+     "id": "507bc4f7",
+     "note": "id 507bc4f7"
+    }
+   ]
+  },
+  {
+   "no": "D10",
+   "type": "details",
+   "name": "Ledger / Stairs / Other details",
+   "details": [
+    {
+     "id": "1d2e96b5",
+     "note": "id 1d2e96b5"
+    },
+    {
+     "id": "789c2f44",
+     "note": "id 789c2f44"
+    },
+    {
+     "id": "9ed793cc",
+     "note": "id 9ed793cc"
+    },
+    {
+     "id": "0bcac0b0",
+     "note": "id 0bcac0b0"
+    },
+    {
+     "id": "9e78ec51",
+     "note": "id 9e78ec51"
+    },
+    {
+     "id": "44f030d6",
+     "note": "id 44f030d6"
+    }
+   ]
+  },
+  {
+   "no": "D11",
+   "type": "details",
+   "name": "Other details",
+   "details": [
+    {
+     "id": "b7d9a6d1",
+     "note": "id b7d9a6d1"
+    },
+    {
+     "id": "0fe85c4a",
+     "note": "id 0fe85c4a"
+    },
+    {
+     "id": "6b1e5c26",
+     "note": "id 6b1e5c26"
+    },
+    {
+     "id": "23226033",
+     "note": "id 23226033"
+    },
+    {
+     "id": "088c3281",
+     "note": "id 088c3281"
+    }
+   ]
+  },
+  {
+   "no": "D12",
+   "type": "details",
+   "name": "Other details",
+   "details": [
+    {
+     "id": "671f2130",
+     "note": "id 671f2130"
+    },
+    {
+     "id": "834a9cf6",
+     "note": "id 834a9cf6"
+    }
+   ]
+  }
+ ]
+}

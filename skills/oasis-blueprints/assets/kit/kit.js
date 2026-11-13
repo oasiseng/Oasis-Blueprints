@@ -108,6 +108,61 @@ class View {
     return `<svg class="sk" data-den="${this.den}" style="--u:${r3(this.u)}" width="${r3(W / (this.den * UPI))}in" height="${r3(H / (this.den * UPI))}in" viewBox="${r3(x0 - p)} ${r3(-y1 - p)} ${r3(W)} ${r3(H)}" xmlns="http://www.w3.org/2000/svg"><defs>${this.defs.join('')}</defs>${this.out.join('')}</svg>`; }
 }
 
+// ---- library details: drawings converted from CAD and kept as data (schema oasis-blueprints/detail/0.1) ----
+// D.prims holds, in inches from the detail's own origin: P polylines, W wide lines (rebar), C circles, F filled shapes,
+// H hatches, R leader arrowheads and T text (already broken into lines, each with the width it was drawn at).
+// D.st is the pen table [pen in 1/100 mm, dash, grey]; D.pats the hatch patterns. libSvg draws one detail at its own
+// scale, D.den, with the kit's pens and fonts. Nothing here is a size or a value: it redraws what the source drawing shows.
+// Hatches are drawn as real lines clipped to their boundary (no pattern fills), so the PDF stays small and sharp.
+const LIB_DASH = { h: [4, 2.5], c: [13, 3, 3, 3], d: [7, 3.5], p: [15, 3, 3, 3, 3, 3], t: [0.6, 2.6] };
+function libSvg(D, o = {}) {
+  const v = new View(D.den, 'lib' + (o.key || D.id)), u = v.u, K = UPI, q = u / K, f = n => r3(n * K), Y = y => r3(-y * K), col = g => g === 1 ? PAL.exist : g === 2 ? PAL.existSolid : PAL.ink;
+  const pen = s => Math.max(0.4, Math.min(2.1, s[0] * 0.0283 * 1.05));   // 1/100 mm -> points
+  const hat = [], fill = [], wide = [], path = {}, arrows = [], text = [];
+  const run = (p, i0, close) => { let d = ''; for (let i = i0; i < p.length; i += 2) { v.ext(p[i] * K, p[i + 1] * K); d += (i === i0 ? 'M' : 'L') + f(p[i]) + ' ' + Y(p[i + 1]); } return d + (close ? 'Z' : ''); };
+  // one family of parallel hatch lines across a box: every line starts from the family's base point, dashes staggered line by line
+  const famLines = (fm, g, bb) => { const c = Math.cos(fm.a), s = Math.sin(fm.a); let sp = fm.s; if (!(sp > 1e-9)) return ''; const m = Math.max(1, Math.ceil(1.7 * q / sp)); sp *= m; const dl = -fm.sh * m;   // never closer than 1.7 pt on paper
+    const cs = [[bb[0], bb[1]], [bb[2], bb[1]], [bb[2], bb[3]], [bb[0], bb[3]]].map(([x, y]) => [(x - fm.bx) * c + (y - fm.by) * s, -(x - fm.bx) * s + (y - fm.by) * c]);
+    const t0 = Math.min(...cs.map(z => z[0])), t1 = Math.max(...cs.map(z => z[0])), n0 = Math.ceil(Math.min(...cs.map(z => z[1])) / sp), n1 = Math.floor(Math.max(...cs.map(z => z[1])) / sp); if (n1 - n0 > 2500) return '';
+    const dash = fm.dash || [], L = dash.reduce((a, b) => a + Math.abs(b), 0), P = (t, n) => f(fm.bx + t * c - n * s) + ' ' + Y(fm.by + t * s + n * c); let d = '', dots = '', count = 0;
+    for (let j = n0; j <= n1; j++) { const n = j * sp, X0 = fm.bx - n * s, Y0 = fm.by + n * c; let ta = t0, tb = t1;   // keep each line inside the box, so the drawing's extents stay true
+      if (Math.abs(c) > 1e-9) { const a = (bb[0] - X0) / c, b = (bb[2] - X0) / c; ta = Math.max(ta, Math.min(a, b)); tb = Math.min(tb, Math.max(a, b)); } else if (X0 < bb[0] || X0 > bb[2]) continue;
+      if (Math.abs(s) > 1e-9) { const a = (bb[1] - Y0) / s, b = (bb[3] - Y0) / s; ta = Math.max(ta, Math.min(a, b)); tb = Math.min(tb, Math.max(a, b)); } else if (Y0 < bb[1] || Y0 > bb[3]) continue;
+      if (!(tb > ta)) continue; if (!dash.length || L < 1e-9) { d += 'M' + P(ta, n) + 'L' + P(tb, n); continue; }
+      let t = ta - ((((ta - j * dl) % L) + L) % L);
+      while (t < tb && count < 15000) for (const z of dash) { if (z > 0) { if (t + z > ta && t < tb) { d += 'M' + P(Math.max(t, ta), n) + 'L' + P(Math.min(t + z, tb), n); count++; } t += z; } else if (z === 0) { if (t >= ta && t <= tb) { dots += 'M' + P(t, n) + 'h0'; count++; } } else t -= z; } }
+    return (d ? `<path d="${d}" fill="none" stroke="${col(g)}" stroke-width="${r3(0.38 * u)}"/>` : '') + (dots ? `<path d="${dots}" fill="none" stroke="${col(g)}" stroke-width="${r3(0.9 * u)}" stroke-linecap="round"/>` : ''); };
+  // stipple for concrete and sand, sized on paper so it reads the same at every scale
+  const stipple = (kind, bb) => { const T = 44 * q, A = [[5, 7], [33, 11], [25, 30], [12, 22], [36, 40]], B = [[19, 4], [40, 27], [7, 38], [21, 41], [28, 17]], TR = [[14, 11], [33, 31], [8, 28]]; let a = '', b = '', t = '';
+    const i0 = Math.floor(bb[0] / T), i1 = Math.floor(bb[2] / T), j0 = Math.floor(bb[1] / T), j1 = Math.floor(bb[3] / T); if ((i1 - i0 + 1) * (j1 - j0 + 1) > 1200) return '';
+    for (let i = i0; i <= i1; i++) for (let j = j0; j <= j1; j++) { const ox = i * T, oy = j * T; const inb = (x, y, m) => x >= bb[0] + m && x <= bb[2] - m && y >= bb[1] + m && y <= bb[3] - m;   // only what lies inside the box
+      for (const [x, y] of A) if (inb(ox + x * q, oy + y * q, 0)) a += `M${f(ox + x * q)} ${Y(oy + y * q)}h0`; for (const [x, y] of B) if (inb(ox + x * q, oy + y * q, 0)) b += `M${f(ox + x * q)} ${Y(oy + y * q)}h0`;
+      if (kind === 'conc') for (const [x, y] of TR) if (inb(ox + x * q, oy + y * q, 4 * q)) t += `M${f(ox + x * q)} ${Y(oy + y * q)}l${r3(4 * u)} ${r3(-u)}l${r3(-3 * u)} ${r3(-3 * u)}z`; }
+    return `<g fill="none" stroke="${PAL.ink}" opacity=".55" stroke-linecap="round"><path d="${a}" stroke-width="${r3(1.5 * u)}"/><path d="${b}" stroke-width="${r3(1.1 * u)}"/>${t ? `<path d="${t}" stroke-width="${r3(0.5 * u)}" stroke-linejoin="round"/>` : ''}</g>`; };
+  let hn = 0;
+  for (const p of D.prims || []) { switch (p[0]) {
+    case 'P': { (path[p[1]] || (path[p[1]] = [])).push(run(p, 3, p[2])); break; }
+    case 'C': { const x = p[2], y = p[3], r = p[4]; v.ext((x - r) * K, (y - r) * K); v.ext((x + r) * K, (y + r) * K); (path[p[1]] || (path[p[1]] = [])).push(`M${f(x - r)} ${Y(y)}a${f(r)} ${f(r)} 0 1 0 ${f(2 * r)} 0a${f(r)} ${f(r)} 0 1 0 ${f(-2 * r)} 0`); break; }
+    case 'W': { const s = D.st[p[1]] || [25, '', 0]; wide.push(`<path d="${run(p, 4, p[3])}" fill="none" stroke="${col(s[2])}" stroke-width="${r3(Math.max(p[2] * K, 0.6 * u))}" stroke-linejoin="round"/>`); break; }
+    case 'F': fill.push(`<path d="${run(p, 2, true)}" fill="${col(p[1])}" stroke="none"/>`); break;
+    case 'H': { const z = D.pats[p[1]] || {}, d = p[2].map(r => run(r, 0, true)).join('');
+      if (z.solid) { hat.push(`<path d="${d}" fill-rule="evenodd" fill="${z.g === 1 ? '#aab1bd' : z.g === 2 ? '#d8dce2' : z.ink ? PAL.ink : '#c2c8d1'}" stroke="none"/>`); break; }
+      const bb = [1e9, 1e9, -1e9, -1e9]; for (const r of p[2]) for (let i = 0; i < r.length; i += 2) { bb[0] = Math.min(bb[0], r[i]); bb[1] = Math.min(bb[1], r[i + 1]); bb[2] = Math.max(bb[2], r[i]); bb[3] = Math.max(bb[3], r[i + 1]); }
+      const inner = /CONC/.test(z.name) ? stipple('conc', bb) : /SAND|STUCCO|GROUT|CORK|GRAVEL/.test(z.name) || (z.fam || []).length > 6 ? stipple('sand', bb) : (z.fam || []).map(fm => famLines(fm, z.g || 0, bb)).join('');
+      if (!inner) break; const id = `hc${hn++}-${v.id}`; v.defs.push(`<clipPath id="${id}"><path d="${d}" clip-rule="evenodd"/></clipPath>`); hat.push(`<g clip-path="url(#${id})">${inner}</g>`); break; }
+    case 'R': { const L = 7 * u, w = 1.3 * u, x = p[2] * K, y = p[3] * K, c = Math.cos(p[4]), s = Math.sin(p[4]), bx = x - L * c, by = y - L * s; v.ext(x, y);
+      arrows.push(`<path d="M${r3(x)} ${r3(-y)}L${r3(bx - w * s)} ${r3(-(by + w * c))}L${r3(bx + w * s)} ${r3(-(by - w * c))}Z" fill="${col(p[1])}" stroke="none"/>`); break; }
+    case 'T': { const x = p[2] * K, y = p[3] * K, h = p[4] * K, rot = p[5], an = p[6] || 'sl', lines = p[7] || [], ws = p[8] || [], LS = h * (p[10] || 1.72), n = lines.length, H = h + (n - 1) * LS;
+      const y0 = an[0] === 't' ? h : an[0] === 'm' ? h - H / 2 : an[0] === 'b' ? -0.25 * h - (n - 1) * LS : 0, ta = an[1] === 'r' ? 'end' : an[1] === 'c' ? 'middle' : 'start', size = r3(h / 0.7), c = Math.cos(rot), s = Math.sin(rot);
+      const W = Math.max(0, ...ws) * K, xa = an[1] === 'r' ? -W : an[1] === 'c' ? -W / 2 : 0; for (const [a, b] of [[xa, -(y0 - h)], [xa + W, -(y0 - h)], [xa, -(y0 + (n - 1) * LS + 0.3 * h)], [xa + W, -(y0 + (n - 1) * LS + 0.3 * h)]]) v.ext(x + a * c - b * s, y + a * s + b * c);
+      const tr = `translate(${r3(x)} ${r3(-y)})` + (Math.abs(rot) > 1e-4 ? ` rotate(${r3(-rot * 180 / Math.PI)})` : ''), sty = (p[9] ? '' : 'font-family:var(--f-body);') + (p[1] ? `fill:${col(p[1])};` : '');
+      lines.forEach((l, i) => { if (!l) return; const w = (ws[i] || 0) * K; text.push(`<text class="t" transform="${tr}" font-size="${size}" text-anchor="${ta}" y="${r3(y0 + i * LS)}"${l.length > 1 && w > 0 ? ` textLength="${r3(w)}" lengthAdjust="spacingAndGlyphs"` : ''}${sty ? ` style="${sty}"` : ''}>${esc(l)}</text>`); }); break; }
+  } }
+  const strokes = Object.keys(path).map(k => { const s = D.st[k] || [25, '', 0], w = pen(s), da = LIB_DASH[s[1]]; return `<path d="${path[k].join('')}" fill="none" stroke="${col(s[2])}" stroke-width="${r3(w * u)}" stroke-linecap="${s[1] === 't' ? 'round' : 'butt'}" stroke-linejoin="round"${da ? ` stroke-dasharray="${da.map(x => r3(x * u)).join(' ')}"` : ''}/>`; });
+  v.out.push(hat.join(''), fill.join(''), wide.join(''), strokes.join(''), arrows.join(''), text.join(''));
+  return v.svg();
+}
+
 // ---- isometric (30° axonometric). x runs right-down, y runs left-down, z is up. Viewer sits at +x, +y, +z. ----
 function shade(hex, f) { // f > 0 lightens toward white, f < 0 darkens toward black
   const n = parseInt(hex.slice(1), 16), c = [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(f >= 0 ? v + (255 - v) * f : v * (1 + f)));
@@ -144,4 +199,4 @@ class Iso {
 // wrap a long note to lines of about n characters
 function wrap(s, n = 36) { const out = []; for (const para of String(s).split('\n')) { let line = ''; for (const w of para.split(/\s+/)) { if (line && (line + ' ' + w).length > n) { out.push(line); line = w; } else line = line ? line + ' ' + w : w; } out.push(line); } return out.join('\n'); }
 
-if (typeof module !== 'undefined') module.exports = { PAL, esc, r3, ftin, setUnits, scaleText, scaleBar, TEXT_PT, View, Iso, shade, wrap };
+if (typeof module !== 'undefined') module.exports = { PAL, esc, r3, ftin, setUnits, scaleText, scaleBar, TEXT_PT, View, Iso, shade, wrap, libSvg };

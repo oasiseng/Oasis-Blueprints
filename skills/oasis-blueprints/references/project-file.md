@@ -136,6 +136,32 @@ the drawing assumes.
 `cover` and `field` once each; `reserved` holds a place for a sheet that comes from elsewhere.
 `what` is the line in the sheet index.
 
+## Library details: sheet type `details`
+
+A library detail is a drawing converted from CAD and kept as data, one `<id>.json` file each
+(schema `oasis-blueprints/detail/0.1`). A sheet of type `details` lays them out in rows, numbered
+1, 2, 3 on that sheet, each at its own scale:
+
+```json
+"library": "path/to/library",
+"sheets": [
+  { "no": "S5.0", "type": "details", "name": "Standard details",
+    "details": ["cde3eaaa", { "id": "8de7e595", "title": "Strip footing at masonry wall", "note": "Typical" }] }
+]
+```
+
+- `library` is the folder that holds the detail files (directly, in its `kit` subfolder, or one folder below either). `build.py`
+  also takes `--library <folder>`. Without either, the kit looks in the library that ships with it (`library/details/` at the
+  top of the repository). The details a set uses are embedded in the built file.
+- An entry is an id, or `{ id, title?, note? }` to rename a detail on this sheet or add a short note.
+- Rows fill left to right in the order given. If the audit says a drawing is too tall for its box, the
+  sheet is too full: move details to another `details` sheet.
+- A detail that is not in the library shows as a red "missing" panel and fails the audit.
+- A set made only of such sheets uses `"jobType": "library"`.
+
+A library detail redraws what its source drawing shows, notes included. It is the engineer's detail,
+not the drafter's: do not edit sizes or notes inside it, and list it only when the engineer says it applies.
+
 ## Markup in text
 
 Works in `facts[].s`, `steps`, `scope`, `notes`, open item text:

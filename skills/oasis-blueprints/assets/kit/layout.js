@@ -183,6 +183,21 @@ function sheetFigures(P, G, sh, i, n) {
   return sheet(P, sh, i, n, 's-figs', body);
 }
 
+// ---------------------------------------------------------------- a sheet of library details
+// sheet: { type: "details", details: ["id", { id, title?, note? }], intro? }. The details come from the library the project
+// names ("library": "<folder>"); build.py embeds the ones used under P.library.details. Each is drawn at its own scale and
+// numbered 1, 2, 3 on this sheet. Rows fill left to right in the order given; a detail that does not fit starts the next row.
+function libDetail(P, ref) { const r = typeof ref === 'string' ? { id: ref } : ref || {}, D = ((P.library || {}).details || {})[r.id]; return D ? { D, title: r.title || D.title, note: r.note || '' } : { missing: r.id || '?' }; }
+function sheetDetails(P, G, sh, i, n) {
+  const W = 31.8, GAP = 0.12, rows = [[]]; let x = 0, k = 0;
+  for (const it of (sh.details || []).map(r => libDetail(P, r))) { const D = it.D; it.w = Math.min(W, D ? Math.max(4.4, (D.box[2] - D.box[0]) / D.den + 0.5) : 4.4); it.h = D ? (D.box[3] - D.box[1]) / D.den + 1.15 : 2;
+    if (rows[rows.length - 1].length && x + it.w > W + 1e-6) { rows.push([]); x = 0; } rows[rows.length - 1].push(it); x += it.w + GAP; }
+  const cell = it => { k++; return it.D ? panel(k, it.title, it.D.den, libSvg(it.D, { key: String(sh.no).replace(/\W/g, '') + 'n' + k }), { style: `flex:${r3(it.w)} 1 0`, note: it.note, scale: it.D.nts ? 'Not to scale' : it.w < 6.6 ? 'Scale ' + scaleText(it.D.den) : '' })
+    : `<section class="panel" style="flex:4.4 1 0"><div class="view"><p class="miss">Detail ${esc(it.missing)} is not in the library</p></div><footer class="vt"><span class="vb">${k}</span><span class="vn">Missing detail</span></footer></section>`; };
+  const body = `${sh.intro ? `<div class="figintro" data-fit>${rich(sh.intro, P)}</div>` : ''}<div class="libs">${rows.filter(r => r.length).map(r => `<div class="lrow" style="flex:${r3(Math.max(...r.map(it => it.h)))} 1 0">${r.map(cell).join('')}</div>`).join('')}</div>`;
+  return sheet(P, sh, i, n, 's-libs', body);
+}
+
 // View numbers: plan 1, section 2, then the optional side view, then the details in order.
 function setRefs(P) {
   const F = JOB.field, fs = (P.sheets || []).find(s => s.type === 'field') || {};
@@ -193,7 +208,7 @@ function setRefs(P) {
 function renderSet(P) {
   setUnits((P.geometry || {}).units); setRefs(P);
   const G = JOB.derive(P), sheets = P.sheets, n = sheets.length, set = document.getElementById('set');
-  const make = Object.assign({ cover: sheetCover, reserved: sheetReserved, field: sheetField, figures: sheetFigures }, typeof SHEET_TYPES !== 'undefined' ? SHEET_TYPES : {});   // a job file may add sheet types
+  const make = Object.assign({ cover: sheetCover, reserved: sheetReserved, field: sheetField, figures: sheetFigures, details: sheetDetails }, typeof SHEET_TYPES !== 'undefined' ? SHEET_TYPES : {});   // a job file may add sheet types
   set.innerHTML = sheets.map((sh, i) => make[sh.type](P, G, sh, i, n, sheets)).join('');
   if ((P.firm || {}).accent) set.style.setProperty('--brand', P.firm.accent); else set.style.removeProperty('--brand');
   document.title = [P.project.address, P.project.title].filter(Boolean).join(' · ');
@@ -227,6 +242,7 @@ function audit(P) {
     if (low > f.bottom + 1) out.push(`${sh.dataset.sheet}: drawing area is ${((low - f.bottom) / 96).toFixed(2)} in taller than the sheet`);
     let tlow = 0; for (const c of tb.children) tlow = Math.max(tlow, c.getBoundingClientRect().bottom);
     if (tlow > f.bottom + 1) out.push(`${sh.dataset.sheet}: title block is ${((tlow - f.bottom) / 96).toFixed(2)} in taller than the sheet`); }
+  for (const m of document.querySelectorAll('.miss')) out.push(`${name(m)}: ${m.textContent}`);
   const open = openItems(P).length;
   if ((STATUS[P.status] || STATUS.draft).issue && open) out.push(`status is "${P.status}" but ${open} open item${open > 1 ? 's' : ''} remain`);
   set.style.zoom = zoom;

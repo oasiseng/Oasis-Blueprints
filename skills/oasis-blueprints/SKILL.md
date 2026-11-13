@@ -45,7 +45,14 @@ sample branding or infer a license number.
 |---|---|---|
 | `deck` | Freestanding rectangular deck; inches or millimetres | [assets/views/deck.js](assets/views/deck.js) |
 | `sunroom` | Sloped roof on posts against a house; inches only | [assets/views/sunroom.js](assets/views/sunroom.js) |
+| `library` | A set made only of sheets of standard details | [assets/views/library.js](assets/views/library.js) |
 | Custom | A scope the supplied views do not represent | Read [references/writing-views.md](references/writing-views.md), then adapt `deck.js` beside the project file |
+
+Standard details live in `library/details/<collection>/index.json` at the top of the Oasis-Blueprints
+repository (the plugin, not the skill zip). Search an index by title or category, then place details on
+a sheet of type `details` by id, as described in references/project-file.md. A library detail is the
+engineer's drawing: add one only when the engineer of record says it applies, never edit the sizes or
+notes inside it, and say when its index entry shows it has not been checked by the engineer.
 
 Keep job-specific drawing code beside the project, not inside the installed skill. Never force a
 project into an incompatible example. For each new or revised project, read
