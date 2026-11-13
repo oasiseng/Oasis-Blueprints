@@ -9,6 +9,16 @@ with your own company and logo in the title block.
 
 ![Field sheet of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-field.png)
 
+## Find your way around
+
+| You want | Go to |
+|---|---|
+| The skill: workflow, drawing kit, job types | [`skills/oasis-blueprints/`](skills/oasis-blueprints/SKILL.md) |
+| Finished example sets | [`examples/sheet-sets/`](examples/sheet-sets/) and [Examples](#examples) below |
+| Standard details the kit can draw | [Detail library](library/details/README.md) |
+| What a set of each project type usually contains | [Drawing map](library/drawing-map/types/README.md) |
+| How those three line up | [Libraries](library/README.md) |
+
 ## What a set looks like
 
 - **Cover** for the office and the plan reviewer: the job in one sentence, scope, notes, design criteria
@@ -65,6 +75,18 @@ compared with its source.
 ![First sheet of the typical details](library/details/typical/sheets/sheet-01.png)
 
 The full list, with every sheet, is in [`library/details/README.md`](library/details/README.md).
+
+## Drawing map
+
+What a standard set contains, by project type: the sheets in their usual order, the details and the note
+blocks, each with how often it appears. It is counted from 30 residential permit sets, with names, addresses
+and firms removed. Every type has a page for people and the same content as data for the skill.
+
+![The usual set for a one-story wood-framed house, sheet by sheet](library/drawing-map/types/new-sfr-1-story__wood.png)
+
+**The map counts what past sets contained. It does not say what a new job requires.** Most types rest on one
+to three sets so far and are marked thin. Start at [every type](library/drawing-map/types/README.md);
+[Libraries](library/README.md) shows how a project type leads to sheets and details.
 
 ## Use it
 
@@ -133,6 +155,10 @@ them.
 - `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
 - `examples/sheet-sets/`: the example jobs (project file, previews, and for the sunroom its own drawing code and
   cover figures); the built sets are linked above
+- `library/details/`: the detail library, one folder per collection
+- `library/drawing-map/`: the drawing map and the tool that builds it
+- `library/type-map.json`: how job types, project types, sheet kinds and detail categories line up
+- `tests/`: drafting regression tests
 - `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
 
 ## Open source intent
