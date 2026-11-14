@@ -6,7 +6,7 @@ For each type and variant of residential job the map lists the sheets a set norm
 its usual order), the views on each sheet, the details, and the note blocks, each with how often it appears.
 `template_seed` in every type file is the starting sheet list for an Oasis-Blueprints template of that type.
 
-This first map is built from 30 residential Oasis Engineering permit sets. Commercial jobs are left out.
+This first map is built from 30 residential Oasis Engineering permit sets. 
 
 **Read it here: [every type, with its sheet index, details and note blocks](types/README.md).**
 
