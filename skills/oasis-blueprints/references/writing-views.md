@@ -129,7 +129,7 @@ field sheet, 7.2 in on the cover): the scene is about `(length + depth + 4 × gr
 `den = that width in inches / 8.3`. If it is still too big the layout shrinks it to fit, and the audit
 complains only when the labels would get small.
 
-Screen position of a 3D point is `[(x - y) * 0.866, (x + y) / 2 - z]`. Label elbows `(ex, ey)` are in
+Screen position of a 3D point is `[(y - x) * 0.866, (x + y) / 2 - z]`. Label elbows `(ex, ey)` are in
 those screen units. Compute them from the geometry (see `labels` in deck.js), and place labels above
 and below the object rather than beside it, so the picture can use the full width of its box.
 

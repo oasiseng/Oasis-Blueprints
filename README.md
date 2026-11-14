@@ -9,6 +9,16 @@ with your own company and logo in the title block.
 
 ![Field sheet of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-field.png)
 
+## Find your way around
+
+| You want | Go to |
+|---|---|
+| The skill: workflow, drawing kit, job types | [`skills/oasis-blueprints/`](skills/oasis-blueprints/SKILL.md) |
+| Finished example sets | [`examples/sheet-sets/`](examples/sheet-sets/) and [Examples](#examples) below |
+| Standard details the kit can draw | [Detail library](library/details/README.md) |
+| What a set of each project type usually contains | [Drawing map](library/drawing-map/types/README.md) |
+| How those three line up | [Libraries](library/README.md) |
+
 ## What a set looks like
 
 - **Cover** for the office and the plan reviewer: the job in one sentence, scope, notes, design criteria
@@ -65,6 +75,18 @@ compared with its source.
 ![First sheet of the typical details](library/details/typical/sheets/sheet-01.png)
 
 The full list, with every sheet, is in [`library/details/README.md`](library/details/README.md).
+
+## Drawing map
+
+What a standard set contains, by project type: the sheets in their usual order, the details and the note
+blocks, each with how often it appears. It is counted from 30 residential permit sets, with names, addresses
+and firms removed. Every type has a page for people and the same content as data for the skill.
+
+![The usual set for a one-story wood-framed house, sheet by sheet](library/drawing-map/types/new-sfr-1-story__wood.png)
+
+**The map counts what past sets contained. It does not say what a new job requires.** Most types rest on one
+to three sets so far and are marked thin. Start at [every type](library/drawing-map/types/README.md);
+[Libraries](library/README.md) shows how a project type leads to sheets and details.
 
 ## Use it
 
@@ -133,83 +155,12 @@ them.
 - `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
 - `examples/sheet-sets/`: the example jobs (project file, previews, and for the sunroom its own drawing code and
   cover figures); the built sets are linked above
+- `library/details/`: the detail library, one folder per collection
+- `library/drawing-map/`: the drawing map and the tool that builds it
+- `library/type-map.json`: how job types, project types, sheet kinds and detail categories line up
+- `tests/`: drafting regression tests
 - `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
-- `SPECIFICATION.md`, `library/`, `docs/`, `examples/*.json`: PCP, described below
-
-## Also in this repository: PCP, the Project Context Protocol
-
-PCP is an open, machine-readable protocol for defining how a project should run: one shared project
-contract that humans and bots can both execute against. It is the planning side of the same idea, and
-it lives here alongside the drawing skill.
-
-<details>
-<summary>Read the PCP overview</summary>
-
-PCP standardizes:
-
-- project type and execution model
-- required deliverables
-- required documents
-- context libraries (engineering standards, QC checklists, policies)
-- optimization rubrics (cycle time, quality, predictability, cost)
-- bot/agent operating context
-- Airtable mapping for operational use
-
-### Why PCP
-
-Most teams lose time because project context lives across docs, chat, and memory. PCP turns that context into a single protocol payload so work can be launched, audited, and automated consistently.
-
-### Core concepts
-
-- `project`: identity, type, goals, stage, roles
-- `deliverables`: what must be produced and how completion is measured
-- `documents_required`: mandatory artifacts to create/maintain
-- `context_modules`: reusable policy and execution libraries
-- `workflows`: stage gates and QC checks
-- `agents`: bot responsibilities and boundaries
-- `airtable`: mapping of PCP entities to Airtable tables/fields
-
-### Quick start
-
-1. Copy an example from `examples/`.
-2. Validate your PCP file against `schema/pcp.schema.json`.
-3. Reference reusable defaults from `library/`.
-4. Map entities into Airtable using `airtable/field-mapping.md`.
-
-### PCP files
-
-- `SPECIFICATION.md`: protocol specification
-- `schema/pcp.schema.json`: JSON Schema for PCP payloads
-- `examples/`: complete sample PCP payloads
-- `library/`: reusable project types, deliverables, docs, context modules
-- `airtable/`: Airtable integration guidance
-- `templates/`: document templates used by PCP payloads
-- `docs/`: operational templates and reference docs
-
-### Standardized engineering intake matrix
-
-For teams mapping project types to default deliverables, required documents, and execution resources:
-
-- Canonical matrix: `library/taxonomy/project-delivery-matrix.json`
-- Operational guidance: `docs/standardized-sop-framework.md`
-- Example generated PCP payload: `examples/container-home-pcp.json`
-- Container plans deliverable index: `docs/container-plans-deliverable.md`
-- Plans-as-product strategy scaffold: `docs/plans-as-product-scaffold.md`
-
-This gives you a machine-readable baseline for Airtable automations and bot task assignment.
-
-Wind subcategory playbooks now live in the [`oasiseng/windcalculations.com`](https://github.com/oasiseng/windcalculations.com/tree/main/playbooks) repository (`playbooks/`) and are mapped in `library/taxonomy/project-delivery-matrix.json`.
-
-### Versioning
-
-Protocol versioning uses semantic versioning in `pcp_version`.
-
-- Major: breaking structural changes
-- Minor: backward-compatible additions
-- Patch: clarifications and non-breaking fixes
-
-</details>
 
 ## Open source intent
 
-This repository is designed as a shared public baseline for teams and autonomous systems. You can fork it, extend it, and propose upstream improvements. See `CONTRIBUTING.md` and `LICENSE`.
+This repository is designed as a shared public baseline for teams and autonomous systems. You can fork it, extend it, and propose upstream improvements through a pull request. See `LICENSE`.

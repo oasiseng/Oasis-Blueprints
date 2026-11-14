@@ -8,13 +8,23 @@ its usual order), the views on each sheet, the details, and the note blocks, eac
 
 This first map is built from 30 residential Oasis Engineering permit sets. Commercial jobs are left out.
 
+**Read it here: [every type, with its sheet index, details and note blocks](types/README.md).**
+
+![The usual set for a one-story wood-framed house, sheet by sheet](types/new-sfr-1-story__wood.png)
+
+The map counts what past sets contained. It does not say what a new job requires: the engineer of record decides
+which sheets, details and notes a set needs. Most types here rest on one to three sets and are marked "thin" on
+their pages; treat their shares as provisional until more sets are read.
+
 ## Files
 
 | File | What it is |
 |---|---|
-| `types/<type>__<variant>.json` | the map for one type and variant (`__all` rolls up every variant of a type) |
+| `types/README.md` | the index for people: every type, its set count and its core sheets |
+| `types/<type>__<variant>.md` | the page for one type: sheet index, details, note blocks, starter sheet list |
+| `types/<type>__<variant>.png` | a picture of the usual set for that type, sheet by sheet |
+| `types/<type>__<variant>.json` | the same map as data (`__all` rolls up every variant of a type) |
 | `index.json` | list of the type files with set counts |
-| `review.html` | open in a browser to read the map |
 | `taxonomy.json` | project types, variants and the rules that sort a set into them |
 | `sheet_kinds.json` | the standard kinds of sheet and the sheet names that map to them |
 | `tools/map_sets.py` | the script that reads the sets and writes all of the above |
@@ -45,6 +55,16 @@ python tools/map_sets.py --root "path/to/drawing sets" build
 One PDF is one set. `scan` only reads the drawings; everything is written inside this folder. Edit
 `taxonomy.json` and `sheet_kinds.json` and run `build` again as often as needed.
 
+`build` also writes the pages and pictures in `types/`. To rewrite only those from the existing type files, with
+no scan data needed:
+
+```bash
+python tools/map_sets.py pages
+```
+
+The pictures need Playwright and Chromium (the same as the skill's `print.py`); without them the pages are written
+and the pictures are skipped (`--no-pictures` does the same on purpose). Do not edit the `.md` files by hand.
+
 Local-only files, never committed (see `.gitignore`):
 
 - `_state/sets.jsonl`: what was read from each PDF, including paths and one-off text.
@@ -52,5 +72,6 @@ Local-only files, never committed (see `.gitignore`):
 - `_state/local.json`: site settings: `top_only` (root files only), `ignore` (folders to skip),
   `titleblock_words`, `exclude_from_publish` (sets to keep out of the published files).
 - `sets.csv`, `unmapped_sheet_names.csv`: per-set review lists, with paths.
+- `review.html`: the whole map as one page with a side menu, for reading in a browser.
 
 Sets the taxonomy cannot sort are never published.

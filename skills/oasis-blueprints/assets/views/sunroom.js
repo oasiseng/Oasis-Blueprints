@@ -220,14 +220,14 @@ const JOB = {
   type: 'sunroom',
   derive,
   picture: (P, G, o) => isoScene(P, G, o),
-  // Label elbows are in the picture's own screen units (see Iso.p). This scene spans about -139..249 by -138..211.
+  // Label elbows are in the picture's own screen units (see Iso.p). This scene spans about -249..139 by -138..211.
   labels(P, G, iso) {
     const g = P.geometry, h = g.post / 2;
-    iso.label(`(N) 2×8 RAFTERS @ ${g.rafterSpacing}" O.C.\nSIMPSON H2.5A EACH END`, [G.rafters[8], 20, G.rb(20) + g.rafterDepth], 64, -118, { kind: 'N', side: 'r' });
-    iso.label('(E) RESIDENCE', [40, 0, 112], -42, -130, { side: 'l' });
-    iso.label('(E) (2) 2×8 BEAMS, 3 SIDES\nKEEP. CHECK FOR ROT / WDO', [G.xl, G.yo + 1.5, G.bt - 4], -172, 150, { side: 'r' });
-    iso.label(`(N) PT 4×4 COLUMNS (${G.cols.length})\nON SIMPSON ABU44Z BASES`, [G.longX[2], G.yo + h, 30], -10, 222, { kind: 'N', side: 'r' });
-    iso.label('(E) CONCRETE SLAB', [240, 100, 0], 158, 202, { side: 'r' });
+    iso.label(`(N) 2×8 RAFTERS @ ${g.rafterSpacing}" O.C.\nSIMPSON H2.5A EACH END`, [G.rafters[8], 20, G.rb(20) + g.rafterDepth], -64, -118, { kind: 'N', side: 'l' });
+    iso.label('(E) RESIDENCE', [40, 0, 112], 42, -130, { side: 'r' });
+    iso.label('(E) (2) 2×8 BEAMS, 3 SIDES\nKEEP. CHECK FOR ROT / WDO', [G.xl, G.yo + 1.5, G.bt - 4], 172, 150, { side: 'l' });
+    iso.label(`(N) PT 4×4 COLUMNS (${G.cols.length})\nON SIMPSON ABU44Z BASES`, [G.longX[2], G.yo + h, 30], 10, 222, { kind: 'N', side: 'l' });
+    iso.label('(E) CONCRETE SLAB', [240, 100, 0], -158, 202, { side: 'l' });
   },
   stepPicture: (P, G, step, k) => isoScene(P, G, Object.assign({ den: 128, id: 'st' + k, quiet: true }, STEP_PICTURES[step.pic] || STEP_PICTURES.all)).svg(),
   field: {

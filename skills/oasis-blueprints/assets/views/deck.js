@@ -137,16 +137,16 @@ const JOB = {
   type: 'deck',
   derive,
   picture: (P, G, o) => isoScene(P, G, o),
-  // Label elbows are in the picture's screen units: [(x - y) * 0.866, (x + y) / 2 - z]. They are worked out from the deck size,
+  // Label elbows are in the picture's screen units: [(y - x) * 0.866, (x + y) / 2 - z]. They are worked out from the deck size,
   // and sit above and below the object (not beside it), so the picture can fill the width of its panel.
   labels(P, G, iso) {
     const g = P.geometry, L = g.L, D = g.D, pad = I(20), foot = answer(P, 'footing'), yb = g.beamY[g.beamY.length - 1];
-    const left = -(D + pad) * 0.866, right = (L + pad) * 0.866, fx = (L - D) * 0.866, fy = (L + D) / 2 + pad, top = -g.deckH - I(18);   // edges of the scene
-    iso.label(`(N) ${g.deckingName} DECKING`, [L * 0.3, D * 0.1, g.deckH], left * 0.15, top, { kind: 'N', side: 'l' });
-    iso.label(`(N) ${g.joistName} JOISTS @ ${FMT(g.joistSpacing)} O.C.`, [G.joists[Math.floor(G.joists.length * 0.6)], D * 0.42, G.zJoistTop], right * 0.33, top, { kind: 'N', side: 'r' });
-    iso.label(`(N) ${g.postName} POSTS (${G.posts.length})`, [g.postsX[0], yb + g.post / 2, G.zPostTop / 2], left * 0.92, fy * 0.8, { kind: 'N', side: 'r' });
-    iso.label(foot ? '(N) CONCRETE FOOTINGS' : 'FOOTINGS: SIZE BY ENGINEER', [g.postsX[1], yb + g.footingDia / 2, I(1)], left * 0.5, fy + I(9), { kind: foot ? 'N' : 'R', side: 'r' });
-    iso.label(`(N) ${g.beamName} BEAMS`, [L, yb, G.zBeamTop - g.beamDepth / 2], fx + I(40), fy + I(14), { kind: 'N', side: 'r' });
+    const left = -(L + pad) * 0.866, right = (D + pad) * 0.866, fx = (D - L) * 0.866, fy = (L + D) / 2 + pad, top = -g.deckH - I(18);   // edges of the scene
+    iso.label(`(N) ${g.deckingName} DECKING`, [L * 0.3, D * 0.1, g.deckH], right * 0.15, top, { kind: 'N', side: 'r' });
+    iso.label(`(N) ${g.joistName} JOISTS @ ${FMT(g.joistSpacing)} O.C.`, [G.joists[Math.floor(G.joists.length * 0.6)], D * 0.42, G.zJoistTop], left * 0.33, top, { kind: 'N', side: 'l' });
+    iso.label(`(N) ${g.postName} POSTS (${G.posts.length})`, [g.postsX[0], yb + g.post / 2, G.zPostTop / 2], right * 0.92, fy * 0.8, { kind: 'N', side: 'l' });
+    iso.label(foot ? '(N) CONCRETE FOOTINGS' : 'FOOTINGS: SIZE BY ENGINEER', [g.postsX[1], yb + g.footingDia / 2, I(1)], right * 0.5, fy + I(9), { kind: foot ? 'N' : 'R', side: 'l' });
+    iso.label(`(N) ${g.beamName} BEAMS`, [L, yb, G.zBeamTop - g.beamDepth / 2], fx - I(40), fy + I(14), { kind: 'N', side: 'l' });
   },
   stepPicture: (P, G, step, k) => isoScene(P, G, { den: Math.ceil((P.geometry.L + P.geometry.D + I(40)) * 0.866 / UPI / 2.9), id: 'st' + k, quiet: true, mode: Object.assign({ deckAs: 'new' }, STEP_PICTURES[step.pic] || STEP_PICTURES.all) }).svg(),
   field: {

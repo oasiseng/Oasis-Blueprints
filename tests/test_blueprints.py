@@ -92,6 +92,52 @@ class BlueprintTests(unittest.TestCase):
         self.assertTrue(any("00000000" in line and "not in the library" in line for line in audit), audit)
         self.assertEqual(self.page.locator(".miss").count(), 1)
 
+    def test_type_map_names_exist_where_it_points(self):
+        library = SKILL.parents[1] / "library"
+        load = lambda *parts: json.loads(library.joinpath(*parts).read_text(encoding="utf-8"))
+        type_map = load("type-map.json")
+        kinds = {k["key"] for k in load("drawing-map", "sheet_kinds.json")["kinds"]}
+        variants = {t["key"]: {v["key"] for v in t.get("variants", [])} for t in load("drawing-map", "taxonomy.json")["types"]}
+        categories = {d["category"] for d in load("details", "typical", "index.json")["details"]}
+        self.assertEqual({k["kind"] for k in type_map["sheet_kinds"]}, kinds)
+        for kind in type_map["sheet_kinds"]:
+            self.assertIn(kind["kit_sheet_type"], type_map["_kit_sheet_type"])
+            self.assertLessEqual(set(kind["detail_categories"]), categories, kind["kind"])
+        views = {p.stem for p in (SKILL / "assets" / "views").glob("*.js")}
+        self.assertEqual({j["job_type"] for j in type_map["job_types"]}, views)
+        for job in type_map["job_types"]:
+            self.assertLessEqual(set(job["field_sheet_covers"]), kinds, job["job_type"])
+            for ref in job["drawing_map"]:
+                self.assertLessEqual(set(ref["variants"]), variants[ref["type"]], job["job_type"])
+
+    def test_drawing_map_has_a_page_for_every_type_file(self):
+        folder = SKILL.parents[1] / "library" / "drawing-map"
+        index = json.loads((folder / "index.json").read_text(encoding="utf-8"))
+        listing = (folder / "types" / "README.md").read_text(encoding="utf-8")
+        for group in index["groups"]:
+            data = folder / group["file"]
+            self.assertTrue(data.exists(), group["file"])
+            page = data.with_suffix(".md")
+            self.assertTrue(page.exists(), page.name)
+            self.assertIn("(%s)" % page.name, listing)
+            text = page.read_text(encoding="utf-8")
+            self.assertIn("## Sheet index", text)
+            for sheet in json.loads(data.read_text(encoding="utf-8"))["sheets"]:
+                self.assertIn("| **%s** |" % sheet["name"], text)
+        pages = {p.stem for p in (folder / "types").glob("*.md")} - {"README"}
+        self.assertEqual(pages, {Path(g["file"]).stem for g in index["groups"]})
+
+    def test_isometric_picture_is_not_mirrored(self):
+        # The viewer sits at +x, +y, +z, so +x must run to the left on screen and +y to the right.
+        self.open(self.build(self.sample()))
+        x, y = self.page.evaluate("[new Iso(48, 't').p(10, 0, 0)[0], new Iso(48, 't').p(0, 10, 0)[0]]")
+        self.assertLess(x, 0)
+        self.assertGreater(y, 0)
+
+    def test_public_deck_example_matches_the_bundled_one(self):
+        public = SKILL.parents[1] / "examples" / "sheet-sets" / "deck" / "project.json"
+        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "examples" / "deck" / "project.json").read_bytes())
+
     def test_imperial_and_metric_plan_have_same_physical_scale(self):
         imperial = self.sample()
         metric = copy.deepcopy(imperial)

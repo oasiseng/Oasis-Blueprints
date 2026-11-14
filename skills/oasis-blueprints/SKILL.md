@@ -54,6 +54,13 @@ a sheet of type `details` by id, as described in references/project-file.md. A l
 engineer's drawing: add one only when the engineer of record says it applies, never edit the sizes or
 notes inside it, and say when its index entry shows it has not been checked by the engineer.
 
+The same repository has a drawing map: `library/drawing-map/types/<type>__<variant>.json` lists the sheets,
+details and note blocks that past sets of a project type contained, and `library/type-map.json` says how
+each sheet kind is handled by the kit and which detail categories to search. When the user names a project
+type, use them to propose a sheet index and candidate details, add sheets the kit cannot draw as `reserved`,
+and record the proposal as an open item for the engineer. The map counts past sets; it is never a
+requirement, and a type built from fewer than three sets is thin evidence. Say so.
+
 Keep job-specific drawing code beside the project, not inside the installed skill. Never force a
 project into an incompatible example. For each new or revised project, read
 [references/project-file.md](references/project-file.md) for the JSON contract and

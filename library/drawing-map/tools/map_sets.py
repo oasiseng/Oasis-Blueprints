@@ -910,6 +910,7 @@ def cmd_build(a):
     print('sets published: %d   left out (unsorted or excluded): %d   groups: %d   sheet names without a kind: %d' % (
         len(sets), len(all_sets) - len(sets), len(index), len(unmapped)))
     print('Wrote types/*.json, index.json, sets.csv, unmapped_sheet_names.csv, review.html in %s' % a.map)
+    write_pages(a.map, pictures=not a.no_pictures)
     if stale:
         print('%d old type files could not be deleted here and were marked "stale". index.json lists the current ones.' % stale)
 
@@ -953,6 +954,148 @@ addEventListener('hashchange',show);show();
 </script></body></html>'''
 
 
+# ------------------------------------------------------------------------------------------ pages for people
+# The type files are data. `pages` writes what a person reads on GitHub: types/<type>__<variant>.md for each type file,
+# types/README.md as the index, and (when Playwright and Chromium are installed) types/<type>__<variant>.png, a picture
+# of the usual set. It reads only index.json and types/*.json, so it needs no scan data and adds no text of its own.
+def _md(s):
+    return str('' if s is None else s).replace('\\', '\\\\').replace('|', '\\|').replace('<', '&lt;').replace('>', '&gt;').replace('\n', ' ')
+
+def _html(s):
+    return str('' if s is None else s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+def _bar(p):
+    n = int(round(p / 10.0))
+    return '`%s%s` %s%%' % ('█' * n, '░' * (10 - n), ('%.1f' % p).rstrip('0').rstrip('.'))
+
+def _thin(n):
+    return n < 3
+
+def type_page(doc, stem, has_png):
+    n = doc['sets']; pg = doc.get('pages') or {}
+    out = ['# %s · %s' % (doc['type']['name'], doc['variant']['name']), '',
+           '%d set%s%s. Data: [`%s.json`](%s.json). All types: [index](README.md).' % (
+               n, '' if n == 1 else 's', (', %s to %s sheets, typically %s' % (pg['min'], pg['max'], ('%g' % pg['median']))) if pg else '', stem, stem), '']
+    if _thin(n):
+        out += ['> **Thin data.** This page is built from %d set%s, so every share below is provisional: one set makes every sheet read as "core".' % (n, '' if n == 1 else 's'), '']
+    if has_png:
+        out += ['![The usual set for this type, sheet by sheet](%s.png)' % stem, '']
+    att = ['%s: %s' % (k, ', '.join('%s (%s)' % (v[0], v[1]) for v in vals)) for k, vals in (doc.get('attributes') or {}).items()]
+    if att:
+        out += ['Seen in these sets: ' + '; '.join(att) + '.', '']
+    un = [(k.replace('_', ' '), v) for k, v in (doc.get('unlisted') or {}).items() if v]
+    if un:
+        out += ['Left out because they appear in one set only: ' + ', '.join('%s %s' % (v, k) for k, v in un) + '.', '']
+    has_views = any(sh.get('views') for sh in doc['sheets'])
+    out += ['## Sheet index', '', '| Sheet | In sets | Tier | Usual name | Numbering |' + (' Views on it |' if has_views else ''), '|---|---|---|---|---|' + ('---|' if has_views else '')]
+    for sh in doc['sheets']:
+        names = [x[0] for x in sh.get('names') or []]
+        name = _md(names[0]) if names else ''
+        if len(names) > 1:
+            name += '<br>also: ' + '; '.join(_md(x) for x in names[1:4])
+        num = ', '.join(_md(x[0]) for x in sh.get('numbering') or [])
+        if (sh.get('sheets_per_set') or 1) > 1:
+            num += (' · ' if num else '') + '%g sheets' % sh['sheets_per_set']
+        views = '<br>'.join('%s (%s%%)' % (_md(v['title']), '%g' % v['pct']) for v in (sh.get('views') or []) if v.get('tier') != 'occasional')[:600]
+        out.append('| **%s** | %s | %s | %s | %s |' % (_md(sh['name']), _bar(sh['pct']), sh['tier'], name, num) + (' %s |' % views if has_views else ''))
+    if not has_views:
+        out += ['', 'No view titles are listed: none is shared by two or more sets of this type.']
+    out += ['', '## Details', '']
+    if doc.get('details'):
+        out += ['| Detail | In sets | Tier | Category | Usual scale | Library ids |', '|---|---|---|---|---|---|']
+        for d in doc['details']:
+            out.append('| %s | %s | %s | %s | %s | %s |' % (_md(d['title']), _bar(d['pct']), d['tier'], _md(d.get('category')), _md(((d.get('scales') or [['']])[0])[0]),
+                                                      ' '.join('`%s`' % _md(x) for x in d.get('library_ids') or [])))
+    else:
+        out.append('None listed: no detail title is shared by two or more sets of this type.')
+    out += ['', '## Note blocks', '', 'Open a block to read its most common wording. Placeholders in braces stand for a state, year, phone number, company or manufacturer.', '']
+    for nb in doc.get('notes') or []:
+        v = (nb.get('variants') or [None])[0]
+        head = '<b>%s</b> · %s · %s%% of sets · %s items · on %s' % (_html(nb['heading']), nb['tier'], '%g' % nb['pct'], '%g' % nb.get('items_median', 0), _html(', '.join(nb.get('on_sheets') or [])))
+        if v and v.get('items'):
+            body = '<ol>%s</ol>\n<p><i>Most common wording, in %s set%s. %s wording%s seen.</i></p>' % (
+                ''.join('<li>%s</li>' % _html(re.sub(r'^\(?\w{1,3}[.)]\s+', '', x).replace(' | ', ' ')) for x in v['items']), v['sets'], '' if v['sets'] == 1 else 's', nb.get('wordings', 1), '' if nb.get('wordings', 1) == 1 else 's')
+        else:
+            body = '<p><i>Wording seen in one set only, so it is left out of the map.</i></p>'
+        out += ['<details><summary>%s</summary>\n%s\n</details>' % (head, body), '']
+    seed = doc.get('template_seed') or {}
+    out += ['## Starter sheet list', '', 'The core sheets in their usual order (`template_seed` in the data file). It is a count of what past sets contained, not a statement of what a new job requires.', '']
+    for i, sh in enumerate(seed.get('sheets') or []):
+        out.append('%d. %s%s' % (i + 1, _md(sh.get('name') or sh.get('kind')), (' (`%s`)' % sh['kind']) if sh.get('kind') else ''))
+    if not seed.get('sheets'):
+        out.append('No core sheets yet.')
+    if seed.get('note_blocks'):
+        out += ['', 'Core note blocks: ' + ', '.join(_md(x) for x in seed['note_blocks']) + '.']
+    return '\n'.join(out) + '\n'
+
+PICTURE_HTML = r"""<!doctype html><meta charset="utf-8"><style>
+body{margin:0;padding:22px 24px 18px;font:14px/1.25 system-ui,'Segoe UI',Arial,sans-serif;color:#16213a;background:#fff;width:1352px}
+h1{font-size:21px;margin:0 0 3px}p{margin:0 0 14px;color:#5b667a;font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:12px}.c{width:157px;height:105px;box-sizing:border-box;border:2px solid #b9c2d0;border-radius:3px;padding:8px 9px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.c b{font-size:14px;display:block;padding-right:16px}.c i{font-style:normal;font-size:11px;color:#5b667a;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.c .n{position:absolute;right:8px;top:6px;font-size:11px;color:#9aa4b3}
+.c .p{font-size:12px;font-weight:600}.c .t{height:5px;background:#e3e7ee;border-radius:2px;margin-top:3px}.c .t u{display:block;height:5px;border-radius:2px;background:currentColor}
+.core{border-color:#1f63d6}.core .p{color:#1f63d6}.common{border-color:#6f7a8c}.common .p{color:#6f7a8c}.occasional{border-style:dashed}.occasional b{color:#5b667a}.occasional .p{color:#9aa4b3}
+.k{margin-top:14px;font-size:12px;color:#5b667a}.k span{display:inline-block;width:22px;height:11px;border:2px solid;border-radius:2px;vertical-align:-2px;margin:0 5px 0 14px}.k span:first-child{margin-left:0}
+</style><h1>__TITLE__</h1><p>__SUB__</p><div class="row">__CARDS__</div>
+<div class="k"><span style="border-color:#1f63d6"></span>Core: in at least __CORE__% of sets<span style="border-color:#6f7a8c"></span>Common: at least __COMMON__%<span style="border-color:#b9c2d0;border-style:dashed"></span>Occasional</div>"""
+
+def picture_html(doc, tiers):
+    n = doc['sets']; cards = []
+    for i, sh in enumerate(doc['sheets']):
+        names = [x[0] for x in sh.get('names') or []]
+        cards.append('<div class="c %s"><span class="n">%d</span><div><b>%s</b><i>%s</i></div><div class="p">%s%% of sets<div class="t"><u style="width:%s%%"></u></div></div></div>' % (
+            sh['tier'], i + 1, _html(sh['name']), _html(names[0].title() if names else ''), '%g' % sh['pct'], '%g' % sh['pct']))
+    sub = 'The sheets found in %d set%s, in their usual order.%s' % (n, '' if n == 1 else 's', ' Thin data: every share is provisional.' if _thin(n) else '')
+    return (PICTURE_HTML.replace('__TITLE__', _html('%s · %s' % (doc['type']['name'], doc['variant']['name']))).replace('__SUB__', sub).replace('__CARDS__', ''.join(cards))
+            .replace('__CORE__', str(tiers.get('core', 60))).replace('__COMMON__', str(tiers.get('common', 25))))
+
+def write_pages(map_dir, pictures=True):
+    meta = jload(os.path.join(map_dir, 'index.json')); tdir = os.path.join(map_dir, 'types'); tiers = meta.get('tiers') or {}
+    docs = [(os.path.splitext(os.path.basename(g['file']))[0], jload(os.path.join(map_dir, g['file']))) for g in meta['groups']]
+    shots = None
+    if pictures:
+        try:
+            from playwright.sync_api import sync_playwright
+            pw = sync_playwright().start(); browser = pw.chromium.launch(); shots = browser.new_page(viewport={'width': 1400, 'height': 400})
+        except Exception as e:                     # no browser here: the pages are written without pictures
+            print('pictures skipped (Playwright with Chromium is needed): %s' % str(e).splitlines()[0])
+    made = 0
+    for stem, doc in docs:
+        png = os.path.join(tdir, stem + '.png')
+        if shots:
+            shots.set_content(picture_html(doc, tiers)); shots.screenshot(path=png, full_page=True); made += 1
+        with io.open(os.path.join(tdir, stem + '.md'), 'w', encoding='utf-8', newline='\n') as f:
+            f.write(type_page(doc, stem, os.path.exists(png)))
+    if shots:
+        browser.close(); pw.stop()
+    keep = set(stem for stem, _ in docs)
+    for fn in os.listdir(tdir):                    # pages and pictures of groups that no longer exist
+        stem, ext = os.path.splitext(fn)
+        if ext in ('.md', '.png') and stem not in keep and fn != 'README.md':
+            os.remove(os.path.join(tdir, fn))
+    out = ['# Drawing map: every type', '',
+           '%d sets, built %s. Core: in at least %s%% of the sets of a type. Common: at least %s%%.' % (meta['sets'], meta['built'], tiers.get('core', 60), tiers.get('common', 25)), '',
+           'Each row opens a page with the sheet index, the details, the note blocks and the starter sheet list for that type. '
+           'A type with fewer than three sets is marked thin: its shares are provisional.', '',
+           '| Type | Variant | Sets | Core sheets |', '|---|---|---|---|']
+    last = None
+    for (stem, doc), g in zip(docs, meta['groups']):
+        core = ', '.join(_md(sh['name']) for sh in doc['sheets'] if sh['tier'] == 'core')
+        out.append('| %s | [%s](%s.md) | %d%s | %s |' % ('**%s**' % _md(g['type_name']) if g['type'] != last else '', _md(g['variant_name']), stem, g['sets'], ' (thin)' if _thin(g['sets']) else '', core))
+        last = g['type']
+    out += ['', '## Data quality', '', '| Confidence that a set was sorted into the right type | Sets |', '|---|---|']
+    out += ['| %s | %s |' % (_md(k), v) for k, v in meta.get('confidence') or []]
+    out += ['', '| Flag | Sets |', '|---|---|'] + ['| `%s` | %s |' % (_md(k), v) for k, v in meta.get('flags') or []]
+    out += ['', 'Sets with views read from the DWGs: %s of %s.' % (meta.get('with_dwg_views', 0), meta['sets']), '',
+            'These pages are written by `tools/map_sets.py` (`build` or `pages`). Do not edit them by hand.']
+    with io.open(os.path.join(tdir, 'README.md'), 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(out) + '\n')
+    print('Wrote %d type pages, types/README.md and %d pictures in %s' % (len(docs), made, tdir))
+
+def cmd_pages(a):
+    write_pages(a.map, pictures=not a.no_pictures)
+
+
 # ------------------------------------------------------------------------------------------ command line
 def main():
     ap = argparse.ArgumentParser(description='Map what drawing sets are made of.')
@@ -964,13 +1107,16 @@ def main():
     s.add_argument('--force', action='store_true', help='read again even if already read')
     b = sub.add_parser('build'); b.add_argument('--min-text-sets', type=int, default=2,
                                                help='a sheet name, view or detail title, note heading or note wording goes into the type files only if at least this many sets share it; the rest is counted under "unlisted"')
+    b.add_argument('--no-pictures', action='store_true', help='write the pages without the pictures')
+    pg = sub.add_parser('pages', help='write types/*.md, types/README.md and the pictures from the existing type files')
+    pg.add_argument('--no-pictures', action='store_true', help='write the pages without the pictures')
     sub.add_parser('status')
     sh = sub.add_parser('show'); sh.add_argument('key')
     a = ap.parse_args()
     a.map = os.path.abspath(a.map)
     a.root = os.path.abspath(a.root or os.path.dirname(a.map))
     load_local(a.map)
-    {'scan': cmd_scan, 'build': cmd_build, 'status': cmd_status, 'show': cmd_show}.get(a.cmd, lambda _: ap.print_help())(a)
+    {'scan': cmd_scan, 'build': cmd_build, 'pages': cmd_pages, 'status': cmd_status, 'show': cmd_show}.get(a.cmd, lambda _: ap.print_help())(a)
 
 if __name__ == '__main__':
     main()
