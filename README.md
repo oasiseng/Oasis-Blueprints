@@ -9,6 +9,13 @@ with your own company and logo in the title block.
 
 ![Field sheet of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-field.png)
 
+## Start here
+
+<!-- Try it in the browser: https://oasisengineering.com/blueprints/try/ (add this line once the page is confirmed live) -->
+- **Install it** as a Claude plugin or as a skill in your assistant: see [Use it](#use-it).
+- **Build a set by hand** with Python and nothing else: see [By hand](#use-it).
+- **See what it makes** first: the finished sets under [Examples](#examples).
+
 ## Find your way around
 
 | You want | Go to |
@@ -42,6 +49,10 @@ licensed engineer closes the open items and seals it.
 
 Open the live sets in a browser. The project files that produced them are in `examples/sheet-sets/`.
 
+`examples/` holds the showcase sets. `skills/oasis-blueprints/assets/samples/` holds the minimal samples
+bundled with the skill, which the tests also use; they are not the same sets. To add an example, see
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
 - **Sunroom repair** is a finished set, released for construction, with three sheets: a cover (scope,
   design criteria, property record and general notes), a site plan, and a framing sheet with the plan,
   section and redrawn details. Its own drawing code, `sunroom.js`, sits beside its project file. Names,
@@ -58,6 +69,41 @@ Open the live sets in a browser. The project files that produced them are in `ex
 ![Cover of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-cover.png)
 
 ![Site plan of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-site.png)
+
+## Use it
+
+- **As a Claude plugin.** This repository is the plugin: `.claude-plugin/plugin.json` plus the skill in
+  `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
+- **As a skill.** Download `oasis-blueprints.zip` from the [latest release](https://github.com/oasiseng/Oasis-Blueprints/releases/latest)
+  or from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/), and upload it where your assistant manages skills. The same folder loads in other assistants that
+  support Agent Skills, including ChatGPT.
+- **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
+  (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
+  references, and licenses. Invoke `$oasis-blueprints` with the project sources and requested sheets.
+- **By hand.** Python 3 standard library only:
+
+  ```bash
+  cd skills/oasis-blueprints
+  python scripts/build.py assets/samples/deck/project.json deck.html
+  python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
+  ```
+
+Start with [`skills/oasis-blueprints/SKILL.md`](skills/oasis-blueprints/SKILL.md). A new kind of job is one
+JavaScript file of about 150 lines: see
+[`references/writing-views.md`](skills/oasis-blueprints/references/writing-views.md).
+
+Supply `--brand my-brand.json` when you have a company file. PDF export needs Playwright and Chromium
+in the Python environment used to run the script:
+
+```bash
+python -m pip install playwright
+python -m playwright install chromium
+python -m unittest discover -s tests -v
+```
+
+The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
+issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
+They validate drafting behavior, not structural adequacy or engineer approval.
 
 ## Detail library
 
@@ -88,41 +134,6 @@ and firms removed. Every type has a page for people and the same content as data
 to three sets so far and are marked thin. Start at [every type](library/drawing-map/types/README.md);
 [Libraries](library/README.md) shows how a project type leads to sheets and details.
 
-## Use it
-
-- **As a Claude plugin.** This repository is the plugin: `.claude-plugin/plugin.json` plus the skill in
-  `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
-- **As a skill.** Download the skill zip from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/)
-  and upload it where your assistant manages skills. The same folder loads in other assistants that
-  support Agent Skills, including ChatGPT.
-- **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
-  (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
-  references, and licenses. Invoke `$oasis-blueprints` with the project sources and requested sheets.
-- **By hand.** Python 3 standard library only:
-
-  ```bash
-  cd skills/oasis-blueprints
-  python scripts/build.py assets/samples/deck/project.json deck.html
-  python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
-  ```
-
-Start with [`skills/oasis-blueprints/SKILL.md`](skills/oasis-blueprints/SKILL.md). A new kind of job is one
-JavaScript file of about 150 lines: see
-[`references/writing-views.md`](skills/oasis-blueprints/references/writing-views.md).
-
-Supply `--brand my-brand.json` when you have a company file. PDF export needs Playwright and Chromium
-in the Python environment used to run the script:
-
-```bash
-python -m pip install playwright
-python -m playwright install chromium
-python -m unittest discover -s tests -v
-```
-
-The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
-issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
-They validate drafting behavior, not structural adequacy or engineer approval.
-
 ## What the plugin runs, sends and fetches
 
 The skill runs two Python scripts that ship in this repository, on the machine where the assistant runs code:
@@ -150,17 +161,19 @@ it. Each built HTML also has a source note in its head and one line at the foot 
 that prints, appears in the PDF or makes a request. Drawings made with the kit belong to whoever prepared
 them.
 
+To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md). Changes by version are in
+[CHANGELOG.md](CHANGELOG.md).
+
 ## Repository layout
 
-- `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
-- `examples/sheet-sets/`: the example jobs (project file, previews, and for the sunroom its own drawing code and
+- `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, and the minimal
+  samples in `assets/samples/`
+- `examples/sheet-sets/`: the showcase sets (project file, previews, and for the sunroom its own drawing code and
   cover figures); the built sets are linked above
 - `library/details/`: the detail library, one folder per collection
 - `library/drawing-map/`: the drawing map and the tool that builds it
 - `library/type-map.json`: how job types, project types, sheet kinds and detail categories line up
-- `tests/`: drafting regression tests
+- `tests/`: drafting regression tests and the check that no real job data is in the repository
+- `.github/workflows/`: runs the tests on every pull request, and builds the skill zip for a release
+- `CONTRIBUTING.md`, `CHANGELOG.md`: how to add an example, and what changed in each version
 - `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
-
-## Open source intent
-
-This repository is designed as a shared public baseline for teams and autonomous systems. You can fork it, extend it, and propose upstream improvements through a pull request. See `LICENSE`.

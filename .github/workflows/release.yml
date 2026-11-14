@@ -1,0 +1,43 @@
+name: Release
+
+# Pushing a tag v<version> builds the skill zip and attaches it to a GitHub release
+# with that version's section of CHANGELOG.md.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the tag against plugin.json
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          manifest="$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")"
+          if [ "$version" != "$manifest" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match version $manifest in .claude-plugin/plugin.json" >&2
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Build the skill zip
+        run: |
+          cd skills
+          zip -r ../oasis-blueprints.zip oasis-blueprints -x "*/__pycache__/*" "*.pyc"
+      - name: Take this version's notes from the changelog
+        run: |
+          awk -v v="$VERSION" '
+            /^## / { on = ($2 == v) }
+            on && !/^## / { print }
+          ' CHANGELOG.md > notes.md
+          if ! grep -q "[^[:space:]]" notes.md; then
+            echo "CHANGELOG.md has no section for $VERSION" >&2
+            exit 1
+          fi
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" oasis-blueprints.zip --title "Oasis-Blueprints $VERSION" --notes-file notes.md
