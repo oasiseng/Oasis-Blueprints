@@ -102,7 +102,7 @@ to three sets so far and are marked thin. Start at [every type](library/drawing-
 
   ```bash
   cd skills/oasis-blueprints
-  python scripts/build.py assets/examples/deck/project.json deck.html
+  python scripts/build.py assets/samples/deck/project.json deck.html
   python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
   ```
 

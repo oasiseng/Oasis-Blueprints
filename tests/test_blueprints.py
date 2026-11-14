@@ -38,7 +38,7 @@ class BlueprintTests(unittest.TestCase):
         self.page.on("pageerror", lambda error: self.errors.append(str(error)))
 
     def sample(self, name="deck"):
-        return json.loads((SKILL / "assets" / "examples" / name / "project.json").read_text(encoding="utf-8"))
+        return json.loads((SKILL / "assets" / "samples" / name / "project.json").read_text(encoding="utf-8"))
 
     def build(self, project, name="sheet-set"):
         source = self.root / (name + ".json")
@@ -57,7 +57,7 @@ class BlueprintTests(unittest.TestCase):
         self.assertEqual(self.page.evaluate("window.__errors"), [])
 
     def test_examples_export_from_paths_with_spaces_and_url_characters(self):
-        for name in ("deck", "sunroom-repair"):
+        for name in ("deck", "sunroom"):
             with self.subTest(name=name):
                 html = self.build(self.sample(name), "folder # 50%/" + name)
                 self.open(html)
@@ -134,9 +134,10 @@ class BlueprintTests(unittest.TestCase):
         self.assertLess(x, 0)
         self.assertGreater(y, 0)
 
-    def test_public_deck_example_matches_the_bundled_one(self):
+    def test_public_deck_example_matches_the_bundled_sample(self):
+        # assets/samples/deck/project.json is the source; the showcase copy must not drift from it.
         public = SKILL.parents[1] / "examples" / "sheet-sets" / "deck" / "project.json"
-        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "examples" / "deck" / "project.json").read_bytes())
+        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "samples" / "deck" / "project.json").read_bytes())
 
     def test_imperial_and_metric_plan_have_same_physical_scale(self):
         imperial = self.sample()

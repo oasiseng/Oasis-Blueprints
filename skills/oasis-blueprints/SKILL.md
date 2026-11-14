@@ -65,7 +65,7 @@ Keep job-specific drawing code beside the project, not inside the installed skil
 project into an incompatible example. For each new or revised project, read
 [references/project-file.md](references/project-file.md) for the JSON contract and
 [references/sheet-standard.md](references/sheet-standard.md) for scale, status, and sheet conventions.
-Use [assets/examples/](assets/examples/) as schema examples only.
+Use [assets/samples/](assets/samples/) as schema samples only.
 
 Keep all lengths in the declared unit system. Check positive dimensions and spacing, ordered
 coordinates, consistent units, and nonzero scale denominators before rendering. Do not convert an

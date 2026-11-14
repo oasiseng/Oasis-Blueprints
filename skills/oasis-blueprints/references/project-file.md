@@ -2,7 +2,7 @@
 
 One JSON file per job. Everything on the sheets that is not linework comes from here, so a change of
 address, a new note or an engineer's answer is an edit to this file and a rebuild. Complete examples:
-`assets/examples/sunroom-repair/project.json`, `assets/examples/deck/project.json`.
+`assets/samples/sunroom/project.json`, `assets/samples/deck/project.json`.
 
 ## Top level
 
