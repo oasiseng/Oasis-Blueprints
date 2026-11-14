@@ -19,8 +19,8 @@ function derive(P) {
 }
 
 // ------------------------------------------------------------------ 1  ROOF FRAMING PLAN
-function viewPlan(P, G) {
-  const g = P.geometry, v = new View(24, 'plan'), { xl, xr, yo, longX, cols, rx0, rx1, rafters } = G;
+function viewPlan(P, G, den = 24) {
+  const g = P.geometry, v = new View(den, 'plan'), { xl, xr, yo, longX, cols, rx0, rx1, rafters } = G;
   const WT = g.wallT, L = g.clearL, D = g.clearD, RD = g.roofD, post = g.post, h = post / 2;
   // house wall with openings
   let a = -22; const ops = g.openings.slice().sort((p, q) => p.x0 - q.x0);
@@ -69,8 +69,8 @@ function viewPlan(P, G) {
 }
 
 // ------------------------------------------------------------------ 2  SECTION
-function viewSection(P, G) {
-  const g = P.geometry, v = new View(32, 'sect'), { yo, rb, bt, slope } = G, RD = g.rafterDepth, BD = g.beamDepth, h = g.post / 2, WT = g.wallT, top = rb(0) + RD + 14;
+function viewSection(P, G, den = 32) {
+  const g = P.geometry, v = new View(den, 'sect'), { yo, rb, bt, slope } = G, RD = g.rafterDepth, BD = g.beamDepth, h = g.post / 2, WT = g.wallT, top = rb(0) + RD + 14;
   v.rect(0, -4, 152, 0, 'exw', { fill: v.pat('conc') }); v.line(152, -3, 178, -3, 'o2');
   v.rect(-WT, -4, 0, top, 'exw', { fill: v.pat('wall') });
   v.poly([[-WT - 3, top], [-WT * 0.6, top], [-WT * 0.5, top + 3], [-WT * 0.4, top - 3], [-WT * 0.3, top], [3, top]], 'o2', false);
@@ -104,8 +104,8 @@ function viewSection(P, G) {
 }
 
 // ------------------------------------------------------------------ 3  FRONT ELEVATION (seen from the yard, so the door end is on the right)
-function viewElevation(P, G) {
-  const g = P.geometry, v = new View(48, 'elev'), { xl, xr, longX, rx0, rx1, rb, bt, rafters } = G, RD = g.rafterDepth, BD = g.beamDepth, h = g.post / 2, L = g.clearL;
+function viewElevation(P, G, den = 48) {
+  const g = P.geometry, v = new View(den, 'elev'), { xl, xr, longX, rx0, rx1, rb, bt, rafters } = G, RD = g.rafterDepth, BD = g.beamDepth, h = g.post / 2, L = g.clearL;
   const F = x => L - x, top = rb(0) + RD + 30, rt = bt + RD + 1.3, rh = rb(0) + RD + 1.3;
   v.rect(F(rx1) - 14, 0, F(rx0) + 14, top, 'exb'); v.text('(E) RESIDENCE BEYOND', L / 2 + 30, top - 11, { cls: 'ts', anchor: 'middle' });
   v.rect(-10, -4, L + 10, 0, 'exw', { fill: v.pat('conc') }); v.line(F(rx1) - 30, -3, -10, -3, 'o2'); v.line(L + 10, -3, F(rx0) + 30, -3, 'o2');
@@ -126,8 +126,8 @@ function viewElevation(P, G) {
 }
 
 // ------------------------------------------------------------------ 4  COLUMN BASE
-function detailBase(P, G) {
-  const v = new View(4, 'base'), h = P.geometry.post / 2;
+function detailBase(P, G, den = 4) {
+  const v = new View(den, 'base'), h = P.geometry.post / 2;
   v.rect(-13, -5, 13, 0, 'exw', { fill: v.pat('conc') });
   v.rect(-h, 1, h, 13.2, 'newF'); v.poly([[-h, 13.2], [-h, 1], [h, 1], [h, 13.2]], 'new', false);
   v.poly([[-h - 0.7, 13.2], [-0.5, 13.2], [-0.15, 14], [0.15, 12.4], [0.5, 13.2], [h + 0.7, 13.2]], 'o2', false);
@@ -145,8 +145,8 @@ function detailBase(P, G) {
 }
 
 // ------------------------------------------------------------------ 5  RAFTER / BEAM / COLUMN
-function detailBeam(P, G) {
-  const g = P.geometry, v = new View(4, 'beam'), h = g.post / 2, RD = g.rafterDepth, BD = g.beamDepth, s = G.slope, ct = 2.2, rt = ct + BD, x0 = -12.5, x1 = 2.25;
+function detailBeam(P, G, den = 4) {
+  const g = P.geometry, v = new View(den, 'beam'), h = g.post / 2, RD = g.rafterDepth, BD = g.beamDepth, s = G.slope, ct = 2.2, rt = ct + BD, x0 = -12.5, x1 = 2.25;
   v.rect(-h, 0, h, ct, 'newF'); v.poly([[-h, 0], [-h, ct], [h, ct], [h, 0]], 'new', false);
   v.poly([[-h - 0.7, 0], [-0.5, 0], [-0.15, 0.8], [0.15, -0.8], [0.5, 0], [h + 0.7, 0]], 'o2', false);
   v.lumber(-1.5, ct, 0, rt, 'ex'); v.lumber(0, ct, 1.5, rt, 'ex');
@@ -165,8 +165,8 @@ function detailBeam(P, G) {
 }
 
 // ------------------------------------------------------------------ 6  RAFTER AT HOUSE
-function detailHouse(P, G) {
-  const g = P.geometry, v = new View(4, 'house'), RD = g.rafterDepth, s = G.slope, lb = 5, x1 = 15.5, top = lb + RD + 5.2;
+function detailHouse(P, G, den = 4) {
+  const g = P.geometry, v = new View(den, 'house'), RD = g.rafterDepth, s = G.slope, lb = 5, x1 = 15.5, top = lb + RD + 5.2;
   v.rect(-6, 0, 0, top, 'exw', { fill: v.pat('wall') });
   for (const y of [0, top]) v.poly([[-6.8, y], [-3.6, y], [-3.2, y + 0.8], [-2.8, y - 0.8], [-2.4, y], [0.8, y]], 'o2', false);
   v.lumber(0, lb - 1, 1.5, lb + RD, 'ex');
