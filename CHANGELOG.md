@@ -22,6 +22,7 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 ### Libraries
 
 - Detail library (`library/details/`): the `typical` collection, 72 details converted from CAD.
+- Detail library: the `site` collection, with a typical swale section and the site plan general notes.
 - Drawing map (`library/drawing-map/`): what a standard set of each project type contains, counted from 30
   residential permit sets, with a page and a picture for each type.
 - Type map (`library/type-map.json`): how job types, project types, sheet kinds and detail categories line up.
@@ -30,6 +31,9 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 
 - The sunroom repair example is now a finished three-sheet set: cover, site plan and framing sheet.
 - New example: a 12-sheet set of the typical details.
+- New example: a two-sheet site plan for a detached accessory building, drawn from a survey extract, with
+  its own job type `siteplan` beside the project file (site plan, enlarged plan, side-yard section, swale
+  section, stormwater check, building footprint).
 - The samples bundled with the skill are now in `assets/samples/` (`deck`, `sunroom`). The folder was
   called `examples` before, the same word as the showcase sets.
 
