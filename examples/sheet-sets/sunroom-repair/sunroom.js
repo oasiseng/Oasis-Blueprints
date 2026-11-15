@@ -1,14 +1,22 @@
 // Oasis-Blueprints · https://github.com/oasiseng/Oasis-Blueprints · MIT License, Copyright (c) 2026 Oasis Engineering, LLC
 // sunroom.js — job-local drawing code for this project (kept beside the project file, not in the installed skill).
-// Based on the kit's "sunroom" job type: a sloped roof on posts against a house. Changes for this job: (E) CMU wall,
-// rafter-to-wall detail from the engineer's source detail, post cap, H2.5AZ ties, screen note, roofing product.
+// Based on the kit's "sunroom" job type (assets/views/sunroom.js): a sloped roof on posts against a house.
+// What this file changes from the kit view (see "Job-specific drawing code" in references/writing-views.md):
+//   - roof overhang on the three open sides, with lookout blocking and a fascia board (geometry.overhang, fascia*)
+//   - roof sheathing and roofing drawn on the section and details (geometry.sheathing*, roofing)
+//   - lattice and 2×4 blocking between the columns (geometry.rail*)
+//   - the house wall is (E) CMU: rafters bear on it, with blocking between and a twist-strap tie (detail 6)
+//   - column base, beam and wall details redrawn at large scale with drafting helpers (grain, break lines, fasteners)
+//   - two engineer's standard details redrawn as extra views (diaphragm nailing, H2.5AZ tie)
+//   - a site plan sheet type ("site") and a field sheet laid out for the extra views
+//   - slope and clear-height callouts tied to the engineer's answers
 // Everything is drawn from PROJECT.geometry, in inches. x runs along the house (door end at left),
 // y runs away from the house, z is up from the top of the slab.
 // This file is also the worked example for writing a new job type: see JOB at the bottom.
 'use strict';
 
-// The kit's isometric is a mirror image (its x axis runs to the right). Corrected for this job so the picture matches the
-// plan: seen from the yard, the door end and the sliding door are on the right, the window on the left.
+// Seen from the yard, the door end and the sliding door are on the right, the window on the left, as on the plan.
+// The kit's Iso.p has had this same formula since the mirrored picture was fixed, so this line now repeats the kit.
 Iso.prototype.p = function (x, y, z) { return [(y - x) * 0.8660254, (x + y) * 0.5 - z]; };
 
 function derive(P) {

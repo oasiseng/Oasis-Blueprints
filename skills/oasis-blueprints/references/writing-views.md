@@ -161,6 +161,18 @@ room; shorten a member stub in a detail (use a break line); change `planHeight`;
 Then look at the preview PNGs for what the audit cannot see: overlapping notes, a leader crossing a
 dimension, text on top of linework, a label pointing at nothing.
 
+## Job-specific drawing code
+
+Keep job-specific drawing code beside the project file, and keep it small:
+
+- A job keeps its own drawing file only for what is particular to that job.
+- When the same change is needed on a second job, it moves into the kit view (`assets/views/`), with a
+  project-file option if it is not always wanted, and both jobs drop their copy of it.
+- A job-local file starts with a short comment listing what it changes from the kit view, so the next
+  person can see what is a candidate to move.
+
+Otherwise every job carries its own copy of a view, the copies drift apart and the kit never improves.
+
 ## Checklist
 
 - [ ] `const JOB` defined; every `draw` uses the `den` argument and a unique View id.

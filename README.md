@@ -9,6 +9,13 @@ with your own company and logo in the title block.
 
 ![Field sheet of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-field.png)
 
+## Start here
+
+<!-- Try it in the browser: https://oasisengineering.com/blueprints/try/ (add this line once the page is confirmed live) -->
+- **Install it** as a Claude plugin or as a skill in your assistant: see [Use it](#use-it).
+- **Build a set by hand** with Python and nothing else: see [By hand](#use-it).
+- **See what it makes** first: the finished sets under [Examples](#examples).
+
 ## Find your way around
 
 | You want | Go to |
@@ -42,16 +49,26 @@ licensed engineer closes the open items and seals it.
 
 Open the live sets in a browser. The project files that produced them are in `examples/sheet-sets/`.
 
+`examples/` holds the showcase sets. `skills/oasis-blueprints/assets/samples/` holds the minimal samples
+bundled with the skill, which the tests also use; they are not the same sets. To add an example, see
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
 - **Sunroom repair** is a finished set, released for construction, with three sheets: a cover (scope,
   design criteria, property record and general notes), a site plan, and a framing sheet with the plan,
   section and redrawn details. Its own drawing code, `sunroom.js`, sits beside its project file. Names,
   address, permit numbers and the lot are placeholders.
+- **Site plan** is a two-sheet owner submittal for a detached accessory building: a cover with the scope,
+  project information, site notes and general notes, and one sheet with the site plan drawn from a survey,
+  an enlarged plan with the driveway and proposed grades, a side-yard section, a typical swale section, a
+  stormwater check and the building footprint. Its drawing code, `siteplan.js`, sits beside its project
+  file. The lot, streets, names and numbers are placeholders.
 - **Freestanding deck** is a draft. It is the example that shows open items in red: the values the
   engineer still owes, counted in the title block and blocking the set from being issued.
 
 | Example | Job type | Open it |
 |---|---|---|
 | Sunroom repair | `sunroom` (existing + new, imperial), 3 sheets, finished | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
+| Site plan | `siteplan` (survey extract + one new building, decimal feet), 2 sheets, draft for owner review | [`project.json`](examples/sheet-sets/site-plan/project.json) · [`siteplan.js`](examples/sheet-sets/site-plan/siteplan.js) · [cover](examples/sheet-sets/site-plan/preview-cover.png) · [site plan sheet](examples/sheet-sets/site-plan/preview-site.png) |
 | Detail library | `library` (sheets of standard details only), 12 sheets | [`project.json`](examples/sheet-sets/detail-library/project.json) · [sheet pictures](library/details/typical/sheets/) |
 | Freestanding deck | `deck` (all new, inches or millimeters), draft with open items | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
 
@@ -59,41 +76,14 @@ Open the live sets in a browser. The project files that produced them are in `ex
 
 ![Site plan of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-site.png)
 
-## Detail library
-
-Standard construction details (slabs, footings, masonry walls, wood framing, roof framing) converted from
-CAD into data, so the kit draws them on a sheet at true scale with the same pens and fonts as the rest of
-the set. Each detail is one JSON file with an 8-character id. A collection is a folder under
-`library/details/` with its own `index.json`; the first is `typical`, with 72 details. A project lists the
-ids it needs on a sheet of type `details`.
-
-**A library detail is the engineer's drawing, not the drafter's.** It goes on a set only when the engineer
-of record says it applies, and nothing inside it (sizes, notes) is edited. The details in `typical` were
-converted by machine and are marked "checked by the engineer: not yet" in its index until each has been
-compared with its source.
-
-![First sheet of the typical details](library/details/typical/sheets/sheet-01.png)
-
-The full list, with every sheet, is in [`library/details/README.md`](library/details/README.md).
-
-## Drawing map
-
-What a standard set contains, by project type: the sheets in their usual order, the details and the note
-blocks, each with how often it appears. It is counted from 30 residential permit sets, with names, addresses
-and firms removed. Every type has a page for people and the same content as data for the skill.
-
-![The usual set for a one-story wood-framed house, sheet by sheet](library/drawing-map/types/new-sfr-1-story__wood.png)
-
-**The map counts what past sets contained. It does not say what a new job requires.** Most types rest on one
-to three sets so far and are marked thin. Start at [every type](library/drawing-map/types/README.md);
-[Libraries](library/README.md) shows how a project type leads to sheets and details.
+![Site plan sheet of the site plan example](examples/sheet-sets/site-plan/preview-site.png)
 
 ## Use it
 
 - **As a Claude plugin.** This repository is the plugin: `.claude-plugin/plugin.json` plus the skill in
   `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
-- **As a skill.** Download the skill zip from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/)
-  and upload it where your assistant manages skills. The same folder loads in other assistants that
+- **As a skill.** Download `oasis-blueprints.zip` from the [latest release](https://github.com/oasiseng/Oasis-Blueprints/releases/latest)
+  or from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/), and upload it where your assistant manages skills. The same folder loads in other assistants that
   support Agent Skills, including ChatGPT.
 - **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
   (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
@@ -102,7 +92,7 @@ to three sets so far and are marked thin. Start at [every type](library/drawing-
 
   ```bash
   cd skills/oasis-blueprints
-  python scripts/build.py assets/examples/deck/project.json deck.html
+  python scripts/build.py assets/samples/deck/project.json deck.html
   python scripts/print.py deck.html deck.pdf --png preview-     # optional: needs Playwright + Chromium
   ```
 
@@ -122,6 +112,38 @@ python -m unittest discover -s tests -v
 The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
 issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
 They validate drafting behavior, not structural adequacy or engineer approval.
+
+## Detail library
+
+Standard construction details (slabs, footings, masonry walls, wood framing, roof framing) converted from
+CAD into data, so the kit draws them on a sheet at true scale with the same pens and fonts as the rest of
+the set. Each detail is one JSON file with an 8-character id. A collection is a folder under
+`library/details/` with its own `index.json`: `typical`, with 72 details, and `site`, with the two that came
+out of the site plan example (a typical swale section and the site plan general notes). A project lists the
+ids it needs on a sheet of type `details`.
+
+**A library detail is the engineer's drawing, not the drafter's.** It goes on a set only when the engineer
+of record says it applies, and nothing inside it (sizes, notes) is edited. The details in `typical` were
+converted by machine and are marked "checked by the engineer: not yet" in its index until each has been
+compared with its source. The two in `site` were redrawn from a finished set, with the street and survey
+names taken out, and carry the same "not yet" mark in [`site/index.json`](library/details/site/index.json)
+([sheet picture](library/details/site/sheets/sheet-01.png)).
+
+![First sheet of the typical details](library/details/typical/sheets/sheet-01.png)
+
+The full list, with every sheet, is in [`library/details/README.md`](library/details/README.md).
+
+## Drawing map
+
+What a standard set contains, by project type: the sheets in their usual order, the details and the note
+blocks, each with how often it appears. It is counted from 30 residential permit sets, with names, addresses
+and firms removed. Every type has a page for people and the same content as data for the skill.
+
+![The usual set for a one-story wood-framed house, sheet by sheet](library/drawing-map/types/new-sfr-1-story__wood.png)
+
+**The map counts what past sets contained. It does not say what a new job requires.** Most types rest on one
+to three sets so far and are marked thin. Start at [every type](library/drawing-map/types/README.md);
+[Libraries](library/README.md) shows how a project type leads to sheets and details.
 
 ## What the plugin runs, sends and fetches
 
@@ -150,17 +172,19 @@ it. Each built HTML also has a source note in its head and one line at the foot 
 that prints, appears in the PDF or makes a request. Drawings made with the kit belong to whoever prepared
 them.
 
+To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md). Changes by version are in
+[CHANGELOG.md](CHANGELOG.md).
+
 ## Repository layout
 
-- `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, examples
-- `examples/sheet-sets/`: the example jobs (project file, previews, and for the sunroom its own drawing code and
-  cover figures); the built sets are linked above
+- `skills/oasis-blueprints/`: the drawing skill: workflow, drawing kit, job types, fonts, and the minimal
+  samples in `assets/samples/`
+- `examples/sheet-sets/`: the showcase sets (project file, previews, and for the sunroom and the site plan their own
+  drawing code); the built sets are linked above
 - `library/details/`: the detail library, one folder per collection
 - `library/drawing-map/`: the drawing map and the tool that builds it
 - `library/type-map.json`: how job types, project types, sheet kinds and detail categories line up
-- `tests/`: drafting regression tests
+- `tests/`: drafting regression tests and the check that no real job data is in the repository
+- `.github/workflows/`: runs the tests on every pull request, and builds the skill zip for a release
+- `CONTRIBUTING.md`, `CHANGELOG.md`: how to add an example, and what changed in each version
 - `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
-
-## Open source intent
-
-This repository is designed as a shared public baseline for teams and autonomous systems. You can fork it, extend it, and propose upstream improvements through a pull request. See `LICENSE`.

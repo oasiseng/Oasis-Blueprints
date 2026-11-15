@@ -1,0 +1,1349 @@
+{
+ "schema": "oasis-blueprints/0.2",
+ "jobType": "siteplan",
+ "status": "draft",
+ "firm": {
+  "name": "Your Company",
+  "wordmark": "Your Company",
+  "lines": [
+   "Street address",
+   "City, State ZIP",
+   "License no.",
+   "Phone",
+   "website"
+  ]
+ },
+ "project": {
+  "number": "EX-002",
+  "title": "Accessory Metal Building",
+  "subtitle": "Site plan for a new 20' × 30' detached metal garage with a 12' lean-to",
+  "address": "123 Example St",
+  "locality": "Anytown, FL 00000",
+  "permit": "PERMIT-000000",
+  "relatedPermit": "",
+  "use": "Example County · Zoning: residential · 0.34 acre corner lot at Example Street and Sample Avenue · Owner of record: Example Owner."
+ },
+ "people": {
+  "drawnBy": "Drafter",
+  "checkedBy": "Engineer"
+ },
+ "issue": {
+  "date": "2026-11-15",
+  "revisions": []
+ },
+ "geometry": {
+  "units": "in",
+  "source": "Lot, existing features and elevations from the owner's topographic survey. Building size from the owner's building sketch (20x30x12). Placement, driveway and swale as directed by the engineer. Example data: the lot is a placeholder, not a real parcel.",
+  "survey": {
+   "boundary": [
+    [
+     0,
+     136
+    ],
+    [
+     110,
+     136
+    ],
+    [
+     110,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "lines": {
+    "X-EP": [
+     [
+      -37.67,
+      -46.79,
+      -39.26,
+      189.45
+     ],
+     [
+      12.94,
+      171.32,
+      54.8,
+      171.01
+     ],
+     [
+      -21.37,
+      -46.75,
+      -21.66,
+      121.19
+     ],
+     [
+      13.48,
+      156.25,
+      54.06,
+      156.09
+     ],
+     [
+      58.08,
+      156.08,
+      121.9,
+      155.83
+     ],
+     [
+      58.83,
+      170.98,
+      123.44,
+      170.51
+     ],
+     [
+      128.04,
+      170.47,
+      135.15,
+      170.42
+     ],
+     [
+      125.71,
+      155.82,
+      135.19,
+      155.78
+     ]
+    ],
+    "X-OHW": [
+     [
+      1.61,
+      181.86,
+      54.12,
+      129.81
+     ],
+     [
+      0.92,
+      179.63,
+      1.22,
+      -22.03
+     ],
+     [
+      1.23,
+      -28.09,
+      1.27,
+      -46.7
+     ],
+     [
+      0.86,
+      204.3,
+      0.9,
+      185.69
+     ],
+     [
+      2.41,
+      182.66,
+      135.12,
+      182.96
+     ],
+     [
+      57.73,
+      126.24,
+      72.78,
+      111.31
+     ]
+    ],
+    "X-WBF": [
+     [
+      -9.9,
+      7.48,
+      -9.98,
+      32.57
+     ],
+     [
+      -9.9,
+      7.48,
+      -0.25,
+      2.79
+     ],
+     [
+      22.69,
+      66.01,
+      -10.08,
+      66.92
+     ],
+     [
+      57.15,
+      115.49,
+      56.73,
+      146.28
+     ],
+     [
+      56.73,
+      146.3,
+      96.76,
+      145.41
+     ],
+     [
+      109.18,
+      0.76,
+      109.69,
+      145.01
+     ],
+     [
+      -0.25,
+      2.79,
+      3.83,
+      -1.83
+     ],
+     [
+      -9.98,
+      32.57,
+      -10.08,
+      66.92
+     ],
+     [
+      96.76,
+      145.41,
+      109.4,
+      145.13
+     ]
+    ],
+    "X-CLF": [
+     [
+      4.24,
+      -2.76,
+      3.73,
+      -21.96
+     ],
+     [
+      31.21,
+      -1.75,
+      146.22,
+      -0.89
+     ],
+     [
+      31.21,
+      -1.75,
+      4.24,
+      -2.76
+     ],
+     [
+      3.73,
+      -21.96,
+      3.64,
+      -41.16
+     ]
+    ],
+    "X-DECK": [
+     [
+      27.61,
+      84.44,
+      32.94,
+      80.73
+     ],
+     [
+      34.15,
+      93.82,
+      27.61,
+      84.44
+     ],
+     [
+      32.81,
+      94.75,
+      39.47,
+      90.11
+     ],
+     [
+      37.75,
+      101.85,
+      32.81,
+      94.75
+     ],
+     [
+      37.75,
+      101.85,
+      44.51,
+      97.34
+     ],
+     [
+      41.88,
+      104.93,
+      39.1,
+      100.94
+     ],
+     [
+      38.72,
+      107.14,
+      41.88,
+      104.93
+     ],
+     [
+      41.05,
+      110.49,
+      38.72,
+      107.14
+     ],
+     [
+      44.22,
+      108.28,
+      41.05,
+      110.49
+     ],
+     [
+      44.77,
+      109.07,
+      44.22,
+      108.28
+     ],
+     [
+      50.09,
+      105.36,
+      44.77,
+      109.07
+     ]
+    ],
+    "RW": [
+     [
+      110,
+      136,
+      134.82,
+      136
+     ],
+     [
+      0,
+      0,
+      0,
+      -46.6
+     ]
+    ],
+    "5S": [
+     [
+      110,
+      0,
+      145.59,
+      0
+     ]
+    ]
+   },
+   "arcs": [
+    [
+     13.34,
+     121.25,
+     35,
+     89.78,
+     180.1
+    ],
+    [
+     13.2,
+     206.32,
+     35,
+     201.51,
+     269.58
+    ]
+   ],
+   "canopy": [
+    [
+     48.57,
+     1.66,
+     -0.0746
+    ],
+    [
+     59.12,
+     12.66,
+     -0.1122
+    ],
+    [
+     68.37,
+     16.95,
+     -0.0225
+    ],
+    [
+     78.29,
+     18.61,
+     -0.0223
+    ],
+    [
+     88.4,
+     19.38,
+     -0.0428
+    ],
+    [
+     96.9,
+     18.92,
+     -0.0322
+    ],
+    [
+     107.96,
+     16.64,
+     0
+    ]
+   ],
+   "poles": [
+    [
+     0.83,
+     182.63
+    ],
+    [
+     73.51,
+     110.59
+    ]
+   ],
+   "trees": [
+    [
+     120.5,
+     -2.7
+    ],
+    [
+     110.95,
+     -20.77
+    ]
+   ],
+   "spots": [
+    {
+     "x": -31.16,
+     "y": 88.32,
+     "el": "25.62"
+    },
+    {
+     "x": -30.38,
+     "y": 175.99,
+     "el": "24.69"
+    },
+    {
+     "x": -37.62,
+     "y": -22.23,
+     "el": "27.03"
+    },
+    {
+     "x": -39.04,
+     "y": 86.43,
+     "el": "25.42"
+    },
+    {
+     "x": -38.92,
+     "y": 176.27,
+     "el": "24.75"
+    },
+    {
+     "x": 19.45,
+     "y": 61.38,
+     "el": "25.3"
+    },
+    {
+     "x": 31.01,
+     "y": 54.54,
+     "el": "25.6"
+    },
+    {
+     "x": 46.91,
+     "y": 52.75,
+     "el": "25.5"
+    },
+    {
+     "x": 57.36,
+     "y": 65.83,
+     "el": "25.1"
+    },
+    {
+     "x": -21.39,
+     "y": -22.85,
+     "el": "26.89"
+    },
+    {
+     "x": -21.71,
+     "y": 88.74,
+     "el": "25.32"
+    },
+    {
+     "x": -20.99,
+     "y": 127.56,
+     "el": "24.73"
+    },
+    {
+     "x": 4.33,
+     "y": 155.9,
+     "el": "23.89"
+    },
+    {
+     "x": 5.87,
+     "y": 172.09,
+     "el": "23.53"
+    },
+    {
+     "x": 55.13,
+     "y": 155.9,
+     "el": "23.12"
+    },
+    {
+     "x": 55.85,
+     "y": 170.64,
+     "el": "22.88"
+    },
+    {
+     "x": 122.74,
+     "y": 155.54,
+     "el": "22.91"
+    },
+    {
+     "x": 124.02,
+     "y": 170.73,
+     "el": "22.81"
+    },
+    {
+     "x": -21.61,
+     "y": 175.36,
+     "el": "24.36"
+    },
+    {
+     "x": 91.52,
+     "y": 36.84,
+     "el": "24.8"
+    },
+    {
+     "x": 6.15,
+     "y": 56.0,
+     "el": "25.4"
+    },
+    {
+     "x": -10.04,
+     "y": 32.55,
+     "el": "26.0"
+    },
+    {
+     "x": 13.89,
+     "y": 11.07,
+     "el": "26.3"
+    },
+    {
+     "x": 57.84,
+     "y": 144.62,
+     "el": "22.8"
+    },
+    {
+     "x": 111.29,
+     "y": 124.35,
+     "el": "23.2"
+    },
+    {
+     "x": 111.92,
+     "y": 104.9,
+     "el": "23.6"
+    },
+    {
+     "x": 111.43,
+     "y": 64.87,
+     "el": "24.4"
+    },
+    {
+     "x": 114.48,
+     "y": 13.71,
+     "el": "25.3"
+    },
+    {
+     "x": 108.91,
+     "y": -7.33,
+     "el": "25.7"
+    },
+    {
+     "x": 125.8,
+     "y": 180.68,
+     "el": "21.8"
+    },
+    {
+     "x": 5.36,
+     "y": -5.4,
+     "el": "26.3"
+    },
+    {
+     "x": 9.51,
+     "y": -23.68,
+     "el": "26.7"
+    },
+    {
+     "x": 92.34,
+     "y": -4.63,
+     "el": "25.3"
+    },
+    {
+     "x": 60.0,
+     "y": 5.42,
+     "el": "25.8"
+    },
+    {
+     "x": 32.62,
+     "y": -10.59,
+     "el": "25.9"
+    },
+    {
+     "x": 91.58,
+     "y": 15.73,
+     "el": "25.2"
+    },
+    {
+     "x": 70.36,
+     "y": 13.29,
+     "el": "25.6"
+    },
+    {
+     "x": 41.64,
+     "y": 6.59,
+     "el": "26.0"
+    },
+    {
+     "x": -9.82,
+     "y": 7.48,
+     "el": "26.2"
+    },
+    {
+     "x": 109.5,
+     "y": 146.3,
+     "el": "22.6"
+    },
+    {
+     "x": 71.91,
+     "y": 40.91,
+     "el": "25.3"
+    },
+    {
+     "x": 76.1,
+     "y": 57.76,
+     "el": "24.9"
+    },
+    {
+     "x": 29.6,
+     "y": 106.22,
+     "el": "24.5"
+    },
+    {
+     "x": 21.83,
+     "y": 87.42,
+     "el": "24.8"
+    },
+    {
+     "x": -10.29,
+     "y": -24.01,
+     "el": "26.4"
+    },
+    {
+     "x": -9.99,
+     "y": 89.4,
+     "el": "25.0"
+    },
+    {
+     "x": 4.18,
+     "y": 118.78,
+     "el": "24.4"
+    },
+    {
+     "x": 6.6,
+     "y": 180.07,
+     "el": "23.2"
+    },
+    {
+     "x": 1.89,
+     "y": 146.27,
+     "el": "23.7"
+    },
+    {
+     "x": 56.96,
+     "y": 179.83,
+     "el": "22.3"
+    },
+    {
+     "x": 117.67,
+     "y": 125.48,
+     "el": "23.1"
+    },
+    {
+     "x": 121.34,
+     "y": 146.12,
+     "el": "22.7"
+    },
+    {
+     "x": 97.81,
+     "y": 69.7,
+     "el": "24.3"
+    },
+    {
+     "x": 87.57,
+     "y": 56.05,
+     "el": "24.8"
+    },
+    {
+     "x": 79.58,
+     "y": 36.84,
+     "el": "25.4"
+    },
+    {
+     "x": 53.35,
+     "y": -12.42,
+     "el": "25.9"
+    },
+    {
+     "x": 41.9,
+     "y": 24.02,
+     "el": "25.8"
+    },
+    {
+     "x": 19.63,
+     "y": 33.06,
+     "el": "25.6"
+    },
+    {
+     "x": 110.95,
+     "y": -20.77,
+     "el": "25.3"
+    },
+    {
+     "x": 120.5,
+     "y": -2.7,
+     "el": "25.1"
+    },
+    {
+     "x": 62.02,
+     "y": 41.85,
+     "el": "25.50"
+    },
+    {
+     "x": 67.04,
+     "y": 89.97,
+     "el": "25.10"
+    },
+    {
+     "x": -29.75,
+     "y": -22.46,
+     "el": "27.09"
+    },
+    {
+     "x": 5.5,
+     "y": 163.51,
+     "el": "23.72"
+    },
+    {
+     "x": 55.36,
+     "y": 162.97,
+     "el": "23.09"
+    },
+    {
+     "x": 123.38,
+     "y": 162.76,
+     "el": "22.98"
+    }
+   ],
+   "house": [
+    [
+     68.47,
+     107.6
+    ],
+    [
+     57.15,
+     115.49
+    ],
+    [
+     22.69,
+     66.01
+    ],
+    [
+     34.01,
+     58.12
+    ]
+   ],
+   "porch": [
+    [
+     [
+      44.97,
+      73.85
+     ],
+     [
+      52.35,
+      68.71
+     ],
+     [
+      43.21,
+      55.58
+     ],
+     [
+      35.83,
+      60.72
+     ]
+    ],
+    [
+     [
+      35.83,
+      60.72
+     ],
+     [
+      43.21,
+      55.58
+     ],
+     [
+      41.4,
+      52.98
+     ],
+     [
+      34.01,
+      58.12
+     ]
+    ]
+   ],
+   "concrete": [
+    [
+     [
+      44.97,
+      73.85
+     ],
+     [
+      52.35,
+      68.71
+     ],
+     [
+      67.17,
+      89.98
+     ],
+     [
+      59.78,
+      95.12
+     ]
+    ],
+    [
+     [
+      53.37,
+      51.41
+     ],
+     [
+      62.26,
+      51.1
+     ],
+     [
+      62.02,
+      41.85
+     ],
+     [
+      53.14,
+      42.16
+     ]
+    ],
+    [
+     [
+      63.03,
+      93.86
+     ],
+     [
+      66.46,
+      98.78
+     ],
+     [
+      64.0,
+      100.5
+     ],
+     [
+      60.57,
+      95.57
+     ]
+    ]
+   ],
+   "shed": [
+    [
+     97.45,
+     39.43
+    ],
+    [
+     97.43,
+     46.43
+    ],
+    [
+     104.43,
+     46.44
+    ],
+    [
+     104.45,
+     39.44
+    ]
+   ],
+   "monuments": [
+    {
+     "x": 0,
+     "y": 136,
+     "label": "FIP 1\"",
+     "dx": -2,
+     "dy": 2.5
+    },
+    {
+     "x": 110,
+     "y": 136,
+     "label": "FCIR 5/8\"",
+     "dx": 2,
+     "dy": 2.2
+    },
+    {
+     "x": 0,
+     "y": 0,
+     "label": "FIR 1/2\"",
+     "dx": -2,
+     "dy": -4
+    },
+    {
+     "x": 110,
+     "y": 0,
+     "label": "",
+     "dx": 0,
+     "dy": 0
+    }
+   ],
+   "lotLines": [
+    {
+     "text": "110.0'",
+     "x": 36,
+     "y": 138.6
+    },
+    {
+     "text": "110.0'",
+     "x": 52,
+     "y": -6.2
+    },
+    {
+     "text": "136.0'",
+     "x": -3.2,
+     "y": 104,
+     "rot": 90
+    },
+    {
+     "text": "136.0'",
+     "x": 115.4,
+     "y": 88,
+     "rot": 90
+    }
+   ],
+   "ties": [
+    {
+     "x1": 22.68,
+     "y1": 68.06,
+     "x2": 0,
+     "y2": 68.06,
+     "text": "22.7'",
+     "tx": 10,
+     "ty": 69.2
+    },
+    {
+     "x1": 55.21,
+     "y1": 115.49,
+     "x2": 55.21,
+     "y2": 136,
+     "text": "20.5'",
+     "tx": 53.6,
+     "ty": 127,
+     "rot": 90
+    },
+    {
+     "x1": 68.47,
+     "y1": 107.6,
+     "x2": 110,
+     "y2": 107.6,
+     "text": "41.5'",
+     "tx": 79.5,
+     "ty": 108.8
+    },
+    {
+     "x1": 34.01,
+     "y1": 58.12,
+     "x2": 34.01,
+     "y2": 0,
+     "text": "58.1'",
+     "tx": 32.4,
+     "ty": 40,
+     "rot": 90
+    }
+   ],
+   "houseFloor": "27.1"
+  },
+  "building": {
+   "ew": 29,
+   "ns": 32,
+   "leanNs": 12,
+   "nominal": "20' × 30' × 12' + 12' LEAN-TO",
+   "eastSetback": 10,
+   "northSetback": 50,
+   "ffe": 25.0,
+   "stepToGrade": 0.5,
+   "eave": 12,
+   "peak": 14.5,
+   "leanEave": 9.5,
+   "doors": [
+    [
+     2.92,
+     12.92
+    ],
+    [
+     15.92,
+     25.92
+    ]
+   ],
+   "frameouts": [
+    [
+     1.5,
+     11.5
+    ],
+    [
+     15.08,
+     25.08
+    ]
+   ],
+   "manDoor": [
+    8.5,
+    11.5
+   ],
+   "window": [
+    12,
+    14
+   ]
+  },
+  "section": {
+   "existGrade": 24.3,
+   "existGradeAtLine": 24.4,
+   "fenceX": 109.45
+  },
+  "swale": {
+   "width": 5,
+   "sideSlope": 4,
+   "southExt": 6,
+   "rainfallIn": 1,
+   "existing": [
+    [
+     13.71,
+     25.3
+    ],
+    [
+     64.87,
+     24.4
+    ],
+    [
+     104.9,
+     23.6
+    ],
+    [
+     124.35,
+     23.2
+    ],
+    [
+     146.3,
+     22.6
+    ]
+   ]
+  },
+  "driveway": {
+   "width": 10,
+   "finalWidth": 24,
+   "pastPole": 4,
+   "gradeAtLine": 23.0
+  },
+  "streets": {
+   "north": "Sample Avenue",
+   "west": "Example Street"
+  }
+ },
+ "summary": {
+  "headline": "A new 29 × 32 garage, 10 ft off the east line and 50 ft off the north line.",
+  "text": "New detached metal garage (nominal 20 × 30 with a 12 ft lean-to) facing Sample Avenue, with a gravel driveway. Floor at elevation 25.0. A swale along the east side holds 1 in of rain off the new roof and drains to the front. The house, shed and fences stay.",
+  "howToRead": "Start with the picture, then the site plan. The enlarged plan gives the stake-out dimensions, the driveway and the proposed grades. Grey is what the survey found, blue is new work, red is still owed. This set is the site plan: the metal building and its foundation are engineered on separate plans, by others.",
+  "sequenceNote": "The sequence is for orientation only. Means, methods and site safety are the contractor's responsibility. The metal building structure and its foundation are engineered on separate plans, by others, and are not part of this sheet.",
+  "coverTop": 16.3,
+  "generalNotesColumns": 2,
+  "generalNotesSize": 12
+ },
+ "facts": [
+  {
+   "k": "Parcel",
+   "tag": "",
+   "v": "00-00-00-0000-00000-0000",
+   "s": "123 Example St · Example County · Zoning: residential"
+  },
+  {
+   "k": "Lot",
+   "tag": "E",
+   "v": "110.0' × 136.0'",
+   "s": "0.34 acre. Corner lot"
+  },
+  {
+   "k": "Building",
+   "tag": "N",
+   "v": "29' × 32'",
+   "s": "928 sq ft: 20 ft enclosed + 12 ft lean-to"
+  },
+  {
+   "k": "Setbacks shown",
+   "tag": "N",
+   "v": "50' north · 10' east",
+   "s": "Required: 10 ft front, side and rear"
+  },
+  {
+   "k": "Finished floor",
+   "tag": "N",
+   "v": "EL. 25.0",
+   "s": "NAVD 88. Road crown about 23.0"
+  },
+  {
+   "k": "Stormwater",
+   "tag": "N",
+   "v": "137.5 ≥ 77.3 cu ft",
+   "s": "Swale holds 1 in over the footprint. View {d2}"
+  }
+ ],
+ "steps": [
+  {
+   "title": "Find the lot lines",
+   "text": "Locate the found corners shown on the survey (iron pipe at the north-west, capped rod at the north-east, iron rod at the south-west) and string the north and east lines. Do not measure from the fences: the east fence is inside the line and the north fence is outside it.",
+   "ref": "View {plan}"
+  },
+  {
+   "title": "Stake the building",
+   "text": "Set the north edge of the lean-to 50.0 ft south of the north line and the east wall 10.0 ft west of the east line. 29 ft east-west by 32 ft north-south: 20 ft enclosed, then the 12 ft lean-to toward Sample Avenue.",
+   "hold": "A utility pole and overhead wire are 24.6 ft ± in front of the lean-to. Contractor is to confirm access and protect existing utilities.",
+   "ref": "View {side}"
+  },
+  {
+   "title": "Set the floor",
+   "text": "Finished floor at elevation 25.0 (NAVD 88). Finished grade at the walls about 6 in below the floor, sloping away. Slab, perimeter footing and anchors are by others, on the building plans.",
+   "ref": "View {section}"
+  },
+  {
+   "title": "Shape the east swale",
+   "text": "5 ft wide swale with 4:1 sides (7½ in deep) in the 10 ft side yard, 88 ft long, from 6 ft south of the building to the north line, falling north toward Sample Avenue. Match existing grade at both edges. Do not send water onto the neighbour's lot.",
+   "ref": "Views {section}, {d1} and {d2}"
+  },
+  {
+   "title": "Build the gravel driveway",
+   "text": "10 ft wide, from Sample Avenue, in line with the east opening. Past the utility pole it widens at 45° to 24 ft so both openings can be driven into. Slope it from the slab down to the street and match existing grade at the north line.",
+   "hold": "Locate underground utilities before digging.",
+   "ref": "View {side}"
+  }
+ ],
+ "scope": [
+  {
+   "kind": "n",
+   "item": "Accessory metal building",
+   "text": "29 ft × 32 ft overall (nominal 20 × 30 × 12): 20 ft enclosed garage plus a 12 ft open lean-to, two 10 × 10 roll-up doors behind two framed openings facing Sample Avenue. Located by setbacks on sheet C1.0."
+  },
+  {
+   "kind": "n",
+   "item": "Finished floor",
+   "text": "Elevation 25.0 NAVD 88."
+  },
+  {
+   "kind": "n",
+   "item": "East side swale",
+   "text": "5 ft wide, 4:1 side slopes, 88 ft long, draining north. Holds 1 in of rainfall over the building footprint: 137.5 cu ft provided, 77.3 cu ft required."
+  },
+  {
+   "kind": "n",
+   "item": "Gravel driveway",
+   "text": "10 ft wide, from Sample Avenue, widening to 24 ft at the lean-to after the utility pole."
+  },
+  {
+   "kind": "e",
+   "item": "Residence, shed, fences, pole",
+   "text": "Existing 1-story residence (floor elev. 27.1), 7 × 7 shed, fences and utility pole stay as surveyed. The contractor is to confirm access and protect existing utilities."
+  },
+  {
+   "kind": "o",
+   "tag": "Separate plans",
+   "item": "Metal structure and foundation engineering",
+   "text": "Provided on separate plans under the building permit, by the building manufacturer and its engineer. Referenced here, not modified or certified."
+  },
+  {
+   "kind": "o",
+   "tag": "Not in this set",
+   "item": "Boundary and topographic survey",
+   "text": "By the surveyor. This plan is drawn from the survey and is not a survey."
+  }
+ ],
+ "notes": [
+  {
+   "title": "Basis of this plan",
+   "start": 1,
+   "items": [
+    "The survey used is the topographic survey provided by the owner, prepared by a licensed surveyor. Boundary information is as stated on that survey.",
+    "Elevations refer to the North American Vertical Datum of 1988 (NAVD 88), as stated on the survey.",
+    "Legal description: see the survey.",
+    "**Site plan note.** This sheet is not a legal survey. Proposed structures are positioned as shown based on survey provided by others. Aerial layout may differ in field based on topography, soil conditions, existing trees or any number of unforeseen conditions. In the event that the home orientation is altered, notify the engineer to review prior to any construction commencing. Contractor to field verify all dimensions.",
+    "**Separate plans.** Foundation and metal structure engineering are on separate plans under the building permit, by the building manufacturer and its engineer. Slab and footing shown here are schematic."
+   ]
+  },
+  {
+   "title": "Site",
+   "start": 6,
+   "items": [
+    "**Flood zone.** Zone X, as stated on the survey. No flood zone boundary crosses the lot on the survey.",
+    "**Easements.** None are shown on the survey.",
+    "**Wetlands and waterfront.** None are shown on the survey provided.",
+    "**Required setbacks.** 10 ft front, 10 ft side, 10 ft rear. Shown: 50.0 ft to the north line (Sample Avenue), 71.0 ft ± to the west line (Example Street), 10.0 ft to the east line and 54.0 ft ± to the south line.",
+    "**Utilities.** No underground utilities were located by the survey. A utility pole and overhead wire are 24.6 ft ± in front of the lean-to: the contractor is to confirm access and protect existing utilities. [HOLD]",
+    "**Lot coverage and height.** Maximum 50% and 35 ft. Coverage shown is about 12.9% ±: residence 840, porch 108, shed 49 and new building 928 sq ft on a 14,960 sq ft lot."
+   ]
+  },
+  {
+   "title": "New building",
+   "start": 12,
+   "items": [
+    "**Location.** North edge of the lean-to 50.0 ft from the north property line (Sample Avenue right-of-way). East wall 10.0 ft from the east property line.",
+    "**Separation.** 14.4 ft ± from the north-west corner of the building to the east wall of the 1-story residence, 5.4 ft ± to the existing concrete walk, and 7.6 ft ± from the south wall to the existing shed.",
+    "**Finished floor and grades.** Floor at elevation 25.0 NAVD 88. Surveyed ground at the building is about 24.3 to 24.9. Finished grade at the walls 24.5 ±, about 6 in below the floor, sloped away from the building. Crown of Sample Avenue in front of the lot is 22.98 to 23.09.",
+    "**Drainage.** Existing ground falls from south to north toward Sample Avenue and the new grades keep that direction. The east swale is 5 ft wide with 4:1 side slopes, matches existing grade at both edges and falls about 2% to the north. Its volume, 1.56 cu ft per foot × 88.0 ft = 137.5 cu ft, exceeds 1 in of rainfall over the 928 sq ft footprint, 77.3 cu ft. See the stormwater check on sheet C1.0.",
+    "**Lot grading.** Lot grading to maintain its historical flow path preventing the accumulation of water or excessive runoff onto adjacent properties.",
+    "**Access.** New gravel driveway, 10 ft wide, from Sample Avenue in line with the east opening. Past the utility pole it widens at 45° to 24 ft at the lean-to so both openings can be entered. It slopes about 4% from the slab down to the street and matches existing grade at the north line. The existing fence and gate along Sample Avenue stand in the right-of-way: the opening at the driveway and the connection to the pavement are by the contractor, coordinated with the county."
+   ]
+  }
+ ],
+ "criteria": [
+  {
+   "k": "Parcel ID",
+   "v": "00-00-00-0000-00000-0000"
+  },
+  {
+   "k": "Jurisdiction",
+   "v": "Example County"
+  },
+  {
+   "k": "Building permit",
+   "v": "PERMIT-000000"
+  },
+  {
+   "k": "Proposed use",
+   "v": "Accessory / non-habitable building"
+  },
+  {
+   "k": "Zoning",
+   "v": "Residential"
+  },
+  {
+   "k": "Lot area",
+   "v": "14,960 sq ft (0.34 ac)"
+  },
+  {
+   "k": "Existing residence",
+   "v": "840 sq ft, 1-story, with 108 sq ft porch"
+  },
+  {
+   "k": "New building footprint",
+   "v": "928 sq ft (29' × 32')"
+  },
+  {
+   "k": "FEMA flood zone",
+   "v": "X (per survey)"
+  },
+  {
+   "k": "Vertical datum",
+   "v": "NAVD 88"
+  },
+  {
+   "k": "Finished floor, new building",
+   "v": "25.0"
+  },
+  {
+   "k": "Required setbacks, accessory building",
+   "v": "10 ft front · 10 ft side · 10 ft rear"
+  },
+  {
+   "k": "Setbacks shown",
+   "v": "50.0 ft north · 71.0 ft ± west · 10.0 ft east · 54.0 ft ± south"
+  },
+  {
+   "k": "Stormwater volume required",
+   "v": "77.3 cu ft (1 in × 928 sq ft)"
+  },
+  {
+   "k": "Stormwater volume provided",
+   "v": "137.5 cu ft (5 ft swale, 4:1, 88.0 ft long)"
+  },
+  {
+   "k": "Maximum lot coverage / height",
+   "v": "50% / 35 ft"
+  },
+  {
+   "k": "Lot coverage shown",
+   "v": "about 12.9% ± (1,925 of 14,960 sq ft)"
+  }
+ ],
+ "openItems": [
+  {
+   "key": "coverage",
+   "title": "Lot coverage and height limits",
+   "text": "",
+   "who": "Office",
+   "answer": "50% maximum lot coverage, 35 ft maximum height."
+  },
+  {
+   "key": "comments",
+   "title": "Plan review comments",
+   "text": "",
+   "who": "Office",
+   "answer": "Addressed on these sheets: address and parcel, street names, property lines with dimensions, north arrow, existing and proposed structures, setbacks, easements (none), wetlands (none), flood zone X and finished floor elevation."
+  },
+  {
+   "key": "setbacks",
+   "title": "Required zoning setbacks",
+   "text": "",
+   "who": "Office",
+   "answer": "10 ft front, 10 ft side, 10 ft rear."
+  },
+  {
+   "key": "swale",
+   "title": "Typical swale detail",
+   "text": "",
+   "who": "Office",
+   "answer": "5 ft wide triangular section, 4:1 side slopes, match existing grade at both edges."
+  },
+  {
+   "key": "ffe",
+   "title": "Finished floor elevation",
+   "text": "",
+   "who": "Engineer",
+   "answer": "25.0 NAVD 88."
+  },
+  {
+   "key": "pole",
+   "title": "Utility pole in front of the doors",
+   "text": "",
+   "who": "Field verify",
+   "answer": "Contractor is to confirm access and protect existing utilities."
+  },
+  {
+   "key": "driveway",
+   "title": "Driveway",
+   "text": "",
+   "who": "Office",
+   "answer": "10 ft gravel driveway in line with the east opening, widening to 24 ft at the lean-to after the utility pole."
+  },
+  {
+   "key": "easements",
+   "title": "Recorded easements",
+   "text": "",
+   "who": "Office",
+   "answer": "None on the survey."
+  }
+ ],
+ "sheets": [
+  {
+   "no": "C0.0",
+   "type": "cover",
+   "name": "Cover, scope and site notes",
+   "what": "For the office and the plan reviewer: scope, project information, site notes and general notes."
+  },
+  {
+   "no": "C1.0",
+   "type": "field",
+   "name": "Site plan",
+   "what": "Site plan from the survey, enlarged plan with driveway and proposed grades, side-yard section, swale detail, stormwater check and building footprint."
+  }
+ ],
+ "generalNotes": [
+  {
+   "title": "Site plan and permitting",
+   "items": [
+    "THESE PLANS ARE FOR SITE PLAN AND PERMITTING PURPOSES ONLY FOR THE PROPOSED ACCESSORY METAL BUILDING AT THE ADDRESS SHOWN IN THE TITLE BLOCK.",
+    "PROPERTY BOUNDARIES, DIMENSIONS, EASEMENTS, EXISTING STRUCTURES, AND SITE FEATURES ARE BASED ON THE SURVEY REFERENCED ON THESE PLANS, PREPARED BY OTHERS. NO INDEPENDENT BOUNDARY OR TOPOGRAPHIC SURVEY WAS PERFORMED AS PART OF THESE PLANS.",
+    "THE CONTRACTOR SHALL FIELD VERIFY ALL EXISTING CONDITIONS, DIMENSIONS, ELEVATIONS, AND THE PROPOSED BUILDING LOCATION PRIOR TO CONSTRUCTION. ANY DISCREPANCIES SHALL BE REPORTED TO THE DESIGN PROFESSIONAL PRIOR TO PROCEEDING.",
+    "THE PROPOSED STRUCTURE SHALL BE LOCATED IN ACCORDANCE WITH THE SETBACKS AND DIMENSIONS SHOWN ON THIS SITE PLAN. THE CONTRACTOR SHALL VERIFY COMPLIANCE WITH ALL APPLICABLE ZONING REQUIREMENTS AND PERMIT CONDITIONS PRIOR TO CONSTRUCTION.",
+    "NO CONSTRUCTION, FOUNDATION ELEMENTS, OR PERMANENT IMPROVEMENTS SHALL ENCROACH INTO PROPERTY SETBACKS, EASEMENTS, RIGHTS-OF-WAY, OR RESTRICTED AREAS WITHOUT PRIOR APPROVAL FROM THE APPLICABLE AUTHORITY.",
+    "STRUCTURAL DESIGN, SUPERSTRUCTURE PLANS, FOUNDATION DESIGN, ANCHORAGE, AND CONNECTION DETAILS ARE PROVIDED UNDER SEPARATE DOCUMENTS BY OTHERS. THIS SITE PLAN DOES NOT MODIFY OR SUPERSEDE THE APPROVED STRUCTURAL OR FOUNDATION DOCUMENTS.",
+    "FINISHED FLOOR ELEVATIONS, WHERE INDICATED, SHALL BE VERIFIED AGAINST APPLICABLE FLOODPLAIN REQUIREMENTS AND FIELD CONDITIONS PRIOR TO CONSTRUCTION. ELEVATION CERTIFICATION, WHEN REQUIRED, SHALL BE PROVIDED BY A QUALIFIED PROFESSIONAL.",
+    "EXISTING DRAINAGE PATTERNS SHALL BE MAINTAINED TO THE EXTENT PRACTICABLE. PROPOSED IMPROVEMENTS SHALL NOT CREATE ADVERSE DRAINAGE IMPACTS TO ADJACENT PROPERTIES, RIGHTS-OF-WAY, OR EXISTING DRAINAGE FACILITIES. ANY REQUIRED GRADING OR DRAINAGE DESIGN SHALL BE PROVIDED SEPARATELY.",
+    "THE CONTRACTOR SHALL LOCATE AND VERIFY ALL EXISTING ABOVEGROUND AND UNDERGROUND UTILITIES PRIOR TO EXCAVATION OR CONSTRUCTION. CONTACT SUNSHINE 811 PRIOR TO DIGGING AS REQUIRED.",
+    "THE CONTRACTOR SHALL BE RESPONSIBLE FOR OBTAINING ALL REQUIRED PERMITS, COORDINATING INSPECTIONS, MAINTAINING JOBSITE SAFETY, AND COMPLYING WITH APPLICABLE OSHA REQUIREMENTS.",
+    "ANY DAMAGE TO EXISTING STRUCTURES, UTILITIES, PAVEMENT, LANDSCAPING, OR ADJACENT IMPROVEMENTS RESULTING FROM CONSTRUCTION SHALL BE REPAIRED BY THE CONTRACTOR.",
+    "ANY WETLANDS, FLOODPLAIN RESTRICTIONS, CONSERVATION AREAS, OR OTHER ENVIRONMENTALLY SENSITIVE FEATURES AFFECTING THE PROPOSED WORK SHALL BE ADDRESSED IN ACCORDANCE WITH THE REQUIREMENTS OF THE APPLICABLE AUTHORITIES. NO DISTURBANCE OF PROTECTED AREAS IS AUTHORIZED BY THIS SITE PLAN.",
+    "THE CONTRACTOR SHALL NOTIFY THE DESIGN PROFESSIONAL OF ANY CONFLICTS, OMISSIONS, OR DISCREPANCIES BETWEEN THE SITE PLAN, SURVEY, APPROVED BUILDING PLANS, AND ACTUAL FIELD CONDITIONS PRIOR TO PROCEEDING WITH THE AFFECTED WORK.",
+    "AN APPROVED COPY OF THE SITE PLAN AND APPLICABLE PERMIT DOCUMENTS SHALL BE MAINTAINED AT THE PROJECT SITE DURING CONSTRUCTION."
+   ]
+  }
+ ]
+}

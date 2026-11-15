@@ -38,7 +38,7 @@ class BlueprintTests(unittest.TestCase):
         self.page.on("pageerror", lambda error: self.errors.append(str(error)))
 
     def sample(self, name="deck"):
-        return json.loads((SKILL / "assets" / "examples" / name / "project.json").read_text(encoding="utf-8"))
+        return json.loads((SKILL / "assets" / "samples" / name / "project.json").read_text(encoding="utf-8"))
 
     def build(self, project, name="sheet-set"):
         source = self.root / (name + ".json")
@@ -57,7 +57,7 @@ class BlueprintTests(unittest.TestCase):
         self.assertEqual(self.page.evaluate("window.__errors"), [])
 
     def test_examples_export_from_paths_with_spaces_and_url_characters(self):
-        for name in ("deck", "sunroom-repair"):
+        for name in ("deck", "sunroom"):
             with self.subTest(name=name):
                 html = self.build(self.sample(name), "folder # 50%/" + name)
                 self.open(html)
@@ -134,9 +134,28 @@ class BlueprintTests(unittest.TestCase):
         self.assertLess(x, 0)
         self.assertGreater(y, 0)
 
-    def test_public_deck_example_matches_the_bundled_one(self):
+    def test_public_deck_example_matches_the_bundled_sample(self):
+        # assets/samples/deck/project.json is the source; the showcase copy must not drift from it.
         public = SKILL.parents[1] / "examples" / "sheet-sets" / "deck" / "project.json"
-        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "examples" / "deck" / "project.json").read_bytes())
+        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "samples" / "deck" / "project.json").read_bytes())
+
+    def test_sunroom_views_use_the_scale_in_the_project_file(self):
+        project = self.sample("sunroom")
+        self.assertNotIn("scales", project)
+        self.open(self.build(project, "sunroom-default"))
+        dens = "Object.fromEntries([...document.querySelectorAll('svg.sk:not(.iso)')].map(s => [s.id || s.closest('.panel').querySelector('.vn').textContent, +s.dataset.den]))"
+        default = self.page.evaluate(dens)
+        self.assertEqual(default["Roof framing plan"], 24)
+        project["scales"] = {"plan": 32}
+        self.open(self.build(project, "sunroom-scaled"))
+        scaled = self.page.evaluate(dens)
+        self.assertEqual(scaled["Roof framing plan"], 32)
+        self.assertEqual({k: v for k, v in scaled.items() if k != "Roof framing plan"},
+                         {k: v for k, v in default.items() if k != "Roof framing plan"})
+        plan = self.page.locator(".panel", has=self.page.locator(".vn", has_text="Roof framing plan")).first
+        self.assertIn(self.page.evaluate("scaleText(32)"), plan.locator(".vs").inner_text())
+        # the drawing itself is at 1:32, not only its label: the audit compares stated and drawn scale
+        self.assertFalse([line for line in self.page.evaluate("window.__audit") if "scale" in line.lower()])
 
     def test_imperial_and_metric_plan_have_same_physical_scale(self):
         imperial = self.sample()
