@@ -2,6 +2,12 @@
 
 Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for someone using the skill.
 
+## Unreleased
+
+- Optional credit line: `"credit": true` in a project file prints "Drawn with Oasis-Blueprints ·
+  oasisengineering.com/blueprints" in small grey text in the bottom margin of every sheet, outside the border.
+  Off by default. The public example sets use it; the samples bundled with the skill do not.
+
 ## 0.3.0 - 2026-11-14
 
 ### Kit

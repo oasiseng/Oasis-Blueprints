@@ -1,6 +1,7 @@
 {
   "schema": "oasis-blueprints/0.2",
   "status": "construction",
+  "credit": true,
   "firm": {
     "name": "Your Company",
     "wordmark": "Your Company",

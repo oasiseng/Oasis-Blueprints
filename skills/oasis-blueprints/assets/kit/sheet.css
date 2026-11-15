@@ -15,6 +15,7 @@ body { font-family: var(--f-body); color: var(--ink); -webkit-print-color-adjust
 .sheet { width: 36in; height: 24in; background: #fff; position: relative; overflow: hidden; margin: 0.4in auto; break-after: page; }
 .sheet::after { content: ""; position: absolute; inset: 0.36in; border: 1.5pt solid var(--ink); pointer-events: none; }
 @media print { html, body { background: #fff; } .sheet { margin: 0; } #audit, #ui { display: none !important; } #set { zoom: 1 !important; } }
+.credit { position: absolute; left: 0.36in; bottom: 0.12in; font: 400 6pt/1 var(--f-body); color: var(--muted); letter-spacing: 0.02em; white-space: nowrap; }
 .frame { position: absolute; inset: 0.5in; display: grid; grid-template-columns: 31.8in 3in; column-gap: 0.2in; }
 .body { display: flex; flex-direction: column; gap: 0.12in; height: 23in; min-width: 0; }
 label, .ph, .k { font-family: var(--f-sk); text-transform: uppercase; }

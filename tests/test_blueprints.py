@@ -136,8 +136,10 @@ class BlueprintTests(unittest.TestCase):
 
     def test_public_deck_example_matches_the_bundled_sample(self):
         # assets/samples/deck/project.json is the source; the showcase copy must not drift from it.
-        public = SKILL.parents[1] / "examples" / "sheet-sets" / "deck" / "project.json"
-        self.assertEqual(public.read_bytes(), (SKILL / "assets" / "samples" / "deck" / "project.json").read_bytes())
+        # The one difference: the public example shows the credit line, the bundled sample does not.
+        public = json.loads((SKILL.parents[1] / "examples" / "sheet-sets" / "deck" / "project.json").read_text(encoding="utf-8"))
+        self.assertIs(public.pop("credit", None), True)
+        self.assertEqual(public, self.sample())
 
     def test_sunroom_views_use_the_scale_in_the_project_file(self):
         project = self.sample("sunroom")
@@ -237,6 +239,29 @@ class BlueprintTests(unittest.TestCase):
         self.assertEqual(self.page.locator("#ui .src a").count(), 2)
         self.page.emulate_media(media="print")
         self.assertEqual(self.page.evaluate("getComputedStyle(document.getElementById('ui')).display"), "none")
+
+    def test_credit_line_is_opt_in_and_sits_outside_the_border(self):
+        project = self.sample()
+        self.open(self.build(project, "no-credit"))
+        self.assertEqual(self.page.locator(".credit").count(), 0)
+        project["credit"] = True
+        self.open(self.build(project, "credit"))
+        self.assertEqual(self.page.evaluate("window.__audit"), [])
+        rows = self.page.evaluate("""[...document.querySelectorAll('.sheet')].map(s => { const z = s.getBoundingClientRect(), c = s.querySelector('.credit'),
+            r = c ? c.getBoundingClientRect() : null, k = z.height / 24;   // screen pixels per sheet inch
+            return { text: c ? c.textContent : '', top: r ? (r.top - z.top) / k : 0, bottom: r ? (r.bottom - z.top) / k : 0, left: r ? (r.left - z.left) / k : 0,
+                     pt: c ? parseFloat(getComputedStyle(c).fontSize) * 0.75 : 0, inFrame: !!(c && c.closest('.frame')) }; })""")
+        self.assertGreaterEqual(len(rows), 2)
+        for row in rows:
+            self.assertEqual(row["text"], "Drawn with Oasis-Blueprints · oasisengineering.com/blueprints")
+            self.assertFalse(row["inFrame"])
+            self.assertGreater(row["top"], 24 - 0.36)      # below the border, which is 0.36 in from the edge
+            self.assertLess(row["bottom"], 24)
+            self.assertGreaterEqual(row["left"], 0.35)
+            self.assertAlmostEqual(row["pt"], 6, delta=0.3)
+        self.page.emulate_media(media="print")
+        self.assertEqual(self.page.evaluate("getComputedStyle(document.querySelector('.credit')).display"), "block")
+        self.page.emulate_media(media="screen")
 
     def test_project_text_cannot_close_embedded_json_script(self):
         project = self.sample()
