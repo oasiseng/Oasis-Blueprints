@@ -170,7 +170,8 @@ libraries. Anyone may fork it, change it and put their own company in the title 
 The license notice stays with any copy of the kit. Each kit file starts with it, so each built HTML carries
 it. Each built HTML also has a source note in its head and one line at the foot of the Edit panel. None of
 that prints, appears in the PDF or makes a request. Drawings made with the kit belong to whoever prepared
-them.
+them. The public examples show a credit line in the bottom margin; your own drawings do not unless you set
+`"credit": true` in the project file.
 
 To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md). Changes by version are in
 [CHANGELOG.md](CHANGELOG.md).

@@ -2,6 +2,7 @@
   "schema": "oasis-blueprints/0.2",
   "jobType": "deck",
   "status": "draft",
+  "credit": true,
   "firm": { "name": "Your Company", "wordmark": "Your Company", "lines": ["Street address", "City, State ZIP", "License no.", "Phone", "website"] },
   "project": {
     "number": "EX-002", "title": "Backyard Deck", "subtitle": "New freestanding wood deck",

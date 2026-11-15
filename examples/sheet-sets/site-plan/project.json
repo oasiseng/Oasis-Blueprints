@@ -2,6 +2,7 @@
  "schema": "oasis-blueprints/0.2",
  "jobType": "siteplan",
  "status": "draft",
+ "credit": true,
  "firm": {
   "name": "Your Company",
   "wordmark": "Your Company",

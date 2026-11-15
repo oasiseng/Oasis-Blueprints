@@ -1,6 +1,7 @@
 {
  "schema": "oasis-blueprints/0.2",
  "status": "draft",
+ "credit": true,
  "jobType": "library",
  "firm": {
   "name": "Your Company",

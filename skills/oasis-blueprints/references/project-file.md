@@ -25,6 +25,7 @@ address, a new note or an engineer's answer is an edit to this file and a rebuil
 | `criteria` | no | Design criteria table. Blank values print as a red Engineer chip |
 | `openItems` | no | What the engineer or the field still owes |
 | `sheets` | no | Sheet list. Defaults to a cover and a field sheet |
+| `credit` | no | `true` prints one small grey line in the bottom margin of every sheet, outside the border: "Drawn with Oasis-Blueprints · oasisengineering.com/blueprints". Left out (the default), nothing is printed. See below |
 
 ## `firm` (or `brand.json`)
 
@@ -184,3 +185,11 @@ Works in `facts[].s`, `steps`, `scope`, `notes`, open item text:
 | `construction` | Released for construction | no: the audit fails |
 
 Only move past `review` when the user says the engineer has closed every item.
+
+## `credit`
+
+Off by default: a set carries no credit unless its project file sets `"credit": true`. When set, every
+sheet shows one line of 6 pt grey text in the bottom margin, outside the border, and it prints in the PDF:
+`Drawn with Oasis-Blueprints · oasisengineering.com/blueprints`. It is never in the title block or the
+drawing area. The wording comes from `ORIGIN` in `scripts/build.py`. The option is set per project file;
+there is no setting that turns it on for every set. The public example sets in `examples/sheet-sets/` use it.

@@ -69,8 +69,10 @@ function panel(num, title, den, svg, o = {}) {
   const scale = o.scale || (den ? 'Scale ' + scaleText(den) : '');
   return `<section class="panel ${o.cls || ''}"${o.style ? ` style="${o.style}"` : ''}>${o.top || ''}<div class="view">${svg}</div><footer class="vt"><span class="vb">${num}</span><span class="vn">${esc(title)}</span>${o.note ? `<span class="vx">${esc(o.note)}</span>` : ''}<span class="vs">${esc(scale)}</span>${den && !o.scale ? scaleBar(den) : ''}</footer></section>`;
 }
+// "credit": true in the project file prints one small grey line in the bottom margin, outside the border. Off unless asked for.
+const creditLine = P => P.credit === true && typeof ORIGIN !== 'undefined' ? `<div class="credit">Drawn with ${esc(ORIGIN.name)} · ${esc(String(ORIGIN.site).replace(/^https?:\/\//, '').replace(/\/$/, ''))}</div>` : '';
 function sheet(P, sh, i, n, bodyCls, body) {
-  return `<article class="sheet" data-sheet="${esc(sh.no)}"><div class="frame"><div class="body ${bodyCls}">${band(P)}${body}</div>${titleBlock(P, sh, i, n)}</div></article>`;
+  return `<article class="sheet" data-sheet="${esc(sh.no)}"><div class="frame"><div class="body ${bodyCls}">${band(P)}${body}</div>${titleBlock(P, sh, i, n)}</div>${creditLine(P)}</article>`;
 }
 
 function legendHtml(P) {
