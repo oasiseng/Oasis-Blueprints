@@ -84,8 +84,9 @@ bundled with the skill, which the tests also use; they are not the same sets. To
   `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
 - **As a skill.** Download `oasis-blueprints.zip` from the [latest release](https://github.com/oasiseng/Oasis-Blueprints/releases/latest)
   or from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/), and upload it where your assistant manages skills. The same folder loads in other assistants that
-  support Agent Skills, including ChatGPT.
-- **As a local Codex skill.** Copy `skills/oasis-blueprints` to `$CODEX_HOME/skills/oasis-blueprints`
+  support Agent Skills, including ChatGPT. The release ZIP includes the detail libraries, drawing map,
+  and type map under `assets/library/`; no repository checkout or runtime download is needed.
+- **As a local Codex skill.** Extract the release ZIP and copy its `oasis-blueprints` folder to `$CODEX_HOME/skills/oasis-blueprints`
   (or `~/.codex/skills/oasis-blueprints` when `CODEX_HOME` is unset), retaining its assets, scripts,
   references, and licenses. Invoke `$oasis-blueprints` with the project sources and requested sheets.
 - **By hand.** Python 3 standard library only:

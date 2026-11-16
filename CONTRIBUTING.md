@@ -84,5 +84,22 @@ The same tests run on every pull request (`.github/workflows/tests.yml`).
 ## Releases
 
 The version is in `.claude-plugin/plugin.json` and at the top of `CHANGELOG.md`. Pushing a tag `v<version>`
-builds `oasis-blueprints.zip` from `skills/oasis-blueprints/` and attaches it to a GitHub release
+builds `oasis-blueprints.zip` with `scripts/package_skill.py` and attaches it to a GitHub release
 (`.github/workflows/release.yml`).
+
+### Standalone skill package
+
+Run `python scripts/package_skill.py /tmp/oasis-blueprints.zip` from the repository. The packager
+includes tracked files from `skills/oasis-blueprints/` and overlays tracked `library/` resources at
+`oasis-blueprints/assets/library/` in the ZIP. Keep `library/` as the single source; do not maintain
+a second copy inside the skill. Stage new resources with Git before packaging. Local scan data,
+hidden files, bytecode, and caches are excluded.
+
+`tests/test_skill_package.py` extracts the ZIP into a temporary directory and builds from an unrelated
+working directory, checking all detail collections, drawing-map resources, samples, and PDF export.
+CI runs these tests with the full suite. Releases set `OASIS_SKILL_ZIP` to test the exact archive
+that will be uploaded before creating the release. To check an existing artifact:
+
+```bash
+OASIS_SKILL_ZIP=/tmp/oasis-blueprints.zip python -m unittest discover -s tests -p 'test_skill_package.py' -v
+```

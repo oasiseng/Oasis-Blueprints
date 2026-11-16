@@ -4,6 +4,10 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 
 ## Unreleased
 
+- Standalone skill releases now include the detail libraries, drawing map, and type map under
+  `assets/library/`. Packaging tests build and export from the extracted ZIP without a repository
+  checkout, and the release workflow validates the exact archive before publishing.
+
 - Optional credit line: `"credit": true` in a project file prints "Drawn with Oasis-Blueprints ·
   oasisengineering.com/blueprints" in small grey text in the bottom margin of every sheet, outside the border.
   Off by default. The public example sets use it; the samples bundled with the skill do not.

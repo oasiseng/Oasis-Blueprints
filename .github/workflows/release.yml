@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Check the tag against plugin.json
         run: |
           version="${GITHUB_REF_NAME#v}"
@@ -24,9 +27,15 @@ jobs:
           fi
           echo "VERSION=$version" >> "$GITHUB_ENV"
       - name: Build the skill zip
+        run: python scripts/package_skill.py oasis-blueprints.zip
+      - name: Install export dependencies
         run: |
-          cd skills
-          zip -r ../oasis-blueprints.zip oasis-blueprints -x "*/__pycache__/*" "*.pyc"
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Test the release artifact in isolation
+        env:
+          OASIS_SKILL_ZIP: ${{ github.workspace }}/oasis-blueprints.zip
+        run: python -m unittest discover -s tests -p 'test_skill_package.py' -v
       - name: Take this version's notes from the changelog
         run: |
           awk -v v="$VERSION" '

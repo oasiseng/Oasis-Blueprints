@@ -48,14 +48,15 @@ sample branding or infer a license number.
 | `library` | A set made only of sheets of standard details | [assets/views/library.js](assets/views/library.js) |
 | Custom | A scope the supplied views do not represent | Read [references/writing-views.md](references/writing-views.md), then adapt `deck.js` beside the project file |
 
-Standard details live in `library/details/<collection>/index.json` at the top of the Oasis-Blueprints
-repository (the plugin, not the skill zip). Search an index by title or category, then place details on
+The standalone skill ZIP includes the libraries under `assets/library/` in this skill folder.
+For a repository/plugin checkout, use `library/` at the repository root instead. Standard details
+live in `details/<collection>/index.json` under that library root. Search an index by title or category, then place details on
 a sheet of type `details` by id, as described in references/project-file.md. A library detail is the
 engineer's drawing: add one only when the engineer of record says it applies, never edit the sizes or
 notes inside it, and say when its index entry shows it has not been checked by the engineer.
 
-The same repository has a drawing map: `library/drawing-map/types/<type>__<variant>.json` lists the sheets,
-details and note blocks that past sets of a project type contained, and `library/type-map.json` says how
+The library root also has a drawing map: `drawing-map/types/<type>__<variant>.json` lists the sheets,
+details and note blocks that past sets of a project type contained, and `type-map.json` says how
 each sheet kind is handled by the kit and which detail categories to search. When the user names a project
 type, use them to propose a sheet index and candidate details, add sheets the kit cannot draw as `reserved`,
 and record the proposal as an open item for the engineer. The map counts past sets; it is never a
