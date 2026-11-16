@@ -152,8 +152,8 @@ A library detail is a drawing converted from CAD and kept as data, one `<id>.jso
 ```
 
 - `library` is the folder that holds the detail files (directly, in its `kit` subfolder, or one folder below either). `build.py`
-  also takes `--library <folder>`. Without either, the kit looks in the library that ships with it (`library/details/` at the
-  top of the repository). The details a set uses are embedded in the built file.
+  also takes `--library <folder>`. Without either, the standalone ZIP uses `assets/library/details/`
+  inside the installed skill; a repository checkout falls back to `library/details/` at the repository root. The details a set uses are embedded in the built file.
 - An entry is an id, or `{ id, title?, note? }` to rename a detail on this sheet or add a short note.
 - Rows fill left to right in the order given. If the audit says a drawing is too tall for its box, the
   sheet is too full: move details to another `details` sheet.

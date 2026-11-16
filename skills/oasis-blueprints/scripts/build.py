@@ -120,7 +120,7 @@ def main():
         dets = dict((cur or {}).get("details") or {}) if isinstance(cur, dict) else {}
         # where to look: what the project or the command names, then a "details" folder beside the project, then the library
         # that ships with the kit (assets/library, or library/details at the top of the repository)
-        roots = [r for r in (a.library, lib and os.path.join(pdir, lib), lib, os.path.join(pdir, "details"), os.path.join(KIT, "library"),
+        roots = [r for r in (a.library, lib and os.path.join(pdir, lib), lib, os.path.join(pdir, "details"), os.path.join(KIT, "library", "details"), os.path.join(KIT, "library"),
                              os.path.join(KIT, "..", "..", "..", "library", "details")) if r]
         for i in dict.fromkeys(x for x in used if x):
             if i in dets:
