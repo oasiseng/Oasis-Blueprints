@@ -1,7 +1,7 @@
 {
  "schema": "oasis-blueprints/0.2",
  "jobType": "siteplan",
- "status": "draft",
+ "status": "construction",
  "credit": true,
  "firm": {
   "name": "Your Company",
@@ -29,12 +29,18 @@
   "checkedBy": "Engineer"
  },
  "issue": {
-  "date": "2026-11-15",
-  "revisions": []
+  "date": "2026-11-16",
+  "revisions": [
+   {
+    "no": "0",
+    "text": "Released for construction",
+    "date": "2026-11-16"
+   }
+  ]
  },
  "geometry": {
   "units": "in",
-  "source": "Lot, existing features and elevations from the owner's topographic survey. Building size from the owner's building sketch (20x30x12). Placement, driveway and swale as directed by the engineer. Example data: the lot is a placeholder, not a real parcel.",
+  "source": "Lot, existing features and elevations from the owner's topographic survey. Building size from the owner's building sketch (20x30x12). Placement, driveway and swale as directed by the engineer and the owner. Example data: the lot is a placeholder, not a real parcel.",
   "survey": {
    "boundary": [
     [
@@ -948,35 +954,35 @@
    "houseFloor": "27.1"
   },
   "building": {
-   "ew": 29,
-   "ns": 32,
-   "leanNs": 12,
+   "ew": 32,
+   "ns": 29,
+   "leanW": 12,
    "nominal": "20' × 30' × 12' + 12' LEAN-TO",
-   "eastSetback": 10,
-   "northSetback": 50,
-   "ffe": 25.0,
+   "eastSetback": 6,
+   "southSetback": 5,
+   "ffe": 26.5,
    "stepToGrade": 0.5,
    "eave": 12,
    "peak": 14.5,
    "leanEave": 9.5,
    "doors": [
     [
-     2.92,
-     12.92
+     3.08,
+     13.08
     ],
     [
-     15.92,
-     25.92
+     16.08,
+     26.08
     ]
    ],
    "frameouts": [
     [
-     1.5,
-     11.5
+     3.92,
+     13.92
     ],
     [
-     15.08,
-     25.08
+     17.5,
+     27.5
     ]
    ],
    "manDoor": [
@@ -989,14 +995,15 @@
    ]
   },
   "section": {
-   "existGrade": 24.3,
-   "existGradeAtLine": 24.4,
-   "fenceX": 109.45
+   "existGrade": 25.2,
+   "existGradeAtLine": 25.1,
+   "fenceX": 109.45,
+   "toeInside": 0.5,
+   "existHigh": 25.6
   },
   "swale": {
    "width": 5,
    "sideSlope": 4,
-   "southExt": 6,
    "rainfallIn": 1,
    "existing": [
     [
@@ -1019,25 +1026,30 @@
      146.3,
      22.6
     ]
-   ]
+   ],
+   "offLine": 3.5
   },
   "driveway": {
-   "width": 10,
-   "finalWidth": 24,
-   "pastPole": 4,
-   "gradeAtLine": 23.0
+   "width": 24,
+   "gradeAtLine": 26.1,
+   "epX": -21.5,
+   "crossPct": 1
   },
   "streets": {
    "north": "Sample Avenue",
    "west": "Example Street"
+  },
+  "shed": {
+   "size": 7,
+   "clear": 5
   }
  },
  "summary": {
-  "headline": "A new 29 × 32 garage, 10 ft off the east line and 50 ft off the north line.",
-  "text": "New detached metal garage (nominal 20 × 30 with a 12 ft lean-to) facing Sample Avenue, with a gravel driveway. Floor at elevation 25.0. A swale along the east side holds 1 in of rain off the new roof and drains to the front. The house, shed and fences stay.",
-  "howToRead": "Start with the picture, then the site plan. The enlarged plan gives the stake-out dimensions, the driveway and the proposed grades. Grey is what the survey found, blue is new work, red is still owed. This set is the site plan: the metal building and its foundation are engineered on separate plans, by others.",
+  "headline": "A new 29 × 32 garage, 6 ft off the east line and 5 ft off the south line.",
+  "text": "New detached metal garage (nominal 20 × 30 with a 12 ft lean-to). The lean-to and door openings face Example Street, reached by a 24 ft gravel driveway. Floor at elevation 26.5. A swale along the east side holds 1 in of rain off the new roof and drains north. The house and fences stay; the shed is relocated by the owner.",
+  "howToRead": "Start with the picture, then the site plan. The enlarged plan gives the stake-out dimensions and the proposed grades. Grey is what the survey found and blue is new work. This set is the site plan: the metal building and its foundation are engineered on separate plans, by others. Example set: names, address and lot are placeholders.",
   "sequenceNote": "The sequence is for orientation only. Means, methods and site safety are the contractor's responsibility. The metal building structure and its foundation are engineered on separate plans, by others, and are not part of this sheet.",
-  "coverTop": 16.3,
+  "coverTop": 16.6,
   "generalNotesColumns": 2,
   "generalNotesSize": 12
  },
@@ -1063,76 +1075,81 @@
   {
    "k": "Setbacks shown",
    "tag": "N",
-   "v": "50' north · 10' east",
-   "s": "Required: 10 ft front, side and rear"
+   "v": "6' east · 5' south",
+   "s": "Minimum setbacks, as selected by the owner"
   },
   {
    "k": "Finished floor",
    "tag": "N",
-   "v": "EL. 25.0",
-   "s": "NAVD 88. Road crown about 23.0"
+   "v": "EL. 26.5",
+   "s": "NAVD 88. Example Street at the driveway about 26.2"
   },
   {
    "k": "Stormwater",
    "tag": "N",
-   "v": "137.5 ≥ 77.3 cu ft",
+   "v": "204.7 ≥ 77.3 cu ft",
    "s": "Swale holds 1 in over the footprint. View {d2}"
   }
  ],
  "steps": [
   {
    "title": "Find the lot lines",
-   "text": "Locate the found corners shown on the survey (iron pipe at the north-west, capped rod at the north-east, iron rod at the south-west) and string the north and east lines. Do not measure from the fences: the east fence is inside the line and the north fence is outside it.",
+   "text": "Locate the found corners shown on the survey (iron pipe at the north-west, capped rod at the north-east, iron rod at the south-west) and string the south and east lines. Do not measure from the fences: the east fence is inside the line and the south fence is outside it.",
    "ref": "View {plan}"
   },
   {
    "title": "Stake the building",
-   "text": "Set the north edge of the lean-to 50.0 ft south of the north line and the east wall 10.0 ft west of the east line. 29 ft east-west by 32 ft north-south: 20 ft enclosed, then the 12 ft lean-to toward Sample Avenue.",
-   "hold": "A utility pole and overhead wire are 24.6 ft ± in front of the lean-to. Contractor is to confirm access and protect existing utilities.",
+   "text": "Set the east wall 6.0 ft west of the east line and the south wall 5.0 ft north of the south line. 32 ft east-west by 29 ft north-south: 20 ft enclosed on the east, then the 12 ft lean-to toward Example Street. Walk-in door on the north end.",
+   "hold": "Locate the septic tank and drainfield before any work. Keep the relocated shed at least 5.0 ft clear of the new building.",
    "ref": "View {side}"
   },
   {
    "title": "Set the floor",
-   "text": "Finished floor at elevation 25.0 (NAVD 88). Finished grade at the walls about 6 in below the floor, sloping away. Slab, perimeter footing and anchors are by others, on the building plans.",
+   "text": "Finished floor at elevation 26.5 (NAVD 88), about 1 ft above the ground there now. With the slab thickness, that is about 7 to 12 in of regrading or fill under the slab. Finished grade at the walls about 6 in below the floor, sloping away. On the east side the grade falls from the wall into the swale. Slab, perimeter footing and anchors are by others, on the building plans.",
    "ref": "View {section}"
   },
   {
    "title": "Shape the east swale",
-   "text": "5 ft wide swale with 4:1 sides (7½ in deep) in the 10 ft side yard, 88 ft long, from 6 ft south of the building to the north line, falling north toward Sample Avenue. Match existing grade at both edges. Do not send water onto the neighbour's lot.",
+   "text": "5 ft wide swale (7½ in deep) between the east wall and the fence, 131 ft long, from the south wall line to the north line, falling north toward Sample Avenue. Its east edge matches existing grade at the fence. North of the building it has 4:1 sides and matches existing grade at both edges. Do not send water onto the neighbour's lot.",
    "ref": "Views {section}, {d1} and {d2}"
   },
   {
    "title": "Build the gravel driveway",
-   "text": "10 ft wide, from Sample Avenue, in line with the east opening. Past the utility pole it widens at 45° to 24 ft so both openings can be driven into. Slope it from the slab down to the street and match existing grade at the north line.",
-   "hold": "Locate underground utilities before digging.",
-   "ref": "View {side}"
+   "text": "24 ft wide from the lean-to straight west to Example Street, about 72 ft, centred on the two openings. Slope it gently from the slab down toward the street, with about a 1% cross slope down to the north so no water runs toward the south lot line. Match existing grade at the west line.",
+   "hold": "Locate underground utilities before digging. An overhead wire runs along Example Street: verify clearance.",
+   "ref": "View {plan}"
   }
  ],
  "scope": [
   {
    "kind": "n",
    "item": "Accessory metal building",
-   "text": "29 ft × 32 ft overall (nominal 20 × 30 × 12): 20 ft enclosed garage plus a 12 ft open lean-to, two 10 × 10 roll-up doors behind two framed openings facing Sample Avenue. Located by setbacks on sheet C1.0."
+   "text": "29 ft × 32 ft overall (nominal 20 × 30 × 12): 20 ft enclosed garage plus a 12 ft open lean-to on the west, two 10 × 10 roll-up doors behind two framed openings facing Example Street, walk-in door on the north end. Located by setbacks on sheet C1.0."
   },
   {
    "kind": "n",
    "item": "Finished floor",
-   "text": "Elevation 25.0 NAVD 88."
+   "text": "Elevation 26.5 NAVD 88."
   },
   {
    "kind": "n",
    "item": "East side swale",
-   "text": "5 ft wide, 4:1 side slopes, 88 ft long, draining north. Holds 1 in of rainfall over the building footprint: 137.5 cu ft provided, 77.3 cu ft required."
+   "text": "5 ft wide, 131 ft long, along the east side from the building's south wall line, draining north. Holds 1 in of rain over the footprint: 204.7 cu ft provided, 77.3 required."
   },
   {
    "kind": "n",
    "item": "Gravel driveway",
-   "text": "10 ft wide, from Sample Avenue, widening to 24 ft at the lean-to after the utility pole."
+   "text": "24 ft wide from the lean-to west to Example Street, with a 1% cross slope to the north."
   },
   {
    "kind": "e",
-   "item": "Residence, shed, fences, pole",
-   "text": "Existing 1-story residence (floor elev. 27.1), 7 × 7 shed, fences and utility pole stay as surveyed. The contractor is to confirm access and protect existing utilities."
+   "item": "Residence, fences, pole",
+   "text": "Existing 1-story residence (floor elev. 27.1), fences and utility pole stay as surveyed. The contractor is to confirm access and protect existing utilities."
+  },
+  {
+   "kind": "e",
+   "item": "Shed",
+   "text": "The existing 7 × 7 shed is movable and is relocated by the owner. Keep it at least 5.0 ft clear of the new building."
   },
   {
    "kind": "o",
@@ -1166,21 +1183,23 @@
     "**Flood zone.** Zone X, as stated on the survey. No flood zone boundary crosses the lot on the survey.",
     "**Easements.** None are shown on the survey.",
     "**Wetlands and waterfront.** None are shown on the survey provided.",
-    "**Required setbacks.** 10 ft front, 10 ft side, 10 ft rear. Shown: 50.0 ft to the north line (Sample Avenue), 71.0 ft ± to the west line (Example Street), 10.0 ft to the east line and 54.0 ft ± to the south line.",
-    "**Utilities.** No underground utilities were located by the survey. A utility pole and overhead wire are 24.6 ft ± in front of the lean-to: the contractor is to confirm access and protect existing utilities. [HOLD]",
+    "**Setbacks.** The building is placed at the minimum setbacks, as selected by the owner: 6.0 ft to the east line and 5.0 ft to the south line. It is 72.0 ft ± from the west line (Example Street) and 102.0 ft ± from the north line (Sample Avenue).",
+    "**Utilities.** No underground utilities were located by the survey. An overhead wire runs along Example Street across the driveway, and a utility pole stands north-east of the residence: the contractor is to confirm access and protect existing utilities. [HOLD]",
+    "**Septic.** A prior survey shows a septic tank near the south-east side of the residence. Locate the tank and drainfield before construction and keep the building, driveway and regrading clear of them. [HOLD]",
+    "**Trees.** The canopy line in the south-east corner is from the survey and reaches over the new building. The two trees located by the survey (12 in and 6 in) stand outside the lot. See general note 15.",
     "**Lot coverage and height.** Maximum 50% and 35 ft. Coverage shown is about 12.9% ±: residence 840, porch 108, shed 49 and new building 928 sq ft on a 14,960 sq ft lot."
    ]
   },
   {
    "title": "New building",
-   "start": 12,
+   "start": 14,
    "items": [
-    "**Location.** North edge of the lean-to 50.0 ft from the north property line (Sample Avenue right-of-way). East wall 10.0 ft from the east property line.",
-    "**Separation.** 14.4 ft ± from the north-west corner of the building to the east wall of the 1-story residence, 5.4 ft ± to the existing concrete walk, and 7.6 ft ± from the south wall to the existing shed.",
-    "**Finished floor and grades.** Floor at elevation 25.0 NAVD 88. Surveyed ground at the building is about 24.3 to 24.9. Finished grade at the walls 24.5 ±, about 6 in below the floor, sloped away from the building. Crown of Sample Avenue in front of the lot is 22.98 to 23.09.",
-    "**Drainage.** Existing ground falls from south to north toward Sample Avenue and the new grades keep that direction. The east swale is 5 ft wide with 4:1 side slopes, matches existing grade at both edges and falls about 2% to the north. Its volume, 1.56 cu ft per foot × 88.0 ft = 137.5 cu ft, exceeds 1 in of rainfall over the 928 sq ft footprint, 77.3 cu ft. See the stormwater check on sheet C1.0.",
+    "**Location.** South-east corner of the lot. East wall 6.0 ft from the east property line, south wall 5.0 ft from the south property line. The lean-to and the two openings face west to Example Street.",
+    "**Separation.** 36.0 ft ± from the north-west corner of the building to the nearest corner of the residence porch. The existing 7 × 7 shed is relocated by the owner and is to stay at least 5.0 ft clear of the new building.",
+    "**Finished floor and grades.** Floor at elevation 26.5 NAVD 88. Surveyed ground at the building is about 25.2 to 25.6, so the floor is about 1 ft above it; allowing for the slab thickness, about 7 to 12 in of regrading or fill is needed under the slab. Finished grade at the walls 26.0 ±, about 6 in below the floor, sloped away from the building. On the east side the grade falls from the wall into the swale, see section 2 on sheet C1.0. The edge of Example Street at the driveway is about 26.2.",
+    "**Drainage.** Existing ground falls toward the north-east and Sample Avenue, and the new grades keep that direction. The east swale runs from the south wall line of the building to the north line, between the east wall and the fence, and falls about 2% to the north. It is 5 ft wide and 7½ in deep; its east edge matches existing grade at the fence, and north of the building it has 4:1 side slopes and matches existing grade at both edges. Its volume, 1.56 cu ft per foot × 131.0 ft = 204.7 cu ft, exceeds 1 in of rainfall over the 928 sq ft footprint, 77.3 cu ft. See the stormwater check on sheet C1.0.",
     "**Lot grading.** Lot grading to maintain its historical flow path preventing the accumulation of water or excessive runoff onto adjacent properties.",
-    "**Access.** New gravel driveway, 10 ft wide, from Sample Avenue in line with the east opening. Past the utility pole it widens at 45° to 24 ft at the lean-to so both openings can be entered. It slopes about 4% from the slab down to the street and matches existing grade at the north line. The existing fence and gate along Sample Avenue stand in the right-of-way: the opening at the driveway and the connection to the pavement are by the contractor, coordinated with the county."
+    "**Access.** New gravel driveway, 24 ft wide, from the lean-to straight west to Example Street, about 72 ft long on the lot. It slopes about 0.6% from the slab to the west line and matches existing grade there, with about a 1% cross slope down to the north so that runoff sheds onto the grass on the lot and not toward the south lot line. The existing fence along Example Street stands in the right-of-way: the opening at the driveway and the connection to the pavement are by the contractor, coordinated with the county."
    ]
   }
  ],
@@ -1227,15 +1246,15 @@
   },
   {
    "k": "Finished floor, new building",
-   "v": "25.0"
+   "v": "26.5"
   },
   {
-   "k": "Required setbacks, accessory building",
-   "v": "10 ft front · 10 ft side · 10 ft rear"
+   "k": "Minimum setbacks, accessory building",
+   "v": "5 ft side · 5 ft rear"
   },
   {
    "k": "Setbacks shown",
-   "v": "50.0 ft north · 71.0 ft ± west · 10.0 ft east · 54.0 ft ± south"
+   "v": "6.0 ft east · 5.0 ft south · 72.0 ft ± west · 102.0 ft ± north"
   },
   {
    "k": "Stormwater volume required",
@@ -1243,7 +1262,7 @@
   },
   {
    "k": "Stormwater volume provided",
-   "v": "137.5 cu ft (5 ft swale, 4:1, 88.0 ft long)"
+   "v": "204.7 cu ft (5 ft swale, 131.0 ft long)"
   },
   {
    "k": "Maximum lot coverage / height",
@@ -1274,7 +1293,7 @@
    "title": "Required zoning setbacks",
    "text": "",
    "who": "Office",
-   "answer": "10 ft front, 10 ft side, 10 ft rear."
+   "answer": "Building placed at the minimum setbacks selected by the owner: 6 ft east, 5 ft south."
   },
   {
    "key": "swale",
@@ -1288,11 +1307,11 @@
    "title": "Finished floor elevation",
    "text": "",
    "who": "Engineer",
-   "answer": "25.0 NAVD 88."
+   "answer": "26.5 NAVD 88."
   },
   {
    "key": "pole",
-   "title": "Utility pole in front of the doors",
+   "title": "Existing utilities",
    "text": "",
    "who": "Field verify",
    "answer": "Contractor is to confirm access and protect existing utilities."
@@ -1302,7 +1321,7 @@
    "title": "Driveway",
    "text": "",
    "who": "Office",
-   "answer": "10 ft gravel driveway in line with the east opening, widening to 24 ft at the lean-to after the utility pole."
+   "answer": "24 ft gravel driveway from the lean-to west to Example Street."
   },
   {
    "key": "easements",
@@ -1323,7 +1342,7 @@
    "no": "C1.0",
    "type": "field",
    "name": "Site plan",
-   "what": "Site plan from the survey, enlarged plan with driveway and proposed grades, side-yard section, swale detail, stormwater check and building footprint."
+   "what": "Site plan from the survey, enlarged plan with proposed grades, side-yard section, swale detail, stormwater check and building footprint."
   }
  ],
  "generalNotes": [
@@ -1343,7 +1362,8 @@
     "ANY DAMAGE TO EXISTING STRUCTURES, UTILITIES, PAVEMENT, LANDSCAPING, OR ADJACENT IMPROVEMENTS RESULTING FROM CONSTRUCTION SHALL BE REPAIRED BY THE CONTRACTOR.",
     "ANY WETLANDS, FLOODPLAIN RESTRICTIONS, CONSERVATION AREAS, OR OTHER ENVIRONMENTALLY SENSITIVE FEATURES AFFECTING THE PROPOSED WORK SHALL BE ADDRESSED IN ACCORDANCE WITH THE REQUIREMENTS OF THE APPLICABLE AUTHORITIES. NO DISTURBANCE OF PROTECTED AREAS IS AUTHORIZED BY THIS SITE PLAN.",
     "THE CONTRACTOR SHALL NOTIFY THE DESIGN PROFESSIONAL OF ANY CONFLICTS, OMISSIONS, OR DISCREPANCIES BETWEEN THE SITE PLAN, SURVEY, APPROVED BUILDING PLANS, AND ACTUAL FIELD CONDITIONS PRIOR TO PROCEEDING WITH THE AFFECTED WORK.",
-    "AN APPROVED COPY OF THE SITE PLAN AND APPLICABLE PERMIT DOCUMENTS SHALL BE MAINTAINED AT THE PROJECT SITE DURING CONSTRUCTION."
+    "AN APPROVED COPY OF THE SITE PLAN AND APPLICABLE PERMIT DOCUMENTS SHALL BE MAINTAINED AT THE PROJECT SITE DURING CONSTRUCTION.",
+    "EXISTING TREES SHALL BE PROTECTED AND PRESERVED IN ACCORDANCE WITH THE APPLICABLE COUNTY TREE PRESERVATION REQUIREMENTS. THE COUNTY SHALL BE NOTIFIED PRIOR TO THE REMOVAL OF ANY TREE. NO TREE REMOVAL IS PROPOSED BY THIS SITE PLAN."
    ]
   }
  ]

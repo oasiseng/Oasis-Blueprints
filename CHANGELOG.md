@@ -4,6 +4,11 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 
 ## Unreleased
 
+- The site plan example is now the finished set: the building sits in the corner of the lot at 6 ft and
+  5 ft setbacks, with a full-width gravel driveway and cross slope, a swale between the wall and the fence
+  that runs to the street, a relocated shed, and a picture seen from the south-west. Status is released for
+  construction, like the sunroom example.
+
 - Standalone skill releases now include the detail libraries, drawing map, and type map under
   `assets/library/`. Packaging tests build and export from the extracted ZIP without a repository
   checkout, and the release workflow validates the exact archive before publishing.
