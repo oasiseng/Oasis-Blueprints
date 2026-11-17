@@ -6,11 +6,13 @@
 // model unit is the inch, so everything goes through K = 12.
 // What is particular to this job (see "Job-specific drawing code" in references/writing-views.md):
 //   - the survey extract drawn as surveyed: pavement, fences, wires, poles, trees, spot elevations, found corners
-//   - one building set square to the lot by a north and an east setback, with a lean-to on the street side
-//   - a gravel driveway that flares past a utility pole, a swale centred in the east side yard, proposed grades
+//   - one building set square to the lot in the south-east corner by an east and a south setback, lean-to on the west
+//   - a full-width gravel driveway west to the street with a cross slope, a swale between the east wall and the fence
+//     running to the north line, a shed relocated by the owner, proposed grades
 //   - six views: site plan, side-yard section, enlarged plan, typical swale section, stormwater check, footprint
+//   - the picture is drawn from the south-west: the scene is entered turned half a turn (XM - x, YM - y)
 //   - label and note positions are written for this lot: a different lot needs them moved
-//   - the cover is an owner deliverable: three columns, no open-items column, "90% submittal" wording
+//   - the cover is an owner deliverable: three columns, no open-items column
 'use strict';
 
 const K = 12;
@@ -67,10 +69,9 @@ const ST = {
 // the calculation panel is text, not a scaled drawing: give it a plain scale label
 { const panel0 = panel; panel = function (num, title, den, svg, o = {}) { return panel0(num, title, den, svg, /^Stormwater/.test(title) ? Object.assign({}, o, { scale: 'Calculation · not to scale' }) : o); }; }
 
-// ---- this job's cover: an owner deliverable. Three columns (no open-items column), notes in two columns, and the
-// draft wording says who it is for. The general notes band is the kit's own (project "generalNotes").
+// ---- this job's cover: an owner deliverable. Three columns (no open-items column) and notes in two columns.
+// The general notes band is the kit's own (project "generalNotes").
 document.head.insertAdjacentHTML('beforeend', `<style>.cover .ctop{grid-template-columns:7.6in 8in 1fr} .cover .notes{columns:2;column-gap:.4in} .cover .notes li{break-inside:avoid} .cover .notes h4{break-after:avoid}</style>`);
-STATUS.draft = Object.assign({}, STATUS.draft, { band: 'Draft · 90% submittal for owner review · not for construction', box: ['Draft', '90% submittal for owner review', 'Not for construction'] });
 { const cover0 = sheetCover; sheetCover = function (P, G, sh, i, n, sheets) {
   return cover0(P, G, sh, i, n, sheets)
     .replace(/<div class="col">\s*<section class="panel grow"><div class="ph[^"]*">Open items for the engineer[\s\S]*?<\/section>\s*<\/div>/, '')
@@ -83,31 +84,36 @@ function interp(tbl, y) { // tbl = [[y, el], ...] ascending in y; held flat beyo
 function ptSeg(p, a, b) { const dx = b[0] - a[0], dy = b[1] - a[1], t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy))), q = [a[0] + dx * t, a[1] + dy * t]; return { q, d: Math.hypot(p[0] - q[0], p[1] - q[1]) }; }
 function inPoly(x, y, pts) { let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const a = pts[i], b = pts[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; }
 
+function rectPoly(R, poly) { // closest pair between an axis rectangle [x0,y0,x1,y1] and a polygon
+  const cs = [[R[0], R[1]], [R[2], R[1]], [R[2], R[3]], [R[0], R[3]]]; let best = { d: Infinity };
+  for (let i = 0; i < poly.length; i++) { const a = poly[i], b = poly[(i + 1) % poly.length];
+    for (const c of cs) { const r = ptSeg(c, a, b); if (r.d < best.d) best = { d: r.d, a: c, b: r.q }; }
+    for (let k = 0; k < 4; k++) { const r = ptSeg(a, cs[k], cs[(k + 1) % 4]); if (r.d < best.d) best = { d: r.d, a: r.q, b: a }; } }
+  return best;
+}
 function derive(P) {
   const g = P.geometry, s = g.survey, b = g.building, B = s.boundary, [NW, NE, SE, SW] = B;
   const northY = x => NW[1] + (NE[1] - NW[1]) * (x - NW[0]) / (NE[0] - NW[0]), southY = x => SW[1] + (SE[1] - SW[1]) * (x - SW[0]) / (SE[0] - SW[0]);
   const eastX = y => SE[0] + (NE[0] - SE[0]) * (y - SE[1]) / (NE[1] - SE[1]), westX = y => SW[0] + (NW[0] - SW[0]) * (y - SW[1]) / (NW[1] - SW[1]);
-  // the building is set square to the survey grid: north edge of the lean-to set back from the north line, east wall set back from the east line
-  let y1 = NE[1] - b.northSetback, x1 = eastX(y1) - b.eastSetback; y1 = northY(x1 - b.ew / 2) - b.northSetback; x1 = eastX(y1) - b.eastSetback;
-  const x0 = x1 - b.ew, y0 = y1 - b.ns, yl = y1 - b.leanNs;
-  // separations: building NW corner to the east wall of the house, and to the concrete walk; south wall to the shed
-  const hs = ptSeg([x0, y1], s.house[0], s.house[3]);
-  let walk = Infinity; for (const poly of s.concrete) for (let i = 0; i < poly.length; i++) walk = Math.min(walk, ptSeg([x0, y1], poly[i], poly[(i + 1) % poly.length]).d);
-  const shedTop = Math.max(...s.shed.map(p => p[1])), shedX0 = Math.min(...s.shed.map(p => p[0])), shedX1 = Math.max(...s.shed.map(p => p[0]));
-  const pole = s.poles.find(p => p[0] > x0 - 5 && p[0] < x1 + 5 && p[1] > y1) || null;
-  // swale: centred in the side yard between the wall and the fence. Storage = full triangular section × length
-  const sw = g.swale, swX = (x1 + eastX((y0 + y1) / 2)) / 2 - 0.3, swA = y0 - sw.southExt, swB = northY(swX), swL = Math.round((swB - swA) * 10) / 10;
+  // the building is set square to the survey grid in the south-east corner: east wall off the east line, south wall off the south line.
+  // 29 ft runs north-south, 32 ft east-west: the lean-to is the west 12 ft, facing the west street
+  const x1 = eastX(SE[1] + b.southSetback + b.ns / 2) - b.eastSetback, x0 = x1 - b.ew, xl = x0 + b.leanW, y0 = southY((x0 + x1) / 2) + b.southSetback, y1 = y0 + b.ns;
+  const doors = b.doors.map(d => [y1 - d[1], y1 - d[0]]), frames = b.frameouts.map(d => [y1 - d[1], y1 - d[0]]), postsY = [...new Set([y0, ...frames.flat(), y1])];
+  const manDoor = [x1 - b.manDoor[1], x1 - b.manDoor[0]], win = [x1 - b.window[1], x1 - b.window[0]];
+  // separations to the existing buildings
+  const R = [x0, y0, x1, y1]; let hs = { d: Infinity }; for (const poly of [s.house, ...s.porch]) { const r = rectPoly(R, poly); if (r.d < hs.d) hs = r; }
+  const k = g.shed, shed = [x1 - k.size, y1 + k.clear, x1, y1 + k.clear + k.size], pole = s.poles.find(p => p[0] > 0 && p[0] < 110 && p[1] > 0 && p[1] < 137) || null;
+  // swale: in the east side yard, from near the south-east corner to the north line. Storage = full triangular section × length
+  const sw = g.swale, swX = eastX((y0 + y1) / 2) - sw.offLine, swA = y0, swB = northY(swX), swL = Math.round((swB - swA) * 10) / 10;
   const swD = sw.width / 2 / sw.sideSlope, swArea = sw.width * swD / 2, foot = b.ew * b.ns, vReq = foot * sw.rainfallIn / 12, vProv = swArea * swL;
   const egE = y => interp(sw.existing, y), fl = y => egE(y) - swD;
-  // gravel driveway: narrow leg in front of the east opening, then a 45° flare past the pole to the full width at the lean-to
-  const d = g.driveway, fo = b.frameouts, xE = x0 + fo[1][1], xN = xE - d.width, xW = xE - d.finalWidth, yF1 = pole ? pole[1] - d.pastPole : y1 + 20, yF2 = yF1 - (xN - xW), yN = northY((xN + xE) / 2);
-  const drive = [[xN, northY(xN)], [xN, yF1], [xW, yF2], [xW, y1], [xE, y1], [xE, northY(xE)]];
-  const dg = y => b.ffe + (d.gradeAtLine - b.ffe) * (y - y1) / (yN - y1);
-  return { x0, x1, y0, y1, yl, northY, southY, eastX, westX, toWest: x0 - westX((y0 + y1) / 2), toSouth: y0 - southY((x0 + x1) / 2), toEastS: eastX(y0) - x1,
-    houseFoot: hs.q, houseClear: hs.d, walkClear: walk, shedTop, shedX: Math.min(shedX1, x1) - 1.2, shedClear: y0 - shedTop, shedOverlap: shedX0 < x1,
-    pole, poleClear: pole ? pole[1] - y1 : 0, poleToDrive: pole ? xN - pole[0] : 0,
+  // gravel driveway: full width from the lean-to west to the street, centred on the two openings
+  const d = g.driveway, yc = y1 - (b.frameouts[0][0] + b.frameouts[1][1]) / 2, yS = yc - d.width / 2, yN = yc + d.width / 2, xW = westX(yc);
+  const drive = [[westX(yS), yS], [x0, yS], [x0, yN], [westX(yN), yN]], dg = x => b.ffe + (d.gradeAtLine - b.ffe) * (x0 - x) / (x0 - xW);
+  return { x0, x1, xl, y0, y1, northY, southY, eastX, westX, doors, frames, postsY, manDoor, win,
+    toWest: x0 - westX((y0 + y1) / 2), toNorth: northY((x0 + x1) / 2) - y1, houseA: hs.a, houseB: hs.b, houseClear: hs.d, shed, pole,
     swX, swA, swB, swL, swD, swArea, foot, vReq, vProv, minL: vReq / swArea, egE, fl, pad: b.ffe - b.stepToGrade,
-    drive, xE, xN, xW, yF1, yF2, yN, dg };
+    drive, yc, yS, yN, xW, dg, driveLen: x0 - xW };
 }
 
 function northArrow(f, x, y, r = 5) {
@@ -131,7 +137,7 @@ function drawSurvey(f, P, G, c, o = {}) {
   path(s.canopy.map(p => [p[0], p[1]]), ST.canopy);
   for (const p of s.concrete) area(p, 'exw', PAL.slab);
   for (const p of s.porch) area(p, 'ex');
-  area(s.house, 'ex', '#dfe3e9'); area(s.shed, 'ex');
+  area(s.house, 'ex', '#dfe3e9');
   segs(s.lines['X-DECK'], ST.deck);
   segs(s.lines['X-WBF'], ST.fence); segs(s.lines['X-CLF'], ST.fence); segs(s.lines['X-OHW'], ST.wire);
   for (const p of s.poles) if (inBox(p[0], p[1], c)) { f.dot(p[0], p[1], 3, 'bub'); f.dot(p[0], p[1], 1.1, 'dot'); }
@@ -146,27 +152,29 @@ function drawSurvey(f, P, G, c, o = {}) {
 }
 
 function drawBuilding(f, P, G, o = {}) {
-  const b = P.geometry.building, { x0, x1, y0, y1, yl } = G;
-  f.rect(x0, y0, x1, yl, 'new'); f.rect(x0, yl, x1, y1, 'newH');
+  const { x0, x1, xl, y0, y1 } = G;
+  f.rect(G.shed[0], G.shed[1], G.shed[2], G.shed[3], 'ex');                                                        // existing shed, relocated by the owner
+  f.rect(xl, y0, x1, y1, 'new'); f.rect(x0, y0, xl, y1, 'newH');
   if (o.doors) { const dw = 0.45;
-    for (const d of b.doors) f.rect(x0 + d[0], yl - dw, x0 + d[1], yl + dw, 'steelo');                       // roll-up doors, in the wall under the lean-to
-    f.rect(x1 - dw, y0 + b.manDoor[0], x1 + dw, y0 + b.manDoor[1], 'steelo');                                  // walk-in door, east end wall
-    f.raw([[x0, y0 + (yl - y0) / 2], [x1, y0 + (yl - y0) / 2]], { w: 0.6, color: BLUE, dash: [10, 3, 2, 3] });   // ridge
-    for (const x of new Set([0, ...b.frameouts.flat(), b.ew])) f.rect(x0 + x - 0.18, y1 - 0.18, x0 + x + 0.18, y1 + 0.18, 'newS');   // lean-to posts at the frame-outs, schematic
+    for (const d of G.doors) f.rect(xl - dw, d[0], xl + dw, d[1], 'steelo');                                   // roll-up doors, in the wall under the lean-to
+    f.rect(G.manDoor[0], y1 - dw, G.manDoor[1], y1 + dw, 'steelo'); f.rect(G.win[0], y1 - dw * 0.6, G.win[1], y1 + dw * 0.6, 'steelo');   // walk-in door and window, north end wall
+    f.raw([[(xl + x1) / 2, y0], [(xl + x1) / 2, y1]], { w: 0.6, color: BLUE, dash: [10, 3, 2, 3] });           // ridge
+    for (const y of G.postsY) f.rect(x0 - 0.18, y - 0.18, x0 + 0.18, y + 0.18, 'newS');                        // lean-to posts at the frame-outs, schematic
   }
 }
 function drawSwale(f, P, G, o = {}) { // centreline with flow arrows draining north, and the two top-of-bank lines
-  const x = G.swX, w = P.geometry.swale.width / 2, ya = G.swA, yb = G.swB;
-  f.raw([[x - w, ya], [x - w, yb]], ST.bank); f.raw([[x + w, ya], [x + w, yb]], ST.bank); f.raw([[x - w, ya], [x + w, ya]], ST.bank);
+  const x = G.swX, w = P.geometry.swale.width / 2, ya = Math.max(G.swA, o.from != null ? o.from : -1e9), yb = Math.min(G.swB, o.to != null ? o.to : 1e9);
+  f.raw([[x - w, ya], [x - w, yb]], ST.bank); f.raw([[x + w, ya], [x + w, yb]], ST.bank); if (ya === G.swA) f.raw([[x - w, ya], [x + w, ya]], ST.bank);
   f.raw([[x, ya], [x, yb]], ST.swale);
   for (let y = ya + (o.first || 10); y < yb - 3; y += (o.step || 22)) f.poly([[x, y + 2.2], [x - 0.9, y - 0.6], [x + 0.9, y - 0.6]], 'newS');
 }
 function drawDrive(f, P, G, o = {}) { // gravel driveway on the lot, and its connection across the right-of-way (dashed)
-  const s = P.geometry.survey, ep = o.epY || 155.9, sp = o.sp || 2, v = f.v;
-  f.raw(G.drive, Object.assign({ fill: '#f2f6fd' }, ST.drive), true);
-  f.raw([[G.xN, G.northY(G.xN)], [G.xN, ep]], ST.driveRW); f.raw([[G.xE, G.northY(G.xE)], [G.xE, ep]], ST.driveRW);
-  let k = 0; for (let y = G.y1 + sp / 2; y < G.yN; y += sp) for (let x = G.xW + sp / 2; x < G.xE; x += sp) { k++; const jx = ((k * 37) % 11 - 5) / 11 * sp * 0.7, jy = ((k * 53) % 13 - 6) / 13 * sp * 0.7;
-    if (inPoly(x + jx, y + jy, G.drive)) v.circle((x + jx) * K, (y + jy) * K, v.pt(0.42), 'dot'); }
+  const ep = P.geometry.driveway.epX, sp = o.sp || 2, v = f.v, xa = o.from != null ? o.from : -1e9;
+  const poly = G.drive.map(p => [Math.max(p[0], xa), p[1]]);
+  f.raw(poly, { fill: '#f2f6fd', w: 0, color: 'none' }, true); f.raw([poly[0], poly[1]], ST.drive); f.raw([poly[2], poly[3]], ST.drive); if (xa < G.xW) f.raw([poly[3], poly[0]], ST.driveRW);
+  if (xa < ep) { f.raw([[G.westX(G.yS), G.yS], [ep, G.yS]], ST.driveRW); f.raw([[G.westX(G.yN), G.yN], [ep, G.yN]], ST.driveRW); }
+  let k = 0; for (let y = G.yS + sp / 2; y < G.yN; y += sp) for (let x = Math.max(G.xW, xa) + sp / 2; x < G.x0; x += sp) { k++; const jx = ((k * 37) % 11 - 5) / 11 * sp * 0.7, jy = ((k * 53) % 13 - 6) / 13 * sp * 0.7;
+    if (inPoly(x + jx, y + jy, poly)) v.circle((x + jx) * K, (y + jy) * K, v.pt(0.42), 'dot'); }
 }
 function pgrade(f, x, y, s, o = {}) { // a proposed grade: blue ×, blue text
   const t = f.v.pt(2.1) / K, a = o.anchor || 'start', dx = (a === 'end' ? -1 : a === 'middle' ? 0 : 1) * f.v.pt(3.2) / K;
@@ -179,54 +187,64 @@ function slopeArrow(f, x, ya, yb, s, o = {}) { // thin blue arrow in the directi
   if (s) f.text(s, x + f.v.pt(o.side === 'l' ? -4 : 9) / K, (ya + yb) / 2, { cls: 'tN', size: o.size || 7, anchor: 'middle', rot: 90 });
 }
 
+function slopeArrowH(f, xa, xb, y, s) { // thin blue arrow in the direction of fall (east-west), label above
+  f.raw([[xa, y], [xb, y]], { w: 0.7, color: BLUE }); const d = xb > xa ? 1 : -1, h = f.v.pt(5) / K, w = f.v.pt(2) / K;
+  f.raw([[xb, y], [xb - d * h, y - w], [xb - d * h, y + w]], { w: 0.7, color: BLUE, fill: BLUE }, true);
+  if (s) f.text(s, (xa + xb) / 2, y + f.v.pt(3.5) / K, { cls: 'tN', size: 7, anchor: 'middle' });
+}
+
 // ------------------------------------------------------------------ 1  SITE PLAN
 function viewSite(P, G, den) {
-  const g = P.geometry, s = g.survey, b = g.building, v = new View(den, 'site'), f = FV(v), c = [-44, -9, 136, 179], { x0, x1, y0, y1, yl } = G;
-  drawSurvey(f, P, G, c, { skipSpot: p => (p.x > x0 - 6 && p.x < x1 + 1 && p.y > y0 - 1 && p.y < y1 + 1) || (p.x > G.xN - 6 && p.x < G.xE + 1 && p.y > y1 && p.y < 156) || (p.x > x0 - 8 && p.x < x0 && p.y > y1 && p.y < y1 + 6) || (p.x < x0 && Math.abs(p.y - (y0 - 2.25)) < 2.2) });
+  const g = P.geometry, s = g.survey, b = g.building, d = g.driveway, v = new View(den, 'site'), f = FV(v), c = [-44, -9, 136, 176], { x0, x1, xl, y0, y1 } = G;
+  drawSurvey(f, P, G, c, { skipSpot: p => (p.x > G.xW - 14 && p.x < x1 + 1 && p.y > G.yS - 1.5 && p.y < G.yN + 1.5) || (p.x > x0 - 1 && p.x < x1 + 4 && p.y > y0 - 6 && p.y < y1 + 2) || (p.x > G.swX - 4.5 && p.x < G.swX + 4 && p.y > G.swA - 2) });
   drawDrive(f, P, G, { sp: 3 });
   drawSwale(f, P, G, { first: 14 });
   drawBuilding(f, P, G);
   // streets and lot lines
   f.text(streetN(P), 30, 164.6, { cls: 'th', anchor: 'middle' }); f.text("50' RIGHT OF WAY · ASPHALT PAVEMENT", 30, 159.6, { cls: 'tm', anchor: 'middle', size: 7.5 });
-  f.text(streetW(P), -31.6, 60, { cls: 'th', anchor: 'middle', rot: 90 }); f.text("50' RIGHT OF WAY · ASPHALT PAVEMENT", -26.4, 60, { cls: 'tm', anchor: 'middle', rot: 90, size: 7.5 });
+  f.text(streetW(P), -31.6, 118, { cls: 'th', anchor: 'middle', rot: 90 }); f.text("50' RIGHT OF WAY · ASPHALT PAVEMENT", -26.4, 118, { cls: 'tm', anchor: 'middle', rot: 90, size: 7.5 });
   for (const l of s.lotLines) f.text(l.text, l.x, l.y, { cls: 'ts', anchor: 'middle', rot: l.rot || 0, size: 8.5 });
   for (const m of s.monuments) if (m.label) f.text(m.label, m.x + m.dx, m.y + m.dy, { cls: 'tm', size: 7, anchor: m.dx < 0 ? 'end' : 'start' });
   // existing
   f.text('(E) 1-STORY RESIDENCE', 44.6, 87.6, { cls: 'ts', anchor: 'middle', rot: 55.1, size: 8 }); f.text('FLOOR ELEV ' + s.houseFloor, 48.6, 84.9, { cls: 'tm', anchor: 'middle', rot: 55.1, size: 7 });
-  for (const t of s.ties) { f.raw([[t.x1, t.y1], [t.x2, t.y2]], ST.thin); f.text(t.text, t.tx, t.ty, { cls: 'tm', size: 7, anchor: 'middle', rot: t.rot || 0 }); }
-  f.text('FLOOD ZONE X', 30, 22, { cls: 'ts', size: 8.5, anchor: 'middle' }); f.text('(ENTIRE LOT, PER SURVEY)', 30, 17.6, { cls: 'tm', size: 7, anchor: 'middle' });
+  for (const t of s.ties) if (t.text !== "58.0'") { f.raw([[t.x1, t.y1], [t.x2, t.y2]], ST.thin); f.text(t.text, t.tx, t.ty, { cls: 'tm', size: 7, anchor: 'middle', rot: t.rot || 0 }); }
+  f.text('FLOOD ZONE X', 24, 122, { cls: 'ts', size: 8.5, anchor: 'middle' }); f.text('(ENTIRE LOT, PER SURVEY)', 24, 117.6, { cls: 'tm', size: 7, anchor: 'middle' });
   // new building
-  const mx = (x0 + x1) / 2;
-  f.text(`(N) METAL\nBUILDING\n${b.ew}' × ${b.ns}'`, mx, y0 + 14.5, { cls: 'tN', anchor: 'middle', size: 9 }); f.text('FFE ' + b.ffe.toFixed(1), mx, y0 + 2.6, { cls: 'tN', anchor: 'middle', size: 9 });
-  f.text('LEAN-TO', mx, yl + 4.6, { cls: 'tN', anchor: 'middle', size: 7.5 });
-  f.dimV(y1, G.northY(x1 - 1.2), x1 - 1.2, x1 - 1.2, { text: ff(b.northSetback) });
-  f.dimH(x1, G.eastX(y0 - 3.4), y0 - 3.4, y0, { text: ff(b.eastSetback) });
-  f.dimH(G.westX(y0 - 2.25), x0, y0 - 2.25, y0, { text: ff(G.toWest, true) });
-  f.dimV(G.southY(x0 + 12), y0, x0 + 12, x0 + 12, { text: ff(G.toSouth, true) });
-  // separations to the existing buildings
-  f.raw([[x0, y1], G.houseFoot], ST.thin); f.dot(G.houseFoot[0], G.houseFoot[1], 1, 'dot'); f.dot(x0, y1, 1, 'dot');
-  f.text(ff(G.houseClear, true), (x0 + G.houseFoot[0]) / 2 + 0.9, (y1 + G.houseFoot[1]) / 2 + 1.5, { cls: 'td', anchor: 'middle', rot: -34.8, size: 8 });
-  f.raw([[G.shedX, G.shedTop], [G.shedX, y0]], ST.thin);
+  const mx = (xl + x1) / 2, my = (y0 + y1) / 2;
+  f.text(`(N) METAL\nBUILDING\n${b.ns}' × ${b.ew}'`, mx, my + 6.5, { cls: 'tN', anchor: 'middle', size: 8.5 }); f.text('FFE ' + b.ffe.toFixed(1), mx, y0 + 3, { cls: 'tN', anchor: 'middle', size: 8.5 });
+  f.text('LEAN-TO', (x0 + xl) / 2 + 1, my, { cls: 'tN', anchor: 'middle', size: 7.5, rot: 90 });
+  f.text(`(N) GRAVEL DRIVEWAY, ${f1(d.width)}' WIDE`, (G.xW + x0) / 2 + 2, G.yc + 7.6, { cls: 'tN', anchor: 'middle', size: 8.5 });
+  for (const x of [G.xW + 22, G.xW + 40, x0 - 8]) slopeArrow(f, x, G.yc - 1.5, G.yc + 4.5, x === G.xW + 40 ? `${d.crossPct}% ±` : '');
+  slopeArrowH(f, x0 - 14, x0 - 26, G.yc - 5, 'SLOPE'); 
+  pgrade(f, x0 - 1.2, G.yc - 9, f1(b.ffe), { anchor: 'end', dy: -0.9 }); pgrade(f, (G.xW + x0) / 2, G.yc - 9, f1(G.dg((G.xW + x0) / 2)) + ' ±', { dy: -0.9 }); pgrade(f, G.xW + 1.5, G.yc - 9, f1(d.gradeAtLine) + ' ± MATCH (E)', { dy: -0.9 });
+  for (const y of [G.swA + 1, y1 + 30, y1 + 60, y1 + 88]) pgrade(f, G.swX, y, 'FL ' + f1(G.fl(y)), { anchor: 'end', dy: -0.9, size: 7 });
+  f.dimV(y1, G.northY(x0 + 17), x0 + 17, x0 + 17, { text: ff(G.toNorth, true) });
+  f.dimH(x1, G.eastX(y1 + 2.5), y1 + 2.5, y1, { text: ff(b.eastSetback) });
+  f.dimH(G.westX(G.yN + 3), x0, G.yN + 3, G.yN + 3, { text: ff(G.toWest, true) });
+  f.dimV(G.southY(x0 - 5), y0, x0 - 5, x0, { text: ff(b.southSetback) });
+  f.dimV(G.yS, G.yN, 14, 14, { text: ff(d.width) });
+  // separation to the residence
+  f.raw([G.houseA, G.houseB], ST.thin); f.dot(G.houseA[0], G.houseA[1], 1, 'dot'); f.dot(G.houseB[0], G.houseB[1], 1, 'dot');
+  f.text(ff(G.houseClear, true), G.houseB[0] + (G.houseA[0] - G.houseB[0]) * 0.22 + 1.2, G.houseB[1] + (G.houseA[1] - G.houseB[1]) * 0.22 + 1.6, { cls: 'td', anchor: 'middle', rot: Math.atan2(G.houseB[1] - G.houseA[1], G.houseB[0] - G.houseA[0]) * 180 / Math.PI + 180, size: 8 });
   // notes, in the neighbour's side yard east of the lot
   const nx = 143;
-  f.note("(E) 4' HOG WIRE FENCE AND GATE IN THE\nRIGHT-OF-WAY. OPENING AT THE DRIVEWAY\nBY THE CONTRACTOR", 100, 145.3, nx, 172, { side: 'r' });
-  f.note(`(N) DRIVEWAY CONNECTION TO ${streetN(P)},\nIN THE RIGHT-OF-WAY. COORDINATE WITH\nTHE COUNTY`, G.xE, 150, nx, 157, { side: 'r', kind: 'N' });
-  f.note(`(N) GRAVEL DRIVEWAY, ${f1(g.driveway.width)}' WIDE,\nFLARES TO ${f1(g.driveway.finalWidth)}' AT THE LEAN-TO.\nSLOPES TO THE STREET. SEE ${REF.side}/${REF.sheet}`, G.xE, 124, nx, 142, { side: 'r', kind: 'N' });
-  if (G.pole) f.note(`(E) UTILITY POLE AND OVERHEAD WIRE,\n${ff(G.poleClear, true)} IN FRONT OF THE LEAN-TO.\nCONTRACTOR IS TO CONFIRM ACCESS AND\nPROTECT EXISTING UTILITIES`, G.pole[0], G.pole[1], nx, 127, { side: 'r' });
-  f.note(`(N) ${b.ew}' × ${b.ns}' METAL BUILDING\nFFE ${b.ffe.toFixed(1)} (NAVD 88)\nSEE ${REF.side}/${REF.sheet}`, x1, y0 + 26, nx, 108, { side: 'r', kind: 'N' });
-  f.note(`(N) SWALE, ${f1(g.swale.width)}' WIDE × ${f1(G.swL)}' LONG,\nDRAINS NORTH TO ${streetN(P)}.\nSEE ${REF.section} AND ${REF.d1}/${REF.sheet}`, G.swX, y0 + 12, nx, 91, { side: 'r', kind: 'N' });
-  f.note("(E) 4' HOG WIRE FENCE", 109.4, 58, nx, 76, { side: 'r' });
-  f.note(`(E) SHED, 7' × 7'. ${ff(G.shedClear, true)}\nCLEAR TO THE NEW BUILDING`, G.shedX, (G.shedTop + y0) / 2, nx, 63, { side: 'r' });
-  f.note("(E) 4' CHAINLINK FENCE", 96, -1.3, nx, 44, { side: 'r' });
-  f.note('(E) CANOPY LINE,\nPER SURVEY', 103, 17.8, nx, 30, { side: 'r' });
-  northArrow(f, 152, 6, 5.5); graphicScale(f, 166, 1.5, [0, 10, 20, 40]);
+  f.note("(E) 4' HOG WIRE FENCE AND GATE\nIN THE RIGHT-OF-WAY", 100, 145.3, nx, 166, { side: 'r' });
+  if (G.pole) f.note('(E) UTILITY POLE AND OVERHEAD WIRE.\nCONTRACTOR IS TO CONFIRM ACCESS AND\nPROTECT EXISTING UTILITIES', G.pole[0], G.pole[1], nx, 150, { side: 'r' });
+  f.note(`(N) SWALE, ${f1(g.swale.width)}' WIDE × ${f1(G.swL)}' LONG,\nDRAINS NORTH TO ${streetN(P)}.\nSEE ${REF.section} AND ${REF.d1}/${REF.sheet}`, G.swX, 112, nx, 128, { side: 'r', kind: 'N' });
+  f.note("(E) 4' HOG WIRE FENCE", 109.5, 84, nx, 108, { side: 'r' });
+  f.note(`(E) 7' × 7' SHED, RELOCATED BY THE OWNER.\nKEEP ${f1(g.shed.clear)}' MIN. CLEAR OF THE NEW BUILDING\nAND ${f1(b.eastSetback)}' OFF THE EAST LINE`, G.shed[2] - 1.5, (G.shed[1] + G.shed[3]) / 2, nx, 93, { side: 'r' });
+  f.note(`(N) ${b.ns}' × ${b.ew}' METAL BUILDING\nFFE ${b.ffe.toFixed(1)} (NAVD 88)\nSEE ${REF.side}/${REF.sheet}`, x1, y0 + 22, nx, 72, { side: 'r', kind: 'N' });
+  f.note('(E) CANOPY LINE, PER SURVEY. THE TREES\nLOCATED BY THE SURVEY STAND\nOUTSIDE THE LOT', 106.5, 17, nx, 51, { side: 'r' });
+  f.note("(E) 4' CHAINLINK FENCE", 102, -1.2, nx, 34, { side: 'r' });
+  f.note(`(N) DRIVEWAY CONNECTION TO ${streetW(P)}, IN THE RIGHT-OF-WAY.\nOPENING IN THE (E) FENCE BY THE CONTRACTOR. COORDINATE WITH THE COUNTY.\n(E) OVERHEAD WIRE ALONG ${streetW(P)}: VERIFY CLEARANCE`, -12, G.yS, -8, -10.5, { side: 'r', kind: 'N' });
+  northArrow(f, 152, 8, 5.5); graphicScale(f, 166, 3.5, [0, 10, 20, 40]);
   return v.svg();
 }
 
-// ------------------------------------------------------------------ 2  SECTION through the east side yard, looking north
+// ------------------------------------------------------------------ 2  SECTION through the east side yard at the building, looking north
 function viewSection(P, G, den) {
-  const g = P.geometry, b = g.building, sw = g.swale, v = new View(den, 'sect'), f = FV(v, Math.floor(b.ffe) - 5), { x1 } = G, ym = (G.y0 + G.y1) / 2, pl = G.eastX(ym), fx = g.section.fenceX, eg = g.section.existGrade, egL = g.section.existGradeAtLine;
-  const xa = x1 - 7.6, xb = pl + 3, F = b.ffe, pad = G.pad, t = 0.333, fb = pad - 1.0, wl = G.swX - sw.width / 2, wr = G.swX + sw.width / 2, egW = eg + (egL - eg) * (wl - x1) / (pl - x1), egR = eg + (egL - eg) * (wr - x1) / (pl - x1), inv = Math.min(egW, egR) - G.swD;
+  const g = P.geometry, b = g.building, v = new View(den, 'sect'), f = FV(v, Math.floor(b.ffe) - 5), { x1 } = G, ym = (G.y0 + G.y1) / 2, pl = G.eastX(ym), fx = g.section.fenceX, eg = g.section.existGrade, egL = g.section.existGradeAtLine;
+  const xa = x1 - 7.6, xb = pl + 3, F = b.ffe, pad = G.pad, t = 0.333, fb = pad - 1.0, toe = fx - g.section.toeInside, egT = eg + (egL - eg) * (toe - x1) / (pl - x1);
   // slab with a thickened perimeter footing, schematic (by others)
   f.poly([[xa, F], [x1, F], [x1, fb], [x1 - 1, fb], [x1 - 1, F - t - 0.55], [x1 - 1.55, F - t], [xa, F - t]], 'new', true, { fill: v.pat('conc') });
   f.poly([[xa, F - t - 0.35], [xa - 0.12, F - 0.22], [xa + 0.12, F - 0.1], [xa, F + 0.25]], 'o2', false);
@@ -235,23 +253,24 @@ function viewSection(P, G, den) {
   f.rect(x1 - 0.5, F, x1 - 0.29, F + 0.21, 'steelo');
   f.rect(x1 - 0.5, F + 0.21, x1 - 0.29, F + 3.0, 'newF'); f.poly([[x1 - 0.5, F + 3.0], [x1 - 0.5, F + 0.21]], 'new', false); f.poly([[x1 - 0.29, F + 0.21], [x1 - 0.29, F + 3.0]], 'new', false);
   f.poly([[x1 - 0.8, F + 3.0], [x1 - 0.48, F + 3.0], [x1 - 0.43, F + 3.2], [x1 - 0.36, F + 2.8], [x1 - 0.3, F + 3.0], [x1 + 0.05, F + 3.0]], 'o2', false);
-  // grades: existing dashed grey, proposed blue
+  // grades: existing dashed grey, proposed blue. The swale fills the side yard: east edge at existing grade, west bank up to the grade at the wall
+  const sw = g.swale, wr = G.swX + sw.width / 2, egR = eg + (egL - eg) * (wr - x1) / (pl - x1), inv = egR - G.swD;
   f.raw([[xa, eg], [x1, eg], [pl, egL], [xb, egL]], { w: 0.9, color: GREY, dash: [6, 3] });
-  f.raw([[x1, pad], [wl, egW], [G.swX, inv], [wr, egR]], { w: 1.5, color: BLUE });
-  f.raw([[pl, egL - 1.5], [pl, F + 3.2]], ST.prop); f.line(fx, egL, fx, egL + 4, 'exw');
+  f.raw([[x1, pad], [G.swX, inv], [wr, egR]], { w: 1.5, color: BLUE });
+  f.raw([[pl, inv - 1.6], [pl, F + 3.2]], ST.prop); f.line(fx, egL, fx, egL + 4, 'exw');
   // dimensions
   f.dimH(x1, pl, F + 2.45, F + 0.5, { text: ff(b.eastSetback) + ' SIDE YARD' });
-  f.dimH(x1, wl, F + 1.25, pad + 0.1, { text: ff(wl - x1, true) }); f.dimH(wl, wr, F + 1.25, egR + 0.1, { text: ff(sw.width) + ' SWALE' }); f.dimH(wr, pl, F + 1.25, egR + 0.1, { text: ff(pl - wr, true) });
-  f.dimV(inv, Math.min(egW, egR), wr + 0.75, G.swX, { text: `${Math.round(G.swD * 24) / 2}"` });
-  f.text(`${sw.sideSlope}:1`, (wl + G.swX) / 2 - 0.1, (egW + inv) / 2 - 0.42, { cls: 'tN', size: 8, anchor: 'middle' }); f.text(`${sw.sideSlope}:1`, (wr + G.swX) / 2 + 0.2, (egR + inv) / 2 - 0.42, { cls: 'tN', size: 8, anchor: 'middle' });
+  f.dimH(x1, wr, F + 1.25, pad + 0.1, { text: ff(wr - x1) + ' SWALE' }); f.dimH(wr, pl, F + 1.25, egR + 0.1, { text: ff(pl - wr, true) });
+  f.text(`${f1((G.swX - x1) / (pad - inv))}:1 ±`, (x1 + G.swX) / 2 + 0.75, (pad + inv) / 2 + 0.3, { cls: 'tN', size: 8, anchor: 'middle' });
+  f.text(`${sw.sideSlope}:1`, (wr + G.swX) / 2 + 0.25, (egR + inv) / 2 - 0.45, { cls: 'tN', size: 8, anchor: 'middle' });
   // notes
   f.datum('FINISHED FLOOR\nEL. ' + F.toFixed(1), xa - 2.4, F, xa - 0.3);
-  f.note('(E) GRADE ' + eg.toFixed(1) + ' ±\nAT THE BUILDING', xa + 1.2, eg, xa - 0.6, eg - 0.95, { side: 'l' });
   f.note('(N) METAL BUILDING WALL\nON BASE RAIL', x1 - 0.5, F + 2.3, x1 - 1.7, F + 2.75, { side: 'l', kind: 'N' });
   f.note('(N) SLAB AND FOUNDATION\nBY OTHERS. SHOWN SCHEMATIC', xa + 1.6, F - 0.17, xa + 0.9, F + 1.45, { side: 'r', kind: 'N' });
-  f.note(`PERIMETER FOOTING BELOW GRADE.\nSIZE, REINFORCING AND ANCHORS\nPER THE BUILDING PLANS`, x1 - 0.5, fb + 0.1, x1 - 2.0, fb - 1.25, { side: 'l', kind: 'N' });
-  f.note(`(N) FINISHED GRADE AT THE WALL\n${pad.toFixed(1)} ±, ABOUT ${Math.round(b.stepToGrade * 12)}" BELOW THE FLOOR.\nSLOPE AWAY TO THE SWALE`, x1 + 0.9, pad - (pad - egW) * 0.9 / (wl - x1), x1 + 1.5, fb - 0.55, { side: 'r', kind: 'N' });
-  f.note(`(N) SWALE FLOW LINE ${inv.toFixed(1)} ±\nMATCH (E) GRADE AT BOTH EDGES.\nSEE ${REF.d1}/${REF.sheet}`, G.swX, inv, pl + 2.1, inv - 0.95, { side: 'r', kind: 'N' });
+  f.note(`(N) REGRADING OR FILL UNDER THE SLAB,\nABOUT ${Math.round((F - t - g.section.existHigh) * 12)}" TO ${Math.round((F - t - eg) * 12)}" ±. PERIMETER FOOTING, REINFORCING\nAND ANCHORS PER THE BUILDING PLANS`, x1 - 3.2, (F - t + eg) / 2, x1 - 4.0, eg - 1.5, { side: 'l', kind: 'N' });
+  f.note('(E) GRADE ' + eg.toFixed(1) + ' ±\nAT THE BUILDING', xa + 0.4, eg, xa - 0.9, eg - 0.05, { side: 'l' });
+  f.note(`(N) FINISHED GRADE AT THE WALL ${pad.toFixed(1)} ±,\nABOUT ${Math.round(b.stepToGrade * 12)}" BELOW THE FLOOR.\nSLOPE DOWN TO THE SWALE`, x1 + 0.7, pad - (pad - inv) * 0.7 / (G.swX - x1), x1 - 1.4, inv - 0.9, { side: 'r', kind: 'N' });
+  f.note(`(N) SWALE FLOW LINE ${inv.toFixed(1)} ±, DRAINS NORTH.\nEAST EDGE MATCHES (E) GRADE AT THE FENCE.\nSEE ${REF.d1}/${REF.sheet}`, G.swX, inv, pl + 2.1, inv - 0.2, { side: 'r', kind: 'N' });
   f.note('EAST PROPERTY LINE', pl, F + 3.0, pl + 2.1, F + 3.05, { side: 'r' });
   f.note("(E) 4' HOG WIRE FENCE", fx, egL + 3.3, pl + 2.1, F + 1.9, { side: 'r' });
   f.note('(E) GRADE ' + egL.toFixed(1) + ' ±\nAT THE LINE', pl + 0.8, egL, pl + 2.1, F + 0.55, { side: 'r' });
@@ -260,51 +279,43 @@ function viewSection(P, G, den) {
 
 // ------------------------------------------------------------------ 3  ENLARGED PLAN at the new building
 function viewEnlarged(P, G, den) {
-  const g = P.geometry, s = g.survey, b = g.building, d = g.driveway, v = new View(den, 'enl'), f = FV(v), { x0, x1, y0, y1, yl } = G, c = [52, y0 - 11.6, G.eastX(y0) + 2.5, G.northY(x1) + 2.4];
-  drawSurvey(f, P, G, c, { spotSize: 7.5, skipSpot: p => (p.x > x0 - 11 && p.x < x1 + 3 && p.y > y0 - 6 && p.y < y1 + 1) || (p.x > G.xW - 2 && p.x < G.xE + 2 && p.y > y1) || (p.x > x1 && p.y > y0 - 8 && p.x < G.swX + 3) || p.y > G.yN + 1 });
-  drawDrive(f, P, G, { sp: 1.7, epY: c[3] });
-  drawSwale(f, P, G, { first: 9, step: 19 });
+  const g = P.geometry, s = g.survey, b = g.building, d = g.driveway, v = new View(den, 'enl'), f = FV(v), { x0, x1, xl, y0, y1 } = G, c = [50, G.southY(x0) - 3.4, G.eastX(y0) + 2.5, G.shed[3] + 9];
+  drawSurvey(f, P, G, c, { spotSize: 7.5, skipSpot: p => (p.x > x0 - 12 && p.x < x1 + 9 && p.y > y0 - 9 && p.y < G.shed[3] + 3) || (p.x < x0 && p.y > G.yS - 1 && p.y < G.yN + 1) });
+  drawDrive(f, P, G, { sp: 1.7, from: c[0] });
+  drawSwale(f, P, G, { first: 6, step: 14, to: c[3] });
   drawBuilding(f, P, G, { doors: true });
-  const mx = (x0 + x1) / 2;
-  f.text("(N) METAL BUILDING", mx, y0 + 13.6, { cls: 'tN', anchor: 'middle', size: 11 }); f.text(`FFE ${b.ffe.toFixed(1)} (NAVD 88)`, mx, y0 + 11, { cls: 'tN', anchor: 'middle', size: 10 });
-  f.text(`${b.ns - b.leanNs}' ENCLOSED · RIDGE EAST-WEST`, mx, y0 + 5.2, { cls: 'ts', anchor: 'middle', size: 8 });
-  f.text(`${b.leanNs}' LEAN-TO, OPEN`, mx, yl + 7.4, { cls: 'tN', anchor: 'middle', size: 9.5 }); f.text("(2) 10' × 10' ROLL-UP DOORS", mx, yl + 2.2, { cls: 'ts', anchor: 'middle', size: 8 });
-  f.text('(E) RESIDENCE', 57.6, 96.6, { cls: 'ts', anchor: 'middle', rot: 55.1, size: 8.5 }); f.text('(E) CONC.', 58.6, 83.3, { cls: 'tm', anchor: 'middle', rot: 55.1, size: 7.5 });
-  f.text(`NORTH PROPERTY LINE · ${streetN(P)} R/W`, 70, G.northY(70) + 1.2, { cls: 'ts', anchor: 'middle', size: 8 });
-  f.text('EAST PROPERTY LINE', G.eastX(120) + 1.3, 120, { cls: 'ts', anchor: 'middle', rot: 90, size: 8 });
-  f.text(`(N) GRAVEL DRIVEWAY`, (G.xN + G.xE) / 2 + 0.6, (G.yF1 + G.yN) / 2 + 1.5, { cls: 'tN', anchor: 'middle', rot: 90, size: 9 });
-  // building and setback dimensions
-  f.dimH(x0, x1, y0 - 3.6, y0, { text: ff(b.ew) }); f.dimH(x1, G.eastX(y0 - 3.6), y0 - 3.6, y0, { text: ff(b.eastSetback) });
-  f.dimV(y0, yl, x0 - 3.6, x0, { text: ff(b.ns - b.leanNs) }); f.dimV(yl, y1, x0 - 3.6, x0, { text: ff(b.leanNs) }); f.dimV(y0, y1, x0 - 8, x0, { text: ff(b.ns) });
-  f.dimV(y1, G.northY(x1 - 1.9), x1 - 1.9, x1 - 1.9, { text: ff(b.northSetback) + ' TO NORTH LINE' });
-  // driveway dimensions
-  f.dimH(G.xN, G.xE, G.yN - 4.6, G.yN - 4.6, { text: ff(d.width) }); f.dimH(G.xW, G.xE, y1 + 3.2, y1, { text: ff(d.finalWidth) });
-  if (G.pole) { f.dimH(G.pole[0], G.xN, G.pole[1], G.pole[1], { text: ff(G.poleToDrive, true) }); f.dimV(y1, G.pole[1], x0 - 3.6, G.pole[0], { text: ff(G.poleClear, true) }); }
-  // separations to the existing buildings
-  f.raw([[x0, y1], G.houseFoot], ST.thin); f.dot(G.houseFoot[0], G.houseFoot[1], 1.1, 'dot');
-  f.text(ff(G.houseClear, true), (x0 + G.houseFoot[0]) / 2 - 0.5, (y1 + G.houseFoot[1]) / 2 + 0.9, { cls: 'td', anchor: 'middle', rot: -34.8, size: 9 });
-  f.dimV(G.shedTop, y0, G.shedX, G.shedX, { text: ff(G.shedClear, true) });
-  f.text("(E) SHED", (Math.max(...s.shed.map(p => p[0])) + Math.min(...s.shed.map(p => p[0]))) / 2, G.shedTop - 2.4, { cls: 'ts', anchor: 'middle', size: 7.5 });
+  const mx = (xl + x1) / 2, my = (y0 + y1) / 2;
+  f.text("(N) METAL BUILDING", mx + 1.5, my + 7, { cls: 'tN', anchor: 'middle', size: 10.5 }); f.text(`FFE ${b.ffe.toFixed(1)} (NAVD 88)`, mx + 1.5, my + 4.4, { cls: 'tN', anchor: 'middle', size: 9.5 });
+  f.text(`${b.ew - b.leanW}' ENCLOSED`, mx + 1.5, my - 3, { cls: 'ts', anchor: 'middle', size: 8 }); f.text('RIDGE NORTH-SOUTH', mx + 1.5, my - 5.2, { cls: 'ts', anchor: 'middle', size: 8 });
+  f.text(`${b.leanW}' LEAN-TO, OPEN`, (x0 + xl) / 2 - 1.2, my, { cls: 'tN', anchor: 'middle', size: 9.5, rot: 90 }); f.text("(2) 10' × 10' ROLL-UP DOORS", xl - 2.2, my, { cls: 'ts', anchor: 'middle', size: 8, rot: 90 });
+  f.text('(N) GRAVEL DRIVEWAY', (c[0] + x0) / 2 + 1, G.yc + 5, { cls: 'tN', anchor: 'middle', size: 9 }); f.text('TO ' + streetW(P) + '. SEE ' + REF.plan + '/' + REF.sheet, (c[0] + x0) / 2 + 1, G.yc + 2.6, { cls: 'ts', anchor: 'middle', size: 7.5 });
+  f.text('(E) CONC.', 57.6, 46.6, { cls: 'tm', anchor: 'middle', size: 7.5 });
+  f.text('EAST PROPERTY LINE', G.eastX(22) + 1.3, 22, { cls: 'ts', anchor: 'middle', rot: 90, size: 8 });
+  f.text('SOUTH PROPERTY LINE', 60, G.southY(60) - 2.6, { cls: 'ts', anchor: 'middle', size: 8 });
+  // building, setback and shed dimensions
+  f.dimH(x0, xl, y1 + 2.6, y1, { text: ff(b.leanW) }); f.dimH(xl, x1, y1 + 2.6, y1, { text: ff(b.ew - b.leanW) });
+  f.dimH(x1, G.eastX(y0 - 2.4), y0 - 2.4, y0, { text: ff(b.eastSetback) });
+  f.dimV(G.southY(x0 - 4), y0, x0 - 4, x0, { text: ff(b.southSetback) });
+  f.dimV(y0, y1, x0 - 8.5, x0, { text: ff(b.ns) }); f.dimV(G.yS, G.yN, x0 - 4, x0 - 4, { text: ff(d.width) });
+  f.dimV(y1, G.shed[1], G.shed[0] + 2, G.shed[0] + 2, { text: ff(g.shed.clear) + ' MIN.' });
+  f.text('(E) SHED', (G.shed[0] + G.shed[2]) / 2, (G.shed[1] + G.shed[3]) / 2 + 0.6, { cls: 'ts', anchor: 'middle', size: 7 }); f.text('RELOCATED', (G.shed[0] + G.shed[2]) / 2, (G.shed[1] + G.shed[3]) / 2 - 1.2, { cls: 'ts', anchor: 'middle', size: 6.5 });
   // proposed grades (blue ×): pad at the walls, swale flow line, driveway
   const pd = G.pad.toFixed(1);
-  pgrade(f, x0, y0, pd, { anchor: 'end', dy: 0.5 }); pgrade(f, x1, y0, pd, { anchor: 'start', dy: 0.5, size: 7 }); pgrade(f, x0, yl, pd, { anchor: 'end', dy: 0.5 }); pgrade(f, x1, yl, pd, { anchor: 'end', dy: 0.6 });
-  for (const y of [G.swA + 0.4, (y0 + yl) / 2 + 4, y1, y1 + 19, G.swB - 0.6]) pgrade(f, G.swX, y, 'FL ' + f1(G.fl(y)), { dy: -0.4 });
-  pgrade(f, (G.xW + G.xE) / 2 - 5, y1 + 0.9, f1(b.ffe) + ' AT SLAB', { dy: -0.4 }); pgrade(f, G.xN + 2.2, (y1 + G.yN) / 2, f1(G.dg((y1 + G.yN) / 2)) + ' ±', { dy: -0.4 }); pgrade(f, G.xN + 2.6, G.yN - 1.1, f1(d.gradeAtLine) + ' ± MATCH (E)', { dy: -0.4, anchor: 'end' });
-  slopeArrow(f, G.xE - 4.6, y1 + 9, y1 + 17, 'SLOPE', { side: 'l' }); slopeArrow(f, G.xN + 1.6, G.yN - 15.5, G.yN - 8, 'SLOPE', { side: 'l' });
+  pgrade(f, x0, y0, pd, { anchor: 'end', dy: -1.9 }); pgrade(f, x1, y0, pd, { anchor: 'end', dy: 0.6 }); pgrade(f, x0, y1, pd, { anchor: 'end', dy: 0.6 }); pgrade(f, x1, y1, pd, { anchor: 'end', dy: 0.6 });
+  for (const y of [G.swA + 0.6, y1, G.shed[3] + 3]) pgrade(f, G.swX, y, 'FL ' + f1(G.fl(y)), { dy: -0.4, size: 7 });
+  pgrade(f, x0 - 1.2, G.yc - 7, f1(b.ffe) + ' AT SLAB', { anchor: 'end', dy: -0.4 }); slopeArrowH(f, x0 - 2.5, x0 - 10, G.yc - 3.5, 'SLOPE'); slopeArrow(f, 54.5, G.yc + 6.5, G.yc + 11, `${d.crossPct}% ±`);
   // section cut
-  const ym = (y0 + y1) / 2, ca = x1 - 5, cb = c[2] + 1.2;
+  const ca = x1 - 5, cb = c[2] + 1.2, ym = my - 4;
   f.line(ca, ym, cb, ym, 'cutl'); f.line(ca, ym, ca, ym + 2.2, 'cutl2'); f.line(cb, ym, cb, ym + 2.2, 'cutl2'); f.arrow(cb, ym + 3.6, cb, ym); f.bubble(cb + 3.2, ym + 0.6, String(REF.section), REF.sheet);
   // notes
   const nx = c[2] + 2.2;
-  f.note("(E) FENCE AND GATE\nIN THE R/W.\nOPENING AT THE\nDRIVEWAY BY\nCONTRACTOR", G.xE - 1, c[3] - 0.4, nx, G.yN - 1.5, { side: 'r' });
-  f.note(`(N) GRAVEL\nDRIVEWAY,\n${f1(d.width)}' WIDE.\nFLARES TO\n${f1(d.finalWidth)}' PAST\nTHE POLE`, G.xE, G.yN - 14, nx, G.yN - 17, { side: 'r', kind: 'N' });
-  f.note(`(N) SWALE\n${f1(g.swale.width)}' × ${f1(G.swL)}'\nFLOWS NORTH\nSEE ${REF.d1}/${REF.sheet}`, G.swX, y1 + 8, nx, y1 + 13, { side: 'r', kind: 'N' });
-  f.note("(N) GRADE\n×  BLUE.\n(E) GRADE\n+  GREY", G.swX, y1, nx, y1 - 1.5, { side: 'r', kind: 'N' });
-  f.note("36\" × 80\"\nDOOR ±", x1 + 0.45, y0 + (b.manDoor[0] + b.manDoor[1]) / 2, nx, y0 + 8.5, { side: 'r', kind: 'N' });
-  f.note("(E) 4' HOG\nWIRE FENCE", 109.45, y0 + 2, nx, y0 + 3, { side: 'r' });
-  if (G.pole) f.note('(E) UTILITY POLE AND\nOVERHEAD WIRE. CONTRACTOR\nIS TO CONFIRM ACCESS AND\nPROTECT EXISTING UTILITIES', G.pole[0], G.pole[1], 55.5, G.pole[1] + 12.5, { side: 'r' });
-  f.note('(E) A/C PAD', 64.6, 99.3, 53.5, 106.5, { side: 'r' });
-  northArrow(f, nx + 5.5, y0 - 8, 2.8); graphicScale(f, 66, y0 - 9.6, [0, 5, 10]);
+  f.note(`(N) SWALE\n${f1(g.swale.width)}' × ${f1(G.swL)}'\nFLOWS NORTH.\nSEE ${REF.section}\nAND ${REF.d1}/${REF.sheet}`, G.swX, c[3] - 3, nx, c[3] - 1, { side: 'r', kind: 'N' });
+  f.note(`(E) SHED, BY\nTHE OWNER.\n${f1(g.shed.clear)}' MIN. FROM\nTHE BUILDING`, G.shed[2], (G.shed[1] + G.shed[3]) / 2, nx, G.shed[1] + 0.5, { side: 'r' });
+  f.note("SWALE STARTS\nAT THE SOUTH\nWALL LINE", G.swX, G.swA, nx, y0 - 6.5, { side: 'r', kind: 'N' });
+  f.note("(N) GRADE\n×  BLUE.\n(E) GRADE\n+  GREY", G.swX, my + 9, nx, my + 9.5, { side: 'r', kind: 'N' });
+  f.note("(E) 4' HOG\nWIRE FENCE", 109.4, y0 + 2.5, nx, y0 + 1, { side: 'r' });
+  f.note('36" × 80" DOOR AND\n24" × 36" WINDOW ±', (G.manDoor[0] + G.manDoor[1]) / 2, y1 + 0.45, x1 - 19, y1 + 9, { side: 'l', kind: 'N' });
+  northArrow(f, 55, y1 + 22, 2.8); graphicScale(f, 62, y1 + 20.5, [0, 5, 10]);
   return v.svg();
 }
 
@@ -354,59 +365,62 @@ function detailStorm(P, G, den) {
   return v.svg();
 }
 
-// ------------------------------------------------------------------ 6  BUILDING FOOTPRINT (from the owner's building sketch)
+// ------------------------------------------------------------------ 6  BUILDING FOOTPRINT (from the owner's building sketch), north up
 function detailFootprint(P, G, den) {
-  const b = P.geometry.building, v = new View(den, 'foot'), f = FV(v), W = b.ew, D = b.ns, yl = D - b.leanNs, dw = 0.4;
-  f.rect(0, 0, W, yl, 'new'); f.rect(0, yl, W, D, 'newH');
-  f.raw([[0, yl / 2], [W, yl / 2]], { w: 0.6, color: BLUE, dash: [10, 3, 2, 3] });
-  for (const d of b.doors) f.rect(d[0], yl - dw, d[1], yl + dw, 'steelo');
-  f.rect(W - dw, b.manDoor[0], W + dw, b.manDoor[1], 'steelo'); f.rect(W - dw * 0.6, b.window[0], W + dw * 0.6, b.window[1], 'steelo');
-  for (const x of new Set([0, ...b.frameouts.flat(), W])) f.rect(x - 0.25, D - 0.25, x + 0.25, D + 0.25, 'newS');
-  f.text('ENCLOSED GARAGE', W / 2, yl / 2 + 3, { cls: 'tN', anchor: 'middle' }); f.text('RIDGE', W / 2, yl / 2 + 0.6, { cls: 'ts', anchor: 'middle', size: 8 });
-  f.text('LEAN-TO, OPEN', W / 2, yl + b.leanNs / 2 - 0.5, { cls: 'tN', anchor: 'middle' });
-  f.dimH(0, W, -2.6, 0); f.dimV(0, yl, -4, 0); f.dimV(yl, D, -4, 0); f.dimV(0, D, -9, 0);
-  f.dimH(b.frameouts[0][0], b.frameouts[0][1], D + 2.6, D, { text: "10.0'" }); f.dimH(b.frameouts[1][0], b.frameouts[1][1], D + 2.6, D, { text: "10.0'" });
-  f.note(`(2) 10' × 10' FRAMED OPENINGS IN THE\nLEAN-TO, FACING ${streetN(P)}. LOCATION ±`, b.frameouts[1][1] - 1, D, W + 6, D + 1.5, { side: 'r', kind: 'N' });
-  f.note("(2) 10' × 10' ROLL-UP DOORS IN THE\nWALL UNDER THE LEAN-TO. LOCATION ±", b.doors[1][1] - 1, yl, W + 6, yl + 3.2, { side: 'r', kind: 'N' });
-  f.note('36" × 80" WALK-IN DOOR AND\n24" × 36" WINDOW, EAST END. LOCATION ±', W + dw, (b.manDoor[0] + b.manDoor[1]) / 2, W + 6, yl - 6.5, { side: 'r', kind: 'N' });
-  f.note(`NOMINAL ${b.nominal} PER THE OWNER'S\nBUILDING SKETCH. FRAME ${b.ew}' × ${b.ns}' OVERALL`, W, 3.4, W + 6, 5.2, { side: 'r' });
-  f.note('STRUCTURE, ANCHORAGE AND FOUNDATION\nBY OTHERS, PER THE BUILDING PLANS', W * 0.8, 1.2, W + 6, 0.6, { side: 'r' });
+  const b = P.geometry.building, v = new View(den, 'foot'), f = FV(v), W = b.ew, D = b.ns, xl = b.leanW, dw = 0.4;
+  const yy = r => [D - r[1], D - r[0]], md = [W - b.manDoor[1], W - b.manDoor[0]], wn = [W - b.window[1], W - b.window[0]], fr = b.frameouts.map(yy), dr = b.doors.map(yy);
+  f.rect(xl, 0, W, D, 'new'); f.rect(0, 0, xl, D, 'newH');
+  f.raw([[(xl + W) / 2, 0], [(xl + W) / 2, D]], { w: 0.6, color: BLUE, dash: [10, 3, 2, 3] });
+  for (const d of dr) f.rect(xl - dw, d[0], xl + dw, d[1], 'steelo');
+  f.rect(md[0], D - dw, md[1], D + dw, 'steelo'); f.rect(wn[0], D - dw * 0.6, wn[1], D + dw * 0.6, 'steelo');
+  for (const y of new Set([0, ...fr.flat(), D])) f.rect(-0.25, y - 0.25, 0.25, y + 0.25, 'newS');
+  f.text('ENCLOSED\nGARAGE', (xl + W) / 2 + 4.5, D / 2 + 1.5, { cls: 'tN', anchor: 'middle' }); f.text('RIDGE', (xl + W) / 2 - 1, D / 2 - 7, { cls: 'ts', anchor: 'middle', size: 8, rot: 90 });
+  f.text('LEAN-TO, OPEN', xl / 2, D / 2, { cls: 'tN', anchor: 'middle', rot: 90 });
+  f.dimH(0, xl, -2.6, 0); f.dimH(xl, W, -2.6, 0); f.dimH(0, W, -6.4, 0); f.dimV(0, D, -7.2, 0);
+  f.dimV(fr[1][0], fr[1][1], -2.8, 0, { text: "10.0'" }); f.dimV(fr[0][0], fr[0][1], -2.8, 0, { text: "10.0'" });
+  f.note('36" × 80" WALK-IN DOOR AND\n24" × 36" WINDOW, NORTH END. LOCATION ±', md[1], D + dw, W + 6, D + 1.5, { side: 'r', kind: 'N' });
+  f.note("(2) 10' × 10' ROLL-UP DOORS IN THE\nWALL UNDER THE LEAN-TO. LOCATION ±", xl + dw, dr[0][0] + 3, W + 6, D - 6.5, { side: 'r', kind: 'N' });
+  f.note(`(2) 10' × 10' FRAMED OPENINGS IN THE\nLEAN-TO, FACING ${streetW(P)}. LOCATION ±`, 0.25, fr[1][0] + 4, W + 6, D - 14.5, { side: 'r', kind: 'N' });
+  f.note(`NOMINAL ${b.nominal},\nPER THE OWNER'S BUILDING SKETCH.\nFRAME ${b.ns}' × ${b.ew}' OVERALL`, W, 6.5, W + 6, 8, { side: 'r' });
+  f.note('STRUCTURE, ANCHORAGE AND FOUNDATION\nBY OTHERS, PER THE BUILDING PLANS', W * 0.85, 1.2, W + 6, 0.8, { side: 'r' });
   northArrow(f, -17, D - 5, 3.2);
   return v.svg();
 }
 
-// ------------------------------------------------------------------ the picture (not to scale): lot from the north-east
+// ------------------------------------------------------------------ the picture (not to scale): lot from the north-west.
+// The kit's isometric puts the viewer at +x, +y; the scene is entered with x reversed (X = XM - x) so the view is from the north-west.
+const XM = 110, YM = 136;
 function isoScene(P, G, o = {}) {
-  const g = P.geometry, s = g.survey, b = g.building, iso = new Iso(o.den || 480, o.id || 'iso'), F = v => v * K, { x0, x1, y0, y1, yl } = G;
-  const Q = (pts, z, col, order, opt) => iso.quad(pts.map(p => [F(p[0]), F(p[1]), F(z)]), col, Object.assign({ order }, opt || {}));
-  iso.solid(F(-44), F(134), F(-8), F(178), -F(3), 0, '#eef0ea', { order: 0, stroke: '#c3c9bb' });
+  const g = P.geometry, s = g.survey, b = g.building, iso = new Iso(o.den || 480, o.id || 'iso'), F = v => v * K, { x0, x1, xl, y0, y1 } = G;
+  const q3 = (pts, col, order, opt) => iso.quad(pts.map(p => [F(XM - p[0]), F(YM - p[1]), F(p[2])]), col, Object.assign({ order }, opt || {}));
+  const Q = (pts, z, col, order, opt) => q3(pts.map(p => [p[0], p[1], z]), col, order, opt);
+  iso.solid(F(XM - 134), F(XM + 44), F(YM - 178), F(YM + 8), -F(3), 0, '#eef0ea', { order: 0, stroke: '#c3c9bb' });
   Q([[-38, -8], [-21.5, -8], [-21.5, 156], [-38, 156]], 0.02, '#d9dce1', 1, { stroke: '#b9c2d0' }); Q([[-38, 156], [134, 156], [134, 171], [-38, 171]], 0.02, '#d9dce1', 1, { stroke: '#b9c2d0' });
   Q(s.boundary, 0.04, '#e3ead9', 1.5, { stroke: INK });
   for (const p of s.concrete) Q(p, 0.08, PAL.slab, 2);
-  // gravel driveway, to the edge of the pavement
-  Q([[G.xN, G.yF1], [G.xE, G.yF1], [G.xE, 156], [G.xN, 156]], 0.1, '#cfdcf5', 2.2, { stroke: PAL.new });
-  Q([[G.xW, y1], [G.xE, y1], [G.xE, G.yF2], [G.xW, G.yF2]], 0.1, '#cfdcf5', 2.2); Q([[G.xW, G.yF2], [G.xE, G.yF2], [G.xE, G.yF1], [G.xN, G.yF1]], 0.1, '#cfdcf5', 2.2);
-  const prism = (pts, h, col, order) => { for (let i = 0; i < pts.length; i++) { const a = pts[i], c = pts[(i + 1) % pts.length]; iso.quad([[F(a[0]), F(a[1]), 0], [F(c[0]), F(c[1]), 0], [F(c[0]), F(c[1]), F(h)], [F(a[0]), F(a[1]), F(h)]], shade(col, -0.1), { order }); } Q(pts, h, shade(col, 0.3), order + 0.5); };
-  prism(s.porch[0], 8, PAL.existSolid, 3); prism(s.house, 10, PAL.existSolid, 4); prism(s.shed, 7, PAL.existSolid, 4);
-  const C = PAL.newSolid, ym = (y0 + yl) / 2, k = (b.peak - b.eave) / (ym - y0);
-  iso.solid(F(x0), F(x1), F(y0), F(ym), 0, y => F(b.eave) + (y - F(y0)) * k, C, { order: 5 });
-  iso.solid(F(x0), F(x1), F(ym), F(yl), 0, y => F(b.peak) - (y - F(ym)) * k, C, { order: 5.2 });
-  for (const d of b.doors) iso.quad([[F(x0 + d[0]), F(yl) + 1, 0], [F(x0 + d[1]), F(yl) + 1, 0], [F(x0 + d[1]), F(yl) + 1, F(10)], [F(x0 + d[0]), F(yl) + 1, F(10)]], '#f4f7fd', { order: 5.3, stroke: PAL.steel });
-  const kl = (b.eave - b.leanEave) / (y1 - yl), lt = y => F(b.eave) - (y - F(yl)) * kl;
-  for (const x of new Set([0.2, ...b.frameouts.flat(), b.ew - 0.2])) iso.solid(F(x0 + x - 0.2), F(x0 + x + 0.2), F(y1 - 0.4), F(y1), 0, F(b.leanEave), C, { order: 5.4 });
-  iso.solid(F(x0), F(x1), F(yl), F(y1), y => lt(y) - F(0.4), lt, shade(C, 0.25), { order: 5.6, op: 0.72 });
-  iso.line3([F(G.swX), F(G.swA), 2], [F(G.swX), F(G.swB), 2], 'anchOk');
+  Q([[-21.5, G.yS], [x0, G.yS], [x0, G.yN], [-21.5, G.yN]], 0.1, '#cfdcf5', 2.2, { stroke: PAL.new });   // gravel driveway, to the edge of the pavement
+  const prism = (pts, h, col, order) => { for (let i = 0; i < pts.length; i++) { const a = pts[i], c = pts[(i + 1) % pts.length]; q3([[a[0], a[1], 0], [c[0], c[1], 0], [c[0], c[1], h], [a[0], a[1], h]], shade(col, -0.1), order); } Q(pts, h, shade(col, 0.3), order + 0.5); };
+  prism(s.house, 10, PAL.existSolid, 3); prism(s.porch[0], 8, PAL.existSolid, 4);
+  prism([[G.shed[0], G.shed[1]], [G.shed[2], G.shed[1]], [G.shed[2], G.shed[3]], [G.shed[0], G.shed[3]]], 7, PAL.existSolid, 4.5);
+  const C = PAL.newSolid, xm = (xl + x1) / 2, e = b.eave, pk = b.peak, le = b.leanEave;
+  q3([[xm, y0, pk], [x1, y0, e], [x1, y1, e], [xm, y1, pk]], shade(C, 0.15), 5.0);                                          // east roof plane (far side)
+  q3([[xl, y0, 0], [xl, y1, 0], [xl, y1, e], [xl, y0, e]], shade(C, -0.1), 5.1);                                            // wall under the lean-to
+  for (const d of G.doors) q3([[xl - 0.1, d[0], 0], [xl - 0.1, d[1], 0], [xl - 0.1, d[1], 10], [xl - 0.1, d[0], 10]], '#f4f7fd', 5.2, { stroke: PAL.steel });
+  q3([[xl, y0, e], [xm, y0, pk], [xm, y1, pk], [xl, y1, e]], shade(C, 0.3), 5.3);                                           // west roof plane
+  q3([[xl, y0, 0], [x1, y0, 0], [x1, y0, e], [xm, y0, pk], [xl, y0, e]], C, 5.4);                                           // south gable
+  for (const y of G.postsY) prism([[x0, y - 0.25], [x0 + 0.5, y - 0.25], [x0 + 0.5, y + 0.25], [x0, y + 0.25]], le, C, 5.6);
+  q3([[x0, y0, le], [xl, y0, e], [xl, y1, e], [x0, y1, le]], shade(C, 0.25), 5.8, { op: 0.7 });                             // lean-to roof
+  iso.line3([F(XM - G.swX), F(YM - G.swA), 2], [F(XM - G.swX), F(YM - G.swB), 2], 'anchOk');
   return iso;
 }
 function isoLabels(P, G, iso, lean) {
-  const F = v => v * K, { x0, x1, y0, y1, yl } = G, b = P.geometry.building, p = (x, y, z) => iso.p(F(x), F(y), F(z || 0));
-  const top = p(-44, -8, 0)[1] - F(6), bot = p(134, 178, 0)[1] + F(14);
-  iso.label(`(N) ${b.ew}' × ${b.ns}' METAL BUILDING`, [F(x1 - 6), F(y0 + 6), F(b.eave + 1.2)], p(134, -8)[0] - F(12), top + F(34), { kind: 'N', side: 'l' });
-  iso.label('(E) RESIDENCE', [F(44), F(84), F(10)], p(-44, 100)[0] + F(70), top + F(16), { side: 'l' });
-  iso.label('(N) SWALE, DRAINS NORTH', [F(G.swX), F(y1 + 30), 2], p(134, 178)[0] + F(20), bot, { kind: 'N', side: 'r' });
-  iso.label(streetN(P), [F(30), F(164), 0], p(-44, 178)[0] + F(24), bot - F(10), { side: 'r' });
-  if (!lean) { iso.label(streetW(P), [F(-30), F(40), 0], p(-44, 60)[0] - F(4), top + F(40), { side: 'r' });
-    iso.label('(N) GRAVEL DRIVEWAY', [F((G.xN + G.xE) / 2), F(G.yN - 6), 0], p(60, 178)[0] - F(60), bot - F(34), { kind: 'N', side: 'l' }); }
+  const F = v => v * K, { x0, x1, xl, y0, y1 } = G, b = P.geometry.building;
+  const L = (t, x, y, z, dx, dy, o) => { const at = [F(XM - x), F(YM - y), F(z)], p = iso.p(...at); iso.label(t, at, p[0] + F(dx), p[1] + F(dy), o); };
+  L(`(N) ${b.ns}' × ${b.ew}' METAL BUILDING`, x1 - 6, y0 + 4, b.eave + 1.5, -6, -46, { kind: 'N', side: 'r' });
+  L('(E) RESIDENCE', 40, 80, 10, -46, -10, { side: 'l' });
+  L('(N) GRAVEL DRIVEWAY', 22, G.yc, 0, 16, 34, { kind: 'N', side: 'r' });
+  L('(N) SWALE, DRAINS NORTH', G.swX, 96, 0, 22, -26, { kind: 'N', side: 'r' });
+  if (!lean) { L(streetN(P), 96, 164, 0, -22, -20, { side: 'l' }); L(streetW(P), -30, 100, 0, -22, 26, { side: 'l' }); }
 }
 
 const JOB = {
@@ -415,7 +429,7 @@ const JOB = {
   picture: (P, G, o) => { const iso = isoScene(P, G, o); if (o.id === 'cov') isoLabels(P, G, iso, true); return iso; },
   labels: (P, G, iso) => isoLabels(P, G, iso, false),
   field: {
-    pictureNote: 'Seen from the north-east', pictureDen: 620, coverDen: 820, pictureHeight: 4.2, planHeight: 10.4,
+    pictureNote: 'Seen from the south-west', pictureDen: 560, coverDen: 600, pictureHeight: 7.4, planHeight: 10.55,
     plan:    { title: 'Site plan', den: 240, draw: viewSite, note: 'Survey extract. Elevations NAVD 88' },
     section: { title: 'Section at the east side yard, looking north', den: 32, draw: viewSection, note: 'Foundation shown schematic' },
     side:    { title: 'Enlarged plan at the new building', den: 120, draw: viewEnlarged, note: 'Blue × is proposed grade' },

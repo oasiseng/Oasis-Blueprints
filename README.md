@@ -57,18 +57,20 @@ bundled with the skill, which the tests also use; they are not the same sets. To
   design criteria, property record and general notes), a site plan, and a framing sheet with the plan,
   section and redrawn details. Its own drawing code, `sunroom.js`, sits beside its project file. Names,
   address, permit numbers and the lot are placeholders.
-- **Site plan** is a two-sheet owner submittal for a detached accessory building: a cover with the scope,
-  project information, site notes and general notes, and one sheet with the site plan drawn from a survey,
-  an enlarged plan with the driveway and proposed grades, a side-yard section, a typical swale section, a
-  stormwater check and the building footprint. Its drawing code, `siteplan.js`, sits beside its project
-  file. The lot, streets, names and numbers are placeholders.
+- **Site plan** is a finished two-sheet set for a detached accessory building in the corner of a lot: a
+  cover with the scope, project information, site notes and general notes, and one sheet with the site plan
+  drawn from a survey, an enlarged plan with proposed grades, a section through the side-yard swale, a
+  typical swale section, a stormwater check and the building footprint. It shows a building placed by two
+  setbacks, a gravel driveway with a cross slope, a swale sized against the roof area and a shed relocated
+  by the owner. Its drawing code, `siteplan.js`, sits beside its project file. The lot, streets, names and
+  numbers are placeholders.
 - **Freestanding deck** is a draft. It is the example that shows open items in red: the values the
   engineer still owes, counted in the title block and blocking the set from being issued.
 
 | Example | Job type | Open it |
 |---|---|---|
 | Sunroom repair | `sunroom` (existing + new, imperial), 3 sheets, finished | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
-| Site plan | `siteplan` (survey extract + one new building, decimal feet), 2 sheets, draft for owner review | [`project.json`](examples/sheet-sets/site-plan/project.json) · [`siteplan.js`](examples/sheet-sets/site-plan/siteplan.js) · [cover](examples/sheet-sets/site-plan/preview-cover.png) · [site plan sheet](examples/sheet-sets/site-plan/preview-site.png) |
+| Site plan | `siteplan` (survey extract + one new building, decimal feet), 2 sheets, finished | [`project.json`](examples/sheet-sets/site-plan/project.json) · [`siteplan.js`](examples/sheet-sets/site-plan/siteplan.js) · [cover](examples/sheet-sets/site-plan/preview-cover.png) · [site plan sheet](examples/sheet-sets/site-plan/preview-site.png) |
 | Detail library | `library` (sheets of standard details only), 12 sheets | [`project.json`](examples/sheet-sets/detail-library/project.json) · [sheet pictures](library/details/typical/sheets/) |
 | Freestanding deck | `deck` (all new, inches or millimeters), draft with open items | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
 
