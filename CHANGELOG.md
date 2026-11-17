@@ -4,6 +4,11 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 
 ## Unreleased
 
+- Documentation site at docs.oasisengineering.com (`docs-site/`, Starlight): guides, concepts, the reference pages
+  generated from the files the skill ships, and an examples gallery that builds, prints and audits every folder in
+  `examples/sheet-sets/` and writes `examples.json`. It is rebuilt and published on every push to `main`, after
+  `scripts/check_examples.py` checks that the examples carry placeholders only.
+
 - The site plan example is now the finished set: the building sits in the corner of the lot at 6 ft and
   5 ft setbacks, with a full-width gravel driveway and cross slope, a swale between the wall and the fence
   that runs to the street, a relocated shed, and a picture seen from the south-west. Status is released for

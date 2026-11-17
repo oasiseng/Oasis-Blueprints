@@ -1,0 +1,34 @@
+/* Quiet and technical. The accent is the blue the sheets use for new work (--new in the kit's sheet.css).
+   Barlow Condensed for headings, copied from skills/oasis-blueprints/assets/fonts/ by the prebuild script. */
+@font-face { font-family: 'Barlow Condensed'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/barlow-condensed-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 700; font-style: normal; font-display: swap; src: url('/fonts/barlow-condensed-latin-700-normal.woff2') format('woff2'); }
+
+:root {
+	--oasis-new: #1f63d6;
+	--oasis-heading: 'Barlow Condensed', 'Arial Narrow', var(--sl-font-system);
+	--sl-color-accent-low: #0f2550;
+	--sl-color-accent: #3b7bea;
+	--sl-color-accent-high: #c4d8fb;
+}
+:root[data-theme='light'] {
+	--sl-color-accent-low: #cfe0fb;
+	--sl-color-accent: var(--oasis-new);
+	--sl-color-accent-high: #12408f;
+}
+
+.sl-markdown-content :is(h1, h2, h3),
+h1#_top,
+.site-title {
+	font-family: var(--oasis-heading);
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+/* gallery */
+.oasis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
+.oasis-card { border: 1px solid var(--sl-color-gray-5); border-radius: 0.25rem; padding: 0.75rem; display: block; text-decoration: none; color: inherit; }
+.oasis-card:hover { border-color: var(--sl-color-accent); }
+.oasis-card img { width: 100%; height: auto; display: block; border: 1px solid var(--sl-color-gray-6); }
+.oasis-card strong { display: block; margin-top: 0.5rem; font-family: var(--oasis-heading); font-size: 1.2rem; }
+.sl-markdown-content img { border: 1px solid var(--sl-color-gray-5); }
+.oasis-footnote { margin-top: 1.5rem; font-size: var(--sl-text-xs); color: var(--sl-color-gray-3); }

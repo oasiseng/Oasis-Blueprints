@@ -1,0 +1,65 @@
+// @ts-check
+import { readFileSync } from 'node:fs';
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+
+// The published address, the repository and the branch live in site.json, the one place to change them.
+// The prebuild scripts read the same file (CNAME, examples.json, edit links on generated pages).
+const SITE = JSON.parse(readFileSync(new URL('./site.json', import.meta.url), 'utf-8'));
+
+export default defineConfig({
+	site: SITE.url,
+	integrations: [
+		starlight({
+			title: 'Oasis-Blueprints',
+			description:
+				'Engineering and construction sheet sets as HTML and PDF, drawn by an Agent Skill. The model is the drafter, not the engineer.',
+			social: [{ icon: 'github', label: 'GitHub', href: SITE.repo }],
+			editLink: { baseUrl: `${SITE.repo}/edit/${SITE.branch}/docs-site/` },
+			customCss: ['./src/styles/custom.css'],
+			components: { Footer: './src/components/Footer.astro' },
+			sidebar: [
+				{
+					label: 'Get started',
+					items: [
+						{ label: 'What it is', slug: 'get-started/what-it-is' },
+						{ label: 'Install (Claude, ChatGPT, Codex)', slug: 'get-started/install' },
+						{ label: 'Your first sheet set', slug: 'get-started/first-sheet-set' },
+					],
+				},
+				{
+					label: 'Guides',
+					items: [
+						{ slug: 'guides/site-plan' },
+						{ slug: 'guides/deck-set' },
+						{ slug: 'guides/company-block' },
+						{ slug: 'guides/revise' },
+						{ slug: 'guides/print-and-audit' },
+						{ slug: 'guides/publish-an-example' },
+					],
+				},
+				{
+					label: 'Concepts',
+					items: [
+						{ slug: 'concepts/drafter-not-engineer' },
+						{ slug: 'concepts/open-items' },
+						{ slug: 'concepts/sheet-standard' },
+					],
+				},
+				{
+					label: 'Reference',
+					items: [
+						{ slug: 'reference/project-file' },
+						{ slug: 'reference/drawing-api' },
+						{ slug: 'reference/detail-library' },
+					],
+				},
+				{ label: 'Examples', items: [{ autogenerate: { directory: 'examples' } }] },
+				{
+					label: 'Project',
+					items: [{ slug: 'project/changelog' }, { slug: 'project/license' }, { slug: 'project/contributing' }],
+				},
+			],
+		}),
+	],
+});

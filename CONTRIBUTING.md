@@ -12,6 +12,9 @@ kit moves into the kit once a second job needs it too. Work on a branch and open
    - its own drawing file only if the job needs one (see below).
 2. Add a row to the examples table in `README.md`.
 3. Run the tests (below). `tests/test_no_job_data.py` must pass.
+4. Run `python scripts/check_examples.py`. Once merged, the folder is built, printed and audited by the documentation
+   workflow and published in the gallery at `https://docs.oasisengineering.com/examples/<name>/`; a finding in the
+   layout audit fails the pull request.
 
 `examples/` holds the showcase sets. The two small samples in `skills/oasis-blueprints/assets/samples/` ship
 inside the skill and are used by the tests; leave them as they are unless the project-file format changes.
