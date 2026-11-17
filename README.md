@@ -7,6 +7,8 @@ file per job, 24 × 36 in sheets, every view at a stated true scale, printed to 
 Oasis-Blueprints is an Agent Skill, packaged as a Claude plugin, that draws that set from a described job,
 with your own company and logo in the title block.
 
+**Documentation:** [docs.oasisengineering.com](https://docs.oasisengineering.com/): guides, reference and the examples gallery.
+
 ![Field sheet of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-field.png)
 
 ## Start here
@@ -188,6 +190,7 @@ To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md).
 - `library/details/`: the detail library, one folder per collection
 - `library/drawing-map/`: the drawing map and the tool that builds it
 - `library/type-map.json`: how job types, project types, sheet kinds and detail categories line up
+- `docs-site/`: the documentation site (Starlight), built from the reference files and the examples and published on every push to `main`
 - `tests/`: drafting regression tests and the check that no real job data is in the repository
 - `.github/workflows/`: runs the tests on every pull request, and builds the skill zip for a release
 - `CONTRIBUTING.md`, `CHANGELOG.md`: how to add an example, and what changed in each version

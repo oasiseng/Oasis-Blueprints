@@ -1,0 +1,2 @@
+# Python packages for the documentation build (scripts/build_examples.py runs the skill's print.py).
+playwright==1.55.0

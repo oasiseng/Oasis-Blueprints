@@ -1,0 +1,13 @@
+# Written by the prebuild scripts and the example build. Never edit these by hand.
+node_modules/
+dist/
+.astro/
+public/CNAME
+public/fonts/
+public/ref/
+public/examples/
+public/examples.json
+src/content/docs/reference/
+src/content/docs/concepts/sheet-standard.md
+src/content/docs/project/
+src/content/docs/examples/
