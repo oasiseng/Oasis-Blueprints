@@ -1,0 +1,1162 @@
+{
+ "schema": "oasis-blueprints/0.2",
+ "jobType": "cadset",
+ "status": "construction",
+ "project": {
+  "title": "New Single Family Home",
+  "subtitle": "Site plan and full drawing set",
+  "number": "EX-003",
+  "address": "123 Example St",
+  "locality": "Anytown, FL 00000",
+  "permit": "",
+  "use": "Family residential, single."
+ },
+ "people": {
+  "drawnBy": "Drafter",
+  "checkedBy": "Engineer"
+ },
+ "issue": {
+  "copyright": "The Engineer reserves the common law copyright and other property rights in these plans. These plans are not to be reproduced, changed, or copied in any form or manner whatsoever, nor are they to be assigned to a third party without first obtaining the written permission and consent of the Engineer.",
+  "date": "2026-01-15",
+  "rev": "0",
+  "revisions": [
+   {
+    "no": "0",
+    "text": "Released for construction",
+    "date": "2026-01-15"
+   }
+  ]
+ },
+ "geometry": {
+  "units": "in",
+  "wind": {
+   "V": 136,
+   "exposure": "C",
+   "GCpi": 0.18,
+   "Kd": 0.85,
+   "Kzt": 1.0,
+   "Ke": 1.0,
+   "roof": "hip",
+   "slope12": 6,
+   "h": 16,
+   "W": 50,
+   "L": 69
+  },
+  "source": "CAD sheet data in the kit's DWG-sheet format (schema oasis-blueprints/dwg-sheets/0.1). The plans, elevations, sections and details are redrawn from vector plots of the CAD layouts, which carry the lineweights, linetype symbols, hatches and colours. Structural notes are the CAD wording set in this set's type. Wind tables, the product schedule and the electrical tables are typeset natively. Example set: names, address, parcel, flood panel and elevations are placeholders, and the site plans, maps and third-party details are left out.",
+  "textEdits": [
+   {
+    "sheet": "hA00",
+    "find": "APPLICANT:",
+    "replace": "APPLICANT / CONTRACTOR: EXAMPLE BUILDER",
+    "lines": [
+     "CONTACT NAME",
+     "LICENSE NO.",
+     "PHONE",
+     "EMAIL"
+    ]
+   },
+   {
+    "sheet": "hA00",
+    "find": "PROJECT DESCRIPTION:",
+    "replace": "PROJECT DESCRIPTION: NEW SINGLE FAMILY RESIDENCE"
+   },
+   {
+    "sheet": "hA00",
+    "find": "ZONING: ",
+    "replace": "ZONING: RESIDENTIAL"
+   },
+   {
+    "sheet": "hA00",
+    "find": "EXISTING FIRE SPRINKLER: ",
+    "replace": "FIRE SPRINKLER: N/A"
+   },
+   {
+    "sheet": "hA00",
+    "find": "HOUSE SQUARE FOOTAGE:",
+    "replace": "HOUSE SQUARE FOOTAGE: 2,348 SF CONDITIONED",
+    "lines": [
+     "GARAGE 579 SF · LANAI 228 SF · COVERED ENTRY 147 SF",
+     "TOTAL UNDER ROOF 3,302 SF (OUTSIDE DIMENSIONS, A1.0)"
+    ]
+   },
+   {
+    "sheet": "hA00",
+    "find": "PROPERTY OWNER:",
+    "replace": "PROPERTY OWNER: EXAMPLE OWNER",
+    "lines": [
+     "MAILING ADDRESS"
+    ]
+   },
+   {
+    "sheet": "hA00",
+    "find": "ADDRESS: 123 Example St, Anytown, FL 00000",
+    "replace": "ADDRESS: 123 Example St, Anytown, FL 00000",
+    "lines": [
+     "LEGAL DESCRIPTION: EXAMPLE SUBDIVISION, LOT 00",
+     "SEC/TNSHP/RNG: 00-00-00"
+    ]
+   },
+   {
+    "sheet": "hA00",
+    "find": "PARCEL NUMBER: ",
+    "replace": "PARCEL NUMBER: 00-00-00-0000-00000-0000"
+   },
+   {
+    "sheet": "hA00",
+    "find": "PARCEL AREA: ",
+    "replace": "PARCEL AREA: (LOT AREA)"
+   }
+  ],
+  "callBeforeYouDig": {
+   "text": [
+    "**Call 811, nationwide.** Know what's below. Call before you dig.",
+    "It is the contractor's responsibility to contact utility companies prior to any construction. The location of utilities shown on these plans are approximate and possibly incomplete, therefore certification to the location of all underground utilities is withheld."
+   ]
+  },
+  "coverView": {
+   "page": "pA20",
+   "crop": [
+    7.7,
+    14.5,
+    27.3,
+    22.0
+   ],
+   "h": 5,
+   "title": "Front elevation",
+   "note": "From A2.0"
+  },
+  "sheets": {
+   "C001": {
+    "panels": [
+     {
+      "x": 0,
+      "y": 0,
+      "w": 22.8,
+      "h": 12.25,
+      "num": 1,
+      "title": "Site and detailed grading plan",
+      "scale": "1\" = 20'",
+      "placeholder": "Left blank in this public example. The site-specific layout is not published.",
+      "white": true
+     },
+     {
+      "page": "pC001",
+      "crop": [
+       28.5,
+       17.2,
+       34.0,
+       22.92
+      ],
+      "x": 22.92,
+      "y": 0,
+      "w": 5.7,
+      "h": 6.13,
+      "title": "Legend",
+      "scale": "No scale"
+     },
+     {
+      "html": "<div class='lgr'><i class='zl'></i><span>FLOOD ZONE AE LIMIT (EL 12.7)</span></div><div class='lgr'><i class='zf'></i><span>FLOOD ZONE AE (SHADED)</span></div><p>FLOOD ZONE AE LIES BETWEEN THE ZONE AE (EL 12.7) LINES. THE REMAINDER OF THE LOT IS ZONE X.</p>",
+      "cls": "cn",
+      "size": 9.6,
+      "title": "Flood zone",
+      "x": 28.74,
+      "y": 0,
+      "w": 3.06,
+      "h": 6.13
+     },
+     {
+      "html": "<ol><li>THIS PLAN WAS PREPARED BASED ON PUBLICLY AVAILABLE TOPOGRAPHIC DATA AND/OR CLIENT-PROVIDED TOPOGRAPHIC SURVEY. NO BOUNDARY OR TOPO SURVEY WAS PERFORMED BY THE ENGINEER.</li></ol>",
+      "cls": "cn",
+      "size": 7.6,
+      "title": "Engineer's note",
+      "x": 28.74,
+      "y": 6.25,
+      "w": 3.06,
+      "h": 1.48
+     },
+     {
+      "x": 22.92,
+      "y": 6.25,
+      "w": 5.7,
+      "h": 1.48,
+      "title": "Disturbed area",
+      "scale": "No scale",
+      "placeholder": "Left blank in this public example. The site-specific layout is not published.",
+      "white": true
+     },
+     {
+      "x": 22.92,
+      "y": 7.85,
+      "w": 8.88,
+      "h": 7.3,
+      "title": "Flood map",
+      "placeholder": "Flood map: not included in this public example"
+     },
+     {
+      "html": "<ol><li>THE SITE IS LOCATED IN FLOOD ZONE AE. THE CONTRACTOR IS RESPONSIBLE FOR COORDINATING WITH THE JURISDICTION / FLOODPLAIN MANAGER REGARDING FILL PLACEMENT, AND SHALL PREFERABLY UTILIZE ON-SITE EXCAVATION / REGRADING TO PROVIDE THE LEAST AMOUNT OF IMPACT TO THE FLOODPLAIN.</li></ol>",
+      "cls": "cn",
+      "size": 10.4,
+      "title": "Floodplain fill note",
+      "x": 22.92,
+      "y": 15.27,
+      "w": 8.88,
+      "h": 2.45
+     },
+     {
+      "x": 0,
+      "y": 12.37,
+      "w": 7.45,
+      "h": 5.35,
+      "title": "Cut/fill summary and earthwork note",
+      "scale": "No scale",
+      "placeholder": "Left blank in this public example. The site-specific layout is not published.",
+      "white": true
+     },
+     {
+      "html": "<h4>Grading notes: control, grades, and elevation</h4><ol><li>TOP SOIL AROUND THE PERIMETER OF THE FOUNDATION SHALL BE GRADED AT A POSITIVE SLOPE TO ENSURE PROPER DRAINAGE AWAY FROM THE BUILDING.</li><li>AT THE COMPLETION OF THE FINAL GRADING, THE DISTURBED AREAS SHALL BE REVEGETATED IN ACCORDANCE WITH THE PLANS AND SPECIFICATIONS.</li><li>PROPOSED CONTOURS AND SPOT ELEVATIONS SHOWN IN PAVED AREAS REFLECT TOP OF PAVEMENT SURFACE OR TOP OF CURB AT CURB LINE.</li><li>THE LIMIT OF EARTHWORK IN PAVED AREAS IS THE BOTTOM OF PAVEMENT. PROPOSED CONTOURS SHOWN OUTSIDE PAVED AREAS ARE THE EXACT LIMITS OF GRADING.</li><li>ROUGH GRADING UNDER PROPOSED PAVING AND ALL GENERAL SITE ROUGH GRADING SHALL BE BROUGHT TO WITHIN +/- 0.1 FOOT. ROUGH GRADING ELEVATIONS IN PAVED AREAS ARE TO BOTTOM OF PAVEMENT. SEE LANDSCAPE PLANS FOR ADDITIONAL GRADING ELEVATIONS IN LANDSCAPED AREAS.</li><li>GRADING BETWEEN THE CONTOURS DEPICTED ON THIS PLAN SHALL BE UNIFORM.</li><li>BEFORE ANY EARTHWORK IS DONE, THE CONTRACTOR SHALL STAKE OUT AND MARK THE LIMITS OF PAVEMENT AND OTHER ITEMS ESTABLISHED BY THE PLANS. THE CONTRACTOR SHALL PROTECT AND PRESERVE CONTROL POINTS AT ALL TIMES DURING THE COURSE OF THE PROJECT.</li><li>THE GRADING CONTRACTOR SHALL PROVIDE ALL NECESSARY ENGINEERING AND SURVEYING FOR LINE AND GRADE CONTROL POINTS RELATED TO EARTHWORK.</li><li>MATCH EXISTING GRADE AT PROPERTY LINE.</li><li>COMPACT ALL SUB-GRADES TO 95% S.P.D. AT OPTIMUM MOISTURE CONTENT.</li><li>THE CONTRACTOR SHALL MAINTAIN ADEQUATE SITE DRAINAGE DURING ALL PHASES OF CONSTRUCTION.</li><li>THE CONTRACTOR SHALL USE SILT FENCES AS REQUIRED TO PREVENT SILT AND CONSTRUCTION DEBRIS FROM FLOWING ONTO ADJACENT PROPERTIES OR LOCAL EROSION, CONSERVATION, AND SILTATION ORDINANCES. CONTRACTOR SHALL REMOVE ALL TEMPORARY EROSION CONTROL DEVICES UPON COMPLETION OF PERMANENT DRAINAGE FACILITIES AND THE ESTABLISHMENT OF A STAND OF GRASS OR OTHER GROWTH TO PREVENT EROSION.</li><li>ALL EXCAVATING IS UNCLASSIFIED AND SHALL INCLUDE ALL MATERIALS ENCOUNTERED. UNUSABLE EXCAVATED MATERIAL AND ALL WASTE RESULTING FROM SITE CLEARING AND GRUBBING SHALL BE DISPOSED OF OFF SITE BY THE CONTRACTOR AT HIS EXPENSE.</li><li>REFER TO ARCHITECTURAL DRAWINGS FOR BUILDING DIMENSIONS.</li><li>ALL CONSTRUCTION SHALL COMPLY TO THE REQUIREMENTS OF THE STANDARD SPECIFICATIONS OF THE COUNTY AND ANY APPLICABLE LOCAL SPECIFICATIONS AND DETAILS.</li><li>EXISTING SURFACE AND UNDERGROUND UTILITIES AND OTHER APPURTENANCES INDICATED ON THESE PLANS HAVE BEEN LOCATED FROM THE BEST INFORMATION AVAILABLE. THE ENGINEER/OWNER DOES NOT ACCEPT THE RESPONSIBILITY FOR THE UTILITY LOCATIONS SHOWN.</li><li>IT SHALL BE THE CONTRACTOR&#x27;S RESPONSIBILITY TO VERIFY EXACT, BOTH HORIZONTAL AND VERTICAL, LOCATION OF ALL EXISTING UTILITIES PRIOR TO CONSTRUCTION.</li><li>IT SHALL BE THE CONTRACTOR&#x27;S RESPONSIBILITY TO NOTIFY OWNER/ENGINEER PROMPTLY OF ANY CONFLICTS OF THE WORK WITH EXISTING FACILITIES.</li><li>THE CONTRACTOR SHALL PRESERVE AND PROTECT ALL EXISTING FACILITIES FROM DAMAGE DURING CONSTRUCTION. ANY DAMAGE BY THE CONTRACTOR TO EXISTING FACILITIES SHALL BE REPAIRED BY THE CONTRACTOR AT HIS/HER EXPENSE.</li></ol><h4>Notes</h4><ol><li>ALL GRADING SHALL BE PERFORMED IN ACCORDANCE WITH THE FBC AND LOCAL ORDINANCES.</li><li>SITE GRADING SHALL ENSURE POSITIVE DRAINAGE AWAY FROM ALL STRUCTURES AT A MINIMUM SLOPE OF 2% FOR A MINIMUM OF 10 FEET.</li><li>NO SITE GRADING SHALL DIRECT CONCENTRATED RUNOFF ONTO ADJACENT PROPERTIES.</li><li>ALL DISTURBED AREAS SHALL BE STABILIZED IMMEDIATELY FOLLOWING FINAL GRADING.</li><li>CONTRACTOR SHALL VERIFY EXISTING GRADES AND CONDITIONS PRIOR TO CONSTRUCTION. NOTIFY ENGINEER OF ANY DISCREPANCIES.</li><li>ALL GRADING WITHIN THE LOD (LIMIT OF DISTURBANCE) SHALL REMAIN WITHIN PROPERTY BOUNDARIES UNLESS WRITTEN EASEMENT OR CONSENT IS PROVIDED.</li><li>THE CONTRACTOR SHALL MAINTAIN EXISTING DRAINAGE PATTERNS TO THE MAXIMUM EXTENT PRACTICABLE UNLESS OTHERWISE APPROVED.</li><li>ALL SLOPES SHALL BE GRADED TO A MAXIMUM OF 3:1 (H:V) UNLESS OTHERWISE SHOWN OR STABILIZED BY DESIGN.</li></ol>",
+      "cls": "cn",
+      "columns": 4,
+      "gap": 0.2,
+      "size": 9.3,
+      "title": "Grading notes",
+      "x": 7.57,
+      "y": 12.37,
+      "w": 15.23,
+      "h": 5.35
+     },
+     {
+      "x": 0,
+      "y": 17.84,
+      "w": 26.6,
+      "h": 4.76,
+      "num": 2,
+      "title": "Cross sections A-A (left) and B-B (right)",
+      "scale": "H 1\" = 20' · V 1\" = 10'",
+      "placeholder": "Left blank in this public example. The site-specific layout is not published.",
+      "white": true
+     },
+     {
+      "html": "<ol><li>THE SITE SHALL MAINTAIN EXISTING DRAINAGE FLOW DIRECTIONS TO AVOID ADVERSE OFFSITE IMPACTS.</li><li>RUNOFF SHALL SHEET FLOW TO DESIGNATED SWALES OR DRAINAGE EASEMENTS AS SHOWN ON THE PLAN.</li><li>SWALES SHALL BE GRADED TO A MINIMUM OF 1% SLOPE AND MAINTAINED FREE OF OBSTRUCTIONS.</li><li>DRAINAGE FLOW ARROWS SHOWN ARE FOR REFERENCE; CONTRACTOR SHALL CONFIRM FIELD CONDITIONS DURING GRADING.</li><li>PROPOSED DRAINAGE FEATURES SHALL NOT ENCROACH ON FEMA FLOODPLAIN BOUNDARIES (IF PRESENT).</li></ol>",
+      "cls": "cn",
+      "size": 10.2,
+      "title": "Drainage & flow notes",
+      "x": 26.72,
+      "y": 17.84,
+      "w": 5.08,
+      "h": 4.76
+     }
+    ]
+   },
+   "C002": {
+    "panels": [
+     {
+      "x": 0,
+      "y": 0,
+      "w": 17.8,
+      "h": 10.15,
+      "num": 1,
+      "title": "Erosion sediment control plan",
+      "scale": "1\" = 20'",
+      "placeholder": "Left blank in this public example. The site-specific layout is not published.",
+      "white": true
+     },
+     {
+      "html": "<h4>Contractor/builders responsibility</h4><ol><li>INSTALL NEEDED EROSION AND SEDIMENT CONTROL PRACTICES PRIOR TO ANY LAND DISTURBANCE TO PREVENT EXCESSIVE SEDIMENT FROM LEAVING THE SITE.</li><li>CONTACT SITE INSPECTOR TO ANSWER ANY QUESTIONS REGARDING SITE PLAN AND TO REVIEW A COMPLETED WORKSHEET.</li><li>PERIODIC INSPECTION AND MAINTENANCE ARE VITAL TO THE PERFORMANCE OF EROSION AND SEDIMENT CONTROLS. IT IS RECOMMENDED THAT ALL TEMPORARY EROSION CONTROLS BE INSPECTED WEEKLY AND AFTER EVERY RAINFALL.</li><li>MAINTENANCE: ESC (EROSION SEDIMENT CONTROLS) SHOULD BE ROUTINELY INSPECTED AND MAINTAINED UNTIL SITE IS PERMANENTLY VEGETATED. SOMETIMES ROUTINE INSPECTIONS MAY SHOW A NEED FOR ADJUSTMENTS OR ADDITIONAL ESC&#x27;S.</li><li>CONTACT SITE INSPECTOR WHEN CONSTRUCTION IS COMPLETE AND THE SITE HAS BEEN STABILIZED WITH PERMANENT VEGETATION OR OTHER APPROVED METHODS.</li><li>REVEGETATE THE SITE: PREVENT EROSION ON INDIVIDUAL LOTS WITH GROUND COVER. EXISTING TREES AND VEGETATION SHOULD BE PROTECTED TO HELP MAINTAIN A STABLE GROUND SURFACE AND PREVENT LOSS OF VALUABLE TOPSOIL. EROSION CONTROL BLANKETS, MATTING AND MULCHES CAN HELP STABILIZE THE AREA UNTIL PERMANENT VEGETATION IS ESTABLISHED. THE SITE NEEDS TO HAVE AT LEAST 80 PERCENT COVER OF PERMANENT VEGETATION BEFORE ESC&#x27;S CAN BE REMOVED.</li></ol><h4>Compliance checklist</h4><ol><li>PERIMETER CONTROLS: INSTALL ESC&#x27;S (EROSION SEDIMENT CONTROLS) ALONG THE BACK OF THE CURB AND ALONG THE LOT LINE OF ADJACENT PROPERTIES, WHICH ARE DOWNHILL AND RECEIVE RUNOFF FROM YOUR LOT. FOLLOWING SIDEWALK INSTALLATION, ESC&#x27;S SHOULD BE REMOVED TO THE BACK OF THE SIDEWALK TO PREVENT SEDIMENT FROM REACHING THE SIDEWALK. MAINTAIN ESC&#x27;S TO ENSURE PROPER FUNCTION, INCLUDING REPAIR OR REPLACEMENT OF TORN, DEGRADED OR OTHERWISE INEFFECTIVE MATERIALS. REMOVE SEDIMENT DEPOSITS AS NECESSARY TO PROVIDE ADEQUATE PROTECTION.</li><li>STOCKPILES: INSTALL SEDIMENT CONTROLS AROUND STOCKPILES TO PREVENT SEDIMENT FROM REACHING THE STREET AND ADJACENT PROPERTIES. LOCATE STOCKPILES AWAY FROM THE STREET, PROPERTY LINES AND DRAINAGE WAYS.</li><li>LOT ACCESS: REQUIRED FOR EACH INDIVIDUAL LOT. MAINTAIN A SURFACE SUITABLE FOR PARKING AND UNLOADING TO PREVENT THE TRACKING OF MUD AND ROCK ONTO THE STREET. EXISTING DRIVEWAY TO BE USED AS CONSTRUCTION ENTRANCE WITH SITE INSPECTOR APPROVAL. ALL VEHICLES THAT ACCESS THE LOT MUST USE THE CONSTRUCTION ENTRANCE. ANY SOILS THAT ARE TRUCKED ONTO THE STREET MUST BE REMOVED BY THE END OF THE DAY.</li><li>INTERMEDIATE CONTROL: LONG OR STEEP DRAINAGE PATHS MAY REQUIRE INTERMEDIATE OR INTERIOR ESC&#x27;S TO HELP SLOW THE FLOW OF RUNOFF. FAILURE OF PERIMETER CONTROLS DUE TO THE FORCE OF RUNOFF OFTEN DETERMINE THE NEED FOR INTERMEDIATE CONTROLS. PROPERTY LINE</li><li>HOUSEKEEPING: PROVIDE ADEQUATE SANITARY FACILITIES AND TRASH/REFUSE</li></ol>",
+      "cls": "cn",
+      "columns": 2,
+      "gap": 0.2,
+      "size": 9.6,
+      "title": "Contractor responsibility and compliance checklist",
+      "x": 0,
+      "y": 10.27,
+      "w": 10.4,
+      "h": 6.85
+     },
+     {
+      "x": 17.92,
+      "y": 0,
+      "w": 13.88,
+      "h": 10.15,
+      "num": 2,
+      "title": "Temporary construction entrance / exit",
+      "placeholder": "Erosion control detail: third-party manual page, not republished"
+     },
+     {
+      "x": 10.52,
+      "y": 10.27,
+      "w": 9.6,
+      "h": 4.7,
+      "num": 3,
+      "title": "Silt fence",
+      "placeholder": "Erosion control detail: third-party manual page, not republished"
+     },
+     {
+      "x": 10.52,
+      "y": 15.09,
+      "w": 9.6,
+      "h": 7.51,
+      "num": 4,
+      "title": "Silt fence barrier and temporary driveway",
+      "placeholder": "Erosion control detail: third-party manual page, not republished"
+     },
+     {
+      "x": 20.24,
+      "y": 10.27,
+      "w": 5.72,
+      "h": 12.33,
+      "num": 5,
+      "title": "Concrete washout",
+      "placeholder": "Erosion control detail: third-party manual page, not republished"
+     },
+     {
+      "x": 26.08,
+      "y": 10.27,
+      "w": 5.72,
+      "h": 12.33,
+      "num": 6,
+      "title": "Concrete washout schematics",
+      "placeholder": "Erosion control detail: third-party manual page, not republished"
+     },
+     {
+      "page": "pC002",
+      "crop": [
+       28.5,
+       19.1,
+       34.0,
+       22.95
+      ],
+      "x": 0,
+      "y": 17.24,
+      "w": 5.7,
+      "h": 5.36,
+      "title": "Legend",
+      "scale": "No scale"
+     },
+     {
+      "html": "<ol><li>CONTRACTOR SHALL INSTALL ALL EROSION CONTROL MEASURES PRIOR TO COMMENCING EARTHWORK.</li><li>SILT FENCE SHALL BE INSTALLED ON ALL DOWNGRADIENT SIDES OF DISTURBED AREAS.</li><li>A STABILIZED CONSTRUCTION ENTRANCE SHALL BE INSTALLED AND MAINTAINED THROUGHOUT CONSTRUCTION.</li><li>A DESIGNATED CONCRETE WASHOUT AREA, PORTABLE SANITARY FACILITY, AND TRASH CONTAINER SHALL BE MAINTAINED ON SITE AT ALL TIMES.</li><li>ALL EROSION CONTROL MEASURES SHALL COMPLY WITH FDEP AND THE COUNTY STANDARDS.</li></ol>",
+      "cls": "cn",
+      "size": 9.2,
+      "title": "Erosion control / BMP notes",
+      "x": 5.82,
+      "y": 17.24,
+      "w": 4.58,
+      "h": 3.1
+     },
+     {
+      "html": "<div class='lgr'><b class='sfl'>SF</b><span>SILT FENCE (BOLD LINE WITH X MARKS)</span></div><div class='lgr'><i class='zl'></i><span>FLOOD ZONE AE LIMIT (EL 12.7)</span></div><div class='lgr'><i class='zf'></i><span>FLOOD ZONE AE (SHADED)</span></div><p>FLOOD ZONE AE LIES BETWEEN THE ZONE AE (EL 12.7) LINES. THE REMAINDER OF THE LOT IS ZONE X.</p>",
+      "cls": "cn",
+      "size": 8.8,
+      "title": "Silt fence · Flood zone",
+      "x": 5.82,
+      "y": 20.46,
+      "w": 4.58,
+      "h": 2.14
+     }
+    ]
+   },
+   "A0.0": {
+    "panels": [
+     {
+      "kind": "job",
+      "x": 0,
+      "y": 0,
+      "w": 5.0,
+      "h": 3.0,
+      "size": 17
+     },
+     {
+      "kind": "dig",
+      "x": 0,
+      "y": 3.12,
+      "w": 5.0,
+      "h": 2.02,
+      "img": 0.9
+     },
+     {
+      "kind": "scope",
+      "x": 5.12,
+      "y": 0,
+      "w": 6.6,
+      "h": 5.14
+     },
+     {
+      "html": "<p>THE SCOPE OF THESE PLANS IS LIMITED TO FOUNDATION ENGINEERING, ARCHITECTURAL PLANS AND DETAILS, AND ELECTRICAL PLANS AND DETAILS AS INDICATED. THE DESIGN AND ENGINEERING OF THE SUPERSTRUCTURE ABOVE THE FOUNDATION, INCLUDING COLD-FORMED STEEL FRAMING, WALLS, ROOF FRAMING, SHEATHING, STRUCTURAL CONNECTIONS, AND THE COMPLETE GRAVITY, WIND UPLIFT, AND LATERAL LOAD-RESISTING SYSTEMS, SHALL BE PROVIDED UNDER SEPARATE SIGNED AND SEALED DOCUMENTS BY OTHERS.</p><p>THE CONTRACTOR SHALL COORDINATE ALL SUPERSTRUCTURE REQUIREMENTS WITH THE ENGINEER OF RECORD RESPONSIBLE FOR THE SUPERSTRUCTURE AND VERIFY COMPATIBILITY WITH THE FOUNDATION DESIGN PRIOR TO CONSTRUCTION. FINAL SUPERSTRUCTURE LOADS, REACTIONS, ANCHORAGE REQUIREMENTS, AND CONNECTION DETAILS SHALL BE PROVIDED TO THE FOUNDATION ENGINEER FOR REVIEW AND COORDINATION. ANY DISCREPANCIES OR REQUIRED MODIFICATIONS SHALL BE RESOLVED PRIOR TO CONSTRUCTION.</p><p>MECHANICAL PLANS/LAYOUTS AND DETAILS, INCLUDING ENERGY CALCULATIONS AS REQUIRED PER FBC R405 AND MANUAL J/S/D AS APPLICABLE, ARE NOT PART OF THESE PLANS AND SHALL BE PROVIDED BY OTHERS. PLUMBING PLANS/LAYOUTS, DETAILS AND SPECIFICATIONS ARE NOT PART OF THESE PLANS AND SHALL BE PROVIDED BY OTHERS.</p>",
+      "cls": "cn scp",
+      "size": 10.4,
+      "title": "General note – scope of engineering responsibility",
+      "x": 11.84,
+      "y": 0,
+      "w": 19.96,
+      "h": 5.14,
+      "columns": 2,
+      "fill": "balance"
+     },
+     {
+      "page": "hA00",
+      "crop": [
+       1.7,
+       6.02,
+       32.9,
+       23.3
+      ],
+      "x": 0,
+      "y": 5.26,
+      "w": 31.8,
+      "h": 17.34,
+      "title": "Abbreviations, codes, general notes, project information",
+      "footer": false,
+      "inserts": [
+       {
+        "x": 27.0,
+        "y": 6.83,
+        "w": 5.83,
+        "h": 7.58,
+        "index": true
+       },
+       {
+        "x": 20.89,
+        "y": 15.02,
+        "w": 6.09,
+        "h": 7.2,
+        "placeholder": "Aerial view: not included in this public example"
+       },
+       {
+        "x": 27.1,
+        "y": 15.12,
+        "w": 5.63,
+        "h": 7.0,
+        "placeholder": "Parcel map: not included in this public example"
+       }
+      ]
+     }
+    ]
+   },
+   "A1.0": {
+    "panels": [
+     {
+      "page": "pA10",
+      "crop": [
+       4.04,
+       1.34,
+       25.4,
+       22.56
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 25.5,
+      "h": 22.6,
+      "title": "Floor plan",
+      "den": 48,
+      "hideTitle": true
+     },
+     {
+      "page": "pA10",
+      "crop": [
+       26.8,
+       1.3,
+       32.7,
+       5.3
+      ],
+      "x": 25.62,
+      "y": 0,
+      "w": 6.18,
+      "h": 4.36,
+      "title": "Schedule of door and window openings",
+      "scale": "No scale"
+     },
+     {
+      "html": "<p style=\"margin:0\"><b>SEE SHEET S2.0 FOR LIST OF PRODUCT APPROVALS.</b></p>",
+      "bare": true,
+      "cls": "cn",
+      "size": 10,
+      "title": "Product approvals",
+      "x": 25.62,
+      "y": 4.48,
+      "w": 6.18,
+      "h": 0.59
+     },
+     {
+      "page": "pA10",
+      "crop": [
+       26.8,
+       5.3,
+       32.7,
+       7.95
+      ],
+      "x": 25.62,
+      "y": 5.19,
+      "w": 6.18,
+      "h": 3.1,
+      "title": "Glazing notes",
+      "scale": "No scale"
+     },
+     {
+      "html": "<p>EMERGENCY ESCAPE AND RESCUE OPENINGS (EGRESS) ARE REQUIRED IN ALL SLEEPING ROOMS (BEDROOMS) PER IRC R310 AND FBC RESIDENTIAL. EACH BEDROOM SHALL HAVE AT LEAST ONE EGRESS WINDOW OPENING DIRECTLY TO THE EXTERIOR WITH THE FOLLOWING MINIMUM REQUIREMENTS:</p>\n<ul><li>NET CLEAR OPENING AREA - 5.7 SQ FT (5.0 SQ FT AT GRADE);</li><li>NET CLEAR OPENING HEIGHT - 24\";</li><li>NET CLEAR OPENING WIDTH - 20\";</li><li>MAXIMUM SILL HEIGHT - 44\" ABOVE FINISHED FLOOR (AFF).</li></ul>\n<p>EGRESS WINDOWS SHALL NOT BE OBSTRUCTED BY SECURITY BARS, GRILLES, COVERS, OR OTHER DEVICES UNLESS RELEASABLE FROM THE INTERIOR WITHOUT A KEY, TOOL, OR SPECIAL KNOWLEDGE PER IRC R310.4.</p>\n<p>FRONT ENTRY DOOR THRESHOLD HEIGHT: MAX 1-1/2\" BEVELED. LANDING REQUIRED ON EACH SIDE, MIN 36\" IN DIRECTION OF TRAVEL, AT LEAST AS WIDE AS THE DOOR. OPERABLE FROM INTERIOR WITHOUT KEY OR SPECIAL KNOWLEDGE, MAX 15 LBF EFFORT PER FBC R311.2.</p>",
+      "cls": "cn",
+      "size": 10.4,
+      "title": "Window/door opening notes",
+      "x": 25.62,
+      "y": 8.41,
+      "w": 6.18,
+      "h": 8.0
+     },
+     {
+      "html": "<p>THE SCOPE OF THESE PLANS IS LIMITED TO FOUNDATION ENGINEERING, ARCHITECTURAL PLANS AND DETAILS, AND ELECTRICAL PLANS AND DETAILS AS INDICATED. THE DESIGN AND ENGINEERING OF THE SUPERSTRUCTURE ABOVE THE FOUNDATION, INCLUDING COLD-FORMED STEEL FRAMING, WALLS, ROOF FRAMING, SHEATHING, STRUCTURAL CONNECTIONS, AND THE COMPLETE GRAVITY, WIND UPLIFT, AND LATERAL LOAD-RESISTING SYSTEMS, SHALL BE PROVIDED UNDER SEPARATE SIGNED AND SEALED DOCUMENTS BY OTHERS.</p><p><b>SEE THE GENERAL NOTE ON A0.0.</b></p>",
+      "cls": "cn scp",
+      "size": 10.4,
+      "title": "General note – scope of engineering responsibility",
+      "x": 25.62,
+      "y": 16.53,
+      "w": 6.18,
+      "h": 6.07
+     }
+    ]
+   },
+   "A1.1": {
+    "panels": [
+     {
+      "hideTitle": true,
+      "page": "pA11",
+      "crop": [
+       5.24,
+       5.62,
+       25.6,
+       22.56
+      ],
+      "title": "Roof plan",
+      "x": 0,
+      "y": 0,
+      "w": 31.8,
+      "h": 22.6,
+      "den": 48
+     }
+    ]
+   },
+   "A2.0": {
+    "panels": [
+     {
+      "hideTitle": true,
+      "page": "pA20",
+      "crop": [
+       6.66,
+       4.28,
+       30.42,
+       22.44
+      ],
+      "title": "Front and rear elevations",
+      "x": 0,
+      "y": 0,
+      "w": 31.8,
+      "h": 22.6,
+      "den": 48
+     }
+    ]
+   },
+   "A2.1": {
+    "panels": [
+     {
+      "hideTitle": true,
+      "page": "pA21",
+      "crop": [
+       10.6,
+       4.2,
+       28.6,
+       22.44
+      ],
+      "title": "Left and right elevations",
+      "x": 0,
+      "y": 0,
+      "w": 31.8,
+      "h": 22.6,
+      "den": 48
+     }
+    ]
+   },
+   "A3.0": {
+    "panels": [
+     {
+      "page": "pA30",
+      "crop": [
+       1.62,
+       1.21,
+       32.74,
+       23.41
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 31.8,
+      "h": 22.6,
+      "title": "Header details and typical wall sections",
+      "scale": "As noted on each view",
+      "inserts": [
+       {
+        "x": 14.5,
+        "y": 9.6,
+        "w": 5.2,
+        "h": 5.4,
+        "note": true,
+        "title": "General note – scope of engineering responsibility",
+        "html": "<p>THE SCOPE OF THESE PLANS IS LIMITED TO FOUNDATION ENGINEERING, ARCHITECTURAL PLANS AND DETAILS, AND ELECTRICAL PLANS AND DETAILS AS INDICATED. THE DESIGN AND ENGINEERING OF THE SUPERSTRUCTURE ABOVE THE FOUNDATION, INCLUDING COLD-FORMED STEEL FRAMING, WALLS, ROOF FRAMING, SHEATHING, STRUCTURAL CONNECTIONS, AND THE COMPLETE GRAVITY, WIND UPLIFT, AND LATERAL LOAD-RESISTING SYSTEMS, SHALL BE PROVIDED UNDER SEPARATE SIGNED AND SEALED DOCUMENTS BY OTHERS.</p><p><b>SEE THE GENERAL NOTE ON A0.0.</b></p>"
+       }
+      ],
+      "marks": [
+       {
+        "pts": [
+         [
+          11.4,
+          19.74
+         ],
+         [
+          11.85,
+          20.2
+         ],
+         [
+          12.0,
+          20.2
+         ]
+        ],
+        "text": [
+         "10 mil MIN. VAPOR BARRIER (STEGO",
+         "WRAP OR EQUIVALENT) AT INTERIOR",
+         "CONDITIONS, S.A.D."
+        ],
+        "tx": 12.05,
+        "ty": 20.24
+       },
+       {
+        "pts": [
+         [
+          27.200000000000003,
+          19.74
+         ],
+         [
+          27.65,
+          20.2
+         ],
+         [
+          27.8,
+          20.2
+         ]
+        ],
+        "text": [
+         "10 mil MIN. VAPOR BARRIER (STEGO",
+         "WRAP OR EQUIVALENT) AT INTERIOR",
+         "CONDITIONS, S.A.D."
+        ],
+        "tx": 27.85,
+        "ty": 20.24
+       }
+      ]
+     }
+    ]
+   },
+   "E1.0": {
+    "panels": [
+     {
+      "hideTitle": true,
+      "page": "pE10",
+      "crop": [
+       1.78,
+       0.85,
+       32.48,
+       23.05
+      ],
+      "title": "Floor power plan",
+      "x": 0,
+      "y": 0,
+      "w": 31.8,
+      "h": 22.6,
+      "den": 48
+     }
+    ]
+   },
+   "E2.0": {
+    "panels": [
+     {
+      "hideTitle": true,
+      "page": "pE20",
+      "crop": [
+       1.78,
+       0.85,
+       32.48,
+       23.05
+      ],
+      "title": "Floor lighting plan",
+      "x": 0,
+      "y": 0,
+      "w": 31.8,
+      "h": 22.6,
+      "den": 48
+     }
+    ]
+   },
+   "E3.0": {
+    "panels": [
+     {
+      "html": "<div class=\"cadw\" style=\"position:static\"><div class=\"ov\" style=\"position:static\"><table class=\"okv\"><tr><th>PANEL:</th><td>A (house main distribution panel)</td><th>VOLTAGE:</th><td>120/240 V, 1Ø, 3W</td><th>MAIN:</th><td>200 A MCB</td><th>BUS:</th><td>225 A Cu</td></tr><tr><th>LOCATION:</th><td>Garage, left exterior wall at front corner – adjacent to service (E1.0)</td><th>FED FROM:</th><td>200 A service disconnect, NEMA 3R, garage exterior wall</td><th>AIC:</th><td>22 kAIC min (E1.0 note 1)</td><th>MOUNTING:</th><td>Flush</td></tr><tr><th>SPACES:</th><td>42 (40 used, 2 spare)</td><th>NEUTRAL:</th><td>100% rated, isolated (sub-fed)</td><th>GROUND BAR:</th><td>Yes</td><th>ENCLOSURE:</th><td>NEMA 1</td></tr></table><table class=\"grid\"><thead><tr><th class=\"c\">CKT</th><th class=\"\">LOAD DESCRIPTION</th><th class=\"r\">VA</th><th class=\"c\">P</th><th class=\"r\">TRIP (A)</th><th class=\"\">WIRE (Cu)</th><th class=\"\">PROTECTION</th><th class=\"c\">Ø</th><th class=\"r\">Ø A (VA)</th><th class=\"r\">Ø B (VA)</th><th class=\"\">PROTECTION</th><th class=\"\">WIRE (Cu)</th><th class=\"r\">TRIP (A)</th><th class=\"c\">P</th><th class=\"r\">VA</th><th class=\"\">LOAD DESCRIPTION</th><th class=\"c\">CKT</th></tr></thead><tbody><tr><td class=\"c\">1</td><td class=\"\">RANGE – NEMA 14-50R (12 kW nameplate)</td><td class=\"r\">6,000</td><td class=\"c\">2</td><td class=\"r\">50</td><td class=\"\">#6 + #10 G</td><td class=\"\">GFCI if ≤6 ft of sink*</td><td class=\"c oph\">A</td><td class=\"r oph\">8,500</td><td class=\"r oph\">0</td><td class=\"\">GFCI 210.8(A)(10)*</td><td class=\"\">#10 + #10 G</td><td class=\"r\">30</td><td class=\"c\">2</td><td class=\"r\">2,500</td><td class=\"\">CLOTHES DRYER – NEMA 14-30R</td><td class=\"c\">2</td></tr><tr><td class=\"c\">3</td><td class=\"\">---</td><td class=\"r\">6,000</td><td class=\"c\"></td><td class=\"r\"></td><td class=\"\"></td><td class=\"\"></td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">8,500</td><td class=\"\"></td><td class=\"\"></td><td class=\"r\"></td><td class=\"c\"></td><td class=\"r\">2,500</td><td class=\"\">---</td><td class=\"c\">4</td></tr><tr><td class=\"c\">5</td><td class=\"\">TANK WATER HEATER, 4.5 kW</td><td class=\"r\">2,250</td><td class=\"c\">2</td><td class=\"r\">30</td><td class=\"\">#10 + #10 G</td><td class=\"\">—</td><td class=\"c oph\">A</td><td class=\"r oph\">7,790</td><td class=\"r oph\">0</td><td class=\"\">—</td><td class=\"\">#4 NM-B / #6 THHN in raceway + #10 G</td><td class=\"r\">60</td><td class=\"c\">2</td><td class=\"r\">5,540</td><td class=\"\">AIR HANDLER w/ 10 kW HEAT (MCA 57.7 A)</td><td class=\"c\">6</td></tr><tr><td class=\"c\">7</td><td class=\"\">---</td><td class=\"r\">2,250</td><td class=\"c\"></td><td class=\"r\"></td><td class=\"\"></td><td class=\"\"></td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">7,790</td><td class=\"\"></td><td class=\"\"></td><td class=\"r\"></td><td class=\"c\"></td><td class=\"r\">5,540</td><td class=\"\">---</td><td class=\"c\">8</td></tr><tr><td class=\"c\">9</td><td class=\"\">HEAT PUMP OUTDOOR UNIT (MCA 24 A / MOCP 40 A)</td><td class=\"r\">2,340</td><td class=\"c\">2</td><td class=\"r\">40</td><td class=\"\">#8 + #10 G</td><td class=\"\">GFCI 210.8(F)**</td><td class=\"c oph\">A</td><td class=\"r oph\">3,420</td><td class=\"r oph\">0</td><td class=\"\">GFCI 210.8(F)**</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">2</td><td class=\"r\">1,080</td><td class=\"\">MINI-SPLIT A/C – GARAGE, FUTURE PERMIT (dedicated per E1.0 note 3)</td><td class=\"c\">10</td></tr><tr><td class=\"c\">11</td><td class=\"\">---</td><td class=\"r\">2,340</td><td class=\"c\"></td><td class=\"r\"></td><td class=\"\"></td><td class=\"\"></td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">3,420</td><td class=\"\"></td><td class=\"\"></td><td class=\"r\"></td><td class=\"c\"></td><td class=\"r\">1,080</td><td class=\"\">---</td><td class=\"c\">12</td></tr><tr><td class=\"c\">13</td><td class=\"\">WELL PUMP, 1 HP (if private well)</td><td class=\"r\">960</td><td class=\"c\">2</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">GFCI 210.8(F)**</td><td class=\"c oph\">A</td><td class=\"r oph\">2,460</td><td class=\"r oph\">0</td><td class=\"\">AFCI + GFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,500</td><td class=\"\">KITCHEN SMALL APPLIANCE #1 (counter)</td><td class=\"c\">14</td></tr><tr><td class=\"c\">15</td><td class=\"\">---</td><td class=\"r\">960</td><td class=\"c\"></td><td class=\"r\"></td><td class=\"\"></td><td class=\"\"></td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">2,460</td><td class=\"\">AFCI + GFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,500</td><td class=\"\">KITCHEN SMALL APPLIANCE #2 (counter/island)</td><td class=\"c\">16</td></tr><tr><td class=\"c\">17</td><td class=\"\">REFRIGERATOR – individual ckt</td><td class=\"r\">800</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">AFCI (+GFCI if ≤6 ft)*</td><td class=\"c oph\">A</td><td class=\"r oph\">2,000</td><td class=\"r oph\">0</td><td class=\"\">AFCI + GFCI 210.8(D)</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,200</td><td class=\"\">DISHWASHER</td><td class=\"c\">18</td></tr><tr><td class=\"c\">19</td><td class=\"\">DISPOSAL (switched) + RANGE HOOD</td><td class=\"r\">1,200</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">AFCI (GFCI if cord-&amp;-plug)</td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">2,700</td><td class=\"\">AFCI + GFCI*</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,500</td><td class=\"\">MICROWAVE – dedicated</td><td class=\"c\">20</td></tr><tr><td class=\"c\">21</td><td class=\"\">LAUNDRY RECEPTACLE (washer)</td><td class=\"r\">1,500</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">AFCI + GFCI</td><td class=\"c oph\">A</td><td class=\"r oph\">3,000</td><td class=\"r oph\">0</td><td class=\"\">GFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,500</td><td class=\"\">BATHROOM RECEPTACLES – M.BATH</td><td class=\"c\">22</td></tr><tr><td class=\"c\">23</td><td class=\"\">BATHROOM RECEPTACLES – BATH 2 &amp; BATH 3</td><td class=\"r\">1,500</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">GFCI</td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">2,940</td><td class=\"\">—</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,440</td><td class=\"\">UNDER-SINK WATER HEATER – BATH 2</td><td class=\"c\">24</td></tr><tr><td class=\"c\">25</td><td class=\"\">UNDER-SINK WATER HEATER – BATH 3</td><td class=\"r\">1,440</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">—</td><td class=\"c oph\">A</td><td class=\"r oph\">2,440</td><td class=\"r oph\">0</td><td class=\"\">GFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">1,000</td><td class=\"\">GARAGE RECEPTACLES (no other outlets)</td><td class=\"c\">26</td></tr><tr><td class=\"c\">27</td><td class=\"\">GARAGE DOOR OPENER (1) – ceiling receptacle</td><td class=\"r\">500</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">GFCI</td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">1,220</td><td class=\"\">GFCI, WP in-use covers</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">720</td><td class=\"\">EXTERIOR RECEPTACLES – FRONT/REAR/ENTRY + CAMERA OUTLETS</td><td class=\"c\">28</td></tr><tr><td class=\"c\">29</td><td class=\"\">LANAI RECEPTACLES &amp; CEILING FAN</td><td class=\"r\">720</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">GFCI, WP in-use covers</td><td class=\"c oph\">A</td><td class=\"r oph\">1,620</td><td class=\"r oph\">0</td><td class=\"\">AFCI</td><td class=\"\">#14 + #14 G</td><td class=\"r\">15</td><td class=\"c\">1</td><td class=\"r\">900</td><td class=\"\">LIGHTING – MASTER BR, M.BATH, W.I.C.</td><td class=\"c\">30</td></tr><tr><td class=\"c\">31</td><td class=\"\">LIGHTING – BEDROOMS 2/3, BATHS 2/3, HALL</td><td class=\"r\">800</td><td class=\"c\">1</td><td class=\"r\">15</td><td class=\"\">#14 + #14 G</td><td class=\"\">AFCI</td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">2,000</td><td class=\"\">AFCI</td><td class=\"\">#14 + #14 G</td><td class=\"r\">15</td><td class=\"c\">1</td><td class=\"r\">1,200</td><td class=\"\">LIGHTING – GREAT RM, KITCHEN, DINING, FOYER</td><td class=\"c\">32</td></tr><tr><td class=\"c\">33</td><td class=\"\">LIGHTING – OFFICE/BR 4, LAUNDRY, GARAGE, EXTERIOR/SOFFIT</td><td class=\"r\">900</td><td class=\"c\">1</td><td class=\"r\">15</td><td class=\"\">#14 + #14 G</td><td class=\"\">AFCI</td><td class=\"c oph\">A</td><td class=\"r oph\">1,800</td><td class=\"r oph\">0</td><td class=\"\">AFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">900</td><td class=\"\">RECEPTACLES – MASTER BEDROOM &amp; W.I.C.</td><td class=\"c\">34</td></tr><tr><td class=\"c\">35</td><td class=\"\">RECEPTACLES – OFFICE / BR 4</td><td class=\"r\">720</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">AFCI</td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">1,440</td><td class=\"\">AFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">720</td><td class=\"\">RECEPTACLES – BEDROOM 2</td><td class=\"c\">36</td></tr><tr><td class=\"c\">37</td><td class=\"\">RECEPTACLES – BEDROOM 3</td><td class=\"r\">720</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">AFCI</td><td class=\"c oph\">A</td><td class=\"r oph\">1,620</td><td class=\"r oph\">0</td><td class=\"\">AFCI</td><td class=\"\">#12 + #12 G</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">900</td><td class=\"\">RECEPTACLES – GREAT ROOM</td><td class=\"c\">38</td></tr><tr><td class=\"c\">39</td><td class=\"\">RECEPTACLES – DINING, FOYER, HALLS</td><td class=\"r\">720</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">#12 + #12 G</td><td class=\"\">AFCI</td><td class=\"c oph\">B</td><td class=\"r oph\">0</td><td class=\"r oph\">820</td><td class=\"\">AFCI</td><td class=\"\">#14 + #14 G</td><td class=\"r\">15</td><td class=\"c\">1</td><td class=\"r\">100</td><td class=\"\">SMOKE / CO ALARMS (interconnected)</td><td class=\"c\">40</td></tr><tr><td class=\"c\">41</td><td class=\"\">SPARE</td><td class=\"r\">0</td><td class=\"c\">1</td><td class=\"r\">20</td><td class=\"\">—</td><td class=\"\">—</td><td class=\"c oph\">A</td><td class=\"r oph\">0</td><td class=\"r oph\">0</td><td class=\"\">—</td><td class=\"\">—</td><td class=\"r\">20</td><td class=\"c\">1</td><td class=\"r\">0</td><td class=\"\">SPARE</td><td class=\"c\">42</td></tr><tr class=\"tot\"><td></td><td colspan=\"7\">TOTAL CONNECTED LOAD PER PHASE</td><td class=\"r oph\">34,650</td><td class=\"r oph\">33,290</td><td colspan=\"7\"></td></tr></tbody></table><table class=\"okv sum\"><tr><th>Total connected load (VA)</th><td class=\"r\">67,940</td><td>Sum of all branch-circuit connected VA (no demand factors) – for balancing only</td></tr><tr><th>Connected amperes @ 240 V</th><td class=\"r\">283.1</td><td>Connected, not design – see NEC 220 calc</td></tr><tr><th>Phase imbalance</th><td class=\"r\">3.9%</td><td>Target ≤ 10%</td></tr><tr><th>NEC 220 Part III calculated demand (VA)</th><td class=\"r\">43,586</td><td>From LOAD CALC – Standard Method</td></tr><tr><th>NEC 220 Part III calculated amperes</th><td class=\"r\">181.6</td><td>Governs service sizing</td></tr><tr><th>NEC 220.82 Optional Method amperes</th><td class=\"r\">155.5</td><td>For comparison</td></tr><tr><th>Service / main breaker</th><td class=\"r\">200</td><td>A – adequate per LOAD CALC</td></tr></table><p class=\"src\">Source: NEC panel schedule and load calculation workbook, Rev 1 (2026-11-11), sheet PANEL A. Values are as stored in the workbook. Loads marked assumed are typical values; contractor to field verify against the equipment installed. See the panel notes and the equipment inputs on this sheet.</p></div></div>",
+      "zoom": 0.86,
+      "title": "Panel 'A' schedule",
+      "x": 0,
+      "y": 0,
+      "w": 22.6,
+      "h": 7.5
+     },
+     {
+      "html": "<ol><li>Circuit layout per A1.0 room plan and E1.0/E2.0 device plans; loads are design estimates for phase balancing. Service size is governed by the NEC 220 calculation on sheet &#x27;LOAD CALC&#x27;.</li><li>2-pole loads are shown split 50/50 across the two rows (phases) they occupy. Wire sizes are copper, 60°C NM-B ampacity (334.80) unless noted; EGC per Table 250.122.</li><li>AFCI per 210.12(A) on all 120 V 15/20 A circuits serving kitchens, bedrooms, dining/family rooms, office, closets, hallways and laundry. GFCI per 210.8(A) bathrooms, garage, outdoors, kitchen countertops, laundry, within 6 ft of sinks.</li><li>* NEC 2020 governs (2023 FBC 8th Ed.; cited on revised E1.0/cover). GFCI required on the dryer receptacle (210.8(A)(10) laundry area – 2020 covers 125–250 V receptacles) and on the island M/W drawer (210.8(A)(7) – within 6 ft of island sink). Range and refrigerator do not serve the countertop, so GFCI only if within 6 ft of a sink bowl – range is 6 ft from the island sink, field-verify. All of these require GFCI under NEC 2023 if the AHJ enforces it.</li><li>** Outdoor outlets ≤ 50 A require GFCI per 210.8(F); the HVAC exception has expired – verify with equipment manufacturer and AHJ (nuisance-trip listed units).</li><li>Air-handler circuit: 60 A requires #4 Cu NM-B (70 A @ 60°C) or #6 Cu THHN/THWN in raceway (65 A @ 75°C); #6 NM-B (55 A) is NOT adequate for the 57.7 A MCA.</li><li>HVAC, well pump, water heater and range values are assumed (see sheet &#x27;EQUIPMENT&#x27;, yellow cells). Update nameplate MCA/MOCP from the selected equipment; the schedule and load calc recalculate automatically.</li><li>Provide 2 spare spaces minimum and a 2-pole 50 A EV-ready conduit stub to garage if required by owner (not shown on plans – not included in load).</li><li>Surge protection: provide a Type 1 or Type 2 SPD integral to or adjacent to the service equipment per 230.67 (NEC 2020, new dwelling services). Mount at the exterior service disconnect so the 2 spare spaces in Panel A remain available.</li></ol>",
+      "cls": "cn",
+      "size": 9.3,
+      "title": "Panel notes",
+      "x": 22.72,
+      "y": 0,
+      "w": 9.08,
+      "h": 4.9
+     },
+     {
+      "html": "<div class=\"cadw\" style=\"position:static\"><div class=\"ov\" style=\"position:static\"><ol><li>HVAC nameplate MCA/MOCP for outdoor unit, air handler (strip heat kW) and mini-split – these are the largest loads and drive both the calc and breaker sizes. 4-ton / 10 kW retained as a conservative assumption for the smaller house; a 3.5-ton / 8 kW selection would lower the Standard Method by roughly 9 A.</li><li>Water: if on utility water, set well pump (L7) to 0. If on well + septic lift pump, add a 20 A/2P circuit for the effluent pump.</li><li>Range kW, dryer, water heater – confirm all-electric (no gas). Under-sink water heaters appear only in the E1.0 legend (no locations tagged) – 2 assumed at Bath 2 / Bath 3; confirm or set qty (L4) to 0.</li><li>EV charger, pool/spa, generator interlock, or detached structures are NOT on the plans and are not included. A 40 A EVSE (32 A, 7,680 VA nameplate) would raise the Optional Method to ≈ 168 A (OK) but the Standard Method to ≈ 214 A – file the Optional Method if an EVSE is added.</li><li>NEC edition: revised drawings cite NEC 2020; GFCI flags on PANEL A follow 2020 (Panel note 4). If the AHJ enforces 2023, add GFCI on range and refrigerator circuits.</li><li>Lanai 220 V WP GFI receptacle on E1.0 is unlabeled – confirm its purpose. The mini-split (CKT 10) will be in the garage under a future permit. If the lanai receptacle serves a spa/hot tub or other load, add a circuit and its load to LOAD CALC.</li></ol><p class=\"src\">Source: the same workbook, sheets EQUIPMENT and NOTES. Assumed values are typical nameplate figures for the contractor to field verify.</p></div></div>",
+      "zoom": 0.86,
+      "title": "Contractor to field verify",
+      "x": 22.72,
+      "y": 5.02,
+      "w": 9.08,
+      "h": 2.48
+     },
+     {
+      "html": "<div class=\"cadw\" style=\"position:static\"><div class=\"ov\" style=\"position:static\"><p class=\"lead\">Both the Standard Method (Art. 220 Part III) and the Optional Method (220.82) are shown. Service size governed by the method the EOR elects to file; both are checked against the 200 A service on E1.0.</p><table class=\"grid calc\"><tbody><tr class=\"sec\"><th>PART A – STANDARD METHOD (NEC 220 PART III)</th><th class=\"r\">Value</th><th>Unit</th><th>NEC reference / note</th></tr><tr class=\"\"><td>Conditioned floor area</td><td class=\"r\">2,348</td><td>sf</td><td>EQUIPMENT A7 (outside dims, excl. garage, lanai, covered entry – 220.12)</td></tr><tr class=\"\"><td>General lighting &amp; receptacles</td><td class=\"r\">7,044</td><td>VA</td><td>220.12 / Table 220.12: 3 VA/sf; 220.14(J) – includes bathroom &amp; all general-use receptacle outlets</td></tr><tr class=\"\"><td>Small-appliance branch circuits</td><td class=\"r\">3,000</td><td>VA</td><td>220.52(A): 1,500 VA each, min. 2 circuits</td></tr><tr class=\"\"><td>Laundry branch circuit</td><td class=\"r\">1,500</td><td>VA</td><td>220.52(B): 1,500 VA</td></tr><tr class=\"sub\"><td>Subtotal – general lighting, SA &amp; laundry</td><td class=\"r\">11,544</td><td>VA</td><td></td></tr><tr class=\"\"><td class=\"in\">First 3,000 VA @ 100%</td><td class=\"r\">3,000</td><td>VA</td><td>Table 220.42</td></tr><tr class=\"\"><td class=\"in\">3,001 – 120,000 VA @ 35%</td><td class=\"r\">2,991</td><td>VA</td><td>Table 220.42</td></tr><tr class=\"sub\"><td>General load after demand factor</td><td class=\"r\">5,991</td><td>VA</td><td></td></tr><tr class=\"\"><td>Electric range (nameplate from EQUIPMENT K1)</td><td class=\"r\">8,000</td><td>VA</td><td>Table 220.55 Col. C, 1 range: 8 kW for ≤12 kW; +5%/kW above 12 kW (Note 1)</td></tr><tr class=\"\"><td>Clothes dryer</td><td class=\"r\">5,000</td><td>VA</td><td>220.54: nameplate or 5,000 VA, whichever is larger (1 dryer = 100%)</td></tr><tr class=\"sec\"><th>Fastened-in-place appliances (220.53) – nameplate</th><th class=\"r\">Value</th><th>Unit</th><th>NEC reference / note</th></tr><tr class=\"\"><td class=\"in\">Tank water heater</td><td class=\"r\">4,500</td><td>VA</td><td>EQUIPMENT L2</td></tr><tr class=\"\"><td class=\"in\">Under-sink water heaters (qty × ea.)</td><td class=\"r\">2,880</td><td>VA</td><td>EQUIPMENT L3 × L4</td></tr><tr class=\"\"><td class=\"in\">Dishwasher</td><td class=\"r\">1,200</td><td>VA</td><td>EQUIPMENT K2</td></tr><tr class=\"\"><td class=\"in\">Garbage disposal</td><td class=\"r\">900</td><td>VA</td><td>EQUIPMENT K3</td></tr><tr class=\"\"><td class=\"in\">Microwave (built-in)</td><td class=\"r\">1,500</td><td>VA</td><td>EQUIPMENT K4</td></tr><tr class=\"\"><td class=\"in\">Range hood</td><td class=\"r\">300</td><td>VA</td><td>EQUIPMENT K5</td></tr><tr class=\"\"><td class=\"in\">Garage door openers (qty × ea.)</td><td class=\"r\">500</td><td>VA</td><td>EQUIPMENT L5 × L6</td></tr><tr class=\"\"><td class=\"in\">Well pump (FLA × V)</td><td class=\"r\">1,920</td><td>VA</td><td>EQUIPMENT L7 – set to 0 if on utility water</td></tr><tr class=\"sub\"><td>Subtotal fastened-in-place appliances</td><td class=\"r\">13,700</td><td>VA</td><td></td></tr><tr class=\"\"><td>Number of appliances (for 220.53 demand)</td><td class=\"r\">9</td><td>ea</td><td>220.53: 75% demand permitted where 4 or more (excl. range, dryer, heat, A/C)</td></tr><tr class=\"sub\"><td>Appliance load after demand factor</td><td class=\"r\">10,275</td><td>VA</td><td></td></tr><tr class=\"sec\"><th>Heating / air-conditioning (220.60 noncoincident – larger of the two)</th><th class=\"r\">Value</th><th>Unit</th><th>NEC reference / note</th></tr><tr class=\"\"><td class=\"in\">Cooling: HP outdoor unit + air-handler blower + mini-split @ 100%</td><td class=\"r\">7,920</td><td>VA</td><td>220.50 / 440.6 – nameplate</td></tr><tr class=\"\"><td class=\"in\">Heating: 10 kW strip + blower + mini-split @ 100%</td><td class=\"r\">13,240</td><td>VA</td><td>220.51: fixed electric space heating @ 100% (compressor locked out on strip heat – verify)</td></tr><tr class=\"sub\"><td>HVAC load used (larger)</td><td class=\"r\">13,240</td><td>VA</td><td>220.60</td></tr><tr class=\"\"><td>25% of largest motor (HP compressor RLA × 240 × 0.25)</td><td class=\"r\">1,080</td><td>VA</td><td>220.50 / 430.24</td></tr><tr class=\"tot\"><td>TOTAL CALCULATED LOAD – STANDARD METHOD</td><td class=\"r\">43,586</td><td>VA</td><td></td></tr><tr class=\"tot\"><td>Calculated amperes @ 240 V</td><td class=\"r\">181.6</td><td>A</td><td></td></tr><tr class=\"tot\"><td>Service check vs. 200 A</td><td colspan=\"2\">OK – 200 A service adequate (91% loaded)</td><td>230.42(A)/230.79(C): min 100 A dwelling; 200 A shown on E1.0</td></tr><tr class=\"sec\"><th>PART B – OPTIONAL METHOD (NEC 220.82) – FOR COMPARISON</th><th class=\"r\">Value</th><th>Unit</th><th>NEC reference / note</th></tr><tr class=\"\"><td>General lighting &amp; receptacles (3 VA/sf)</td><td class=\"r\">7,044</td><td>VA</td><td>220.82(B)(1)</td></tr><tr class=\"\"><td>Small-appliance + laundry circuits</td><td class=\"r\">4,500</td><td>VA</td><td>220.82(B)(2)</td></tr><tr class=\"\"><td>All appliances fastened in place / on specific circuits @ nameplate (range, dryer, WH, DW, etc.)</td><td class=\"r\">30,700</td><td>VA</td><td>220.82(B)(3)</td></tr><tr class=\"sub\"><td>Subtotal general loads</td><td class=\"r\">42,244</td><td>VA</td><td></td></tr><tr class=\"\"><td class=\"in\">First 10,000 VA @ 100%</td><td class=\"r\">10,000</td><td>VA</td><td>220.82(B)</td></tr><tr class=\"\"><td class=\"in\">Remainder @ 40%</td><td class=\"r\">12,898</td><td>VA</td><td>220.82(B)</td></tr><tr class=\"sub\"><td>General loads after demand</td><td class=\"r\">22,898</td><td>VA</td><td></td></tr><tr class=\"\"><td class=\"in\">(C)(1) 100% A/C: HP outdoor + blower + mini-split</td><td class=\"r\">7,920</td><td>VA</td><td>220.82(C)(1)</td></tr><tr class=\"\"><td class=\"in\">(C)(3) 100% HP compressor unit + blower + mini-split + 65% supplemental strip heat</td><td class=\"r\">14,420</td><td>VA</td><td>220.82(C)(3)</td></tr><tr class=\"sub\"><td>Heating/cooling load used (largest)</td><td class=\"r\">14,420</td><td>VA</td><td>220.82(C)</td></tr><tr class=\"tot\"><td>TOTAL CALCULATED LOAD – OPTIONAL METHOD</td><td class=\"r\">37,318</td><td>VA</td><td></td></tr><tr class=\"tot\"><td>Calculated amperes @ 240 V</td><td class=\"r\">155.5</td><td>A</td><td></td></tr><tr class=\"tot\"><td>Service check vs. 200 A</td><td colspan=\"2\">OK – 200 A service adequate (78% loaded)</td><td></td></tr><tr class=\"sec\"><th>PART C – SERVICE ENTRANCE / FEEDER / GROUNDING (200 A, 120/240 V 1Ø 3W)</th><th class=\"r\">Value</th><th>Unit</th><th>NEC reference / note</th></tr><tr class=\"\"><td>Service disconnect / main breaker</td><td class=\"r\">200</td><td>A</td><td>NEMA 3R, min 22 kAIC per E1.0 note 1; emergency disconnect at exterior per 230.85</td></tr><tr class=\"\"><td>Service-entrance conductor min. ampacity (83% rule)</td><td class=\"r\">166</td><td>A</td><td>310.12(A): 83% of service rating for 100–400 A dwelling services</td></tr><tr class=\"\"><td>Service-entrance conductors – copper</td><td colspan=\"2\">2/0 AWG Cu THWN-2 (175 A @ 75°C) – 2 ungrounded + 1 grounded</td><td>Table 310.16, 75°C column; grounded (neutral) may be reduced per 220.61 but not below 250.24(C)</td></tr><tr class=\"\"><td>Service-entrance conductors – aluminum alternate</td><td colspan=\"2\">4/0 AWG Al XHHW-2 / SER (180 A @ 75°C)</td><td>Table 310.16; use listed AL/CU lugs, anti-oxidant per mfr.</td></tr><tr class=\"\"><td>Grounding electrode conductor</td><td colspan=\"2\">#4 AWG Cu (for 2/0 Cu SEC)  /  #2 AWG Cu (for 4/0 Al SEC)</td><td>Table 250.66; concrete-encased electrode (Ufer) required where present – 250.50, 250.52(A)(3); supplemental ground rods 250.53(A)(2)</td></tr><tr class=\"\"><td>Feeder: exterior service disconnect → interior Panel 'A'</td><td colspan=\"2\">4-wire (2 hots + neutral + EGC): 2/0 Cu or 4/0 Al, EGC #6 Cu / #4 Al</td><td>250.32 / Table 250.122 (200 A OCPD → #6 Cu EGC); neutral isolated from ground at Panel 'A' (250.24(A)(5))</td></tr><tr class=\"\"><td>Panel 'A' bus / spaces</td><td colspan=\"2\">225 A bus, 200 A MCB, 42 spaces (40 used + 2 spare), 22 kAIC series or fully rated</td><td>408.36; 210.11(C) dedicated circuits; 2 spare spaces provided</td></tr></tbody></table><p class=\"src\">Source: the same workbook, sheet LOAD CALC. Values are as stored in the workbook.</p></div></div>",
+      "zoom": 1.08,
+      "title": "NEC Article 220 service load calculation",
+      "x": 0,
+      "y": 7.62,
+      "w": 15.2,
+      "h": 14.98
+     },
+     {
+      "html": "<div class=\"cadw\" style=\"position:static\"><div class=\"ov\" style=\"position:static\"><table class=\"grid eq\"><thead><tr><th class=\"c\">Ref</th><th>Item</th><th class=\"r\">Value</th><th>Unit</th><th class=\"r\">Volts</th><th class=\"c\">Poles</th><th>Source / basis</th></tr></thead><tbody><tr><td class=\"c\">A1</td><td>Overall building width (outside)</td><td class=\"r\">69</td><td>ft</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0 overall dimension 69'-0\" (bottom chain 22'-3\" + 46'-9\")</td></tr><tr><td class=\"c\">A2</td><td>Overall building depth (outside)</td><td class=\"r\">50</td><td>ft</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0 right-side chain 14'-4\"+4'-0\"+5'-1\"+3'-2\"+5'-1\"+4'-0\"+14'-4\" = 50'-0\"</td></tr><tr><td class=\"c\">A3</td><td>Footprint notch below garage (outside building, excluded)</td><td class=\"r\">148.3</td><td>sf</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0: garage wing 22'-3\" wide x 43'-4\" deep vs 50'-0\" overall → notch 6'-8\"</td></tr><tr><td class=\"c\">A4</td><td>Garage area (excluded, NEC 220.12)</td><td class=\"r\">578.5</td><td>sf</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0 garage 21'-11\" x 25'-4\" clear; outside-dim approx. 22'-3\" (matches bottom chain) x 26'-0\"</td></tr><tr><td class=\"c\">A5</td><td>Lanai recess (open porch, excluded)</td><td class=\"r\">228</td><td>sf</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0 lanai 18'-0\" x 12'-8\", recessed into rear wall</td></tr><tr><td class=\"c\">A6</td><td>Covered entry recess (open porch, excluded)</td><td class=\"r\">147</td><td>sf</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0 covered entry 15'-9\" x 9'-4\", recessed into front wall</td></tr><tr><td class=\"c\">A7</td><td>Conditioned floor area used for 3 VA/sf (220.12)</td><td class=\"r\">2,348</td><td>sf</td><td class=\"r\"></td><td class=\"c\"></td><td>FORMULA – the same areas are shown on A0.0</td></tr><tr><td class=\"c\">K1</td><td>Electric range (free-standing)</td><td class=\"r\">12,000</td><td>W</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>Assumed 12 kW – 220V receptacle shown at range on E1.0</td></tr><tr><td class=\"c\">K2</td><td>Dishwasher</td><td class=\"r\">1,200</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed typical nameplate</td></tr><tr><td class=\"c\">K3</td><td>Garbage disposal (1/2 HP)</td><td class=\"r\">900</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed typical nameplate</td></tr><tr><td class=\"c\">K4</td><td>Microwave drawer (island)</td><td class=\"r\">1,500</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed typical nameplate; 'M/W DRAWER' at island on E1.0</td></tr><tr><td class=\"c\">K5</td><td>Range hood</td><td class=\"r\">300</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed; 'HOOD ABOVE' shown on A1.0</td></tr><tr><td class=\"c\">K6</td><td>Refrigerator</td><td class=\"r\">800</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed; shown on A1.0 (on individual 20A ckt, 210.52(B)(1) Ex.2)</td></tr><tr><td class=\"c\">L1</td><td>Clothes dryer</td><td class=\"r\">5,000</td><td>W</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>NEC 220.54 minimum 5,000 VA – 220V receptacle at laundry on E1.0</td></tr><tr><td class=\"c\">L2</td><td>Tank water heater (50 gal, non-simultaneous elements)</td><td class=\"r\">4,500</td><td>W</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>Assumed 4.5 kW – 'WH' shown in garage on A1.0/E1.0</td></tr><tr><td class=\"c\">L3</td><td>Under-sink instantaneous/mini-tank water heater – each</td><td class=\"r\">1,440</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed 1.44 kW ea. – symbol in E1.0 legend only (no locations tagged on plan); field verify qty/locations</td></tr><tr><td class=\"c\">L4</td><td>Under-sink water heater – quantity</td><td class=\"r\">2</td><td>ea</td><td class=\"r\"></td><td class=\"c\"></td><td>Assumed 2 (Bath 2 &amp; Bath 3) – field verify</td></tr><tr><td class=\"c\">L5</td><td>Garage door opener – each (1/2 HP)</td><td class=\"r\">500</td><td>W</td><td class=\"r\">120</td><td class=\"c\">1P</td><td>Assumed; one 16'-0\" garage door (D02 qty 1 on A1.0)</td></tr><tr><td class=\"c\">L6</td><td>Garage door opener – quantity</td><td class=\"r\">1</td><td>ea</td><td class=\"r\"></td><td class=\"c\"></td><td>A1.0 door schedule D02 qty 1 (was 2)</td></tr><tr><td class=\"c\">L7</td><td>Well pump, 1 HP (FLA per NEC Table 430.248)</td><td class=\"r\">8</td><td>A</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>Assumed rural site may be on private well – DELETE (set to 0) if on utility water</td></tr><tr><td class=\"c\">H1</td><td>Heat pump outdoor unit – compressor RLA</td><td class=\"r\">18</td><td>A</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>Assumed 4-ton HP – retained as conservative for ~2,350 sf (Manual J may allow 3.5-ton); field verify nameplate MCA/MOCP</td></tr><tr><td class=\"c\">H2</td><td>Heat pump outdoor unit – condenser fan FLA</td><td class=\"r\">1.5</td><td>A</td><td class=\"r\">240</td><td class=\"c\"></td><td>Assumed</td></tr><tr><td class=\"c\">H3</td><td>Heat pump outdoor unit – nameplate VA</td><td class=\"r\">4,680</td><td>VA</td><td class=\"r\"></td><td class=\"c\"></td><td>FORMULA</td></tr><tr><td class=\"c\">H4</td><td>Heat pump outdoor unit – MCA (440.33: 125% RLA + fan)</td><td class=\"r\">24</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>FORMULA</td></tr><tr><td class=\"c\">H5</td><td>Heat pump outdoor unit – MOCP (breaker)</td><td class=\"r\">40</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>Assumed per typical nameplate (≤225% RLA, 440.22)</td></tr><tr><td class=\"c\">H6</td><td>Air handler – blower motor FLA</td><td class=\"r\">4.5</td><td>A</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>Assumed</td></tr><tr><td class=\"c\">H7</td><td>Air handler – supplemental electric heat strip</td><td class=\"r\">10,000</td><td>W</td><td class=\"r\">240</td><td class=\"c\"></td><td>Assumed 10 kW (retained); field verify</td></tr><tr><td class=\"c\">H8</td><td>Air handler – heat strip amps</td><td class=\"r\">41.7</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>FORMULA</td></tr><tr><td class=\"c\">H9</td><td>Air handler – MCA (424.4(B)/424.22: 125% heat + blower)</td><td class=\"r\">57.7</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>FORMULA</td></tr><tr><td class=\"c\">H10</td><td>Air handler – breaker</td><td class=\"r\">60</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>Next std size above MCA (240.6)</td></tr><tr><td class=\"c\">H11</td><td>Ductless mini-split – nameplate amps</td><td class=\"r\">9</td><td>A</td><td class=\"r\">240</td><td class=\"c\">2P</td><td>Assumed 1-ton; in the garage under a future permit (Office); E1.0 note 3 requires dedicated circuit</td></tr><tr><td class=\"c\">H12</td><td>Mini-split – nameplate VA</td><td class=\"r\">2,160</td><td>VA</td><td class=\"r\"></td><td class=\"c\"></td><td>FORMULA</td></tr><tr><td class=\"c\">H13</td><td>Mini-split – MCA</td><td class=\"r\">15</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>Assumed</td></tr><tr><td class=\"c\">H14</td><td>Mini-split – MOCP</td><td class=\"r\">20</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>Assumed</td></tr><tr><td class=\"c\">S1</td><td>Service / panel voltage</td><td class=\"r\">240</td><td>V</td><td class=\"r\"></td><td class=\"c\"></td><td>120/240 V, 1Ø, 3W</td></tr><tr><td class=\"c\">S2</td><td>Service size shown on plans</td><td class=\"r\">200</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>E1.0 'ELECTRICAL SERVICE 200 AMP'</td></tr><tr><td class=\"c\">S3</td><td>Minimum AIC rating</td><td class=\"r\">22,000</td><td>A</td><td class=\"r\"></td><td class=\"c\"></td><td>E1.0 Electrical Note 1</td></tr><tr><td class=\"c\">S4</td><td>Small-appliance branch circuits (220.52(A), min 2)</td><td class=\"r\">2</td><td>ea</td><td class=\"r\"></td><td class=\"c\"></td><td>Code minimum; 3 provided on panel is optional</td></tr><tr><td class=\"c\">S5</td><td>General lighting unit load (Table 220.12)</td><td class=\"r\">3</td><td>VA/sf</td><td class=\"r\"></td><td class=\"c\"></td><td>NEC 2020 220.12 dwelling unit</td></tr></tbody></table></div></div>",
+      "zoom": 1.08,
+      "title": "Equipment and design inputs",
+      "x": 15.32,
+      "y": 7.62,
+      "w": 16.48,
+      "h": 14.98
+     }
+    ]
+   },
+   "S0.0": {
+    "panels": [
+     {
+      "html": "<h4>GENERAL NOTES</h4><ol><li value=\"1\">The governing Code for this Project is the 2023 Florida Building Code, 8th Edition. This Code prescribes which edition of each referenced standard applies to this Project.</li><li value=\"2\">To the best of our knowledge, the Structural Drawings and these Specification Notes comply with the applicable requirements of the governing Building Code.</li><li value=\"3\">Construction is to comply with the requirements of the governing Building Code and all other applicable Federal, State, and Local Codes, Standards, Regulations and Laws.</li><li value=\"4\">The Structural Documents are to be used in conjunction with the Architectural Documents. If a conflict exists, the more stringent governs.</li><li value=\"5\">Details labeled &quot;TYP&quot; apply to all situations that are the same or similar to those specifically referenced, whether or not they are keyed in at each location. Questions regarding the applicability of typical details shall be resolved by the Architect.</li><li value=\"6\">Openings shown on Structural Drawings are only pictorial. See the Architectural and M.E.P. drawings for the size and location of openings in the structure.</li><li value=\"7\">Contractors who discover discrepancies, omissions or variations in the Contract Documents during bidding shall immediately notify the Architect. The Architect will resolve the condition and issue a written clarification.</li><li value=\"8\">The Contractor shall coordinate all Contract Documents with field conditions and dimensions and Project Shop Drawings prior to construction. Do not scale drawings; use only printed dimensions. Report any discrepancies in writing to the Architect prior to proceeding with work. Do not change size or location of structural members without written instructions from the Structural Engineer of Record.</li><li value=\"9\">The Contractor shall protect adjacent property, his own work and the public from harm. The Contractor is solely responsible for construction means and methods, and jobsite safety including all OSHA requirements.</li><li value=\"10\">The Structure is designed to be structurally sound when completed. Prior to completion, the Contractor is responsible for stability and temporary bracing, including, but not limited to, masonry walls. Wherever the Contractor is unsure of these requirements, the Contractor shall retain a Florida Licensed Engineer to design and inspect the temporary bracing and stability of the structure.</li><li value=\"11\">For installation of simpson strong-tie components and connectors, refer to manufacturer specifications.</li><li value=\"12\">Contractor shall exercise extreme caution in areas of buried utilities by calling sunshine one at 800-432-4770. The contractor is responsible for repairing and contacting all utilities.</li><li value=\"13\">Design Superimposed Loads:<table class=\"nt\"><tr><th>Occupancy / use</th><th>Live load</th><th>Dead load</th></tr><tr><td>Roof</td><td>20 psf</td><td>25 psf</td></tr><tr><td>Attic</td><td>10 psf</td><td>5 psf</td></tr><tr><td>Floor</td><td>40 psf</td><td>20 psf</td></tr><tr><td>Wall</td><td>-</td><td>12 psf</td></tr><tr><td>Deck</td><td>60 psf</td><td>10 psf</td></tr><tr><td>Snow</td><td>3 psf</td><td>-</td></tr></table></li><li value=\"14\">Design Wind Loads<table class=\"nt kvt\"><tr><td>Governing Code</td><td>2023 FBC</td></tr><tr><td>Building Risk Category</td><td>II</td></tr><tr><td>Ultimate Wind Speed</td><td>V = 136 mph</td></tr><tr><td>Mean Roof Height</td><td>16&#x27;</td></tr><tr><td>Directionality Factor</td><td>K<sub>d</sub> = 0.85</td></tr><tr><td>Gust-Effect Factor</td><td>G= 0.9</td></tr><tr><td>Exposure</td><td>C</td></tr><tr><td>Internal Pressure Coefficient</td><td>GC<sub>pi</sub> = ±0.18</td></tr></table></li></ol><h4>DEMOLITION NOTES</h4><ol><li value=\"1\">At all locations where new construction will interface with existing elements, cut through existing structure in straight and true lines to insure a neat interface.</li><li value=\"2\">At all locations where the demolition of a concrete member leaves the ends of reinforcing steel exposed, provide the following:<ol class='al'><li>Chip concrete from around the steel to a depth of 1&quot;.</li><li>Cut off reinforcing steel not less than 3/4&quot; below the concrete surface.</li><li>Fill the cavity flush with a high modulus gel epoxy. See specifications for accepted manufacturers.</li></ol></li><li value=\"3\">Before demolishing any structural element, install all required temporary and/or permanent bracing and supports.</li><li value=\"4\">Provide temporary closure of all roof fascia, wall and other openings to protect building from exposure to undesirable elements until new construction is weatherproofed, at which time such temporary construction shall be removed. All temporary exterior walls that are subject to wind loads are to be designed by a Florida Licensed Delegated Engineer.</li><li value=\"5\">Upon completion of new construction under each phase, all demolished areas shall be restored to acceptable usage according to the contract documents as determined by the Architect or Engineer.</li></ol><h4>SHALLOW FOUNDATIONS</h4><ol><li value=\"1\">As per visual inspection soil conditions at this site are sand &amp; rock with a min bearing capacity of 2000 psf should other conditions or materials be encountered, the engineer shall be notified prior to proceeding with the work the architect or engineer shall supply a letter attesting that the site has been observed and the foundation conditions are similar to those upon which the design is based on.</li><li value=\"2\">Center all footings under their respective columns or walls, u.o.n.</li></ol><h4>EXCAVATION, BACKFILL AND DEWATERING</h4><ol><li value=\"1\">The Contractor is solely responsible for all excavation procedures including lagging, shoring, and protection of adjacent property, structures, streets and utilities in accordance with the requirements of the local building department and OSHA regulations. Do not excavate within one foot of the angle of repose of any soil bearing foundation unless the foundation is properly protected against settlement.</li><li value=\"2\">Do not backfill against walls until 7 days after the walls are braced by the structure or are temporarily braced. Do not backfill cantilevered retaining walls until concrete is 28 days old. Do not backfill until after completion and inspection of any waterproofing.</li><li value=\"3\">The Contractor is responsible for the disposal of all accumulated water in a manner that does not inconvenience or damage the work.</li></ol><h4>SLABS-ON-GRADE</h4><ol><li value=\"1\">Above subgrade, use fill containing not more than 10% passing #200 sieve and maximum 1 inch diameter. Compact to 95% of maximum dry density as determined by modified proctor ASTM D-1557. Each layer of fill shall not exceed 6&quot; loose thickness. Compact prior to placement of the next layer.</li><li value=\"2\">Fill placement and compaction shall be monitored and accepted by the testing agency. Take a min. of one field density test (ASTM D-1556 or D-2922) for each 2,500 square feet of each layer. The testing agency shall randomly select test locations.</li><li value=\"3\">For interior slabs place 10 mil polyethylene sheeting between soil and bottom of slab. Do not use any sheeting below exterior concrete slabs. Sheets shall be lapped 6&quot; minimum and taped. Seal all penetrations, including pipes, with tape.</li><li value=\"4\">See the Architectural Drawings for slab-on-grade depressions and other requirements.</li></ol><h4>REINFORCED CONCRETE</h4><ol><li value=\"1\">Provide Structural Concrete and concreting practices complying with ACI 301 and 318.</li><li value=\"2\">Provide structural concrete proportioned in accordance with ACI 318, Ch. 5.3, with a minimum ultimate compressive design strength in 28 days as follows:<table class=\"nt\"><tr><th>Element</th><th>Strength</th></tr><tr><td>Footings</td><td>3,000 psi</td></tr><tr><td>Slabs-on-Grade</td><td>3,000 psi</td></tr></table><div>Submit statistical data, not more than one year old, for each class of concrete.</div></li><li value=\"3\">Use normal weight concrete for all structural members. u.o.n.</li><li value=\"4\">Aggregates are to be clean, free of chlorides, and complying with ASTM C33 gradations. Maximum coarse aggregate size 1&quot; (C33 size 57). Minimum F.M. for fine aggregate is 2.4. Use admixtures conforming to ASTM C494. Provide type A, D, F or G admix in all structural concrete and Type D or G when ambient temperature is 85 degrees or higher. Design concrete, with strengths less than 4500 psi, with 4% +/- 1% entrained air, except for trowel finished floors. Do not use calcium chloride in any concrete.</li><li value=\"5\">Obtain composite samples of fresh concrete according to ASTM C172. Obtain at least one composite sample for each 100 cu. yd. or fraction thereof of each concrete mix placed each day. For slabs, increase frequency to each 50 cu. yd. or fraction placed each day. Take a slump test, ASTM C143, for each composite sample. Maximum permissible slump is 5 inches. Cast and laboratory cure one set of four compression test standard cylinders, per ASTM C31, for each composite sample. For pumped concrete, take sample at point of placement. Test, per ASTM C39, one cylinder at 7 days and three at 28 days. If one of the first two 28 day tests falls below the specified strength, test the remaining cylinder at 56 days. No concrete test will be accepted if concrete is tampered with in any way after sample is obtained. Repeat sampling if water is added after initial sample is obtained.</li><li value=\"6\">Provide ASTM A-615 Grade 60 reinforcing steel. Reinforcing shall be accurately placed, rigidly supported and firmly tied in place, with appropriate bar supports and spacers. Conform to ACI 301, 315, 318 and CRSI Manual of Standard Practice. Lap continuous reinforcing 48 bar dia. Lap bottom steel over supports and top steel at midspan (u.o.n.). Hook discontinuous ends of all top bars and all bars in walls, u.o.n. Provide clear cover over reinforcing as follows:<table class=\"nt\"><tr><th>Element</th><th>Bottom</th><th>Top</th><th>Sides</th></tr><tr><td>Footings</td><td>3&quot;</td><td>3&quot;</td><td>3&quot;</td></tr><tr><td>Slabs-on-Grade - Interior</td><td>3&quot;</td><td>3/4&quot;</td><td>2&quot;</td></tr><tr><td>Slabs-on-Grade - Exterior</td><td>3&quot;</td><td>1 1/2&quot;</td><td>2&quot;</td></tr></table></li><li value=\"7\">Where specified, provide plain, cold-drawn electrically-welded wire reinforcement conforming to ASTM A-185. Supply in flat sheets only. Lap two mesh spacings. Use chairs to support wire fabric in the center of slab.</li><li value=\"8\">Utilities shall not penetrate beams or columns but may pass through slabs and walls individually, u.o.n. For openings 24&quot; long or less, cut reinforcing and replace alongside opening with splice bars of equivalent area with 48 bar diameter lap.</li><li value=\"9\">Where reinforcing steel congestion permits, conduit and pipes up to 1&quot; diameter may be embedded in concrete per ACI 318, Section 20.7. Space at 3 diameters o.c. Place between outer layers of reinforcing if conduits are significantly congested, additional reinforcing perpendicular to piping may be required. Requests to embed larger pipes should be accompanied by a detailed description and be submitted to the architect for evaluation.</li><li value=\"10\">Provide construction joints in accordance with ACI 318, Section 6.4. Provide keyways and adequate dowels. Submit drawings showing location of construction joints and direction of pour for review.</li><li value=\"11\">Provide 3/4&quot; chamfer for all exposed corners.</li><li value=\"12\">Provide reinforcing steel placer with a set of Structural Drawings for field reference. Inspect reinforcing steel placing from structural drawings.</li></ol><h4>CONCRETE MASONRY</h4><ol><li value=\"1\">Construct masonry in accordance with TMS 402-22, &quot;Building Code Requirements for Masonry Structures&quot;; and TMS 602-22, &quot;Specification for Masonry Structures&quot;.</li><li value=\"2\">The structure is supported by bearing walls, u.o.n. Erect masonry prior to casting concrete columns within bearing walls or casting beams and slabs supported by bearing walls.</li><li value=\"3\">Use 50% solid, nominal 8x8x16, concrete masonry units conforming to ASTM C90. Block net area compressive strength shall be 2,000 psi. Determine the minimum f&#x27;m of 2,000 psi by the unit test method or prism method. Lay up units in running bond. Sawcut units which are not in multiples of 8&quot;. Units shall be at least 8&quot; long. Bond corners by lapping ends 8&quot; in successive vertical courses. Design of walls is based on a f&#x27;m of 2,000 psi.</li><li value=\"4\">Use Type S mortar in accordance with ASTM C270 except use Type M mortar below grade. Head and bed joints shall be 3/8&quot; for the thickness of the face shell. Webs are to be fully mortared in all courses of piers, columns and pilasters; in the starting course; and where an adjacent cell is to be grouted. Remove mortar protrusions extending 1/2&quot; or more into cells to be grouted.</li><li value=\"5\">Use standard (9 gauge) horizontal joint reinforcing in every other course. Joint reinforcing and anchors in exterior walls shall conform to ASTM A 153 Class B2, with a coating thickness of 1.50 oz/sf; conform to ASTM A 641 at interior walls. Overlap discontinuous ends 6&quot;. Use prefabricated corners and tees. Use ladder type in walls with vertical reinforcing. Extend joint reinforcing a minimum of 4&quot; into tie columns.</li><li value=\"6\">Use fine grout conforming to ASTM C-476, with a minimum compressive strength of 2,500 psi in 28 days. Aggregate to conform to ASTM C404 for fine grout, with slump of 8&quot; to 10&quot;. Grout all masonry containing reinforcing, all cells of 4 hour rated walls, and where indicated on the drawings. Allow mortar to cure 24 hours prior to grouting. Provide cleanout openings at the base of cells containing reinforcing steel to clean the cell and to tie the vertical bar to the dowel.</li><li value=\"7\">Use ASTM A-615 Grade 60 reinforcing steel. Reinforce walls where indicated on the drawings and at all intersections, each side of openings and at the ends of walls. Use bar spacers at 10&#x27;-0&quot; O/C where grout pour height exceeds 10&#x27;-0&quot;.</li><li value=\"8\">Reinforced masonry wall construction shall be inspected by an Engineer or Architect in accordance with TMS 602-22.</li><li value=\"9\">Where anchor bolts, wedge anchors or anchors set in epoxy are set in a masonry wall, fill cells with grout for bolted course, one course above and two courses below.</li><li value=\"10\">Provide lintels or headers with min. 8&quot; bearing over all masonry openings.</li><li value=\"11\">Use pressure-treated wood for wood in contact with masonry.</li></ol><h4>STRUCTURAL STEEL</h4><ol><li value=\"1\">Fabricate and erect structural steel in conformance with AISC &quot;Specification for Structural Steel Buildings&quot;, with Commentary, AISC &quot;Code of Standard Practice for Steel Buildings and Bridges&quot;, AISC &quot;Specification for Structural Joints Using ASTM A325 and A490 Bolts, including Commentary&quot; and all OSHA requirements.</li><li value=\"2\">Submit, to the Architect, complete fabrication and erection drawings prepared by or under the direct supervision of a Florida licensed engineer (Delegated Engineer). Details or connections changed or proposed by the fabricator shall be signed, sealed and dated by the Delegated Engineer.</li><li value=\"3\">Fabricate structural steel shapes from the following materials:<table class=\"nt kvt\"><tr><td>HSS Shapes</td><td>ASTM A500, GRADE B</td></tr><tr><td>W Shapes</td><td>A992</td></tr><tr><td>Continuity Plates</td><td>ASTM A572 (Fy=50 KSI)</td></tr><tr><td>Other Shapes And Plates</td><td>ASTM A36</td></tr><tr><td>Electrodes</td><td>ASTM E70XX</td></tr><tr><td>Base Plates</td><td>ASTM A36</td></tr></table></li><li value=\"4\">All shop and field welding procedures and personnel shall conform to AWS D1.1 Structural Welding Code- Steel. Use E70 series welding electrodes, u.o.n. Where necessary, remove galvanizing or primer prior to welding.</li><li value=\"5\">Cut, drill, or punch holes perpendicular to metal surfaces. Ream holes that must be enlarged to admit bolts as permitted by Architect. Do not enlarge unfair holes by burning or using drift pins.</li><li value=\"6\">Do not splice structural steel members except where indicated on the drawings.</li><li value=\"7\">Steel erector to furnish and install temporary bracing as necessary to provide a stable structure during construction.</li><li value=\"8\">See Architectural and Mechanical Drawings for miscellaneous steel not shown on the Structural Drawings.</li><li value=\"9\">Refer to Architectural Drawings for painting and fireproofing of structural steel. In the absence of other instructions, paint all non-galvanized steel with a lead and chromate free steel primer. Do not paint steel surfaces in contact with concrete or to be fireproofed.</li></ol><h4>WOOD</h4><ol><li value=\"1\">All wood construction and connections shall conform to AITC &quot;American Institute of Timber Construction&quot; Manual, and the &quot;National Design Specifications&quot; for Wood Construction, 2018 Edition, and Florida Building Code, Chapter 23.</li><li value=\"2\">All member sizes are to be as shown on drawing and provide the following minimum properties:<table class=\"nt\"><tr><th>Member</th><th>Species</th><th>F<sub>b</sub> (psi)</th><th>E (psi)</th></tr><tr><td>Joists</td><td>So. Pine No. 2</td><td>1,500</td><td>1,400,000</td></tr><tr><td>Beam</td><td>Microllam LVL</td><td>2,600</td><td>2,000,000</td></tr></table></li><li value=\"3\">All wood in contact with concrete or masonry shall be pressure treated.</li><li value=\"4\">All bolts and bolted connections shall conform to ASTM A325, Anchor bolts is F1554-Grade 55. Use washers between wood and all bolt heads and nuts.</li><li value=\"5\">All metal wood connectors shall be galvanized and shall be manufactured by Simpson Strong Tie Co., or approved equal.</li><li value=\"6\">All joists shall be laterally supported at ends by solid blocking.</li></ol><h4>DEFLECTION DESIGN CRITERIA</h4><p>All members (beams, slabs, trusses, joists, etc) composing floors have been designed and shall be designed by the delegated engineer for:</p><ul><li>Total load: Span/240</li><li>Reinforced concrete elements: LL + Long Term Span/380</li><li>Wall / Mullions: L/175</li><li>Stone tile supporting floors LL: Span/380</li></ul><p>Roof members supporting non plaster cellings live: L/240, Total L/180</p><h4>TERMITE PROTECTION</h4><ol><li value=\"1\">Termite protection shall be provided by registered termiticides, including soil applied pesticides, baiting systems, and pesticides applied to wood, or other approved methods of termite protection labeled for use as a preventative treatment to new construction. See section 202, &quot;Registered Termiticide.&quot; Upon completion of the application of the termite protective by the licensed pest control company that contains the following statement: &quot;The building has received a complete treatment for the prevention of subterranean termites. Treatment is in accordance with rules and laws established by The Department Of Agriculture And Consumer Services.&quot;</li><li value=\"2\">If soil treatment is used for subterranean termite prevention, the initial chemical soil treatment inside the foundation perimeter shall be done after all excavation, backfilling and compaction is complete.</li><li value=\"3\">If soil treatment is used for subterranean termite prevention, soil area disturbed after initial chemical soil treatment shall be retreated with a chemical soil treatment, including spaces boxed or formed.</li><li value=\"4\">If soil treatment is used for subterranean termite prevention, space in concrete floors boxed out or formed for the subsequent installation of plumping traps, drains or any other purpose shall be created by using plastic or metal permanently placed forms of sufficient depth to eliminate any planned soil disturbance after initial chemical soil treatment.</li><li value=\"5\">If soil treatment is used for subterranean termite prevention, chemically treated soil shall be protected with a minimum 6 millimeter vapor retarder to protect against rainfall dilution. If rainfall occurs before vapor retarder placement, retreatment is required. Any work, including placement of reinforcing steel done after chemical treatment until the concrete floor is poured, shall be done in such manner as to avoid penetrating or disturbing treated soil.</li><li value=\"6\">If soil treatment is used for subterranean termite prevention, concrete over pour or mortar accumulated along the exterior foundation perimeter shall be removed prior to exterior chemical soil treatment, to enhance vertical penetration of the chemicals.</li><li value=\"7\">If soil treatment is used for subterranean termite prevention, chemical soil treatments shall also be applied under all exterior concrete within 1 foot (305 mm) of the primary structure sidewalls. Also a vertical chemical barrier shall be applied promptly after construction is completed, including initial landscaping and irrigation/ sprinkler installation any soil disturbed after the chemical vertical barrier is applied shall be promptly retreated.</li><li value=\"8\">If a registered termiticide formulated and registered as a bait system is used for subterranean termite prevention: a signed contract assuring the installation, maintenance and monitoring of the baiting system that is in compliance with the requirement&#x27;s statutes shall be provided to the building official prior to the pouring of the slab and the system must be installed prior to final building approval. If the baiting system directions for use require a monitoring phase prior to installation of the pesticide active ingredient, the installation of the monitoring phase component shall be deemed to constitute installation of the system.</li><li value=\"9\">If a registered termiticide formulated and registered as a wood treatment is used for subterranean termite prevention. Application of a wood treatment termiticide shall be as required by label directions for use and must be completed prior to final building approval changes in framing or additions to framing in areas of the structure requiring treatment that occur after the final wood treatment must be treated prior to final building approval.</li></ol>",
+      "columns": 4,
+      "size": 10.4,
+      "title": "Structural notes",
+      "x": 0,
+      "y": 0,
+      "w": 22.3,
+      "h": 22.6
+     },
+     {
+      "html": "<table class=\"kvw\"><tr><th>Standard</th><td>ASCE 7-22, Components and Cladding, Chapter 30 Part 1 (§30.3)</td><td class='s'>A0.0 code list</td></tr><tr><th>Building code</th><td>2023 Florida Building Code, 8th Edition</td><td class='s'>S0.0 note 1</td></tr><tr><th>Risk category</th><td>II</td><td class='s'>S0.0 note 14</td></tr><tr><th>Ultimate wind speed</th><td>V = 136 mph</td><td class='s'>Office</td></tr><tr><th>Exposure</th><td>C</td><td class='s'>S0.0 note 14 · office</td></tr><tr><th>Enclosure</th><td>Enclosed, GC<sub>pi</sub> = ±0.18</td><td class='s'>S0.0 note 14</td></tr><tr><th>Roof</th><td>Hip, 6:12 (θ = 26.57°)</td><td class='s'>A1.1</td></tr><tr><th>Mean roof height</th><td>h = 16 ft</td><td class='s'>Office</td></tr><tr><th>Plan dimensions</th><td>W = 50 ft · L = 69 ft</td><td class='s'>A1.0</td></tr><tr><th>K<sub>d</sub></th><td>0.85, applied in the pressure equation</td><td class='s'>S0.0 note 14</td></tr><tr><th>K<sub>zt</sub> · K<sub>e</sub></th><td>1.0 · 1.0</td><td class='s'>Office</td></tr><tr><th>K<sub>h</sub> · q<sub>h</sub></th><td>0.862 · 40.84 psf (strength)</td><td class='s'>Computed</td></tr><tr><th>Zone width a</th><td>5.0 ft = lesser of 0.1W and 0.4h, not less than 0.04W or 3 ft</td><td class='s'>Computed</td></tr><tr><th>Reporting basis</th><td>ASD = 0.6 × strength. Not less than 9.6 psf ASD in either direction (§30.2.2)</td><td class='s'>Engines</td></tr></table>",
+      "title": "Wind design parameters",
+      "x": 22.42,
+      "y": 0,
+      "w": 9.38,
+      "h": 4.5
+     },
+     {
+      "html": "<div class=\"wzw\"><svg class=\"wz\" viewBox=\"0 0 7.122 6.220\" width=\"7.122in\" height=\"6.220in\" xmlns=\"http://www.w3.org/2000/svg\"><defs><clipPath id=\"wzc\"><rect x=\"0.550\" y=\"0.300\" width=\"6.072\" height=\"4.400\"/></clipPath></defs><rect x=\"0.550\" y=\"0.300\" width=\"6.072\" height=\"4.400\" fill=\"#cfe8df\"/><g clip-path=\"url(#wzc)\"><line x1=\"0.550\" y1=\"0.300\" x2=\"2.750\" y2=\"2.500\" stroke=\"#f4d9a6\" stroke-width=\"0.880\" stroke-linecap=\"square\"/><line x1=\"0.550\" y1=\"4.700\" x2=\"2.750\" y2=\"2.500\" stroke=\"#f4d9a6\" stroke-width=\"0.880\" stroke-linecap=\"square\"/><line x1=\"6.622\" y1=\"0.300\" x2=\"4.422\" y2=\"2.500\" stroke=\"#f4d9a6\" stroke-width=\"0.880\" stroke-linecap=\"square\"/><line x1=\"6.622\" y1=\"4.700\" x2=\"4.422\" y2=\"2.500\" stroke=\"#f4d9a6\" stroke-width=\"0.880\" stroke-linecap=\"square\"/><line x1=\"2.750\" y1=\"2.500\" x2=\"4.422\" y2=\"2.500\" stroke=\"#f4d9a6\" stroke-width=\"0.880\" stroke-linecap=\"square\"/></g><path fill-rule=\"evenodd\" fill=\"#f1b0a3\" d=\"M0.550 0.300h6.072v4.400h-6.072z M0.990 0.740v3.520h5.192v-3.520z\"/><line x1=\"0.550\" y1=\"0.300\" x2=\"2.750\" y2=\"2.500\" class=\"hl\"/><line x1=\"0.550\" y1=\"4.700\" x2=\"2.750\" y2=\"2.500\" class=\"hl\"/><line x1=\"6.622\" y1=\"0.300\" x2=\"4.422\" y2=\"2.500\" class=\"hl\"/><line x1=\"6.622\" y1=\"4.700\" x2=\"4.422\" y2=\"2.500\" class=\"hl\"/><line x1=\"2.750\" y1=\"2.500\" x2=\"4.422\" y2=\"2.500\" class=\"hl\"/><rect x=\"0.550\" y=\"0.300\" width=\"6.072\" height=\"4.400\" class=\"ol\"/><text x=\"3.586\" y=\"4.900\" class=\"d\">L = 69 ft</text><text transform=\"translate(0.430 2.500) rotate(-90)\" class=\"d\">W = 50 ft</text><text x=\"2.189\" y=\"1.620\" class=\"z\">1</text><text x=\"3.586\" y=\"2.550\" class=\"z\">2</text><text x=\"3.586\" y=\"0.570\" class=\"z\">3</text><text x=\"6.682\" y=\"0.560\" class=\"d\" style=\"text-anchor:start\">a</text><text x=\"0.550\" y=\"5.200\" class=\"t\">Roof plan above · wall elevation below</text><rect x=\"0.550\" y=\"5.320\" width=\"6.072\" height=\"0.620\" fill=\"#cfe8df\"/><rect x=\"0.550\" y=\"5.320\" width=\"0.440\" height=\"0.620\" fill=\"#f1b0a3\"/><rect x=\"6.182\" y=\"5.320\" width=\"0.440\" height=\"0.620\" fill=\"#f1b0a3\"/><path d=\"M0.430 5.320 L3.586 4.900 L6.742 5.320\" class=\"hl\" fill=\"none\" style=\"display:none\"/><rect x=\"0.550\" y=\"5.320\" width=\"6.072\" height=\"0.620\" class=\"ol\"/><text x=\"3.586\" y=\"5.680\" class=\"z\">4</text><text x=\"0.770\" y=\"5.680\" class=\"z\">5</text><text x=\"6.402\" y=\"5.680\" class=\"z\">5</text><text x=\"0.770\" y=\"6.110\" class=\"d\">a</text><text x=\"6.402\" y=\"6.110\" class=\"d\">a</text></svg><div class=\"zl\"><span><i class=\"zs\" style=\"background:#cfe8df\"></i><b>Zone 1</b> Roof field</span><span><i class=\"zs\" style=\"background:#f4d9a6\"></i><b>Zone 2</b> Hips and ridge, band 2a = 10.0 ft</span><span><i class=\"zs\" style=\"background:#f1b0a3\"></i><b>Zone 3</b> Eave perimeter, width a = 5.0 ft</span><span><i class=\"zs\" style=\"background:#cfe8df\"></i><b>Zone 4</b> Wall field</span><span><i class=\"zs\" style=\"background:#f1b0a3\"></i><b>Zone 5</b> Wall corners, width a = 5.0 ft in each direction</span></div></div><p class=\"fn\">Schematic of a rectangular hip roof W × L, ASCE 7-22 Fig. 30.3-2F (roof) and Fig. 30.3-1 (walls). It is not the roof plan; for the roof shape see A1.1. Not to scale.</p>",
+      "title": "Components and cladding zones",
+      "x": 22.42,
+      "y": 4.62,
+      "w": 9.38,
+      "h": 7.4
+     },
+     {
+      "html": "<table class=\"g wt\"><tr><th>Roof zone (effective wind area 10 sf)</th><th class=\"r\">GC<sub>p</sub> (+)</th><th class=\"r\">GC<sub>p</sub> (−)</th><th class=\"r\">P<sub>max</sub> ↓ psf</th><th class=\"r\">P<sub>min</sub> ↑ psf</th></tr><tr><td><i class=\"zs\" style=\"background:#cfe8df\"></i>Zone 1 · Field</td><td class=\"r\">+0.70</td><td class=\"r\">−1.40</td><td class=\"r\">+18.33</td><td class=\"r\">−32.91</td></tr><tr><td><i class=\"zs\" style=\"background:#f4d9a6\"></i>Zone 2 · Hips and ridge</td><td class=\"r\">+0.70</td><td class=\"r\">−2.00</td><td class=\"r\">+18.33</td><td class=\"r\">−45.40</td></tr><tr><td><i class=\"zs\" style=\"background:#f1b0a3\"></i>Zone 3 · Eave perimeter</td><td class=\"r\">+0.70</td><td class=\"r\">−2.00</td><td class=\"r\">+18.33</td><td class=\"r\">−45.40</td></tr></table><p class=\"fn\">P<sub>max</sub> is the downward (+) design pressure and P<sub>min</sub> the uplift (−). Uplift governs roof attachment.</p><table class=\"g wt\"><tr><th>Effective wind area</th><th class=\"r\">Downward, all zones</th><th class=\"r\">Zone 1 uplift</th><th class=\"r\">Zone 2 uplift</th><th class=\"r\">Zone 3 uplift</th></tr><tr><td>10 sf</td><td class=\"r\">+18.33</td><td class=\"r\">−32.91</td><td class=\"r\">−45.40</td><td class=\"r\">−45.40</td></tr><tr><td>20 sf</td><td class=\"r\">+15.82</td><td class=\"r\">−29.14</td><td class=\"r\">−39.13</td><td class=\"r\">−39.13</td></tr><tr><td>50 sf</td><td class=\"r\">+12.50</td><td class=\"r\">−24.17</td><td class=\"r\">−30.84</td><td class=\"r\">−30.84</td></tr><tr><td>100 sf</td><td class=\"r\">+10.00</td><td class=\"r\">−20.41</td><td class=\"r\">−24.58</td><td class=\"r\">−24.58</td></tr></table><p class=\"fn\">psf, ASD. p = q<sub>h</sub> K<sub>d</sub> (GC<sub>p</sub> − GC<sub>pi</sub>), ASCE 7-22 Eq. 30.3-1, hip roof 20° &lt; θ ≤ 27°, Fig. 30.3-2F. GC<sub>p</sub> reduces with the log of the effective wind area from 10 sf to 100 sf and is constant beyond.</p>",
+      "title": "Roof design pressures, components and cladding (ASD)",
+      "x": 22.42,
+      "y": 12.14,
+      "w": 9.38,
+      "h": 5.2
+     },
+     {
+      "html": "<table class=\"g wt\"><tr><th>A (sf)</th><th class=\"r\">GC<sub>p</sub> pos</th><th class=\"r\">GC<sub>p</sub> Z4 neg</th><th class=\"r\">GC<sub>p</sub> Z5 neg</th><th class=\"r\">P pos</th><th class=\"r\">P Zone 4 neg</th><th class=\"r\">P Zone 5 neg</th></tr><tr><td>10</td><td class=\"r\">+1.00</td><td class=\"r\">−1.10</td><td class=\"r\">−1.40</td><td class=\"r\">+24.58</td><td class=\"r\">−26.66</td><td class=\"r\">−32.91</td></tr><tr><td>20</td><td class=\"r\">+0.95</td><td class=\"r\">−1.05</td><td class=\"r\">−1.29</td><td class=\"r\">+23.47</td><td class=\"r\">−25.55</td><td class=\"r\">−30.69</td></tr><tr><td>50</td><td class=\"r\">+0.88</td><td class=\"r\">−0.98</td><td class=\"r\">−1.15</td><td class=\"r\">+22.00</td><td class=\"r\">−24.09</td><td class=\"r\">−27.76</td></tr><tr><td>100</td><td class=\"r\">+0.82</td><td class=\"r\">−0.92</td><td class=\"r\">−1.05</td><td class=\"r\">+20.90</td><td class=\"r\">−22.98</td><td class=\"r\">−25.55</td></tr><tr><td>200</td><td class=\"r\">+0.77</td><td class=\"r\">−0.87</td><td class=\"r\">−0.94</td><td class=\"r\">+19.79</td><td class=\"r\">−21.87</td><td class=\"r\">−23.34</td></tr><tr><td>500</td><td class=\"r\">+0.70</td><td class=\"r\">−0.80</td><td class=\"r\">−0.80</td><td class=\"r\">+18.33</td><td class=\"r\">−20.41</td><td class=\"r\">−20.41</td></tr></table><p class=\"fn\">psf, ASD. Walls, low-rise, ASCE 7-22 Fig. 30.3-1: GC<sub>p</sub> log-interpolated from 10 sf to 500 sf (positive +1.0 to +0.7, Zone 4 −1.1 to −0.8, Zone 5 −1.4 to −0.8). The 10% reduction for θ ≤ 10° does not apply at this roof slope. Worst-case sign of GC<sub>pi</sub> taken for each zone.</p><p class=\"fn\">Tables on this sheet were produced with the wind calculators of the firm from the inputs listed under Wind design parameters.</p>",
+      "title": "Wall design pressures, components and cladding (ASD)",
+      "x": 22.42,
+      "y": 17.46,
+      "w": 9.38,
+      "h": 5.14
+     }
+    ]
+   },
+   "S1.0": {
+    "panels": [
+     {
+      "page": "pS10",
+      "crop": [
+       4.66,
+       0.58,
+       32.5,
+       22.1
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 27.9,
+      "h": 22.6,
+      "title": "Foundation plan",
+      "den": 48,
+      "hideTitle": true,
+      "over": "<path class='ov-l' d='M16.6 5.6L16.6 5.82M16.6 6.32L16.6 6.62'/><path class='ov-f' d='M16.6 6.62L16.71 6.62L16.6 6.5265Z'/><circle class='ov-b' cx='16.6' cy='5.4' r='0.2'/><path class='ov-l' d='M16.4 5.4H16.8'/><text class='ov-n' x='16.6' y='5.355'>7</text><text class='ov-n' x='16.6' y='5.535'>S2.0</text><path class='ov-l' d='M16.35 9.7L16.35 9.52M16.35 9L16.35 8.62'/><path class='ov-f' d='M16.35 8.62L16.46 8.62L16.35 8.7135Z'/><circle class='ov-b' cx='16.35' cy='9.9' r='0.2'/><path class='ov-l' d='M16.15 9.9H16.55'/><text class='ov-n' x='16.35' y='9.855'>4</text><text class='ov-n' x='16.35' y='10.035'>S2.0</text><path class='ov-l' d='M16.65 18.82L16.65 18.62M16.65 18.1L16.65 17.8'/><path class='ov-f' d='M16.65 17.8L16.76 17.8L16.65 17.8935Z'/><circle class='ov-b' cx='16.65' cy='19.02' r='0.2'/><path class='ov-l' d='M16.45 19.02H16.85'/><text class='ov-n' x='16.65' y='18.975'>7</text><text class='ov-n' x='16.65' y='19.155'>S2.0</text>"
+     },
+     {
+      "html": "<p>THE SCOPE OF THESE PLANS IS LIMITED TO FOUNDATION ENGINEERING, ARCHITECTURAL PLANS AND DETAILS, AND ELECTRICAL PLANS AND DETAILS AS INDICATED. THE DESIGN AND ENGINEERING OF THE SUPERSTRUCTURE ABOVE THE FOUNDATION, INCLUDING COLD-FORMED STEEL FRAMING, WALLS, ROOF FRAMING, SHEATHING, STRUCTURAL CONNECTIONS, AND THE COMPLETE GRAVITY, WIND UPLIFT, AND LATERAL LOAD-RESISTING SYSTEMS, SHALL BE PROVIDED UNDER SEPARATE SIGNED AND SEALED DOCUMENTS BY OTHERS.</p><p>THE CONTRACTOR SHALL COORDINATE ALL SUPERSTRUCTURE REQUIREMENTS WITH THE ENGINEER OF RECORD RESPONSIBLE FOR THE SUPERSTRUCTURE AND VERIFY COMPATIBILITY WITH THE FOUNDATION DESIGN PRIOR TO CONSTRUCTION. FINAL SUPERSTRUCTURE LOADS, REACTIONS, ANCHORAGE REQUIREMENTS, AND CONNECTION DETAILS SHALL BE PROVIDED TO THE FOUNDATION ENGINEER FOR REVIEW AND COORDINATION. ANY DISCREPANCIES OR REQUIRED MODIFICATIONS SHALL BE RESOLVED PRIOR TO CONSTRUCTION.</p>",
+      "cls": "cn scp",
+      "size": 10.4,
+      "title": "General note – scope of engineering responsibility",
+      "x": 28.02,
+      "y": 0,
+      "w": 3.78,
+      "h": 22.6
+     }
+    ]
+   },
+   "S2.0": {
+    "panels": [
+     {
+      "page": "pS20",
+      "crop": [
+       2.0,
+       3.0,
+       9.15,
+       6.35
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 10.52,
+      "h": 3.8,
+      "num": 1,
+      "title": "Typical slab on grade",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "page": "pS20",
+      "crop": [
+       10.75,
+       3.4,
+       16.55,
+       6.2
+      ],
+      "x": 10.64,
+      "y": 0,
+      "w": 10.52,
+      "h": 3.8,
+      "num": 2,
+      "title": "Typical slab on grade at garage",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "page": "pS20",
+      "crop": [
+       10.2,
+       12.4,
+       15.65,
+       14.9
+      ],
+      "x": 21.28,
+      "y": 0,
+      "w": 10.52,
+      "h": 3.8,
+      "num": 3,
+      "title": "Typical control joint on concrete slab",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "page": "pS20",
+      "crop": [
+       26.0,
+       0.6,
+       32.65,
+       7.45
+      ],
+      "x": 0,
+      "y": 3.92,
+      "w": 7.86,
+      "h": 7.3,
+      "num": 4,
+      "title": "Footing at interior bearing wall",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "page": "pS20",
+      "crop": [
+       2.3,
+       9.26,
+       8.95,
+       16.1
+      ],
+      "x": 7.98,
+      "y": 3.92,
+      "w": 7.86,
+      "h": 7.3,
+      "num": 5,
+      "title": "Footing at interior bearing wall / garage wall",
+      "over": "<defs><pattern id='soil5' width='0.32' height='0.32' patternUnits='userSpaceOnUse' patternTransform='rotate(45)'><path d='M0.012 0.038H0.148M0.012 0.08H0.148M0.012 0.122H0.148M0.172 0.198H0.308M0.172 0.24H0.308M0.172 0.282H0.308M0.198 0.012V0.148M0.24 0.012V0.148M0.282 0.012V0.148M0.038 0.172V0.308M0.08 0.172V0.308M0.122 0.172V0.308' stroke='#16213a' stroke-width='.005' fill='none'/></pattern></defs><rect x='2.3' y='11.1255' width='2.546' height='2.6745' fill='#fff'/><rect x='2.68' y='10.86' width='.19' height='.3' fill='#fff'/><path d='M4.852 11.1375V12.4708' fill='none' stroke='#16213a' stroke-width='.011' stroke-linecap='round'/><rect x='2.772' y='12.5008' width='2.035' height='0.27' fill='url(#soil5)'/><rect x='2.772' y='11.9708' width='1.9967' height='0.5' fill='rgb(211,213,218)'/><path d='M2.772 11.9708H4.7687V12.4708' fill='none' stroke='#16213a' stroke-width='.011' stroke-linejoin='round'/><path d='M2.772 12.4708H4.852' fill='none' stroke='#16213a' stroke-width='.004'/><rect x='4.7687' y='11.9708' width='0.0833' height='0.5' fill='#fff' stroke='#16213a' stroke-width='.004'/><path d='M4.8176 12.3633h0M4.8278 12.4352h0M4.8246 12.428h0M4.7824 12.2643h0M4.8366 12.33h0M4.8341 12.138h0M4.8085 12.1858h0M4.8129 12.3031h0M4.7814 12.1751h0M4.7972 12.4258h0M4.8261 12.1547h0M4.828 12.1472h0M4.8173 12.1429h0M4.7808 12.4097h0M4.7931 12.1747h0M4.839 12.4101h0M4.7978 12.442h0M4.8127 12.3404h0M4.7928 12.4346h0M4.8216 12.4438h0M4.8337 12.2045h0M4.8021 12.1569h0M4.7893 12.1208h0M4.7985 12.3136h0M4.7809 12.3404h0M4.8007 12.2085h0M4.8292 12.2697h0M4.7994 12.2699h0M4.8225 12.1179h0M4.8385 12.1057h0M4.8252 12.4002h0M4.7817 12.3797h0M4.8024 12.3048h0M4.7812 12.1142h0M4.7914 12.4397h0M4.7923 12.3683h0M4.8358 12.435h0M4.8011 12.2246h0M4.8118 12.3754h0M4.7871 12.3656h0M4.828 12.4055h0M4.7828 12.4364h0M4.7861 12.2196h0M4.8169 12.4264h0M4.8008 12.4286h0M4.813 12.2094h0' stroke='#16213a' stroke-width='.009' stroke-linecap='round' fill='none'/><rect x='4.7687' y='11.9708' width='0.0833' height='0.0417' fill='#16213a'/><circle cx='4.8103' cy='12.0501' r='0.0377' fill='#fff' stroke='#16213a' stroke-width='.006'/><path d='M2.772 12.4838H4.7587' fill='none' stroke='#16213a' stroke-width='.016' stroke-dasharray='.117 .045'/><path d='M4.825 12.5008V12.6208M4.825 12.6708V12.7708' fill='none' stroke='#16213a' stroke-width='.03'/><polyline fill='none' stroke='#16213a' stroke-width='.011' stroke-linejoin='round' stroke-linecap='round' points='2.772,11.7708 2.772,12.1358 2.702,12.1908 2.847,12.2658 2.772,12.3058 2.772,12.7908'/><path d='M2.812 12.2008H4.7187' fill='none' stroke='#16213a' stroke-width='.006'/><circle cx='3.1' cy='12.2428' r='.028' fill='#16213a'/><circle cx='3.7667' cy='12.2428' r='.028' fill='#16213a'/><circle cx='4.4333' cy='12.2428' r='.028' fill='#16213a'/><path class='ov-l' d='M2.52 11.431V13.867M2.463 11.488L2.577 11.374M2.463 13.924L2.577 13.81M4.822 11.431H2.45M3.04 13.867H2.45'/><text class='ov-t' text-anchor='middle' transform='translate(2.475 12.649) rotate(-90)'>1'-6&quot; MIN</text><path class='ov-l' d='M4.822 11.1375H4.49M4.56 11.1375V11.9708M4.51 11.1875L4.61 11.0875M4.51 12.0208L4.61 11.9208'/><text class='ov-t' text-anchor='end' x='4.49' y='11.3375'>10&quot;</text><text class='ov-t' x='2.9' y='11.66'>4&quot; STEP REQUIRED AT</text><text class='ov-t' x='2.9' y='11.81'>ENTRY DOOR, NOT SHOWN</text><path class='ov-l' d='M2.985 12.4708L2.93 12.9408'/><path d='M3 12.3708L2.957 12.4888L3.006 12.4948Z' fill='#16213a'/><text class='ov-t' text-anchor='end' x='3.4' y='13.0508'>6&quot; CONC. SLAB-</text><text class='ov-t' text-anchor='end' x='3.4' y='13.1958'>ON-GRADE PER</text><text class='ov-t' text-anchor='end' x='3.4' y='13.3408'>2/S2.0</text><path class='ov-l' d='M4.7753 12.4608L4.45 12.8808H4.38'/><path d='M4.8103 12.3708L4.7443 12.4708L4.7983 12.4958Z' fill='#16213a'/><text class='ov-t' x='3.52' y='13.0108'>1&quot; EXPANSION JOINT:</text><text class='ov-t' x='3.52' y='13.1488'>CORK JOINT FILLER,</text><text class='ov-t' x='3.52' y='13.2868'>BACKER ROD, CONTINUOUS</text><text class='ov-t' x='3.52' y='13.4248'>SEALANT AT TOP.</text><text class='ov-t' x='3.52' y='13.5628'>TERMITE SOIL TREATMENT</text><text class='ov-t' x='3.52' y='13.7008'>CONTINUOUS BELOW JOINT.</text>",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "page": "pS20",
+      "crop": [
+       17.55,
+       0.6,
+       24.65,
+       7.45
+      ],
+      "x": 15.96,
+      "y": 3.92,
+      "w": 7.86,
+      "h": 7.3,
+      "num": 6,
+      "title": "Footing with stem wall detail",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "page": "pS20x",
+      "crop": [
+       17.55,
+       0.6,
+       24.65,
+       7.45
+      ],
+      "x": 23.94,
+      "y": 3.92,
+      "w": 7.86,
+      "h": 7.3,
+      "num": 7,
+      "title": "Footing with stem wall at lanai / patio edge",
+      "den": 12,
+      "noOverlay": true
+     },
+     {
+      "html": "<table class=\"g ps\"><thead><tr><th>Type / selection</th><th>Product, model, manufacturer</th><th>Description</th><th>FL approval no.</th><th>Miami-Dade NOA</th><th class=\"c\">Impact</th><th class=\"r\">DP +</th><th class=\"r\">DP −</th><th>Expiration</th><th>Installation reference and comments</th></tr></thead><tbody><tr class=\"sec\"><th colspan=\"10\">Exterior doors</th></tr><tr><td>Swinging</td><td>Series SPA100 Aluminum Outwing Glass Door; Aluminum Outswing Glass Door - L.M.I.</td><td></td><td class='n'>FL29092.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>70</td><td class='r'>−70</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>SPA 150 ALUMINUM OUTSWING FRENCH DOOR - L.M.I.; SPA 150 ALUMINUM OUTSWING FRENCH DOOR - LARGE MISSILE IMPACT</td><td></td><td class='n'>FL41525.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>96</td><td class='r'>−96</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>Opaque Fiberglass Door</td><td></td><td class='n'>FL17901-R5</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>12/31/2027</td><td></td></tr><tr><td></td><td>Masonite International; 6&#x27;-8&quot; Impact Glazed I/S or O/S Single or Double Door w/ or w/o Sidelites</td><td></td><td class='n'>FL22363.6</td><td class='n'></td><td class='c'>Yes</td><td class='r'>50</td><td class='r'>−50</td><td class='n'>31/5/27</td><td></td></tr><tr><td>Sliding</td><td>SPA 100 SLIDING GLASS DOOR SYSTEM - L.M.I.</td><td></td><td class='n'>FL30906.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>80</td><td class='r'>−80</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>Sliding Glass Door Series 2100</td><td></td><td class='n'>FL17596.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>80</td><td class='r'>−100</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>SPA150 and SPA100 Sliding Door-LMI; SPA150 and SPA100 Sliding Door-large missile impact</td><td></td><td class='n'>FL41360.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>90</td><td class='r'>−110</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>Pella Architect Series / Architect Series Reserve Sliding Impact Glass Door</td><td>Clad traditional sliding door XO or OX Type 2 - 95.25 x 95.5 inches</td><td class='n'>FL12459.2-R12</td><td class='n'></td><td class='c'>Yes</td><td class='r'>60</td><td class='r'>−60</td><td class='n'>12/29/2026</td><td>Per approved Drawing 1667 and Glazing Detail A; HVHZ approved; Wind Zone 4 Missile D</td></tr><tr><td>Bifold</td><td>ALUMINUM BI-FOLD DOOR LARGE MISSILE IMPACT (L.M.I.)</td><td></td><td class='n'>FL32506.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>55</td><td class='r'>−55</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>D01</td><td>3&#x27;-0&quot; x 6&#x27;-8&quot; Exterior Door Assembly</td><td class='n'>FL253.6</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Installation Instructions</td></tr><tr><td>Additional alternative</td><td>EMC Windows and Doors, LLC</td><td>Swinging exterior door</td><td class='n'>FL32365.1-R2</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Source approval date: 12/12/2023</td></tr><tr class=\"sec\"><th colspan=\"10\">Garage doors</th></tr><tr><td>D02</td><td>CLOPAY</td><td>Garage door</td><td class='n'>FL5684.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>54</td><td class='r'>−60</td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Source approval date: 02/13/2024</td></tr><tr class=\"sec\"><th colspan=\"10\">Windows</th></tr><tr><td>Single/Dbl Hung</td><td>SH7700 (Large Missile Impact); Aluminum Single Hung Window</td><td></td><td class='n'>FL239.4</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>08/23/2028</td><td></td></tr><tr><td></td><td>V1 Series/70 Series (2127)</td><td></td><td class='n'>FL14911.5</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>31/3/29</td><td></td></tr><tr><td></td><td>Shanghai Superhouse Building Material Co ltd; SP86 aluminum single hung window - large missile impact</td><td></td><td class='n'>FL46774.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>75</td><td class='r'>−75</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>M/I Windows and Doors Series 1620 Single Hung - Vent F2E5</td><td>Impact resistant vinyl single hung window</td><td class='n'>FL47000.1-R1</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>31/12/32</td><td>Per approved 1620MDFPA-LM Rev A and A1 installation drawings; verify size-specific design pressures and anchorage</td></tr><tr><td>Fixed</td><td>SPA150 Window Wall System - L.M.I.</td><td></td><td class='n'>FL29474.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>96</td><td class='r'>−96</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>PW-5520 (Large Missile Impact); Vinyl Fixed Window</td><td></td><td class='n'>FL243.5</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>30/4/30</td><td></td></tr><tr><td></td><td>PW-7720A (Impact); Aluminum Fixed Window</td><td></td><td class='n'>FL243.8</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>19/2/29</td><td></td></tr><tr><td></td><td>SP60 FIXED WINDOW-LMI</td><td></td><td class='n'>FL40279.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>60</td><td class='r'>−60</td><td class='n'>31/12/26</td><td></td></tr><tr><td></td><td>WinGuard; Impact-resistant, Vinyl Fixed Window</td><td></td><td class='n'>FL29700.3</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>31/12/32</td><td></td></tr><tr><td>Casement</td><td>PW - 740 (Large Missile Impact) Aluminum Casement Picture Wi</td><td></td><td class='n'>FL243.2</td><td class='n'></td><td class='c'>Yes</td><td class='r'></td><td class='r'></td><td class='n'>04/11/2028</td><td></td></tr><tr><td></td><td>8400 Vinyl Casement</td><td></td><td class='n'>FL6890.1</td><td class='n'></td><td class='c'>Yes</td><td class='r'>67.5</td><td class='r'>−67.5</td><td class='n'>07/21/2028</td><td></td></tr><tr><td></td><td>W01</td><td>4&#x27;-0&quot; x 5&#x27;-0&quot; Window Assembly</td><td class='n'>FL242.2</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Installation Instructions</td></tr><tr><td></td><td>W02</td><td>5&#x27;-0&quot; x 2&#x27;-0&quot; Window Assembly</td><td class='n'>FL2766.4</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Installation Instructions</td></tr><tr><td></td><td>W03</td><td>2&#x27;-0&quot; x 4&#x27;-0&quot; Window Assembly</td><td class='n'>FL239.2</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Installation Instructions</td></tr><tr><td>Additional alternative</td><td>EMC Windows and Doors, LLC</td><td>Single hung window</td><td class='n'>FL17597-R3</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Source approval date: 12/31/2025</td></tr><tr class=\"sec\"><th colspan=\"10\">Structural wall sheathing</th></tr><tr><td>Structural Insulation</td><td>Strong-R Structural Insulation - OX Engineered Products / Amrize Building Envelope LLC</td><td>Structural rigid foam insulation with laminated fibrous sheathing</td><td class='n'>FL28814.1-R3</td><td class='n'></td><td class='c'>No</td><td class='r'>60</td><td class='r'>−60</td><td class='n'></td><td>Per DrJ TER 1808-02 and approved installation instructions; confirm R3 pressure limits and fastening schedule</td></tr><tr class=\"sec\"><th colspan=\"10\">Structural connectors</th></tr><tr><td></td><td>HU28 / HU26 / HU210 / HU212</td><td>Face-Mount Joist Hanger</td><td class='n'>FL10531-R7</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Simpson Strong-Tie Catalog &amp; ICC-ESR</td></tr><tr><td></td><td>LUS210</td><td>Double Shear Face-Mount Joist Hanger</td><td class='n'>FL10655-R6</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Simpson Strong-Tie Catalog &amp; ICC-ESR</td></tr><tr><td></td><td>LSC</td><td>Adjustable Stair-Stringer Connector</td><td class='n'>FL13872-R5</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Simpson Strong-Tie Catalog &amp; ICC-ESR</td></tr><tr><td></td><td>A34 / A35</td><td>Framing Angle</td><td class='n'>FL10446.1-R7</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Simpson Strong-Tie Catalog &amp; ICC-ESR</td></tr><tr><td></td><td>H2.5A</td><td>Hurricane Tie</td><td class='n'>FL10446.16-R7</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Simpson Strong-Tie Catalog &amp; ICC-ESR</td></tr><tr><td></td><td>PC4Z</td><td>Post Cap (4x ZMAX Coated)</td><td class='n'>FL10860.20-R8</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Simpson Strong-Tie Catalog &amp; ICC-ESR</td></tr><tr class=\"sec\"><th colspan=\"10\">Soffit and structural components</th></tr><tr><td></td><td>Ply Gem Siding Group</td><td>Soffit</td><td class='n'>FL32502.1</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Source approval date: 10/18/2023</td></tr><tr><td></td><td>CAST-CRETE USA, LLC</td><td>Products introduced as a result of new technology (per source schedule)</td><td class='n'>FL158.1</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Source approval date: 01/29/2024; specific product not identified</td></tr><tr class=\"sec\"><th colspan=\"10\">Roofing · asphalt shingle</th></tr><tr><td>Asphalt Shingles</td><td>GAF Timberline HDZ</td><td>Architectural laminated fiberglass asphalt roof shingles</td><td class='n'>FL39780.1-R2</td><td class='n'>22-1221.04</td><td class='c'>No</td><td class='r'>N/A</td><td class='r'>N/A</td><td class='n'>02/21/2027</td><td>HVHZ approved listing; verify applicable roof slope and fastening requirements per approved installation instructions</td></tr><tr><td></td><td>Asphalt Shingles</td><td>Asphalt shingle roof covering</td><td class='n'>FL18355.1</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Manufacturer not identified in source</td></tr><tr><td>Underlayment</td><td>Underlayment</td><td>Roofing underlayment</td><td class='n'>FL17194.1</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; Manufacturer not identified in source</td></tr><tr><td>Ridge Vent</td><td>FLAMCO Ridge Vent</td><td>Roofing accessory integral to roofing system</td><td class='n'>FL21580.3</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; As applicable</td></tr><tr><td>Off-Ridge Vent</td><td>FLAMCO Off-Ridge Vent</td><td>Roofing accessory integral to roofing system</td><td class='n'>FL21580.1</td><td class='n'></td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Manufacturer&#x27;s Approved Installation Instructions; As applicable</td></tr><tr class=\"sec\"><th colspan=\"10\">Roofing · separate, if applicable</th></tr><tr><td>Coating</td><td>High Solids Silicone Roof Coating</td><td>Applied to container roof at 1.5 gal/100 SF min. (aged galvanized metal application)</td><td class='n'></td><td class='n'>NOA 25-0623.11</td><td class='c'></td><td class='r'></td><td class='r'></td><td class='n'></td><td>Per Miami-Dade NOA Application Requirements; Not part of either roof assembly unless specifically detailed</td></tr></tbody></table><p class=\"fn\">Blank cell: not given in the source. Design pressures are as given in the source; the garage door pressures are psf, from the office. Expiration dates are shown as written in the source.</p>",
+      "cls": "s100",
+      "title": "Florida product approval schedule",
+      "x": 0,
+      "y": 11.34,
+      "w": 27.4,
+      "h": 11.26
+     },
+     {
+      "html": "<p class='gn'><b>GENERAL PRODUCT APPROVAL NOTE:</b> THIS SCHEDULE INCLUDES MULTIPLE APPROVED PRODUCT OPTIONS FOR DESIGN AND CONSTRUCTION FLEXIBILITY. NOT ALL LISTED PRODUCTS ARE REQUIRED OR INTENDED TO BE INSTALLED. CONTRACTOR SHALL SELECT THE APPLICABLE PRODUCTS AND ROOFING ASSEMBLY AND VERIFY COMPATIBILITY WITH THE PROJECT DESIGN, REQUIRED DESIGN PRESSURES, APPLICABLE FLORIDA BUILDING CODE, AND MANUFACTURER&#x27;S APPROVED INSTALLATION REQUIREMENTS. CONTRACTOR SHALL PROVIDE CURRENT PRODUCT APPROVALS AND INSTALLATION DOCUMENTATION AS APPLICABLE. APPROVED EQUIVALENT SUBSTITUTIONS ARE PERMITTED SUBJECT TO DESIGN COMPATIBILITY AND APPROVAL BY THE AUTHORITY HAVING JURISDICTION.</p>",
+      "size": 10.4,
+      "title": "General product approval note",
+      "x": 27.52,
+      "y": 11.34,
+      "w": 4.28,
+      "h": 11.26
+     }
+    ]
+   }
+  }
+ },
+ "summary": {
+  "headline": "A new single-family home at 123 Example St, these plans include the grading plan, architectural plans and details, electrical plans and details, and foundation plans and details.",
+  "text": "Plumbing, Mechanical Design, Steel Frame Structure House components above the Foundation is by others.",
+  "howToRead": "C001 and C002 keep their notes and legends only. Then A sheets for the house, E for electrical, S for structure. Every scale printed on a view is true when this set is printed full size at 24 × 36 in. Red on a sheet marks something still to be confirmed. The open items on this sheet must be closed before the set is issued."
+ },
+ "scope": [
+  {
+   "kind": "n",
+   "item": "House",
+   "text": "New single-family home: plans, elevations, wall sections, power and lighting, panel schedule, load calculation, structural notes, foundation plan and details. Sheets A1.0 to S2.0."
+  },
+  {
+   "kind": "n",
+   "item": "Site and grading",
+   "text": "Notes, legends and layout of the site and grading plan (C001) and the temporary erosion controls (C002). The plans themselves are left blank in this public example."
+  },
+  {
+   "kind": "e",
+   "item": "Maps",
+   "text": "Aerial, parcel map and flood map are not included in this public example. Their places are kept as grey boxes."
+  }
+ ],
+ "criteria": [
+  {
+   "k": "Governing code (S0.0)",
+   "v": "2023 Florida Building Code, 8th Edition"
+  },
+  {
+   "k": "Electrical code (A0.0)",
+   "v": "2020 National Electrical Code"
+  },
+  {
+   "k": "Reference standards (A0.0)",
+   "v": "ACI 318-19 · TMS 402/602-22 · ASCE 7-22"
+  },
+  {
+   "k": "Building risk category",
+   "v": "II"
+  },
+  {
+   "k": "Ultimate wind speed",
+   "v": "V = 136 mph"
+  },
+  {
+   "k": "Exposure",
+   "v": "C"
+  },
+  {
+   "k": "Mean roof height",
+   "v": "12'"
+  },
+  {
+   "k": "Kd · G · GCpi",
+   "v": "0.85 · 0.9 · ±0.18"
+  },
+  {
+   "k": "Roof live / dead load",
+   "v": "20 psf / 25 psf"
+  },
+  {
+   "k": "Floor live / dead load",
+   "v": "40 psf / 20 psf"
+  },
+  {
+   "k": "Soil bearing (S0.0, visual inspection)",
+   "v": "2000 psf min."
+  },
+  {
+   "k": "Flood zone (A0.0)",
+   "v": "AE · BFE 12.7' NAVD1988"
+  },
+  {
+   "k": "Design flood elevation (A0.0)",
+   "v": "13.7' NAVD1988"
+  },
+  {
+   "k": "Minimum F.F.E. (A0.0)",
+   "v": "19.0' NAVD1988"
+  },
+  {
+   "k": "Finished floor shown on C001",
+   "v": "19.00"
+  },
+  {
+   "k": "Service (E3.0)",
+   "v": "200 A, 120/240 V 1Ø 3W"
+  }
+ ],
+ "notes": [],
+ "openItems": [
+  {
+   "key": "fdn",
+   "title": "Foundation details on S1.0 / S2.0",
+   "who": "Engineer",
+   "answer": "Redrawn as the engineer instructed: details renumbered (slabs 1 to 3, footings 4 to 7), detail 5 with a 6 in garage slab per 2/S2.0, new detail 7 without the wall, section marks 4 and 7 added on S1.0.",
+   "text": ""
+  }
+ ],
+ "sheets": [
+  {
+   "no": "A0.0",
+   "type": "cover",
+   "name": "Cover page",
+   "what": "Scope, open items, abbreviations, codes, general notes, project information, maps."
+  },
+  {
+   "no": "C001",
+   "type": "cad",
+   "name": "Site and detailed grading plan",
+   "what": "Lot, building, driveway, grading, sections A-A and B-B, legend, notes, flood map."
+  },
+  {
+   "no": "C002",
+   "type": "cad",
+   "name": "Temporary erosion controls",
+   "what": "Erosion sediment control plan, notes, legend, details."
+  },
+  {
+   "no": "A1.0",
+   "type": "cad",
+   "name": "Floor plan",
+   "what": "Dimensioned floor plan, door and window schedule."
+  },
+  {
+   "no": "A1.1",
+   "type": "cad",
+   "name": "Roof plan",
+   "what": "Roof plan and slopes."
+  },
+  {
+   "no": "A2.0",
+   "type": "cad",
+   "name": "Front and rear elevations",
+   "what": "Front and rear elevations."
+  },
+  {
+   "no": "A2.1",
+   "type": "cad",
+   "name": "Left and right elevations",
+   "what": "Left and right elevations."
+  },
+  {
+   "no": "A3.0",
+   "type": "cad",
+   "name": "Wall sections and header details",
+   "what": "Header and jamb details, typical wall sections."
+  },
+  {
+   "no": "E1.0",
+   "type": "cad",
+   "name": "Floor power plan",
+   "what": "Receptacles, equipment, panel and service location."
+  },
+  {
+   "no": "E2.0",
+   "type": "cad",
+   "name": "Floor lighting plan",
+   "what": "Lighting, fans and switching."
+  },
+  {
+   "no": "E3.0",
+   "type": "cad",
+   "name": "Panel schedule and load calculation",
+   "what": "Panel 'A' schedule and notes, NEC Article 220 load calculation, equipment inputs."
+  },
+  {
+   "no": "S0.0",
+   "type": "cad",
+   "name": "Structural notes",
+   "what": "Structural notes, wind design parameters, components and cladding pressures."
+  },
+  {
+   "no": "S1.0",
+   "type": "cad",
+   "name": "Foundation plan",
+   "what": "Footings, stem walls, slab and control joints."
+  },
+  {
+   "no": "S2.0",
+   "type": "cad",
+   "name": "Structural details",
+   "what": "Slab details 1 to 3, footing details 4 to 7, Florida product approval schedule."
+  }
+ ],
+ "facts": [],
+ "steps": [],
+ "firm": {
+  "name": "Your Company",
+  "wordmark": "Your Company",
+  "lines": [
+   "Street address",
+   "City, State ZIP",
+   "License no.",
+   "Phone",
+   "website"
+  ]
+ },
+ "credit": true
+}

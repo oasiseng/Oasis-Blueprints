@@ -21,6 +21,8 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 - Optional credit line: `"credit": true` in a project file prints "Drawn with Oasis-Blueprints ·
   oasisengineering.com/blueprints" in small grey text in the bottom margin of every sheet, outside the border.
   Off by default. The public example sets use it; the samples bundled with the skill do not.
+- New example: a 14-sheet residential set whose linework comes from CAD, with its own job type `cadset`
+  beside the project file. Anonymized; the site plans, maps and third-party details are left out.
 
 ## 0.3.0 - 2026-11-14
 

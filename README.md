@@ -66,6 +66,9 @@ bundled with the skill, which the tests also use; they are not the same sets. To
   setbacks, a gravel driveway with a cross slope, a swale sized against the roof area and a shed relocated
   by the owner. Its drawing code, `siteplan.js`, sits beside its project file. The lot, streets, names and
   numbers are placeholders.
+- **Residential set from CAD** is a 14-sheet set for a new house (cover, civil, architectural, electrical,
+  structural) whose linework is redrawn from CAD plots. Names, address, parcel and elevations are placeholders,
+  and the site plans, maps and third-party details are left out.
 - **Freestanding deck** is a draft. It is the example that shows open items in red: the values the
   engineer still owes, counted in the title block and blocking the set from being issued.
 
@@ -73,6 +76,7 @@ bundled with the skill, which the tests also use; they are not the same sets. To
 |---|---|---|
 | Sunroom repair | `sunroom` (existing + new, imperial), 3 sheets, finished | [Live sheet set](https://oasisengineering.com/blueprints/examples/sunroom-repair/) · [PDF](https://oasisengineering.com/blueprints/examples/sunroom-repair/sheet-set.pdf) · [`project.json`](examples/sheet-sets/sunroom-repair/project.json) |
 | Site plan | `siteplan` (survey extract + one new building, decimal feet), 2 sheets, finished | [`project.json`](examples/sheet-sets/site-plan/project.json) · [`siteplan.js`](examples/sheet-sets/site-plan/siteplan.js) · [cover](examples/sheet-sets/site-plan/preview-cover.png) · [site plan sheet](examples/sheet-sets/site-plan/preview-site.png) |
+| Residential set from CAD | `cadset` (CAD linework in kit panels, native notes and tables), 14 sheets | [About and how to build](examples/sheet-sets/residential-set/README.md) · [`project.json`](examples/sheet-sets/residential-set/project.json) · [cover](examples/sheet-sets/residential-set/preview-cover.png) |
 | Detail library | `library` (sheets of standard details only), 12 sheets | [`project.json`](examples/sheet-sets/detail-library/project.json) · [sheet pictures](library/details/typical/sheets/) |
 | Freestanding deck | `deck` (all new, inches or millimeters), draft with open items | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
 
