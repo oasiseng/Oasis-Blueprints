@@ -23,6 +23,8 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
   Off by default. The public example sets use it; the samples bundled with the skill do not.
 - New example: a 14-sheet residential set whose linework comes from CAD, with its own job type `cadset`
   beside the project file. Anonymized; the site plans, maps and third-party details are left out.
+- Detail library: the `residential` collection, ten details from the residential set example (slabs, control
+  joint, footings, header and jamb details), converted from its CAD plots and not yet checked by the engineer.
 
 ## 0.3.0 - 2026-11-14
 

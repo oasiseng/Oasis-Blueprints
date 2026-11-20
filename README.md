@@ -127,8 +127,10 @@ They validate drafting behavior, not structural adequacy or engineer approval.
 Standard construction details (slabs, footings, masonry walls, wood framing, roof framing) converted from
 CAD into data, so the kit draws them on a sheet at true scale with the same pens and fonts as the rest of
 the set. Each detail is one JSON file with an 8-character id. A collection is a folder under
-`library/details/` with its own `index.json`: `typical`, with 72 details, and `site`, with the two that came
-out of the site plan example (a typical swale section and the site plan general notes). A project lists the
+`library/details/` with its own `index.json`: `typical`, with 72 details; `site`, with the two that came
+out of the site plan example (a typical swale section and the site plan general notes); and `residential`,
+with ten from the residential set example (slab on grade, control joint, footings with and without a stem
+wall, cold-formed steel header and jamb details). A project lists the
 ids it needs on a sheet of type `details`.
 
 **A library detail is the engineer's drawing, not the drafter's.** It goes on a set only when the engineer
@@ -136,7 +138,11 @@ of record says it applies, and nothing inside it (sizes, notes) is edited. The d
 converted by machine and are marked "checked by the engineer: not yet" in its index until each has been
 compared with its source. The two in `site` were redrawn from a finished set, with the street and survey
 names taken out, and carry the same "not yet" mark in [`site/index.json`](library/details/site/index.json)
-([sheet picture](library/details/site/sheets/sheet-01.png)).
+([sheet picture](library/details/site/sheets/sheet-01.png)). The ten in `residential` were converted from
+that set's CAD plots and are also marked "not yet" in
+[`residential/index.json`](library/details/residential/index.json)
+(sheet pictures [1](library/details/residential/sheets/sheet-01.png) ·
+[2](library/details/residential/sheets/sheet-02.png)).
 
 ![First sheet of the typical details](library/details/typical/sheets/sheet-01.png)
 
