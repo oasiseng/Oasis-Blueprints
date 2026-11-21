@@ -27,6 +27,7 @@ with your own company and logo in the title block.
 | Standard details the kit can draw | [Detail library](library/details/README.md) |
 | What a set of each project type usually contains | [Drawing map](library/drawing-map/types/README.md) |
 | How those three line up | [Libraries](library/README.md) |
+| An electrical panel schedule and riser for a house, ADU or tiny home | [Panel schedule kit](panel-schedule-kit/README.md) |
 
 ## What a set looks like
 
@@ -160,6 +161,19 @@ and firms removed. Every type has a page for people and the same content as data
 to three sets so far and are marked thin. Start at [every type](library/drawing-map/types/README.md);
 [Libraries](library/README.md) shows how a project type leads to sheets and details.
 
+## Panel schedule kit
+
+An electrical sheet for a single-family house, ADU or tiny home: a panel schedule drawn like the panel itself (odd
+circuits on the left, even on the right, breakers on a centre bus, each row tagged Leg A or Leg B), a matching riser
+diagram and panel notes, from one JSON file. Plain HTML and SVG on a 36 × 24 in sheet, Python standard library only.
+It is a separate kit beside the skill, not a job type yet.
+
+![Sample panel schedule sheet](panel-schedule-kit/example/panel-sheet.png)
+
+Start at [`panel-schedule-kit/README.md`](panel-schedule-kit/README.md); the styling rules are in
+[`DESIGN.md`](panel-schedule-kit/DESIGN.md). Like the rest of the kit, it draws and lays out what it is given: the
+loads, breaker sizes, wire sizes and protection come from the person responsible for the design.
+
 ## What the plugin runs, sends and fetches
 
 The skill runs two Python scripts that ship in this repository, on the machine where the assistant runs code:
@@ -200,6 +214,7 @@ To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md).
 - `library/details/`: the detail library, one folder per collection
 - `library/drawing-map/`: the drawing map and the tool that builds it
 - `library/type-map.json`: how job types, project types, sheet kinds and detail categories line up
+- `panel-schedule-kit/`: the panel schedule and riser diagram kit, with a sample sheet
 - `docs-site/`: the documentation site (Starlight), built from the reference files and the examples and published on every push to `main`
 - `tests/`: drafting regression tests and the check that no real job data is in the repository
 - `.github/workflows/`: runs the tests on every pull request, and builds the skill zip for a release

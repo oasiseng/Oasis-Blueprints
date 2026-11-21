@@ -4,6 +4,10 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 
 ## Unreleased
 
+- Panel schedule kit (`panel-schedule-kit/`): an electrical panel schedule laid out like the panel, a matching
+  riser diagram and panel notes for a house, ADU or tiny home, from one JSON file, with a sample 200 A, 40-space
+  sheet. A separate kit beside the skill; the job-data test now scans it too.
+
 - Documentation site at docs.oasisengineering.com (`docs-site/`, Starlight): guides, concepts, the reference pages
   generated from the files the skill ships, and an examples gallery that builds, prints and audits every folder in
   `examples/sheet-sets/` and writes `examples.json`. It is rebuilt and published on every push to `main`, after

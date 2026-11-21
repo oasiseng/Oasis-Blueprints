@@ -1,6 +1,6 @@
 """No real job data in the repository. Needs no browser.
 
-Scans every text file under examples/, library/ and skills/ for things that identify a real job:
+Scans every text file under examples/, library/, skills/ and panel-schedule-kit/ for things that identify a real job:
 street addresses, phone numbers, emails, zip codes, permit-like numbers, local paths and DWG file names.
 A failure names the file, the line and the text. If the text is real job data, replace it with a
 placeholder (see CONTRIBUTING.md). Add to ALLOW only what is certainly not job data, and say why.
@@ -12,7 +12,7 @@ import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-FOLDERS = ("examples", "library", "skills")
+FOLDERS = ("examples", "library", "skills", "panel-schedule-kit")
 SUFFIXES = {".json", ".js", ".md", ".html", ".py", ".csv", ".txt"}
 
 STREET = r"(?:St|Street|Ave|Avenue|Dr|Drive|Rd|Road|Ln|Lane|Blvd|Ct|Court|Way|Pl)"
