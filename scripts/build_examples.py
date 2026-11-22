@@ -12,6 +12,8 @@ For every folder in examples/sheet-sets/ that holds a project.json (the folder n
 3. fails the whole build if the layout audit reports anything;
 4. writes a gallery page for it in docs-site/src/content/docs/examples/.
 
+It also builds the panel schedule kit's sample sheet (panel-schedule-kit/) into docs-site/public/kits/panel-schedule/.
+
 Then it writes the gallery index (oldest example first, newest last) and docs-site/public/examples.json
 for the main website. Addresses come from docs-site/site.json.
 
@@ -27,6 +29,7 @@ SETS = ROOT / "examples" / "sheet-sets"
 SITE_DIR = ROOT / "docs-site"
 PAGES = SITE_DIR / "src" / "content" / "docs" / "examples"
 OUT = SITE_DIR / "public" / "examples"
+KITS = SITE_DIR / "public" / "kits"
 SITE = json.loads((SITE_DIR / "site.json").read_text(encoding="utf-8"))
 BASE = SITE["url"].rstrip("/") + "/"
 LIVE = SITE.get("liveSetFolder", "set")
@@ -115,6 +118,38 @@ def resize(browser, src, dst, width):
     page.close()
 
 
+def build_panel_kit(sync_playwright):
+    """The panel schedule kit's sample sheet (panel-schedule-kit/), for its page under /kits/panel-schedule/:
+    its own build_example.py, then a 36 x 24 in PDF, a 2400 px picture and a 1200 px thumbnail."""
+    kit = ROOT / "panel-schedule-kit"
+    code, log = run([sys.executable, str(kit / "example" / "build_example.py")])
+    if code:
+        sys.exit("The panel schedule kit's example did not build:\n" + log)
+    dest = KITS / "panel-schedule"
+    shutil.rmtree(dest, ignore_errors=True)
+    (dest / "sheet").mkdir(parents=True)
+    html = dest / "sheet" / "index.html"
+    shutil.copyfile(kit / "example" / "panel-sheet.html", html)
+    with sync_playwright() as pw, tempfile.TemporaryDirectory() as tmp:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 3456, "height": 2304})
+        errors = []
+        page.on("pageerror", lambda e: errors.append(str(e)))
+        page.goto(html.resolve().as_uri())
+        page.wait_for_load_state("networkidle")
+        page.evaluate("document.fonts.ready")
+        if errors:
+            sys.exit("The panel schedule sample has script errors:\n - " + "\n - ".join(errors))
+        page.pdf(path=str(dest / "panel-sheet.pdf"), width="36in", height="24in", print_background=True, prefer_css_page_size=True)
+        full = Path(tmp) / "full.png"
+        page.locator(".sheet").screenshot(path=str(full))
+        page.close()
+        resize(browser, full, dest / "panel-sheet.png", PREVIEW_WIDTH)
+        resize(browser, full, dest / "thumb.png", THUMB_WIDTH)
+        browser.close()
+    print("built the panel schedule kit sample: /kits/panel-schedule/sheet/")
+
+
 def front(title, description, edit, order):
     return "\n".join(["---", "title: " + json.dumps(title), "description: " + json.dumps(description),
                       "editUrl: " + json.dumps(edit), "sidebar:", "  order: %d" % order, "---", ""])
@@ -150,6 +185,7 @@ def main():
                 print("\nFAILED %s: %s" % (slug, p), file=sys.stderr)
             sys.exit("The example build failed: %d example(s) did not build or print clean." % len(problems))
         info = finish([(f, shots) for f, _, shots in done], sync_playwright)
+    build_panel_kit(sync_playwright)
 
     labels = status_labels()
     commit = git("rev-parse", "--short=7", "HEAD")
@@ -202,12 +238,20 @@ def main():
         cards.append('<a class="oasis-card" href="/examples/%s/"><img src="/examples/%s/thumb.png" alt="" loading="lazy" width="1200"><strong>%s</strong>%s<br><small>%s · %d sheet%s · <code>%s</code></small></a>'
                      % (slug, slug, esc(entry["title"]), esc(entry["headline"]), esc(entry["statusLabel"]), entry["sheets"], "" if entry["sheets"] == 1 else "s", esc(job)))
 
+    kit_panel = json.loads((ROOT / "panel-schedule-kit" / "example" / "sample_panel.json").read_text(encoding="utf-8"))["panel"]
     index = [front("Gallery", "Every example sheet set in the repository, built, printed and audited when the site is built.",
                    "%s/tree/%s/examples/sheet-sets" % (SITE["repo"], SITE["branch"]), 0),
              "Each example below is a folder in [`examples/sheet-sets/`](%s/tree/%s/examples/sheet-sets). The site builds it with the skill's own "
              "scripts, prints it to PDF and runs the layout audit on every push; an example the audit flags stops the build. Names, addresses and "
              "numbers in the examples are placeholders. Oldest first." % (SITE["repo"], SITE["branch"]), "",
-             '<div class="oasis-grid">', *cards, "</div>", ""]
+             '<div class="oasis-grid">', *cards, "</div>", "",
+             "## Kits", "",
+             "Separate kits beside the skill, with their own sample sheet.", "",
+             '<div class="oasis-grid">',
+             '<a class="oasis-card" href="/kits/panel-schedule/"><img src="/kits/panel-schedule/thumb.png" alt="" loading="lazy" width="1200">'
+             "<strong>Panel schedule kit</strong>An electrical panel schedule laid out like the panel, with a matching riser diagram, "
+             "for a house, ADU or tiny home.<br><small>Sample sheet · %d A · %d spaces</small></a>" % (kit_panel["serv"], kit_panel["slots"]),
+             "</div>", ""]
     (PAGES / "index.md").write_text("\n".join(index), encoding="utf-8")
 
     manifest = {

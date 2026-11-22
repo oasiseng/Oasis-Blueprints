@@ -28,6 +28,13 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Kits',
+					items: [
+						{ label: 'Panel schedule kit', slug: 'kits/panel-schedule' },
+						{ label: 'Panel schedule design rules', slug: 'kits/panel-schedule-design' },
+					],
+				},
+				{
 					label: 'Guides',
 					items: [
 						{ slug: 'guides/site-plan' },
