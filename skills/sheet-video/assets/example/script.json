@@ -1,0 +1,14 @@
+{
+  "title": "Example: reading a site plan",
+  "voice": "af_heart",
+  "speed": 1.0,
+  "lead": 0.5,
+  "hold": 1.1,
+  "captions": [["twenty-four foot", "24 ft"], ["six feet", "6 ft"], ["five feet", "5 ft"]],
+  "scenes": [
+    {"id": "intro", "say": ["Here's a site plan for a new metal building.", "One sheet.", "About a minute."]},
+    {"id": "site", "say": "The new building sits in the corner of the lot, six feet off the east line and five feet off the south. A twenty-four foot gravel driveway runs out to Example Street."},
+    {"id": "drainage", "say": "A swale along the east side carries the roof water north. It holds the first inch of rain: two hundred four point seven cubic feet, against seventy-seven point three required."},
+    {"id": "close", "say": "Every number here comes from the sheet. Drawn by Your Company."}
+  ]
+}

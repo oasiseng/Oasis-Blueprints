@@ -7,8 +7,15 @@ The same skill folder, `skills/oasis-blueprints/`, is used every way. Pick the o
 
 ## As a Claude plugin
 
-The [repository](https://github.com/oasiseng/Oasis-Blueprints) is the plugin: `.claude-plugin/plugin.json` plus the
-skill in `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
+The [repository](https://github.com/oasiseng/Oasis-Blueprints) is the plugin and its own marketplace. In Claude Code:
+
+```bash
+claude plugin marketplace add oasiseng/oasis-blueprints
+claude plugin install oasis-blueprints@oasis-blueprints
+```
+
+Then ask for a drawing set and describe the job. The plugin also brings the `sheet-video` skill and agent, which turn
+a drawing set into a narrated video: see [Make a video from a drawing set](/guides/make-a-video/).
 
 ## As a skill in Claude or ChatGPT
 

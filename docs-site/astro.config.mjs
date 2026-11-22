@@ -32,6 +32,10 @@ export default defineConfig({
 					items: [
 						{ label: 'Panel schedule kit', slug: 'kits/panel-schedule' },
 						{ label: 'Panel schedule design rules', slug: 'kits/panel-schedule-design' },
+						{ label: 'Sheet video', slug: 'kits/sheet-video' },
+						{ label: 'Sheet video: scenes and player', slug: 'kits/sheet-video-player' },
+						{ label: 'Sheet video: style and sound', slug: 'kits/sheet-video-style' },
+						{ label: 'Sheet video: brief template', slug: 'kits/sheet-video-brief' },
 					],
 				},
 				{
@@ -43,6 +47,7 @@ export default defineConfig({
 						{ slug: 'guides/revise' },
 						{ slug: 'guides/print-and-audit' },
 						{ slug: 'guides/publish-an-example' },
+						{ slug: 'guides/make-a-video' },
 					],
 				},
 				{

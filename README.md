@@ -28,6 +28,7 @@ with your own company and logo in the title block.
 | What a set of each project type usually contains | [Drawing map](library/drawing-map/types/README.md) |
 | How those three line up | [Libraries](library/README.md) |
 | An electrical panel schedule and riser for a house, ADU or tiny home | [Panel schedule kit](panel-schedule-kit/README.md) |
+| A narrated HTML + MP4 video made from a drawing set (PDF or HTML) | [Sheet video](#videos-from-a-drawing-set) |
 
 ## What a set looks like
 
@@ -122,6 +123,43 @@ python -m unittest discover -s tests -v
 The tests exercise example exports, actual drawing scale in inches and millimetres, blank-criteria
 issue checks, local paths containing reserved URL characters, and saving/reopening browser edits.
 They validate drafting behavior, not structural adequacy or engineer approval.
+
+## Videos from a drawing set
+
+The plugin has a second skill, **sheet-video**: give it a drawing set (a PDF, or an HTML set) and a script,
+and it makes a narrated, captioned video in your own branding, as one self-contained HTML player and a
+1080p MP4. It highlights the real sheets (zooms, rings, tints, flow arrows, pipes drawing on), reads the
+narration with a local neural voice, puts an original music bed underneath, and checks every frame
+before it hands the video over. Good for a project walkthrough behind a QR code on the plans, a
+review video for the city or the owner, or a product explainer.
+
+**Install it once** in Claude Code:
+
+```bash
+claude plugin marketplace add oasiseng/oasis-blueprints
+claude plugin install oasis-blueprints@oasis-blueprints
+```
+
+(or, inside a session, `/plugin marketplace add oasiseng/oasis-blueprints`, then `/plugin install oasis-blueprints@oasis-blueprints`).
+
+**Make a video** with the `sheet-video` agent, which runs on Claude Opus 5.5 at high effort:
+
+```bash
+claude --agent oasis-blueprints:sheet-video
+```
+
+Then ask, for example: *"Make a project video from plans.pdf and script.md."* On first use it installs
+what it needs (Python packages, Chromium, the voice model; ffmpeg must already be installed), asks for
+your company name, logo, tagline, website and colours, and saves them to `~/.sheet-video/brand.json` so
+every later video uses them. Without a script, it drafts one with you from
+[`references/brief-template.md`](skills/sheet-video/references/brief-template.md). It checks the script
+against the sheets and asks about anything that does not match before building.
+
+Everything is in [`skills/sheet-video/`](skills/sheet-video/SKILL.md): the workflow, the scripts (each runs on its own,
+`--help` explains it), the player, the music, and a four-scene example on the site plan set
+(`assets/example/`). The voice is [Kokoro](https://github.com/thewh1teagle/kokoro-onnx) (Apache 2.0) running
+locally; the fonts are Barlow (SIL OFL); the music is synthesized by the skill. Listen to every video before
+you publish it: the model that builds it cannot hear it.
 
 ## Detail library
 

@@ -1,0 +1,14 @@
+{
+  "name": "oasis-blueprints",
+  "description": "Oasis-Blueprints: drawing sets as HTML and PDF, and narrated videos made from them.",
+  "owner": {
+    "name": "Oasis Engineering, LLC"
+  },
+  "plugins": [
+    {
+      "name": "oasis-blueprints",
+      "source": "./",
+      "description": "Draw construction sheet sets as HTML and PDF, and turn a drawing set into a narrated HTML and MP4 video."
+    }
+  ]
+}

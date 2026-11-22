@@ -1,0 +1,29 @@
+{
+  "company": "Your Company",
+  "tagline": "Plans you can read",
+  "cta": "yourcompany.com",
+  "footer": "",
+  "logo": "logo.png",
+  "logoKnockout": true,
+  "renderingNote": "Client's rendering, for reference only. The drawings govern.",
+  "colors": {
+    "paper": "#f5f3ec",
+    "ink": "#16233f",
+    "ink2": "#4b5674",
+    "ink3": "#7d859b",
+    "line": "#d9d4c5",
+    "accent": "#2c5fd4",
+    "accentSoft": "#dce6fa",
+    "keep": "#23864f",
+    "keepSoft": "#dcf0e3",
+    "alert": "#c42f28",
+    "alt": "#f3e9d2",
+    "altLine": "#b8975a"
+  },
+  "fonts": {
+    "heading": "\"Bahnschrift SemiCondensed\",\"Bahnschrift\",\"Roboto Condensed\",\"Arial Narrow\",\"Liberation Sans Narrow\",\"DejaVu Sans Condensed\",sans-serif",
+    "body": "\"Segoe UI\",system-ui,-apple-system,\"Helvetica Neue\",Roboto,Arial,sans-serif"
+  },
+  "voice": {"voice": "af_heart", "speed": 1.0},
+  "music": {"enabled": true, "under": 0.3}
+}
