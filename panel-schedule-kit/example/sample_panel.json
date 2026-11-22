@@ -1,0 +1,36 @@
+{
+  "panel": {"name": "Panel A", "sub": "Sample ADU  ·  120/240 V  ·  1Ø  ·  3 wire", "serv": 200, "demand_amps": 159.9, "slots": 40},
+  "info": [["Bus", "200 A"], ["Main", "Main lug only"], ["Fed from", "200 A meter / main"],
+           ["Spaces", "40 (17 used, 3 spare)"], ["Location", "South wall, living"], ["Mounting", "Flush, NEMA 1"]],
+  "left": [
+    [1, "Water heater", "Electric tankless, 13 kW", 13000, 2, 60, "#6 + #10 G", ""],
+    [5, "Clothes dryer", "NEMA 14-50R", 5000, 2, 30, "#10 + #10 G", "GFCI"],
+    [9, "Kitchen countertop 1", "Small appliance circuit", 1500, 1, 20, "#12 + #12 G", "AFCI + GFCI"],
+    [11, "Refrigerator", "Individual circuit", 800, 1, 20, "#12 + #12 G", "AFCI + GFCI"],
+    [13, "Laundry receptacle", "Washer", 1500, 1, 20, "#12 + #12 G", "AFCI + GFCI"],
+    [15, "Living / sleeping receptacles", "(6) receptacles", 1080, 1, 20, "#12 + #12 G", "AFCI"],
+    [17, "Lighting and fans", "Ceiling fan, bath fan, smoke / CO alarms", 1296, 1, 15, "#14 + #14 G", "AFCI"],
+    [19, "Spare", "", 0, 1, 20, "", ""]],
+  "right": [
+    [2, "Cooktop / range", "240 V receptacle", 8000, 2, 40, "#8 + #10 G", "GFCI"],
+    [6, "Mini-split outdoor unit", "MCA 30 A", 5760, 2, 30, "#10 + #10 G", "GFCI"],
+    [10, "Kitchen countertop 2", "Small appliance circuit", 1500, 1, 20, "#12 + #12 G", "AFCI + GFCI"],
+    [12, "Disposal and range hood", "Disposal switched", 1200, 1, 20, "#12 + #12 G", "AFCI + GFCI"],
+    [14, "Bathroom receptacles", "", 360, 1, 20, "#12 + #12 G", "GFCI"],
+    [16, "Exterior receptacles", "(3) weatherproof", 540, 1, 20, "#12 + #12 G", "GFCI"],
+    [18, "Spare", "", 0, 1, 20, "", ""], [20, "Spare", "", 0, 1, 20, "", ""]],
+  "method": {
+    "9":  {"AFCI": "breaker", "GFCI": "breaker"},
+    "10": {"AFCI": "breaker", "GFCI": "receptacle"},
+    "11": {"AFCI": "open", "GFCI": "open"}
+  },
+  "riser": {"serv": 200, "bus": 200, "spaces": 40, "panel": "PANEL 'A'", "conduit": "2\" PVC",
+            "line": "(2) 2/0 Cu THHN, LINE", "neutral": "(1) 2/0 Cu THHN, NEUTRAL", "egc": "(1) #4 Cu, GROUND",
+            "gec": "#4 Cu GROUNDING ELECTRODE", "rods": "CONDUCTOR TO (2) GROUND RODS", "amp": 159.9, "calc_ref": "LOAD CALCULATION"},
+  "notes": [
+    "Wire sizes are copper, 60 C NM-B ampacity unless noted; equipment grounding conductors per NEC Table 250.122.",
+    "AFCI / GFCI is printed where it is provided: inside the breaker (dual-function or GFCI breaker), beside the outlet (GFCI receptacle), or as \"required\" beside the circuit while the method is still open.",
+    "Disconnects within sight of the water heater and the mini-split outdoor unit.",
+    "Surge protective device, Type 1 or Type 2, at the service equipment (NEC 230.67).",
+    "Provide a typewritten circuit directory (NEC 408.4(A))."]
+}
