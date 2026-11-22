@@ -4,6 +4,17 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 
 ## Unreleased
 
+- New skill, **sheet-video** (`skills/sheet-video/`): a narrated, captioned video from a drawing set (PDF or
+  HTML) and a script, as a self-contained HTML player and a 1080p MP4, in the user's branding (`brand.json`,
+  saved once in `~/.sheet-video/`). Scripts capture PDF or HTML sets with searchable text positions, cut crops,
+  speak the narration with a local Kokoro voice, time scenes and captions from the voice, render an original
+  music bed, mix to -16 LUFS, build the player, check every frame and export the MP4. Includes a four-scene
+  example on the site plan set and a test that builds and plays it.
+- New agent, `sheet-video` (`agents/sheet-video.md`): runs the skill on Claude Opus 5.5 at high effort
+  (`claude --agent oasis-blueprints:sheet-video`).
+- The repository is now also a plugin marketplace (`.claude-plugin/marketplace.json`): install with
+  `claude plugin marketplace add oasiseng/oasis-blueprints` and `claude plugin install oasis-blueprints@oasis-blueprints`.
+
 - Panel schedule kit (`panel-schedule-kit/`): an electrical panel schedule laid out like the panel, a matching
   riser diagram and panel notes for a house, ADU or tiny home, from one JSON file, with a sample 200 A, 40-space
   sheet. A separate kit beside the skill; the job-data test now scans it too. It has its own pages on the
