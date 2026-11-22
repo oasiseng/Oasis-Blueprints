@@ -7,7 +7,7 @@ One source of truth: the Reference pages, the sheet standard, the changelog, the
 contributing page are not written twice. This script copies them from the files the repository
 already ships into the Starlight content folder, adds the front matter Starlight needs and points
 their relative links at the right place (another generated page, a copied picture, or the file on
-GitHub). It also copies the heading fonts and the example preview pictures, and writes the CNAME
+GitHub). The panel schedule kit's README and DESIGN.md become its two pages under /kits/. It also copies the heading fonts and the example preview pictures, and writes the CNAME
 file from docs-site/site.json. Everything it writes is listed in docs-site/.gitignore.
 
 The examples gallery is written by scripts/build_examples.py, which needs a browser; this script
@@ -32,6 +32,14 @@ PAGES = {
     "CHANGELOG.md": ("project/changelog", "Changelog"),
     "LICENSE": ("project/license", "License"),
     "CONTRIBUTING.md": ("project/contributing", "Contributing"),
+    "panel-schedule-kit/README.md": ("kits/panel-schedule", "Panel schedule kit"),
+    "panel-schedule-kit/DESIGN.md": ("kits/panel-schedule-design", "Panel schedule design rules"),
+}
+# extra lines under the "generated page" note, for pages that have something built for them
+LEAD = {
+    "panel-schedule-kit/README.md": "**The sample sheet, rebuilt on every push:** [open it](/kits/panel-schedule/sheet/) · "
+                                    "[PDF](/kits/panel-schedule/panel-sheet.pdf) · [picture](/kits/panel-schedule/panel-sheet.png). "
+                                    "The styling rules are in [Panel schedule design rules](/kits/panel-schedule-design/).",
 }
 FONTS = ["barlow-condensed-latin-600-normal.woff2", "barlow-condensed-latin-700-normal.woff2"]
 IMAGE = re.compile(r"\.(png|jpe?g|gif|svg|webp)$", re.I)
@@ -98,14 +106,14 @@ def convert(source, page, title):
              "---", "",
              ":::note[Generated page]",
              "This page is copied from [`%s`](%s) when the site is built. To change it, edit that file." % (source, github(source)),
-             ":::", ""]
+             ":::", ""] + ([LEAD[source], ""] if source in LEAD else [])
     dst = DOCS / (page + ".md")
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text("\n".join(front) + "\n" + body, encoding="utf-8")
 
 
 def main():
-    for folder in ("reference", "project"):
+    for folder in ("reference", "project", "kits"):
         shutil.rmtree(DOCS / folder, ignore_errors=True)
     shutil.rmtree(PUBLIC / "ref", ignore_errors=True)
     PUBLIC.mkdir(parents=True, exist_ok=True)

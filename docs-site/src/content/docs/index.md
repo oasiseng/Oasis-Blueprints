@@ -22,4 +22,5 @@ hero:
 
 - **[Install it](/get-started/install/)** as a Claude plugin, or as a skill in ChatGPT, Codex or another assistant that supports Agent Skills.
 - **[Draw your first set](/get-started/first-sheet-set/)** from the bundled sample, with Python and nothing else.
+- **[Panel schedule kit](/kits/panel-schedule/)**: an electrical panel schedule laid out like the panel, with a matching riser diagram, for a house, ADU or tiny home.
 - **[Read the rule](/concepts/drafter-not-engineer/)** it is built around: it never supplies an engineering value.
