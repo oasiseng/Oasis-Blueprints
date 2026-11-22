@@ -12,7 +12,8 @@ For every folder in examples/sheet-sets/ that holds a project.json (the folder n
 3. fails the whole build if the layout audit reports anything;
 4. writes a gallery page for it in docs-site/src/content/docs/examples/.
 
-It also builds the panel schedule kit's sample sheet (panel-schedule-kit/) into docs-site/public/kits/panel-schedule/.
+It also builds the panel schedule kit's sample sheet (panel-schedule-kit/) into docs-site/public/kits/panel-schedule/,
+and the sheet-video skill's example player (skills/sheet-video/assets/example/) into docs-site/public/kits/sheet-video/.
 
 Then it writes the gallery index (oldest example first, newest last) and docs-site/public/examples.json
 for the main website. Addresses come from docs-site/site.json.
@@ -150,6 +151,47 @@ def build_panel_kit(sync_playwright):
     print("built the panel schedule kit sample: /kits/panel-schedule/sheet/")
 
 
+def build_sheet_video(sync_playwright):
+    """The sheet-video skill's example (skills/sheet-video/assets/example/), for its page under /kits/sheet-video/:
+    the player built with the skill's build.py from the committed narration and timing (no voice model or ffmpeg
+    needed), played through once for script errors, and a 1200 px poster frame."""
+    video = ROOT / "skills" / "sheet-video"
+    example = video / "assets" / "example"
+    dest = KITS / "sheet-video"
+    shutil.rmtree(dest, ignore_errors=True)
+    (dest / "example").mkdir(parents=True)
+    html = dest / "example" / "index.html"
+    with tempfile.TemporaryDirectory() as tmp:
+        brand = Path(tmp) / "brand.json"
+        brand.write_text(json.dumps({"company": "Your Company", "tagline": "Plans you can read", "cta": "yourcompany.com",
+                                     "logo": str(video / "assets" / "brand" / "logo.png"), "logoKnockout": False}), encoding="utf-8")
+        code, log = run([sys.executable, str(video / "scripts" / "build.py"), str(example / "scenes.js"), str(html),
+                         "--assets", str(example), "--timing", str(example / "timing.json"), "--mix", str(example / "narration.mp3"),
+                         "--brand", str(brand), "--title", "Sheet video example"])
+    if code:
+        sys.exit("The sheet-video example did not build:\n" + log)
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1920, "height": 1136})
+        errors = []
+        page.on("pageerror", lambda e: errors.append(str(e)))
+        page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+        page.goto(html.resolve().as_uri() + "?export=1&t=0")
+        page.wait_for_timeout(500)
+        total = page.evaluate("__player.total")
+        t = 0.0
+        while t <= total:
+            page.evaluate("t => __player.seek(t)", t); t += 1.0
+        if errors:
+            sys.exit("The sheet-video example has script errors:\n - " + "\n - ".join(errors))
+        page.evaluate("t => __player.seek(t)", 10.0)
+        page.screenshot(path=str(dest / "poster-full.png"), clip={"x": 0, "y": 0, "width": 1920, "height": 1080})
+        resize(browser, dest / "poster-full.png", dest / "poster.png", THUMB_WIDTH)
+        (dest / "poster-full.png").unlink()
+        browser.close()
+    print("built the sheet-video example: /kits/sheet-video/example/ (%.0f s)" % total)
+
+
 def front(title, description, edit, order):
     return "\n".join(["---", "title: " + json.dumps(title), "description: " + json.dumps(description),
                       "editUrl: " + json.dumps(edit), "sidebar:", "  order: %d" % order, "---", ""])
@@ -186,6 +228,7 @@ def main():
             sys.exit("The example build failed: %d example(s) did not build or print clean." % len(problems))
         info = finish([(f, shots) for f, _, shots in done], sync_playwright)
     build_panel_kit(sync_playwright)
+    build_sheet_video(sync_playwright)
 
     labels = status_labels()
     commit = git("rev-parse", "--short=7", "HEAD")

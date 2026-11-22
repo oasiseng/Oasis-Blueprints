@@ -115,6 +115,6 @@ scenes). `scripts/beat.py out.wav --seconds 10` renders the music sting on its o
 
 ## References
 
-- `references/player.md`: scene file API, layout grid, patterns with code.
-- `references/style-and-sound.md`: the look, motion rules, voice settings, the music and the mix.
-- `references/brief-template.md`: a brief to fill in before a video, and the rules that go with it.
+- [references/player.md](references/player.md): scene file API, layout grid, patterns with code.
+- [references/style-and-sound.md](references/style-and-sound.md): the look, motion rules, voice settings, the music and the mix.
+- [references/brief-template.md](references/brief-template.md): a brief to fill in before a video, and the rules that go with it.

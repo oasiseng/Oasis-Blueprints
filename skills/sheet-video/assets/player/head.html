@@ -93,6 +93,8 @@ html,body{height:100%;background:#20283a;overflow:hidden;font-family:var(--sans)
 .tickm{position:absolute;top:-3px;width:2px;height:14px;background:rgba(32,40,58,.9)}
 #time{flex:none;width:96px;text-align:right;font-variant-numeric:tabular-nums}
 #sname{flex:none;width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#b9c2d6}
+@media (max-width:1000px){#sname{display:none}}
+@media (max-width:640px){#bar #bPrev,#bar #bNext,#bar #bRestart,#bar #time{display:none}}
 </style>
 </head>
 <body>

@@ -34,12 +34,18 @@ PAGES = {
     "CONTRIBUTING.md": ("project/contributing", "Contributing"),
     "panel-schedule-kit/README.md": ("kits/panel-schedule", "Panel schedule kit"),
     "panel-schedule-kit/DESIGN.md": ("kits/panel-schedule-design", "Panel schedule design rules"),
+    "skills/sheet-video/SKILL.md": ("kits/sheet-video", "Sheet video"),
+    "skills/sheet-video/references/player.md": ("kits/sheet-video-player", "Sheet video: scenes and player"),
+    "skills/sheet-video/references/style-and-sound.md": ("kits/sheet-video-style", "Sheet video: style and sound"),
+    "skills/sheet-video/references/brief-template.md": ("kits/sheet-video-brief", "Sheet video: brief template"),
 }
 # extra lines under the "generated page" note, for pages that have something built for them
 LEAD = {
     "panel-schedule-kit/README.md": "**The sample sheet, rebuilt on every push:** [open it](/kits/panel-schedule/sheet/) · "
                                     "[PDF](/kits/panel-schedule/panel-sheet.pdf) · [picture](/kits/panel-schedule/panel-sheet.png). "
                                     "The styling rules are in [Panel schedule design rules](/kits/panel-schedule-design/).",
+    "skills/sheet-video/SKILL.md": "**The example video, rebuilt on every push:** [play it](/kits/sheet-video/example/) "
+                                   "(click Sound on). How to install it and make your own: [Make a video from a drawing set](/guides/make-a-video/).",
 }
 FONTS = ["barlow-condensed-latin-600-normal.woff2", "barlow-condensed-latin-700-normal.woff2"]
 IMAGE = re.compile(r"\.(png|jpe?g|gif|svg|webp)$", re.I)
@@ -89,6 +95,10 @@ def convert(source, page, title):
         body = "```text\n" + text.rstrip("\n") + "\n```\n"
     else:
         lines = text.splitlines()
+        if lines and lines[0] == "---":           # a skill's YAML front matter is not shown
+            lines = lines[lines.index("---", 1) + 1:]
+            while lines and not lines[0].strip():
+                lines = lines[1:]
         if lines and lines[0].startswith("# "):   # the page title comes from the front matter
             lines = lines[1:]
         out, fenced = [], False
