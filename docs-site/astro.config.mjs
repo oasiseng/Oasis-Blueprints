@@ -23,7 +23,7 @@ export default defineConfig({
 					label: 'Get started',
 					items: [
 						{ label: 'What it is', slug: 'get-started/what-it-is' },
-						{ label: 'Install (Claude, ChatGPT, Codex)', slug: 'get-started/install' },
+						{ label: 'Install (Claude, ChatGPT, Codex, OpenClaw)', slug: 'get-started/install' },
 						{ label: 'Your first sheet set', slug: 'get-started/first-sheet-set' },
 					],
 				},
