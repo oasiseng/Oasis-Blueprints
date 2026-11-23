@@ -20,9 +20,9 @@ jobs:
       - name: Check the tag against plugin.json
         run: |
           version="${GITHUB_REF_NAME#v}"
-          manifest="$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")"
+          manifest="$(python3 -c "import json; print(json.load(open('plugin/.claude-plugin/plugin.json'))['version'])")"
           if [ "$version" != "$manifest" ]; then
-            echo "Tag $GITHUB_REF_NAME does not match version $manifest in .claude-plugin/plugin.json" >&2
+            echo "Tag $GITHUB_REF_NAME does not match version $manifest in plugin/.claude-plugin/plugin.json" >&2
             exit 1
           fi
           echo "VERSION=$version" >> "$GITHUB_ENV"

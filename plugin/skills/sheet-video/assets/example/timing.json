@@ -1,0 +1,137 @@
+{
+ "scenes": [
+  {
+   "id": "intro",
+   "start": 0.0,
+   "dur": 6.3,
+   "lead": 0.5,
+   "n": 4.637,
+   "cues": [
+    0.0,
+    2.581,
+    3.753
+   ],
+   "sdur": [
+    2.201,
+    0.792,
+    0.884
+   ],
+   "sents": [
+    "Here's a site plan for a new metal building.",
+    "One sheet.",
+    "About a minute."
+   ],
+   "caps": [
+    [
+     0.5,
+     "Here's a site plan for a new metal building."
+    ],
+    [
+     3.081,
+     "One sheet."
+    ],
+    [
+     4.253,
+     "About a minute."
+    ]
+   ]
+  },
+  {
+   "id": "site",
+   "start": 6.3,
+   "dur": 11.4,
+   "lead": 0.5,
+   "n": 9.796,
+   "cues": [
+    0.0,
+    5.947
+   ],
+   "sdur": [
+    5.707,
+    3.849
+   ],
+   "sents": [
+    "The new building sits in the corner of the lot, six feet off the east line and five feet off the south.",
+    "A twenty-four foot gravel driveway runs out to Example Street."
+   ],
+   "caps": [
+    [
+     0.5,
+     "The new building sits in the corner of the lot,"
+    ],
+    [
+     3.384,
+     "6 ft off the east line and 5 ft off the south."
+    ],
+    [
+     6.447,
+     "A 24 ft gravel driveway runs out to Example Street."
+    ]
+   ]
+  },
+  {
+   "id": "drainage",
+   "start": 17.7,
+   "dur": 12.2,
+   "lead": 0.5,
+   "n": 10.557,
+   "cues": [
+    0.0,
+    3.447
+   ],
+   "sdur": [
+    3.207,
+    7.11
+   ],
+   "sents": [
+    "A swale along the east side carries the roof water north.",
+    "It holds the first inch of rain: two hundred four point seven cubic feet, against seventy-seven point three required."
+   ],
+   "caps": [
+    [
+     0.5,
+     "A swale along the east side carries the roof water north."
+    ],
+    [
+     3.947,
+     "It holds the first inch of rain: two hundred four point seven cubic feet,"
+    ],
+    [
+     8.421,
+     "against seventy-seven point three required."
+    ]
+   ]
+  },
+  {
+   "id": "close",
+   "start": 29.9,
+   "dur": 6.978,
+   "lead": 0.5,
+   "n": 3.324,
+   "cues": [
+    0.0,
+    2.049
+   ],
+   "sdur": [
+    1.809,
+    1.274
+   ],
+   "sents": [
+    "Every number here comes from the sheet.",
+    "Drawn by Your Company."
+   ],
+   "caps": [
+    [
+     0.5,
+     "Every number here comes from the sheet."
+    ],
+    [
+     2.549,
+     "Drawn by Your Company."
+    ]
+   ]
+  }
+ ],
+ "total": 36.878,
+ "flourish": 34.44444444444444
+}

@@ -330,7 +330,7 @@ def main():
 
     labels = status_labels()
     commit = git("rev-parse", "--short=7", "HEAD")
-    version = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))["version"]
+    version = json.loads((ROOT / "plugin" / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))["version"]
     examples, cards = [], []
     for n, folder in enumerate(folders, 1):
         slug = folder.name
