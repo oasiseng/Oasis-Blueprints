@@ -119,6 +119,10 @@ class DirectoryEdition(unittest.TestCase):
 class ClawHubFolder(unittest.TestCase):
     """The drawing skill as a ClawHub skill folder (scripts/build_clawhub.py)."""
 
+    def test_committed_folder_is_current(self):
+        r = subprocess.run([sys.executable, str(ROOT / "scripts/build_clawhub.py"), "--check"], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr or r.stdout)
+
     def test_folder(self):
         import yaml
         with tempfile.TemporaryDirectory(prefix="oasis-clawhub-") as tmp:

@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""Build the drawing skill as a ClawHub skill folder: <out>/oasis-blueprints/
+"""Build the drawing skill as a ClawHub skill folder: clawhub/oasis-blueprints/
 
-    python scripts/build_clawhub.py dist/clawhub
+    python scripts/build_clawhub.py            # write clawhub/oasis-blueprints/ in the repository
+    python scripts/build_clawhub.py --check    # exit 1 if it is out of date
+    python scripts/build_clawhub.py OUT        # write OUT/oasis-blueprints/ instead
+
+clawhub/oasis-blueprints/ is committed, so ClawHub can import it from GitHub and anyone can publish it from a clone.
 
 The folder is the standalone skill (skills/oasis-blueprints plus the libraries under assets/library, the same as the
 release ZIP) with three changes for ClawHub (https://docs.openclaw.ai/clawhub/skill-format):
@@ -12,11 +16,13 @@ release ZIP) with three changes for ClawHub (https://docs.openclaw.ai/clawhub/sk
   - Left out: agents/ (metadata for another client) and the drawing map's maintenance tool (library/drawing-map/tools),
     which the skill never runs.
 """
+import filecmp
 import json
 from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = Path("skills/oasis-blueprints")
@@ -68,8 +74,22 @@ def build(out):
     return dest
 
 
+def same(a, b):
+    c = filecmp.dircmp(a, b)
+    if c.left_only or c.right_only or c.funny_files:
+        return False
+    if any(not filecmp.cmp(Path(a) / f, Path(b) / f, shallow=False) for f in c.common_files):
+        return False
+    return all(same(Path(a) / d, Path(b) / d) for d in c.common_dirs)
+
+
 if __name__ == "__main__":
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "clawhub"
+    if "--check" in sys.argv:
+        with tempfile.TemporaryDirectory(prefix="oasis-clawhub-") as tmp:
+            fresh = build(Path(tmp))
+            current = ROOT / "clawhub" / "oasis-blueprints"
+            sys.exit(0 if current.is_dir() and same(fresh, current) else "clawhub/ is out of date: run python scripts/build_clawhub.py")
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "clawhub"
     dest = build(out)
     files = [p for p in dest.rglob("*") if p.is_file()]
     print("wrote %s: %d files, %.1f MB" % (dest, len(files), sum(p.stat().st_size for p in files) / 1e6))
