@@ -214,6 +214,40 @@ def build_panel_kit(sync_playwright):
     print("built the panel schedule kit sample: /kits/panel-schedule/sheet/")
 
 
+def build_wind_kit(sync_playwright):
+    """The wind components and cladding kit's sample sheet (wind-cc-kit/), for its page under /kits/wind-cc/:
+    its own build_example.py, then an 11 x 17 in PDF, a 2400 px picture and a 1200 px thumbnail."""
+    kit = ROOT / "wind-cc-kit"
+    code, log = run([sys.executable, str(kit / "example" / "build_example.py")])
+    if code:
+        sys.exit("The wind kit's example did not build:\n" + log)
+    dest = KITS / "wind-cc"
+    shutil.rmtree(dest, ignore_errors=True)
+    (dest / "sheet").mkdir(parents=True)
+    html = dest / "sheet" / "index.html"
+    shutil.copyfile(kit / "example" / "wind-sheet.html", html)
+    with sync_playwright() as pw, tempfile.TemporaryDirectory() as tmp:
+        browser = pw.chromium.launch()
+        page = browser.new_page(viewport={"width": 1700, "height": 1150})
+        errors = []
+        page.on("pageerror", lambda e: errors.append(str(e)))
+        page.goto(html.resolve().as_uri())
+        page.wait_for_load_state("networkidle")
+        page.evaluate("document.fonts.ready")
+        if errors:
+            sys.exit("The wind kit sample has script errors:\n - " + "\n - ".join(errors))
+        if not page.evaluate("document.querySelector('#ccw-pressures table') !== null"):
+            sys.exit("The wind kit sample drew no pressure table")
+        page.pdf(path=str(dest / "wind-sheet.pdf"), width="17in", height="11in", print_background=True, prefer_css_page_size=True)
+        full = Path(tmp) / "full.png"
+        page.locator(".sheet").screenshot(path=str(full))
+        page.close()
+        resize(browser, full, dest / "wind-sheet.png", PREVIEW_WIDTH)
+        resize(browser, full, dest / "thumb.png", THUMB_WIDTH)
+        browser.close()
+    print("built the wind kit sample: /kits/wind-cc/sheet/")
+
+
 def build_sheet_video(sync_playwright):
     """The sheet-video skill's example (skills/sheet-video/assets/example/), for its page under /kits/sheet-video/:
     the player built with the skill's build.py from the committed narration and timing (no voice model or ffmpeg
@@ -291,6 +325,7 @@ def main():
             sys.exit("The example build failed: %d example(s) did not build or print clean." % len(problems))
         info = finish([(f, shots) for f, _, shots in done], sync_playwright, tmp)
     build_panel_kit(sync_playwright)
+    build_wind_kit(sync_playwright)
     build_sheet_video(sync_playwright)
 
     labels = status_labels()
@@ -387,6 +422,9 @@ def main():
              '<a class="oasis-card" href="/kits/panel-schedule/"><img src="/kits/panel-schedule/thumb.png" alt="" loading="lazy" width="1200">'
              "<strong>Panel schedule kit</strong>An electrical panel schedule laid out like the panel, with a matching riser diagram, "
              "for a house, ADU or tiny home.<br><small>Sample sheet · %d A · %d spaces</small></a>" % (kit_panel["serv"], kit_panel["slots"]),
+             '<a class="oasis-card" href="/kits/wind-cc/"><img src="/kits/wind-cc/thumb.png" alt="" loading="lazy" width="1200">'
+             "<strong>Wind components and cladding kit</strong>ASCE 7-22 C&amp;C wind pressures for an S0.0 sheet: the design parameters, "
+             "the zone drawing and the ASD pressure table, all from one block of data.<br><small>Sample sheet · 11 × 17 in</small></a>",
              "</div>", ""]
     (PAGES / "index.md").write_text("\n".join(index), encoding="utf-8")
 
