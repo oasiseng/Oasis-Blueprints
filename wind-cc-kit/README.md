@@ -83,9 +83,11 @@ zone, zone widths, the figure used, and whether the 16 psf minimum governed.
 
 ## How the numbers were checked
 
-The GC<sub>p</sub> lines each have two sources: the equations in the ASCE 7-22 commentary (Tables C30.3-1 to C30.3-8), and a back-calculation from the 2024 IRC Table R301.2.1(1), which is computed from the same figures. The test file reproduces 55 printed IRC values to within 0.1 psf across every gable and hip figure. No line is left unconfirmed.
+Every GC<sub>p</sub> line was checked three ways: against the printed ASCE 7-22 figures (Figs. 30.3-1 and 30.3-2A to 2G), against the equations in the commentary (Tables C30.3-1 to C30.3-8), and by back-calculating the 2024 IRC Table R301.2.1(1), which is computed from the same figures. The test file reproduces 55 printed IRC values to within 0.1 psf across every gable and hip figure.
 
-The zone layouts for the gable and hip figures (which strip is Zone 2, which is Zone 3, and the a and 2a widths) are drawn from a reading of the figures. Published summaries agree on the structure (one hip layout with Zone 3 along the eaves; two gable layouts split at 27°, with the ridge in Zone 1 on the steeper one), but the widths are only in the figures themselves. Glance at Figs. 30.3-2B to 2G once to confirm.
+The zone layouts were checked against the plan views in the same figures: the low-slope layout set by h; the gable layout up to 27° (rake strips and a 2a ridge band in Zone 2, Zone 3 at the ridge ends); the gable layout above 27° (rake strips in Zone 2, a x a corners in Zone 3, ridge in Zone 1); and the single hip layout (Zone 3 along the eaves, Zone 2 a each side of the hips and ridge).
+
+One figure was not among the pages checked: Fig. 30.4-1, walls of buildings over 60 ft. Its values are the long-standing ones (+0.9 to +0.6, Zone 4 −0.9 to −0.7, Zone 5 −1.8 to −1.0, 20 to 500 sq ft).
 
 ## Notes
 

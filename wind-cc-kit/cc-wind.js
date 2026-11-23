@@ -66,9 +66,12 @@
 
   // ---------------------------------------------------------------- GCp curves
   // A curve is flat up to A1, log-linear from (A1, v1) to (A2, v2), flat beyond A2.
-  // Every curve below has two sources: the equations in the ASCE 7-22 commentary (Tables C30.3-1 to C30.3-8) and
-  // a back-calculation from the 2024 IRC Table R301.2.1(1), which is computed from the same figures (see the test file).
-  // src stays 'C' (confirmed); mark a curve 'F' if one is ever added from a figure reading alone, and the tools flag it.
+  // Every curve below was checked three ways: read against the printed ASCE 7-22 figures (Figs. 30.3-1 and 30.3-2A to 2G,
+  // pp. 317-325), against the equations in the commentary (Tables C30.3-1 to C30.3-8), and by back-calculating the
+  // 2024 IRC Table R301.2.1(1), which is computed from the same figures (see the test file). The zone layouts in
+  // cc-wind-diagram.js were checked against the plan views in the same figures. The h > 60 ft wall curves (Fig. 30.4-1)
+  // carry over unchanged from earlier editions and were not among the pages checked.
+  // src stays 'C' (confirmed); mark a curve 'F' if one is ever added without that check, and the tools flag it.
   const c = (A1, v1, A2, v2, src) => ({ A1, v1, A2, v2, src: src || 'C' });
   function gcpAt(curve, A) {
     if (A <= curve.A1) return curve.v1;
