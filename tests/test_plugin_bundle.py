@@ -116,5 +116,28 @@ class DirectoryEdition(unittest.TestCase):
         self.assertTrue(list((skill / "assets/library/details").glob("*/index.json")))
 
 
+class ClawHubFolder(unittest.TestCase):
+    """The drawing skill as a ClawHub skill folder (scripts/build_clawhub.py)."""
+
+    def test_folder(self):
+        import yaml
+        with tempfile.TemporaryDirectory(prefix="oasis-clawhub-") as tmp:
+            r = subprocess.run([sys.executable, str(ROOT / "scripts/build_clawhub.py"), tmp], capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            skill = Path(tmp) / "oasis-blueprints"
+            front = yaml.safe_load((skill / "SKILL.md").read_text(encoding="utf-8").split("\n---\n")[0][4:])
+            self.assertEqual(front["name"], "oasis-blueprints")
+            self.assertRegex(str(front["version"]), r"^\d+\.\d+\.\d+$")
+            self.assertEqual(front["metadata"]["openclaw"]["requires"]["anyBins"], ["python3", "python"])
+            self.assertFalse((skill / "LICENSE.txt").exists(), "ClawHub publishes under MIT-0; no conflicting license file")
+            self.assertTrue((skill / "assets/fonts/OFL.txt").is_file(), "the font license travels with the fonts")
+            self.assertTrue((skill / "assets/library/details/typical/index.json").is_file())
+            src = json.loads((skill / "assets/samples/deck/project.json").read_text(encoding="utf-8"))
+            (Path(tmp) / "p.json").write_text(json.dumps(src), encoding="utf-8")
+            r = subprocess.run([sys.executable, str(skill / "scripts/build.py"), str(Path(tmp) / "p.json"), str(Path(tmp) / "p.html")],
+                               cwd=tmp, capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, r.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()
