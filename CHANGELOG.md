@@ -53,6 +53,8 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 - Home page: why the project exists (plans as a product people use, not only a permit document) and an
   accessible-first drawing standard.
 - Drafter, not engineer: a section on AI limitations and professional responsibility.
+- Documentation site: the wind components and cladding kit has its own page under Kits, with a sample sheet
+  rebuilt on every push (HTML, PDF, picture), a card in the gallery's Kits row and a link on the home page.
 
 ## 0.3.0 - 2026-11-14
 

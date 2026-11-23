@@ -7,7 +7,7 @@ One source of truth: the Reference pages, the sheet standard, the changelog, the
 contributing page are not written twice. This script copies them from the files the repository
 already ships into the Starlight content folder, adds the front matter Starlight needs and points
 their relative links at the right place (another generated page, a copied picture, or the file on
-GitHub). The panel schedule kit's README and DESIGN.md become its two pages under /kits/. It also copies the heading fonts and the example preview pictures, and writes the CNAME
+GitHub). The panel schedule kit's README and DESIGN.md become its two pages under /kits/, and the wind kit's README its page. It also copies the heading fonts and the example preview pictures, and writes the CNAME
 file from docs-site/site.json. Everything it writes is listed in docs-site/.gitignore.
 
 The examples gallery is written by scripts/build_examples.py, which needs a browser; this script
@@ -34,6 +34,7 @@ PAGES = {
     "CONTRIBUTING.md": ("project/contributing", "Contributing"),
     "panel-schedule-kit/README.md": ("kits/panel-schedule", "Panel schedule kit"),
     "panel-schedule-kit/DESIGN.md": ("kits/panel-schedule-design", "Panel schedule design rules"),
+    "wind-cc-kit/README.md": ("kits/wind-cc", "Wind components and cladding kit"),
     "skills/sheet-video/SKILL.md": ("kits/sheet-video", "Sheet video"),
     "skills/sheet-video/references/player.md": ("kits/sheet-video-player", "Sheet video: scenes and player"),
     "skills/sheet-video/references/style-and-sound.md": ("kits/sheet-video-style", "Sheet video: style and sound"),
@@ -44,6 +45,9 @@ LEAD = {
     "panel-schedule-kit/README.md": "**The sample sheet, rebuilt on every push:** [open it](/kits/panel-schedule/sheet/) · "
                                     "[PDF](/kits/panel-schedule/panel-sheet.pdf) · [picture](/kits/panel-schedule/panel-sheet.png). "
                                     "The styling rules are in [Panel schedule design rules](/kits/panel-schedule-design/).",
+    "wind-cc-kit/README.md": "**The sample sheet, rebuilt on every push:** [open it](/kits/wind-cc/sheet/) · "
+                             "[PDF](/kits/wind-cc/wind-sheet.pdf) · [picture](/kits/wind-cc/wind-sheet.png). "
+                             "It draws the wind design parameters, zone drawing and C&C pressure table that go on an S0.0 sheet.",
     "skills/sheet-video/SKILL.md": "**The example video, rebuilt on every push:** [play it](/kits/sheet-video/example/) "
                                    "(click Sound on). How to install it and make your own: [Make a video from a drawing set](/guides/make-a-video/).",
 }
