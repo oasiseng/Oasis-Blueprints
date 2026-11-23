@@ -249,6 +249,10 @@ note in each built HTML is static text: its two links are followed only if a per
 A person stays in the loop by design: every set is a draft with its unanswered engineering questions
 shown in red, and it cannot be marked as issued until a licensed engineer has answered each one.
 
+## Privacy
+
+The plugin collects nothing and sends nothing to Oasis Engineering: [PRIVACY.md](PRIVACY.md).
+
 ## License and attribution
 
 MIT License, Copyright (c) 2026 Oasis Engineering, LLC. It covers the skill, the kit, the examples and the

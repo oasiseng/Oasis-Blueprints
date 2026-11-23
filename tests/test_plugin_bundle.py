@@ -35,6 +35,11 @@ class PluginBundle(unittest.TestCase):
         self.assertEqual(entry["name"], manifest["name"])
         self.assertFalse((ROOT / ".claude-plugin/plugin.json").exists(), "the repository root is not a plugin folder")
 
+    def test_privacy_link(self):
+        readme = (PLUGIN / "README.md").read_text(encoding="utf-8")
+        self.assertIn("[Privacy](https://github.com/oasiseng/Oasis-Blueprints/blob/main/plugin/PRIVACY.md)", readme)
+        self.assertTrue((PLUGIN / "PRIVACY.md").is_file())
+
     def test_readme_discloses_what_the_scripts_fetch(self):
         readme = (PLUGIN / "README.md").read_text(encoding="utf-8")
         common = (PLUGIN / "skills/sheet-video/scripts/_common.py").read_text(encoding="utf-8")
@@ -86,6 +91,11 @@ class DirectoryEdition(unittest.TestCase):
         self.assertEqual(check_plugin.community(self.plugin), [])
         suffixes = {p.suffix for p in self.plugin.rglob("*") if p.is_file()}
         self.assertLessEqual(suffixes, {".md", ".json", ".png", ""})
+
+    def test_privacy_link(self):
+        readme = (self.plugin / "README.md").read_text(encoding="utf-8")
+        self.assertIn("[Privacy](https://github.com/oasiseng/Oasis-Blueprints/blob/claude-directory/plugin/PRIVACY.md)", readme)
+        self.assertTrue((self.plugin / "PRIVACY.md").is_file())
 
     def test_says_it_does_not_draw(self):
         for name in ("README.md", "skills/oasis-blueprints/SKILL.md"):

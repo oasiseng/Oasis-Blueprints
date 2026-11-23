@@ -39,6 +39,12 @@ licensed engineer to answer. A completeness review is not a structural or code r
 Nothing. This edition holds only Markdown, JSON and one image. It has no scripts, no hooks, no MCP servers, no
 network calls, no credentials and no telemetry.
 
+## Privacy
+
+The plugin collects nothing and sends nothing to Oasis Engineering. Full statement:
+[Privacy](https://github.com/oasiseng/Oasis-Blueprints/blob/claude-directory/plugin/PRIVACY.md)
+(also in this folder as `PRIVACY.md`).
+
 ## The full edition
 
 Source, examples and documentation: <https://github.com/oasiseng/Oasis-Blueprints> and

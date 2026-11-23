@@ -82,6 +82,12 @@ This folder is built from the main repository by `scripts/build_plugin.py`. The 
 and the tests live in the [repository](https://github.com/oasiseng/Oasis-Blueprints). To report a problem, open an
 issue there.
 
+## Privacy
+
+The plugin collects nothing and sends nothing to Oasis Engineering. Full statement:
+[Privacy](https://github.com/oasiseng/Oasis-Blueprints/blob/main/plugin/PRIVACY.md)
+(also in this folder as `PRIVACY.md`).
+
 ## License
 
 MIT License, Copyright (c) 2026 Oasis Engineering, LLC. The Barlow fonts are under the SIL Open Font License.
