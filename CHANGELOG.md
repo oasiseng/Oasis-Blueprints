@@ -44,6 +44,9 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
   joint, footings, header and jamb details), converted from its CAD plots and not yet checked by the engineer.
 - New example: a 23-sheet draft set for a detached ADU, as a pre-drawn HTML copy. Anonymized; the site plan,
   maps and rendering are left out.
+- The examples gallery also publishes a pre-drawn set: a folder with `sheet-set.html` and no `project.json`
+  is copied as it is, printed to PDF, checked for overflowing text, and shown as view-only. The detached ADU
+  example is the first.
 
 ## 0.3.0 - 2026-11-14
 
