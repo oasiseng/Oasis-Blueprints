@@ -284,4 +284,5 @@ To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md).
 - `CONTRIBUTING.md`, `CHANGELOG.md`: how to add an example, and what changed in each version
 - `plugin/`: the publishable plugin folder (manifest, README, skills, agent, libraries), built by `scripts/build_plugin.py`
 - `.claude-plugin/marketplace.json`: lists `plugin/`, so the repository works as a plugin marketplace
+- `clawhub/oasis-blueprints/`: the drawing skill as a ClawHub skill folder (MIT-0 there), built by `scripts/build_clawhub.py`
 - `directory-edition/`: the code-free plan and review edition listed in the Claude plugin directory, published to the `claude-directory` branch

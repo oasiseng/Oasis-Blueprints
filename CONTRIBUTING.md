@@ -94,8 +94,9 @@ changing a skill, the agent or a library, and commit the result. `python scripts
 against the directory's pre-submission rules, and `tests/test_plugin_bundle.py` runs both on every pull request.
 Edit `plugin/README.md` and `plugin/.claude-plugin/plugin.json` by hand.
 
-For ClawHub (the OpenClaw skill registry), `python scripts/build_clawhub.py dist/clawhub` writes the drawing skill as
-`dist/clawhub/oasis-blueprints/`, ready to publish. ClawHub publishes every skill under MIT-0, so that folder has no
+For ClawHub (the OpenClaw skill registry), `clawhub/oasis-blueprints/` is the drawing skill ready to publish or import
+from GitHub. It is built by `python scripts/build_clawhub.py`; run it after changing the drawing skill or a library, and
+commit the result (`tests/test_plugin_bundle.py` fails if it is stale). ClawHub publishes every skill under MIT-0, so that folder has no
 `LICENSE.txt`; the fonts keep their own license.
 
 The Claude plugin directory accepts code only from organizations it has verified. Until Oasis Engineering is, the
