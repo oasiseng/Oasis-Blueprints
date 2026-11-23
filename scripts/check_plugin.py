@@ -121,8 +121,32 @@ def check(plugin=PLUGIN):
     return block, held
 
 
+COMMUNITY = {".md", ".txt", ".json", ".yaml", ".yml", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ""}
+
+
+def verified_only(plugin=PLUGIN):
+    """Files the directory accepts only from a Verified organization: anything that is not Markdown, text, JSON, YAML or
+    a PNG, JPEG, GIF, WebP or ICO image, and any file that starts with #!. -> {reason: [paths]}"""
+    out = {}
+    for p in sorted(plugin.rglob("*")):
+        if not p.is_file():
+            continue
+        r = p.relative_to(plugin).as_posix()
+        if p.suffix.lower() not in COMMUNITY:
+            out.setdefault(p.suffix.lower() + " files", []).append(r)
+        elif p.read_bytes()[:2] == b"#!":
+            out.setdefault("files that start with #!", []).append(r)
+    return out
+
+
 if __name__ == "__main__":
     block, held = check()
+    restricted = verified_only()
+    if restricted:
+        print("VERIFIED ORGANIZATION REQUIRED. The directory refuses these from an organization that is not Verified:")
+        for reason, paths in restricted.items():
+            print("  %3d %s" % (len(paths), reason))
+        print("  Request it in the developer portal: Help and appeals, then Request verified.")
     for line in block:
         print("BLOCKS  ", line)
     for line in held:
