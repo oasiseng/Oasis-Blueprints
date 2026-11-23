@@ -1,8 +1,19 @@
 # Changelog
 
-Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for someone using the skill.
+Versions follow `plugin/.claude-plugin/plugin.json`. Each entry says what changed for someone using the skill.
 
-## Unreleased
+## 0.4.0 - 2026-11-23
+
+- **The plugin now lives in `plugin/`**, a folder that holds only what an installed copy needs: the two skills, the
+  agent, and the detail library and drawing map inside the drawing skill. It is built by `scripts/build_plugin.py`
+  and checked against the Claude plugin directory's pre-submission rules by `scripts/check_plugin.py` and
+  `tests/test_plugin_bundle.py`. The repository root is no longer the plugin folder, so the examples, the
+  documentation site, the kits and the tests are no longer part of an install. The marketplace entry points at
+  `./plugin`; the install commands do not change.
+- A plugin install now includes the detail library and drawing map (before, only the standalone ZIP did).
+- `plugin/README.md` states everything the plugin runs, sends and fetches, including the video skill's one-time
+  setup (six Python packages from PyPI, Playwright's Chromium, and the Kokoro voice model).
+- The voice model download is now checked against a pinned SHA-256, and a file that does not match is deleted.
 
 - New skill, **sheet-video** (`skills/sheet-video/`): a narrated, captioned video from a drawing set (PDF or
   HTML) and a script, as a self-contained HTML player and a 1080p MP4, in the user's branding (`brand.json`,

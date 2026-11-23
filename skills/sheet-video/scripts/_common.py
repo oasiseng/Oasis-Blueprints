@@ -10,6 +10,9 @@ HOME = Path(os.environ.get("SHEET_VIDEO_HOME", Path.home() / ".sheet-video"))
 MODELS = HOME / "models"
 KOKORO_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/"
 KOKORO_FILES = ("kokoro-v1.0.onnx", "voices-v1.0.bin")
+# SHA-256 of each model file. setup.py checks a download against these and deletes a file that does not match.
+KOKORO_SHA256 = {"kokoro-v1.0.onnx": "7d5df8ecf7d4b1878015a32686053fd0eebe2bc377234608764cc0ef3636a6c5",
+                 "voices-v1.0.bin": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d"}
 
 
 def need(module, pip_name=None):

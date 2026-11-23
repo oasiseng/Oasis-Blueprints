@@ -86,7 +86,15 @@ The same tests run on every pull request (`.github/workflows/tests.yml`).
 
 ## Releases
 
-The version is in `.claude-plugin/plugin.json` and at the top of `CHANGELOG.md`. Pushing a tag `v<version>`
+The version is in `plugin/.claude-plugin/plugin.json` and at the top of `CHANGELOG.md`. Raise it with every release.
+
+`plugin/` is the publishable plugin folder: what Anthropic's directory reads and what an installed copy contains.
+Its `skills/`, `agents/` and `LICENSE` are built from the repository by `python scripts/build_plugin.py`; run it after
+changing a skill, the agent or a library, and commit the result. `python scripts/check_plugin.py` checks the folder
+against the directory's pre-submission rules, and `tests/test_plugin_bundle.py` runs both on every pull request.
+Edit `plugin/README.md` and `plugin/.claude-plugin/plugin.json` by hand.
+
+ Pushing a tag `v<version>`
 builds `oasis-blueprints.zip` with `scripts/package_skill.py` and attaches it to a GitHub release
 (`.github/workflows/release.yml`).
 

@@ -95,8 +95,9 @@ bundled with the skill, which the tests also use; they are not the same sets. To
 
 ## Use it
 
-- **As a Claude plugin.** This repository is the plugin: `.claude-plugin/plugin.json` plus the skill in
-  `skills/oasis-blueprints/`. Add it, then ask for a drawing set and describe the job.
+- **As a Claude plugin.** The plugin is the [`plugin/`](plugin/README.md) folder: both skills, the agent, and the detail
+  library. In Claude Code: `/plugin install oasis-blueprints --marketplace oasiseng/Oasis-Blueprints`. Then ask for a
+  drawing set and describe the job.
 - **As a skill.** Download `oasis-blueprints.zip` from the [latest release](https://github.com/oasiseng/Oasis-Blueprints/releases/latest)
   or from [oasisengineering.com/blueprints](https://oasisengineering.com/blueprints/), and upload it where your assistant manages skills. The same folder loads in other assistants that
   support Agent Skills, including ChatGPT. The release ZIP includes the detail libraries, drawing map,
@@ -230,15 +231,18 @@ enclosure come from the engineer. Every coefficient line is checked against two 
 
 ## What the plugin runs, sends and fetches
 
-The skill runs two Python scripts that ship in this repository, on the machine where the assistant runs code:
+The drawing skill runs two Python scripts that ship in this repository, on the machine where the assistant runs code:
 
 - `scripts/build.py` reads your project file, your optional company file and logo, and the kit files that
   ship with the skill, and writes one HTML file. Python standard library only.
 - `scripts/print.py` is optional. If Playwright and Chromium are already installed, it opens that HTML in
   headless Chromium to save the PDF, run the layout check and write preview images. It installs nothing.
 
-It sends nothing and fetches nothing. There are no network calls, no credentials, no hooks, no MCP servers
-and no telemetry. The bundled Barlow fonts (SIL Open Font License) are copied into the output HTML so a
+The drawing skill sends nothing and fetches nothing: no network calls, no credentials, no hooks, no MCP servers
+and no telemetry. The video skill is different in one way: its one-time setup installs six Python packages from
+PyPI and Playwright's Chromium, and downloads the Kokoro voice model (about 340 MB) from the kokoro-onnx project's
+GitHub release, checked against a pinned SHA-256. After that it runs on your machine and uploads nothing.
+[`plugin/README.md`](plugin/README.md) lists every script and what it touches. The bundled Barlow fonts (SIL Open Font License) are copied into the output HTML so a
 sheet looks the same on every machine, and the output HTML makes no network requests either. The source
 note in each built HTML is static text: its two links are followed only if a person clicks them.
 
@@ -274,4 +278,5 @@ To add an example set or change the kit, see [CONTRIBUTING.md](CONTRIBUTING.md).
 - `tests/`: drafting regression tests and the check that no real job data is in the repository
 - `.github/workflows/`: runs the tests on every pull request, and builds the skill zip for a release
 - `CONTRIBUTING.md`, `CHANGELOG.md`: how to add an example, and what changed in each version
-- `.claude-plugin/`: plugin manifest and listing icon, so the repository installs as a Claude plugin
+- `plugin/`: the publishable plugin folder (manifest, README, skills, agent, libraries), built by `scripts/build_plugin.py`
+- `.claude-plugin/marketplace.json`: lists `plugin/`, so the repository works as a plugin marketplace

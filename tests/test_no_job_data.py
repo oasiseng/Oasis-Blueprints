@@ -12,7 +12,7 @@ import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-FOLDERS = ("examples", "library", "skills", "panel-schedule-kit", "wind-cc-kit")
+FOLDERS = ("examples", "library", "skills", "panel-schedule-kit", "wind-cc-kit", "plugin")
 SUFFIXES = {".json", ".js", ".md", ".html", ".py", ".csv", ".txt"}
 
 STREET = r"(?:St|Street|Ave|Avenue|Dr|Drive|Rd|Road|Ln|Lane|Blvd|Ct|Court|Way|Pl)"

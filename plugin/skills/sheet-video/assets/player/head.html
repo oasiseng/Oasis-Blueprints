@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- sheet-video player head. Part of Oasis-Blueprints (MIT). build.py fills the brand and data. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+/*__BRAND_CSS__*/
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#20283a;overflow:hidden;font-family:var(--sans);color:var(--ink)}
+#wrap{position:absolute;left:0;top:0}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background-color:var(--paper);
+  background-image:linear-gradient(rgba(22,35,63,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(22,35,63,.035) 1px,transparent 1px);background-size:40px 40px}
+#frame{position:absolute;inset:20px;border:2px solid var(--ink);pointer-events:none}
+#corner{display:none}
+.scene{position:absolute;inset:0;display:none}
+/* viewer */
+.viewer{position:absolute;overflow:hidden;background:#fff;border:2px solid var(--ink);box-shadow:10px 10px 0 rgba(22,35,63,.07)}
+.viewer img,.viewer svg.ov{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;user-select:none;-webkit-user-drag:none}
+.viewer svg.ov{overflow:visible;pointer-events:none}
+.vlabel{position:absolute;left:10px;top:10px;z-index:3;font-family:var(--cond);font-stretch:semi-condensed;font-weight:600;font-size:21px;letter-spacing:.08em;color:#fff;background:var(--ink);padding:5px 12px;border-radius:3px;white-space:nowrap}
+.ring{position:absolute;border:4px solid var(--blue);border-radius:10px;box-shadow:0 0 0 6px rgba(44,95,212,.16);pointer-events:none;z-index:2}
+.ring.green{border-color:var(--green);box-shadow:0 0 0 6px rgba(35,134,79,.16)}
+.ring.ghost{border-color:transparent;box-shadow:none}
+.tag{position:absolute;z-index:2;background:var(--blue);color:#fff;font-family:var(--cond);font-stretch:semi-condensed;font-weight:600;font-size:27px;padding:6px 14px;border-radius:5px;white-space:nowrap;box-shadow:3px 3px 0 rgba(22,35,63,.18)}
+.tag.green{background:var(--green)}
+/* overlay shapes (image pixel space; --k = screen px per image px, inverted) */
+.ov .ln{fill:none;stroke:var(--blue);stroke-width:calc(var(--k) * 6px);stroke-linecap:round;stroke-linejoin:round}
+.ov .ln.thin{stroke-width:calc(var(--k) * 4px)}
+.ov .ln.fat{stroke-width:calc(var(--k) * 10px)}
+.ov .ln.glow{filter:drop-shadow(0 0 calc(var(--k) * 6px) rgba(44,95,212,.8))}
+.ov .ln.green{stroke:var(--green)}
+.ov .ln.navy{stroke:var(--ink)}
+.ov .ln.dash{stroke-dasharray:calc(var(--k) * 18px) calc(var(--k) * 10px)}
+.ov .tint{fill:var(--blue);fill-opacity:.26;stroke:var(--blue);stroke-width:calc(var(--k) * 4px)}
+.ov .tint.green{fill:var(--green);stroke:var(--green)}
+.ov .veil{fill:var(--paper);fill-opacity:.86}
+.ov .chev{fill:none;stroke:var(--blue);stroke-width:calc(var(--k) * 7px);stroke-linecap:round;stroke-linejoin:round}
+.ov .rip{fill:none;stroke:var(--blue);stroke-width:calc(var(--k) * 3px)}
+.ov .dim{font-family:var(--cond);font-weight:700;font-size:calc(var(--k) * 34px);fill:var(--blue);paint-order:stroke;stroke:#fff;stroke-width:calc(var(--k) * 6px)}
+.ov .truck .body{fill:var(--ink)} .ov .truck .cab{fill:var(--blue)} .ov .truck .wh{fill:#fff;stroke:var(--ink);stroke-width:3}
+/* side column */
+.side{position:absolute;left:1340px;top:64px;width:520px}
+.kick{font-family:var(--cond);font-stretch:semi-condensed;font-weight:600;font-size:24px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:18px}
+.item{font-size:30px;line-height:1.3;color:var(--ink);padding:16px 0 16px 20px;border-left:5px solid var(--blue);margin-bottom:14px;background:rgba(255,255,255,.6)}
+.item.h{font-family:var(--cond);font-stretch:semi-condensed;font-weight:700;font-size:54px;line-height:1.05;border-left:0;padding-left:0;background:none}
+.item.green{border-left-color:var(--green)}
+.item.dim{opacity:.45!important}
+.item.cur{background:#fff;box-shadow:4px 4px 0 rgba(22,35,63,.08)}
+.data{display:inline-block;font-family:var(--cond);font-stretch:semi-condensed;font-weight:700;color:var(--blue);border:2px solid var(--blue);border-radius:4px;padding:0 10px;margin-left:6px;background:#fff;white-space:nowrap}
+.dot{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--green);margin-right:10px;vertical-align:-1px}
+.logo-s{position:absolute;left:1340px;top:820px;height:70px;mix-blend-mode:multiply}
+.note{position:absolute;font-size:19px;color:var(--ink2)}
+/* thumbs */
+.th{position:absolute;width:200px;height:142px;border:2px solid var(--ink);background:#fff;box-shadow:5px 5px 0 rgba(22,35,63,.1);transform-origin:0 0}
+.th img{width:100%;height:100%;display:block}
+.th b{position:absolute;left:6px;bottom:6px;font-family:var(--cond);font-stretch:semi-condensed;font-weight:700;font-size:20px;color:#fff;background:var(--ink);padding:1px 8px;border-radius:3px}
+/* close */
+.big{position:absolute;font-family:var(--cond);font-stretch:semi-condensed;font-weight:700;color:var(--ink);line-height:1.05}
+/* explainer pieces: typed prompts, replies, results, footer */
+.chat{position:absolute;left:80px;top:200px;width:610px;display:flex;flex-direction:column;gap:18px}
+.bubble{position:relative;background:#fff;border:2px solid var(--ink);border-radius:20px 20px 20px 4px;padding:16px 24px 20px;box-shadow:6px 6px 0 rgba(22,35,63,.08)}
+.bubble .who{font-family:var(--cond);font-stretch:semi-condensed;font-weight:600;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;display:flex;gap:10px;align-items:center}
+.bubble .who i{font-style:normal;background:var(--ink);color:#fff;border-radius:3px;padding:1px 7px}
+.bubble .msg{font-size:29px;line-height:1.36}
+.bubble.alt{background:var(--sand);border-color:var(--sand-line);border-radius:20px 20px 4px 20px}
+.msg .r{visibility:hidden}
+.msg .c{display:inline-block;width:3px;height:1.05em;background:var(--blue);vertical-align:-.17em;margin:0 -1.5px;opacity:0}
+.reply{display:flex;gap:14px;align-items:flex-start;font-size:25px;line-height:1.3;background:rgba(255,255,255,.75);border-left:5px solid var(--blue);padding:10px 16px}
+.reply .ic{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-size:19px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.reply.red{border-left-color:var(--red)} .reply.red .ic{background:var(--red)}
+.result{position:absolute;z-index:5;font-family:var(--cond);font-stretch:semi-condensed;font-weight:700;color:var(--blue);background:#fff;border:3px solid var(--blue);padding:12px 26px;white-space:nowrap}
+.foot{position:absolute;left:1340px;top:880px;width:520px;font-size:18px;color:var(--ink2)}
+/* captions */
+#cap{position:absolute;left:60px;top:932px;width:1800px;height:112px;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--ink);color:#fff;font-size:35px;line-height:1.28;padding:0 40px;border-radius:6px}
+#cap.off{background:transparent}
+/* hint + controls */
+#hint{position:absolute;right:62px;top:836px;z-index:9;display:flex;align-items:center;gap:12px;background:var(--blue);color:#fff;font-family:var(--cond);font-stretch:semi-condensed;font-weight:600;font-size:24px;letter-spacing:.06em;padding:8px 18px;border-radius:30px;cursor:pointer;animation:pulse 2s infinite}
+#hint svg{width:22px;height:22px;fill:#fff}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(44,95,212,.55)}70%{box-shadow:0 0 0 18px rgba(44,95,212,0)}100%{box-shadow:0 0 0 0 rgba(44,95,212,0)}}
+@media (prefers-reduced-motion: reduce){#hint{animation:none}}
+#bar{position:absolute;height:56px;display:flex;align-items:center;gap:10px;padding:0 6px;color:#e9ecf3;font:14px/1 var(--sans);user-select:none}
+#bar button{flex:none;width:40px;height:40px;border:0;border-radius:8px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+#bar button:hover{background:rgba(255,255,255,.18)}
+#bar button:focus-visible{outline:2px solid #9db8ff}
+#bar svg{width:20px;height:20px;fill:currentColor}
+#bSound.need{background:#2c5fd4}
+#prog{position:relative;flex:1;height:40px;cursor:pointer;display:flex;align-items:center}
+#track{position:relative;width:100%;height:8px;border-radius:4px;background:rgba(255,255,255,.18)}
+#fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:#6f95f0}
+#knob{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff}
+.tickm{position:absolute;top:-3px;width:2px;height:14px;background:rgba(32,40,58,.9)}
+#time{flex:none;width:96px;text-align:right;font-variant-numeric:tabular-nums}
+#sname{flex:none;width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#b9c2d6}
+@media (max-width:1000px){#sname{display:none}}
+@media (max-width:640px){#bar #bPrev,#bar #bNext,#bar #bRestart,#bar #time{display:none}}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="stage">
+    <div id="scenes"></div>
+    <div id="cap" aria-live="polite"><div id="capt"></div></div>
+    <div id="corner"><span id="cnum"></span><span id="cname"></span></div>
+    <div id="frame"></div>
+    <div id="hint" role="button" aria-label="Turn on sound"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>Sound on</div>
+  </div>
+  <div id="bar" role="toolbar" aria-label="Player controls">
+    <button id="bPlay" title="Play / pause (Space)" aria-label="Play or pause"></button>
+    <button id="bRestart" title="Restart (Home)" aria-label="Restart"><svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg></button>
+    <button id="bPrev" title="Previous scene (Left arrow)" aria-label="Previous scene"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+    <button id="bNext" title="Next scene (Right arrow)" aria-label="Next scene"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+    <div id="prog" role="slider" aria-label="Seek" tabindex="0"><div id="track"><div id="fill"></div><div id="knob"></div></div></div>
+    <button id="bSound" class="need" title="Sound (M)" aria-label="Sound on or off"></button>
+    <button id="bCC" title="Captions (C)" aria-label="Captions on or off"><svg viewBox="0 0 24 24"><path d="M19 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1z"/></svg></button>
+    <div id="time">0:00 / 0:00</div>
+    <div id="sname"></div>
+    <button id="bFull" title="Full screen (F)" aria-label="Full screen"><svg viewBox="0 0 24 24"><path d="M3 3h7v2H5v5H3zm11 0h7v7h-2V5h-5zM3 14h2v5h5v2H3zm16 0h2v7h-7v-2h5z"/></svg></button>
+  </div>
+</div>
+<script>
+/*__DATA__*/
+(function(){
+"use strict";
+const qs=new URLSearchParams(location.search);
+const EXPORT=qs.get('export')==='1';
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches || qs.get('reduced')==='1';
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+function prog(lt,a,d=.5){ if(REDUCED) return lt>=a?1:0; return ease(clamp((lt-a)/d)); }
+function lin(lt,a,d){ if(REDUCED) return lt>=a?1:0; return clamp((lt-a)/d); }
+function show(el,lt,a,d=.5,dy=14,outAt=null){
+  let p=prog(lt,a,d); if(outAt!=null) p*=1-prog(lt,outAt,.4);
+  el.style.opacity=p; el.style.visibility=p>.001?'visible':'hidden';
+  if(dy) el.style.transform=REDUCED?'none':`translateY(${(1-p)*dy}px)`;
+  return p;
+}

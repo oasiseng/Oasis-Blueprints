@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "oasis-blueprints",
-      "source": "./",
+      "source": "./plugin",
       "description": "Draw construction sheet sets as HTML and PDF, and turn a drawing set into a narrated HTML and MP4 video."
     }
   ]

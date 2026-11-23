@@ -5,12 +5,13 @@
     python setup.py            # packages, Chromium, voice model
     python setup.py --check    # only report what is missing
 
-Installs the Python packages (playwright, pymupdf, pillow, numpy, kokoro-onnx, soundfile), Playwright's
-Chromium, and downloads the Kokoro voice model (about 340 MB) into ~/.sheet-video/models. ffmpeg must
+Installs the Python packages (playwright, pymupdf, pillow, numpy, kokoro-onnx, soundfile) from PyPI with pip,
+Playwright's Chromium, and downloads the Kokoro voice model (about 340 MB, two files from the kokoro-onnx
+project's GitHub release, each checked against a pinned SHA-256) into ~/.sheet-video/models. ffmpeg must
 be installed separately (winget install ffmpeg · brew install ffmpeg · apt install ffmpeg).
 """
-import argparse, importlib, shutil, subprocess, sys, urllib.request
-from _common import MODELS, KOKORO_URL, KOKORO_FILES
+import argparse, hashlib, importlib, shutil, subprocess, sys, urllib.request
+from _common import MODELS, KOKORO_URL, KOKORO_FILES, KOKORO_SHA256
 
 PKGS = {"playwright": "playwright", "pymupdf": "pymupdf", "PIL": "pillow", "numpy": "numpy",
         "kokoro_onnx": "kokoro-onnx", "soundfile": "soundfile"}
@@ -46,6 +47,13 @@ def main():
     for f in models:
         print("downloading", f, "...")
         urllib.request.urlretrieve(KOKORO_URL + f, MODELS / f)
+        digest = hashlib.sha256()
+        with open(MODELS / f, "rb") as fh:
+            for block in iter(lambda: fh.read(1 << 20), b""):
+                digest.update(block)
+        if digest.hexdigest() != KOKORO_SHA256[f]:
+            (MODELS / f).unlink()
+            sys.exit("%s did not match its expected SHA-256 and was deleted. Nothing was installed from it." % f)
     print("ready.")
 
 
