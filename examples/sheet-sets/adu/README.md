@@ -28,7 +28,7 @@ there. The project file and its drawing code follow when the job is final.
   hidden. Site data, the stormwater check and the trench detail stay.
 - Rendering, aerial view, parcel map and the 811 mark: grey boxes of the same size.
 - The QR code in the title block, which pointed to the project's page: removed.
-- Hidden CAD source pages that no sheet uses: removed.
+- A title block left over from another job inside the hidden CAD source pages: replaced with placeholders.
 
 ## Known limits
 
