@@ -226,7 +226,7 @@ The numbers are computed in the page from one block of data, so the table and th
 ![Sample wind sheet](wind-cc-kit/example/wind-sheet.png)
 
 Start at [`wind-cc-kit/README.md`](wind-cc-kit/README.md). It calculates what it is given: the wind speed, exposure and
-enclosure come from the engineer, and the README lists which coefficient lines still need a check against the standard.
+enclosure come from the engineer. Every coefficient line is checked against two sources; the README says how.
 
 ## What the plugin runs, sends and fetches
 
