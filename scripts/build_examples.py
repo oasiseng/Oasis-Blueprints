@@ -12,6 +12,11 @@ For every folder in examples/sheet-sets/ that holds a project.json (the folder n
 3. fails the whole build if the layout audit reports anything;
 4. writes a gallery page for it in docs-site/src/content/docs/examples/.
 
+A folder with a sheet-set.html and no project.json is a pre-drawn set: finished sheets as plain HTML and SVG, with
+no JavaScript. It is published as it is (not rebuilt), printed to PDF from the browser, checked for text that
+overflows its box, and gets a gallery page that says it is view-only. An optional example.json beside it may set
+"thumbSheet", the sheet number used for the gallery thumbnail.
+
 It also builds the panel schedule kit's sample sheet (panel-schedule-kit/) into docs-site/public/kits/panel-schedule/,
 and the sheet-video skill's example player (skills/sheet-video/assets/example/) into docs-site/public/kits/sheet-video/.
 
@@ -64,6 +69,10 @@ def run(cmd):
     return p.returncode, (p.stdout + p.stderr).strip()
 
 
+def predrawn(folder):
+    return not (folder / "project.json").is_file() and (folder / "sheet-set.html").is_file()
+
+
 def build_one(folder, tmp):
     """Build and print one example. Returns (folder, problems, full-size preview paths)."""
     slug = folder.name
@@ -71,6 +80,9 @@ def build_one(folder, tmp):
     shutil.rmtree(dest, ignore_errors=True)
     (dest / LIVE).mkdir(parents=True)
     html = dest / LIVE / "index.html"
+    if predrawn(folder):   # published as it is; printed and checked in finish(), which has the browser
+        shutil.copyfile(folder / "sheet-set.html", html)
+        return folder, [], []
     code, log = run([sys.executable, str(SKILL / "scripts" / "build.py"), str(folder / "project.json"), str(html)])
     if code:
         return folder, ["build.py failed:\n" + log], []
@@ -84,13 +96,64 @@ def build_one(folder, tmp):
     return folder, [], shots
 
 
-def finish(results, sync_playwright):
+def finish_predrawn(browser, folder, tmp):
+    """Print a pre-drawn set, check it and read its facts from the sheets themselves."""
+    slug = folder.name
+    page = browser.new_page(viewport={"width": 3600, "height": 2500})
+    errors = []
+    page.on("pageerror", lambda e: errors.append(str(e)))
+    page.goto((OUT / slug / LIVE / "index.html").resolve().as_uri())
+    page.evaluate("document.fonts.ready")
+    page.add_style_tag(content="#set{zoom:1 !important}")   # the copy keeps the screen zoom it was saved at
+    facts = page.evaluate("""() => {
+        const t = (root, sel) => ((root.querySelector(sel) || {}).textContent || '').trim(), first = document.querySelector('.sheet');
+        const over = [...document.querySelectorAll('[data-fit]')].filter(e => e.scrollHeight > e.clientHeight + 1 || e.scrollWidth > e.clientWidth + 1)
+            .map(e => (e.closest('.sheet')?.dataset.sheet || '?') + ' · ' + (e.closest('.panel')?.querySelector('.vn, .ph')?.textContent || e.className));
+        return { sheets: document.querySelectorAll('.sheet').length, open: parseInt(t(first, '.tb-open b')) || 0,
+                 numbers: [...document.querySelectorAll('.sheet')].map(s => s.dataset.sheet || ''),
+                 names: [...document.querySelectorAll('.sheet')].map(s => t(s, '.tb-name div')),
+                 title: t(first, '.tb-proj .pt'), headline: t(first, '.job h2'),
+                 statusLabel: [...first.querySelectorAll('.tb-status b, .tb-status span')].map(e => e.textContent.trim()).filter(Boolean).slice(0, 2).join(', '),
+                 scripts: document.querySelectorAll('script').length, images: document.querySelectorAll('img, image').length, over };
+    }""")
+    problems = (["script errors: " + "; ".join(errors)] if errors else []) + ["text overflows its box: " + o for o in facts["over"]]
+    if facts["scripts"]:
+        problems.append("a pre-drawn set holds no script, this one has %d" % facts["scripts"])
+    if facts["images"]:
+        problems.append("a pre-drawn example embeds no picture, this one has %d" % facts["images"])
+    if not facts["sheets"]:
+        problems.append("no sheets found")
+    if problems:
+        sys.exit("%s (pre-drawn set) did not pass:\n - %s" % (slug, "\n - ".join(problems)))
+    shots = []
+    for i in range(facts["sheets"]):
+        shot = Path(tmp) / slug / ("sheet-%d.png" % i)
+        shot.parent.mkdir(parents=True, exist_ok=True)
+        page.locator(".sheet").nth(i).screenshot(path=str(shot))
+        shots.append(shot)
+    page.emulate_media(media="print")
+    page.pdf(path=str(OUT / slug / "sheet-set.pdf"), print_background=True, prefer_css_page_size=True)
+    page.close()
+    meta = json.loads((folder / "example.json").read_text(encoding="utf-8")) if (folder / "example.json").is_file() else {}
+    facts["thumb"] = facts["numbers"].index(meta["thumbSheet"]) if meta.get("thumbSheet") in facts["numbers"] else 0
+    print("[%s]\npre-drawn set: %d sheets, no overflow, printed" % (slug, facts["sheets"]), flush=True)
+    return facts, shots
+
+
+def finish(results, sync_playwright, tmp):
     """Resize the previews and read the sheet count, the open items and the field sheet from each built set."""
     info = {}
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         for folder, shots in results:
             slug = folder.name
+            if predrawn(folder):
+                facts, shots = finish_predrawn(browser, folder, tmp)
+                for i, shot in enumerate(shots):
+                    resize(browser, shot, OUT / slug / ("preview-%d.png" % i), PREVIEW_WIDTH)
+                resize(browser, shots[facts["thumb"]], OUT / slug / "thumb.png", THUMB_WIDTH)
+                info[slug] = facts
+                continue
             page = browser.new_page(viewport={"width": 3600, "height": 2500})
             page.goto((OUT / slug / LIVE / "index.html").resolve().as_uri())
             page.wait_for_function("window.__ready === true", timeout=60000)
@@ -210,7 +273,7 @@ def main():
     except ImportError:
         sys.exit("The gallery build needs Playwright and Chromium: python -m pip install playwright, then python -m playwright install chromium")
 
-    folders = sorted((f for f in SETS.iterdir() if (f / "project.json").is_file()), key=lambda f: (added(f), f.name))
+    folders = sorted((f for f in SETS.iterdir() if (f / "project.json").is_file() or predrawn(f)), key=lambda f: (added(f), f.name))
     if not folders:
         sys.exit("No examples found in %s" % SETS)
     shutil.rmtree(OUT, ignore_errors=True)
@@ -226,7 +289,7 @@ def main():
             for slug, p in problems:
                 print("\nFAILED %s: %s" % (slug, p), file=sys.stderr)
             sys.exit("The example build failed: %d example(s) did not build or print clean." % len(problems))
-        info = finish([(f, shots) for f, _, shots in done], sync_playwright)
+        info = finish([(f, shots) for f, _, shots in done], sync_playwright, tmp)
     build_panel_kit(sync_playwright)
     build_sheet_video(sync_playwright)
 
@@ -236,10 +299,36 @@ def main():
     examples, cards = [], []
     for n, folder in enumerate(folders, 1):
         slug = folder.name
+        facts = info[slug]
+        if predrawn(folder):
+            here = "%sexamples/%s/" % (BASE, slug)
+            rel = "examples/sheet-sets/%s" % slug
+            entry = {"slug": slug, "title": facts["title"] or slug, "headline": facts["headline"], "jobType": "pre-drawn", "status": "draft",
+                     "statusLabel": facts["statusLabel"] or "Draft", "sheets": facts["sheets"], "openItems": facts["open"], "page": here,
+                     "live": "%s%s/" % (here, LIVE), "pdf": here + "sheet-set.pdf", "thumb": here + "thumb.png",
+                     "previews": [here + "preview-%d.png" % i for i in range(facts["sheets"])],
+                     "source": "%s/tree/%s/%s" % (SITE["repo"], SITE["branch"], rel)}
+            examples.append(entry)
+            lines = [front(entry["title"], entry["headline"] or entry["title"], "%s/edit/%s/%s/README.md" % (SITE["repo"], SITE["branch"], rel), n),
+                     "**%s**" % esc(entry["headline"]) if entry["headline"] else "", "",
+                     "| | |", "|---|---|",
+                     "| Status | %s |" % esc(entry["statusLabel"]),
+                     "| Kind | Pre-drawn copy: finished sheets as plain HTML and SVG, view-only |",
+                     "| Sheets | %d |" % entry["sheets"],
+                     "| Open items | %d |" % entry["openItems"], "",
+                     "[Open the set](/examples/%s/%s/) · [PDF](/examples/%s/sheet-set.pdf) · [About this example on GitHub](%s/blob/%s/%s/README.md)"
+                     % (slug, LIVE, slug, SITE["repo"], SITE["branch"], rel), "",
+                     "This set is published as a finished copy. It has no project file here yet, so it is not rebuilt by the site and has no **Edit** button.", ""]
+            for i in range(entry["sheets"]):
+                name = "%s %s" % (facts["numbers"][i], facts["names"][i] or "")
+                lines += ["### %s" % esc(name.strip()), "", '<a href="/examples/%s/preview-%d.png"><img src="/examples/%s/preview-%d.png" alt="%s" loading="lazy" width="2400"></a>' % (slug, i, slug, i, esc(name.strip())), ""]
+            (PAGES / (slug + ".md")).write_text("\n".join(lines), encoding="utf-8")
+            cards.append('<a class="oasis-card" href="/examples/%s/"><img src="/examples/%s/thumb.png" alt="" loading="lazy" width="1200"><strong>%s</strong>%s<br><small>%s · %d sheets · pre-drawn copy</small></a>'
+                         % (slug, slug, esc(entry["title"]), esc(entry["headline"]), esc(entry["statusLabel"]), entry["sheets"]))
+            continue
         P = json.loads((folder / "project.json").read_text(encoding="utf-8"))
         proj, summ, status = P.get("project") or {}, P.get("summary") or {}, P.get("status") or "draft"
         job = P.get("jobType") or "sunroom"
-        facts = info[slug]
         here = "%sexamples/%s/" % (BASE, slug)
         rel = "examples/sheet-sets/%s" % slug
         entry = {
