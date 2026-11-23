@@ -19,7 +19,7 @@ agree, and changing an input updates all three.
 | `cc-wind-panels.js` | The three sheet panels (`CCWindKit.render(spec)`, `CCWindKit.mount(spec, elements)`). |
 | `example/sample_wind.json` | A sample building, placeholders only |
 | `example/build_example.py` | Builds `example/wind-sheet.html` from the sample |
-| `test/cc-wind.test.js` | 97 verification values. `node test/cc-wind.test.js` |
+| `test/cc-wind.test.js` | 163 verification values. `node test/cc-wind.test.js` |
 
 ## Run the example
 
@@ -81,13 +81,13 @@ zone, zone widths, the figure used, and whether the 16 psf minimum governed.
 - Zone width a: lesser of 10% of the least horizontal dimension and 0.4 h, not less than 4% of it or 3 ft. The
   low-slope roof figure is laid out from h (0.6 h edge, 0.6 h × 0.2 h corners, Zone 1′ beyond 1.2 h).
 
-## What is confirmed and what is not
+## How the numbers were checked
 
-The GC<sub>p</sub> lines were checked against the equations in the ASCE 7-22 commentary (Tables C30.3-1 to C30.3-8)
-wherever those could be found. Four could not be confirmed from a second source and are marked `'F'` in `cc-wind.js`:
-Fig. 30.3-2D Zone 3, Fig. 30.3-2E Zones 2 and 3, and Fig. 30.3-2F Zone 1. Their values at 10 SF agree with published
-summaries; the slope beyond 10 SF is the open part. When one of them is used, the pressure panel prints a red check
-note. The gable and hip zone layouts are drawn from a reading of the figures. Check both against the printed standard.
+Every GC<sub>p</sub> line was checked three ways: against the printed ASCE 7-22 figures (Figs. 30.3-1 and 30.3-2A to 2G), against the equations in the commentary (Tables C30.3-1 to C30.3-8), and by back-calculating the 2024 IRC Table R301.2.1(1), which is computed from the same figures. The test file reproduces 55 printed IRC values to within 0.1 psf across every gable and hip figure.
+
+The zone layouts were checked against the plan views in the same figures: the low-slope layout set by h; the gable layout up to 27° (rake strips and a 2a ridge band in Zone 2, Zone 3 at the ridge ends); the gable layout above 27° (rake strips in Zone 2, a x a corners in Zone 3, ridge in Zone 1); and the single hip layout (Zone 3 along the eaves, Zone 2 a each side of the hips and ridge).
+
+One figure was not among the pages checked: Fig. 30.4-1, walls of buildings over 60 ft. Its values are the long-standing ones (+0.9 to +0.6, Zone 4 −0.9 to −0.7, Zone 5 −1.8 to −1.0, 20 to 500 sq ft).
 
 ## Notes
 
