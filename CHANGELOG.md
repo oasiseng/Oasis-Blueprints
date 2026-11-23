@@ -50,6 +50,8 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 - Documentation site: a new home page (what it does, the four steps, the drafter-not-engineer rule, how each
   example was made), and each gallery card says whether a set is drawn by a kit job type, by job-specific code,
   or is a pre-drawn copy.
+- Home page: why the project exists (plans as a product people use, not only a permit document) and an
+  accessible-first drawing standard.
 
 ## 0.3.0 - 2026-11-14
 
