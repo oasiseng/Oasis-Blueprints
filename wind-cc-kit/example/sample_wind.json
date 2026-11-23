@@ -1,0 +1,15 @@
+{
+  "standard": "ASCE 7-22",
+  "code": "Your adopted building code and edition",
+  "riskCategory": "II",
+  "V": 140,
+  "exposure": "B",
+  "enclosure": "enclosed",
+  "openingProtection": "State whether impact protection is required",
+  "roof": { "type": "gable", "pitch": 3 },
+  "eaveHeight": 10,
+  "ridgeHeight": 16,
+  "plan": { "width": 24, "length": 36 },
+  "areas": [10, 20, 50],
+  "sources": { "standard": "Code list", "code": "General notes", "plan": "Floor plan" }
+}
