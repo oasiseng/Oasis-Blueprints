@@ -42,6 +42,8 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
   beside the project file. Anonymized; the site plans, maps and third-party details are left out.
 - Detail library: the `residential` collection, ten details from the residential set example (slabs, control
   joint, footings, header and jamb details), converted from its CAD plots and not yet checked by the engineer.
+- New example: a 23-sheet draft set for a detached ADU, as a pre-drawn HTML copy. Anonymized; the site plan,
+  maps and rendering are left out.
 
 ## 0.3.0 - 2026-11-14
 
