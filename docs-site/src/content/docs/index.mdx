@@ -1,0 +1,125 @@
+---
+title: Oasis-Blueprints
+description: Describe the job, and an AI assistant drafts the engineering and construction sheets as one HTML file and a true-scale PDF. The engineer keeps every engineering decision.
+template: splash
+editUrl: false
+hero:
+  title: Engineering drawings, reimagined.
+  tagline: Describe the job. An AI assistant drafts the sheets. Every engineering decision stays with the engineer.
+  actions:
+    - text: Get started
+      link: /get-started/install/
+      icon: right-arrow
+    - text: Explore the examples
+      link: /examples/
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/oasiseng/Oasis-Blueprints
+      variant: minimal
+      icon: external
+---
+
+import { Card, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components';
+
+<p class="oasis-badges">Open source (MIT) · True-scale sheets · AI-assisted drafting · Engineer-controlled</p>
+
+[![Field sheet of the sunroom repair example: picture, build steps, framing plan, section and details](/ref/examples/sheet-sets/sunroom-repair/preview-field.png)](/examples/sunroom-repair/)
+
+<p class="oasis-caption">A real field sheet from the gallery: a 3D picture, numbered build steps, the framing plan, a section and the connection details, each view at its stated scale. <a href="/examples/sunroom-repair/">Open the whole set</a>.</p>
+
+## What if a drawing set started from a description of the job?
+
+Producing construction documents usually means hours inside drafting software: lines, layers, blocks, sheets.
+
+Oasis-Blueprints turns that around. Your AI assistant works as the **drafter**. It takes the job description, your
+answers, your approved details and one drawing standard, and lays out sheets ready for professional review.
+
+**You provide the engineering. The assistant does the drafting.**
+
+## From a described job to a printed set
+
+<Steps>
+
+1. **Describe.** Tell the assistant what is being built: the dimensions, the existing conditions, supporting
+   documents such as a survey, and the engineering decisions already made.
+
+2. **Draft.** The assistant writes the project file and builds the sheets: cover, plans, sections, details, notes and
+   your title block. A value it was not given is never invented: it becomes an open item, in red.
+
+3. **Review.** Open the set in a browser. Answer the open items, check the drawings, ask for changes. The layout audit
+   flags anything that overflows or is not at its stated scale.
+
+4. **Print.** One self-contained HTML file, printed by any browser to a 36 × 24 in PDF, for the review and approval
+   the job needs.
+
+</Steps>
+
+## Not just drawings: a drawing standard
+
+<CardGrid>
+	<Card title="True scale, checked" icon="seti:pdf">
+		Every view is drawn at a stated scale on a 36 × 24 in sheet, and the layout audit checks it before the set
+		prints.
+	</Card>
+	<Card title="Open items stay visible" icon="warning">
+		A missing engineering value is not guessed. It shows red where it applies, is counted in the title block,
+		and the set cannot be issued until it is answered.
+	</Card>
+	<Card title="Your company on every sheet" icon="document">
+		Your title block, logo, license line and approved standard details.
+	</Card>
+	<Card title="One file" icon="seti:html">
+		The fonts, the drawing code and the project live in one HTML file. Open it, share it, print it.
+	</Card>
+	<Card title="Works with your assistant" icon="puzzle">
+		Install it as a Claude plugin, or as an Agent Skill in ChatGPT, Codex or another assistant that supports
+		skills.
+	</Card>
+	<Card title="Open source" icon="github">
+		Read the code, adapt it, improve it. MIT License.
+	</Card>
+</CardGrid>
+
+## AI drafts. Engineers engineer.
+
+Oasis-Blueprints is built around one rule: **the model is the drafter, not the engineer.**
+
+- It never supplies an engineering value: no load, member size, connection, anchor, footing or code edition comes from
+  the model.
+- Anything unresolved stays visible as an open item until someone with the answer closes it.
+- A set is a draft until a licensed engineer reviews it and seals it. The kit never adds a seal or a signature.
+
+<LinkCard title="Read the rule" description="What the kit does, what it does not check, and where every value comes from." href="/concepts/drafter-not-engineer/" />
+
+## See what it draws
+
+The gallery holds real sets with placeholder names and addresses. They are not all made the same way, and each one
+says which it is:
+
+- **Drawn by the kit's own job types**: the freestanding deck, the detail library sheets. This is what the skill does
+  out of the box, from a described job.
+- **Drawn with job-specific code**: the sunroom repair, the site plan and the residential set from CAD. The kit plus
+  drawing code written for that job, kept beside its project file so you can read and reuse it.
+- **Pre-drawn copies**: the detached ADU. A finished set published as it is, view-only, until its project file is
+  added.
+
+So a full permit set for any house is not yet one prompt away. The examples show what the kit and a drafter working
+with it can produce today.
+
+<CardGrid>
+	<LinkCard title="Explore the examples" description="Every set built, printed and audited when the site is built." href="/examples/" />
+	<LinkCard title="Draw your first set" description="From the bundled sample, with Python and nothing else." href="/get-started/first-sheet-set/" />
+</CardGrid>
+
+## The drawing can be the output
+
+Today, engineers spend a lot of time translating decisions into drawings. Oasis-Blueprints is an open-source project by
+Oasis Engineering exploring the other direction: the decisions, the source documents and the open questions come
+first, and the sheets are drawn from them.
+
+<CardGrid>
+	<LinkCard title="Install Oasis-Blueprints" href="/get-started/install/" />
+	<LinkCard title="Panel schedule kit" description="A panel schedule laid out like the panel, with a matching riser diagram." href="/kits/panel-schedule/" />
+</CardGrid>
+
+<p class="oasis-footnote">Oasis-Blueprints is a drafting tool, not an engineering design or verification system. Drawings need independent professional review and the approvals, signatures or seals that apply to the job.</p>

@@ -47,6 +47,9 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
 - The examples gallery also publishes a pre-drawn set: a folder with `sheet-set.html` and no `project.json`
   is copied as it is, printed to PDF, checked for overflowing text, and shown as view-only. The detached ADU
   example is the first.
+- Documentation site: a new home page (what it does, the four steps, the drafter-not-engineer rule, how each
+  example was made), and each gallery card says whether a set is drawn by a kit job type, by job-specific code,
+  or is a pre-drawn copy.
 
 ## 0.3.0 - 2026-11-14
 
