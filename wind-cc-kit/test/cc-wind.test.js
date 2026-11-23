@@ -65,7 +65,40 @@ near('2E z1 @10', g('hip', 18, 10).z1, -1.8); near('2E + @10', g('hip', 18, 10).
 near('2F z2 @20', g('hip', 25, 20).z2, -3.0 + Math.log10(20), 0.001); near('2G z3 @10', g('hip', 45, 10).z3, -2.4);
 near('hip 35 A20 z3 (Note 6)', g('hip', 35, 20).z3, -1.82, 0.006);
 r = W.roof({ V: 140, exposure: 'C', h: 20, least: 40, roofType: 'hip', theta: 35, A: 20 });
-ok('hip interpolated flag', r.interpolated && r.unconfirmed.includes('z1'));
+ok('hip interpolated flag', r.interpolated && r.unconfirmed.length === 0);
+
+// ---- Second source: 2024 IRC Table R301.2.1(1) (ASD, h = 30 ft, Exposure B, Kh rounded to 0.70 in that table).
+// p = 0.6 x 0.85 x 0.00256 x 0.70 x V^2 x (GCp -/+ 0.18). Printed to 0.1 psf, so the tolerance is 0.08 psf.
+const irc = (name, type, th, k, A, V, want) => { const G = g(type, th, A); const q = 0.6 * 0.85 * 0.00256 * 0.70 * V * V;
+  near('IRC ' + name + ' ' + k + ' A' + A + ' V' + V, k === 'pos' ? q * (G.pos + 0.18) : q * (G[k] - 0.18), want, 0.08); };
+// gable > 7 to 20 (2B)
+irc('2B', 'gable', 14, 'z2', 20, 90, -18.4); irc('2B', 'gable', 14, 'z3', 50, 90, -18.7); irc('2B', 'gable', 14, 'pos', 20, 90, 5.3);
+// gable > 20 to 27 (2C)
+irc('2C', 'gable', 25, 'z1', 10, 90, -12.4); irc('2C', 'gable', 25, 'z1', 20, 90, -11.2); irc('2C', 'gable', 25, 'z1', 50, 90, -9.7); irc('2C', 'gable', 25, 'z1', 100, 90, -8.5);
+irc('2C', 'gable', 25, 'z2', 10, 90, -19.9); irc('2C', 'gable', 25, 'z2', 20, 90, -17.0); irc('2C', 'gable', 25, 'z2', 100, 90, -10.2); irc('2C', 'gable', 25, 'z3', 50, 90, -15.3);
+irc('2C', 'gable', 25, 'pos', 10, 90, 5.8); irc('2C', 'gable', 25, 'pos', 50, 90, 4.6); irc('2C', 'gable', 25, 'pos', 100, 90, 4.1);
+// gable > 27 to 45 (2D)
+irc('2D', 'gable', 35, 'pos', 10, 90, 8.0); irc('2D', 'gable', 35, 'pos', 20, 90, 7.3); irc('2D', 'gable', 35, 'pos', 50, 90, 6.4); irc('2D', 'gable', 35, 'pos', 100, 90, 5.7);
+irc('2D', 'gable', 35, 'z1', 10, 90, -14.7); irc('2D', 'gable', 35, 'z1', 20, 90, -12.4); irc('2D', 'gable', 35, 'z1', 50, 90, -9.5); irc('2D', 'gable', 35, 'z1', 100, 90, -7.3);
+irc('2D', 'gable', 35, 'z2', 10, 90, -16.2); irc('2D', 'gable', 35, 'z2', 20, 90, -14.4); irc('2D', 'gable', 35, 'z2', 50, 90, -12.2); irc('2D', 'gable', 35, 'z2', 100, 90, -10.5);
+irc('2D', 'gable', 35, 'z3', 20, 90, -17.3); irc('2D', 'gable', 35, 'z3', 50, 90, -13.9); irc('2D', 'gable', 35, 'z3', 50, 110, -20.7);
+// hip > 7 to 20 (2E)
+irc('2E', 'hip', 18, 'pos', 10, 90, 6.5); irc('2E', 'hip', 18, 'pos', 20, 90, 5.6); irc('2E', 'hip', 18, 'pos', 50, 90, 4.4); irc('2E', 'hip', 18, 'pos', 100, 90, 3.6);
+irc('2E', 'hip', 18, 'z1', 10, 90, -14.7); irc('2E', 'hip', 18, 'z1', 20, 90, -13.0); irc('2E', 'hip', 18, 'z1', 50, 90, -10.7); irc('2E', 'hip', 18, 'z1', 100, 90, -9.0); irc('2E', 'hip', 18, 'z1', 100, 110, -13.4);
+irc('2E', 'hip', 18, 'z2', 10, 90, -19.1); irc('2E', 'hip', 18, 'z2', 20, 90, -17.2); irc('2E', 'hip', 18, 'z2', 50, 90, -14.7); irc('2E', 'hip', 18, 'z2', 100, 90, -12.8);
+irc('2E', 'hip', 18, 'z3', 10, 90, -20.6); irc('2E', 'hip', 18, 'z3', 20, 90, -18.5); irc('2E', 'hip', 18, 'z3', 50, 90, -15.8); irc('2E', 'hip', 18, 'z3', 100, 90, -13.8);
+// hip > 20 to 27 (2F)
+irc('2F', 'hip', 25, 'z1', 10, 90, -11.7); irc('2F', 'hip', 25, 'z1', 20, 90, -10.4); irc('2F', 'hip', 25, 'z1', 50, 90, -8.6); irc('2F', 'hip', 25, 'z1', 100, 90, -7.3);
+irc('2F', 'hip', 25, 'z2', 10, 90, -16.2); irc('2F', 'hip', 25, 'z2', 20, 90, -13.9); irc('2F', 'hip', 25, 'z2', 50, 90, -11.0); irc('2F', 'hip', 25, 'z2', 100, 90, -8.7); irc('2F', 'hip', 25, 'z3', 100, 90, -8.7);
+// Commentary equations, ASCE 7-22 Tables C30.3-3 to C30.3-8
+const eq = (name, type, th, k, A, val) => near('C30.3 ' + name + ' ' + k + ' A' + A, g(type, th, A)[k], val, 0.0006);
+const L = Math.log10;
+eq('2B', 'gable', 14, 'pos', 60, 0.8306 - 0.2306 * L(60)); eq('2B', 'gable', 14, 'z2', 60, -4.0067 + 1.3066 * L(60));
+eq('2C', 'gable', 25, 'z1', 60, -2.0380 + 0.5380 * L(60));
+eq('2D', 'gable', 35, 'z2', 60, -2.7686 + 0.7686 * L(60)); eq('2D', 'gable', 35, 'z3', 60, -3.6529 + 1.1529 * L(60)); eq('2D', 'gable', 35, 'z1', 60, -2.8 + 1.0 * L(60));
+eq('2E', 'hip', 18, 'pos', 60, 1.1 - 0.4 * L(60)); eq('2E', 'hip', 18, 'z1', 60, -2.5686 + 0.7686 * L(60));
+eq('2F', 'hip', 25, 'z3', 60, -3.0 + 1.0 * L(60)); eq('2G', 'hip', 45, 'z3', 60, -3.8 + 1.4 * L(60));
+ok('no unconfirmed curves', Object.values(W.ROOF).every(F => ['pos', 'z1p', 'z1', 'z2', 'z3'].every(k => !F[k] || F[k].src === 'C')));
 // figure choice
 ok('fig 7 deg -> 2A', W.roofFigure('gable', 7).key === '2A'); ok('fig 7.1 -> 2B', W.roofFigure('gable', 7.1).key === '2B');
 ok('fig 20 -> 2B', W.roofFigure('gable', 20).key === '2B'); ok('fig 27 -> 2C', W.roofFigure('gable', 27).key === '2C');

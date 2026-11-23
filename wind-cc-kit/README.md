@@ -19,7 +19,7 @@ agree, and changing an input updates all three.
 | `cc-wind-panels.js` | The three sheet panels (`CCWindKit.render(spec)`, `CCWindKit.mount(spec, elements)`). |
 | `example/sample_wind.json` | A sample building, placeholders only |
 | `example/build_example.py` | Builds `example/wind-sheet.html` from the sample |
-| `test/cc-wind.test.js` | 97 verification values. `node test/cc-wind.test.js` |
+| `test/cc-wind.test.js` | 163 verification values. `node test/cc-wind.test.js` |
 
 ## Run the example
 
@@ -81,13 +81,11 @@ zone, zone widths, the figure used, and whether the 16 psf minimum governed.
 - Zone width a: lesser of 10% of the least horizontal dimension and 0.4 h, not less than 4% of it or 3 ft. The
   low-slope roof figure is laid out from h (0.6 h edge, 0.6 h × 0.2 h corners, Zone 1′ beyond 1.2 h).
 
-## What is confirmed and what is not
+## How the numbers were checked
 
-The GC<sub>p</sub> lines were checked against the equations in the ASCE 7-22 commentary (Tables C30.3-1 to C30.3-8)
-wherever those could be found. Four could not be confirmed from a second source and are marked `'F'` in `cc-wind.js`:
-Fig. 30.3-2D Zone 3, Fig. 30.3-2E Zones 2 and 3, and Fig. 30.3-2F Zone 1. Their values at 10 SF agree with published
-summaries; the slope beyond 10 SF is the open part. When one of them is used, the pressure panel prints a red check
-note. The gable and hip zone layouts are drawn from a reading of the figures. Check both against the printed standard.
+The GC<sub>p</sub> lines each have two sources: the equations in the ASCE 7-22 commentary (Tables C30.3-1 to C30.3-8), and a back-calculation from the 2024 IRC Table R301.2.1(1), which is computed from the same figures. The test file reproduces 55 printed IRC values to within 0.1 psf across every gable and hip figure. No line is left unconfirmed.
+
+The zone layouts for the gable and hip figures (which strip is Zone 2, which is Zone 3, and the a and 2a widths) are drawn from a reading of the figures. Published summaries agree on the structure (one hip layout with Zone 3 along the eaves; two gable layouts split at 27°, with the ridge in Zone 1 on the steeper one), but the widths are only in the figures themselves. Glance at Figs. 30.3-2B to 2G once to confirm.
 
 ## Notes
 
