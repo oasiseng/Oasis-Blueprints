@@ -25,7 +25,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugin"
-GENERATED = ("skills", "agents", "LICENSE")
+GENERATED = ("skills", "agents", "LICENSE", "PRIVACY.md")
 MAX_TEXT = 256 * 1024
 IMAGE_OR_FONT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".woff", ".woff2", ".ttf", ".otf"}
 TEXT = {".md", ".txt", ".json", ".js", ".py", ".css", ".html", ".yaml", ".yml", ".svg"}
@@ -63,6 +63,7 @@ def build(dest):
         (dest / target).parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / source, dest / target)
     shutil.copyfile(ROOT / "LICENSE", dest / "LICENSE")
+    shutil.copyfile(ROOT / "PRIVACY.md", dest / "PRIVACY.md")
     # a detail that is left out is taken off the collection's index and its README table, so the bundle lists only what it holds
     gone = {Path(name).stem for name, _ in left_out if "/details/" in name}
     library = dest / "skills/oasis-blueprints/assets/library/details"
@@ -100,6 +101,7 @@ def build_lite(dest):
     put("directory-edition/SKILL.md", skill / "SKILL.md")
     put("directory-edition/README.md", plugin / "README.md")
     put("LICENSE", plugin / "LICENSE")
+    put("PRIVACY.md", plugin / "PRIVACY.md")
     put("plugin/.claude-plugin/icon.png", plugin / ".claude-plugin" / "icon.png")
     put("skills/oasis-blueprints/references/sheet-standard.md", skill / "references" / "sheet-standard.md")
     text = (ROOT / "skills/oasis-blueprints/references/project-file.md").read_text(encoding="utf-8")
@@ -160,7 +162,7 @@ def main():
         fresh = Path(tmp)
         left_out = build(fresh)
         if a.check:
-            ok = all((PLUGIN / g).exists() for g in GENERATED) and filecmp.cmp(fresh / "LICENSE", PLUGIN / "LICENSE", shallow=False) \
+            ok = all((PLUGIN / g).exists() for g in GENERATED) and all(filecmp.cmp(fresh / f, PLUGIN / f, shallow=False) for f in ("LICENSE", "PRIVACY.md")) \
                 and all(same(fresh / g, PLUGIN / g) for g in ("skills", "agents"))
             sys.exit(0 if ok else "plugin/ is out of date: run python scripts/build_plugin.py")
         for g in GENERATED:
