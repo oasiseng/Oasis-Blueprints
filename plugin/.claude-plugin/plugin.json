@@ -1,0 +1,23 @@
+{
+  "name": "oasis-blueprints",
+  "displayName": "Oasis Blueprints",
+  "version": "0.4.0",
+  "description": "Plan or review a construction drawing set: the sheet list for a project type, candidate standard details, the open questions for the engineer, and the project file a set is built from. This edition does not draw the sheets; the free full edition does.",
+  "author": {
+    "name": "Oasis Engineering, LLC",
+    "url": "https://oasisengineering.com"
+  },
+  "homepage": "https://docs.oasisengineering.com",
+  "repository": "https://github.com/oasiseng/Oasis-Blueprints",
+  "license": "MIT",
+  "keywords": [
+    "engineering",
+    "drafting",
+    "drawings",
+    "construction",
+    "permit",
+    "cad",
+    "blueprints",
+    "plan-review"
+  ]
+}
