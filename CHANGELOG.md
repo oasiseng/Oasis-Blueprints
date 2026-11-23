@@ -52,6 +52,7 @@ Versions follow `.claude-plugin/plugin.json`. Each entry says what changed for s
   or is a pre-drawn copy.
 - Home page: why the project exists (plans as a product people use, not only a permit document) and an
   accessible-first drawing standard.
+- Drafter, not engineer: a section on AI limitations and professional responsibility.
 
 ## 0.3.0 - 2026-11-14
 
