@@ -32,3 +32,7 @@ h1#_top,
 .oasis-card strong { display: block; margin-top: 0.5rem; font-family: var(--oasis-heading); font-size: 1.2rem; }
 .sl-markdown-content img { border: 1px solid var(--sl-color-gray-5); }
 .oasis-footnote { margin-top: 1.5rem; font-size: var(--sl-text-xs); color: var(--sl-color-gray-3); }
+
+/* home page */
+.oasis-badges { text-align: center; font-family: var(--oasis-heading); font-size: 1.05rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--sl-color-gray-2); }
+.oasis-caption { font-size: var(--sl-text-sm); color: var(--sl-color-gray-3); margin-top: 0.4rem; }

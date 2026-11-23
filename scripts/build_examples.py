@@ -367,8 +367,9 @@ def main():
             name = sheet_names[i] if i < len(sheet_names) else "Sheet %d" % (i + 1)
             lines += ["### %s" % esc(name), "", '<a href="/examples/%s/preview-%d.png"><img src="/examples/%s/preview-%d.png" alt="%s" loading="lazy" width="2400"></a>' % (slug, i, slug, i, esc(name)), ""]
         (PAGES / (slug + ".md")).write_text("\n".join(lines), encoding="utf-8")
-        cards.append('<a class="oasis-card" href="/examples/%s/"><img src="/examples/%s/thumb.png" alt="" loading="lazy" width="1200"><strong>%s</strong>%s<br><small>%s · %d sheet%s · <code>%s</code></small></a>'
-                     % (slug, slug, esc(entry["title"]), esc(entry["headline"]), esc(entry["statusLabel"]), entry["sheets"], "" if entry["sheets"] == 1 else "s", esc(job)))
+        kind = "job-specific code" if own else "kit job type"
+        cards.append('<a class="oasis-card" href="/examples/%s/"><img src="/examples/%s/thumb.png" alt="" loading="lazy" width="1200"><strong>%s</strong>%s<br><small>%s · %d sheet%s · <code>%s</code>, %s</small></a>'
+                     % (slug, slug, esc(entry["title"]), esc(entry["headline"]), esc(entry["statusLabel"]), entry["sheets"], "" if entry["sheets"] == 1 else "s", esc(job), kind))
 
     kit_panel = json.loads((ROOT / "panel-schedule-kit" / "example" / "sample_panel.json").read_text(encoding="utf-8"))["panel"]
     index = [front("Gallery", "Every example sheet set in the repository, built, printed and audited when the site is built.",
@@ -376,6 +377,9 @@ def main():
              "Each example below is a folder in [`examples/sheet-sets/`](%s/tree/%s/examples/sheet-sets). The site builds it with the skill's own "
              "scripts, prints it to PDF and runs the layout audit on every push; an example the audit flags stops the build. Names, addresses and "
              "numbers in the examples are placeholders. Oldest first." % (SITE["repo"], SITE["branch"]), "",
+             "Each card says how the set was made: a **kit job type** is drawn by the skill as it ships, from a described job; "
+             "**job-specific code** means the kit plus drawing code written for that job, kept beside its project file; a "
+             "**pre-drawn copy** is a finished set published as it is, view-only.", "",
              '<div class="oasis-grid">', *cards, "</div>", "",
              "## Kits", "",
              "Separate kits beside the skill, with their own sample sheet.", "",
