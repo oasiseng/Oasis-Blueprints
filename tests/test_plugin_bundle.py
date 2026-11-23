@@ -64,5 +64,47 @@ class PluginBundle(unittest.TestCase):
             self.assertGreater((Path(tmp) / "out.html").stat().st_size, 50000)
 
 
+class DirectoryEdition(unittest.TestCase):
+    """The code-free edition for the Claude plugin directory (scripts/build_plugin.py --lite)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory(prefix="oasis-edition-")
+        cls.root = Path(cls.temp.name)
+        r = subprocess.run([sys.executable, str(ROOT / "scripts/build_plugin.py"), "--lite", str(cls.root)], capture_output=True, text=True)
+        assert r.returncode == 0, r.stderr
+        cls.plugin = cls.root / "plugin"
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.temp.cleanup()
+
+    def test_holds_only_what_an_unverified_organization_may_ship(self):
+        block, held = check_plugin.check(self.plugin)
+        self.assertEqual(block, [])
+        self.assertEqual(held, [])
+        self.assertEqual(check_plugin.community(self.plugin), [])
+        suffixes = {p.suffix for p in self.plugin.rglob("*") if p.is_file()}
+        self.assertLessEqual(suffixes, {".md", ".json", ".png", ""})
+
+    def test_says_it_does_not_draw(self):
+        for name in ("README.md", "skills/oasis-blueprints/SKILL.md"):
+            self.assertIn("does not draw the sheets", (self.plugin / name).read_text(encoding="utf-8"), name)
+        manifest = json.loads((self.plugin / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
+        self.assertIn("does not draw", manifest["description"])
+        self.assertEqual(manifest["name"], "oasis-blueprints")
+
+    def test_every_file_the_skill_names_is_there(self):
+        import re
+        skill = self.plugin / "skills/oasis-blueprints"
+        text = (skill / "SKILL.md").read_text(encoding="utf-8")
+        for link in re.findall(r"\]\(((?:references|assets)/[^)]+)\)", text):
+            self.assertTrue((skill / link).is_file(), link)
+        index = json.loads((skill / "assets/library/drawing-map/index.json").read_text(encoding="utf-8"))
+        for group in index["groups"]:
+            self.assertTrue((skill / "assets/library/drawing-map" / group["file"]).is_file(), group["file"])
+        self.assertTrue(list((skill / "assets/library/details").glob("*/index.json")))
+
+
 if __name__ == "__main__":
     unittest.main()

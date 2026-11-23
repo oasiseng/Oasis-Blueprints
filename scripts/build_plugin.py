@@ -3,6 +3,7 @@
 
     python scripts/build_plugin.py            # write plugin/skills, plugin/agents, plugin/LICENSE
     python scripts/build_plugin.py --check    # exit 1 if plugin/ is out of date
+    python scripts/build_plugin.py --lite DIR # write the code-free directory edition into DIR/plugin
 
 plugin/ is what Anthropic's directory reads and what a person who installs the plugin gets, so it holds only what
 the plugin needs: the two skills, the agent, and the detail library and drawing map inside the drawing skill (the
@@ -80,6 +81,55 @@ def build(dest):
     return left_out
 
 
+LITE_NOTE = ("> This reference comes from the full Oasis Blueprints edition. The scripts and view files it names "
+             "(`build.py`, `print.py`, `assets/views/`, `assets/kit/`) are part of that edition, not this one. "
+             "Use it here for the format of the project file.\n\n")
+
+
+def build_lite(dest):
+    """The directory edition for an organization that is not Verified: Markdown, JSON and the icon only.
+    dest/plugin is the plugin folder; dest itself is the root of the branch the directory tracks."""
+    plugin = dest / "plugin"
+    skill = plugin / "skills" / "oasis-blueprints"
+    def put(source, target, prefix=""):
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if prefix:
+            target.write_text(prefix + (ROOT / source).read_text(encoding="utf-8"), encoding="utf-8")
+        else:
+            shutil.copyfile(ROOT / source, target)
+    put("directory-edition/SKILL.md", skill / "SKILL.md")
+    put("directory-edition/README.md", plugin / "README.md")
+    put("LICENSE", plugin / "LICENSE")
+    put("plugin/.claude-plugin/icon.png", plugin / ".claude-plugin" / "icon.png")
+    put("skills/oasis-blueprints/references/sheet-standard.md", skill / "references" / "sheet-standard.md")
+    text = (ROOT / "skills/oasis-blueprints/references/project-file.md").read_text(encoding="utf-8")
+    head, _, rest = text.partition("\n")
+    (skill / "references" / "project-file.md").write_text(head + "\n\n" + LITE_NOTE + rest.lstrip("\n"), encoding="utf-8")
+    put("skills/oasis-blueprints/assets/brand.example.json", skill / "assets" / "brand.example.json")
+    for source in tracked("skills/oasis-blueprints/assets/samples", "library"):
+        rel = source.relative_to("library") if source.parts[0] == "library" else None
+        if source.suffix != ".json" or any(part.startswith(".") for part in source.parts):
+            continue
+        if rel is None:
+            put(source, skill / "assets" / "samples" / source.relative_to("skills/oasis-blueprints/assets/samples"))
+        elif rel.parts[0] == "details" and source.name != "index.json":
+            continue                                     # the detail drawings need the kit; the index is what planning uses
+        else:
+            put(source, skill / "assets" / "library" / rel)
+    manifest = json.loads((ROOT / "plugin/.claude-plugin/plugin.json").read_text(encoding="utf-8"))
+    manifest["description"] = ("Plan or review a construction drawing set: the sheet list for a project type, candidate standard "
+                               "details, the open questions for the engineer, and the project file a set is built from. "
+                               "This edition does not draw the sheets; the free full edition does.")
+    manifest["keywords"] = [k for k in manifest.get("keywords", []) if k != "video"] + ["plan-review"]
+    (plugin / ".claude-plugin" / "plugin.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (dest / "README.md").write_text(
+        "# Oasis Blueprints: directory edition\n\nThis branch is built from `main` by `scripts/build_plugin.py --lite` "
+        "and published by a workflow. Do not edit it by hand.\n\n`plugin/` is the edition of the plugin that the Claude "
+        "plugin directory lists: instructions and reference data only, no code. The full plugin, the examples and the "
+        "documentation are on the [main branch](https://github.com/oasiseng/Oasis-Blueprints).\n", encoding="utf-8")
+    shutil.copyfile(ROOT / "LICENSE", dest / "LICENSE")
+
+
 def same(a, b):
     c = filecmp.dircmp(a, b)
     if c.left_only or c.right_only or c.funny_files:
@@ -92,7 +142,20 @@ def same(a, b):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--lite", metavar="FOLDER", type=Path, help="write the code-free directory edition into FOLDER (FOLDER/plugin)")
     a = ap.parse_args()
+    if a.lite:
+        for name in ("plugin", "README.md", "LICENSE"):
+            old = a.lite / name
+            if old.is_dir():
+                shutil.rmtree(old)
+            elif old.exists():
+                old.unlink()
+        a.lite.mkdir(parents=True, exist_ok=True)
+        build_lite(a.lite)
+        files = [p for p in (a.lite / "plugin").rglob("*") if p.is_file()]
+        print("wrote %s: %d files, %.0f KB" % (a.lite / "plugin", len(files), sum(p.stat().st_size for p in files) / 1e3))
+        return
     with tempfile.TemporaryDirectory(prefix="oasis-plugin-") as tmp:
         fresh = Path(tmp)
         left_out = build(fresh)

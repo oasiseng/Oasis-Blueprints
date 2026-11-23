@@ -139,7 +139,60 @@ def verified_only(plugin=PLUGIN):
     return out
 
 
+INSTALL_LINE = re.compile(r"\b(pip3? install|python3? -m pip|npm (i|install)\b|pnpm (add|install)|yarn add|brew install|apt(-get)? install|"
+                          r"winget install|choco install|cargo install|go install|gem install|curl [^|]*\|\s*(ba)?sh|playwright install)", re.I)
+FORBIDDEN_NAMES = {"claude.md", "claude.local.md", "agents.md", "requirements.txt", "package.json", "package-lock.json",
+                   "pnpm-workspace.yaml", "hooks.json", ".lsp.json", "monitors.json", ".mcp.json"}
+
+
+def community(plugin):
+    """What the directory refuses from an organization that is not Verified, as far as files alone can show.
+    -> list of messages; empty means the folder holds only what such an organization may ship."""
+    out = ["%s: %s" % (reason, ", ".join(paths[:5]) + (" ..." if len(paths) > 5 else "")) for reason, paths in verified_only(plugin).items()]
+    for p in sorted(plugin.rglob("*")):
+        r = p.relative_to(plugin).as_posix()
+        if p.is_dir():
+            if p.name == ".claude-plugin" and p.parent != plugin:
+                out.append("a .claude-plugin folder that is not the plugin's own: " + r)
+            if r in (".claude/skills", ".claude/commands", ".claude/agents", ".claude/rules") or p.name == "egress":
+                out.append("folder not accepted: " + r)
+            continue
+        if p.name.lower() in FORBIDDEN_NAMES:
+            out.append("file name not accepted: " + r)
+        if p.parent.name == ".claude-plugin" and p.name != "plugin.json" and p.suffix.lower() not in (".png", ".jpg", ".jpeg", ".gif", ".webp"):
+            out.append("only plugin.json and an image belong in .claude-plugin: " + r)
+        if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico"):
+            if b"PK\x03\x04" in p.read_bytes():
+                out.append("image looks like it holds a zip archive: " + r)
+            continue
+        data = p.read_bytes()
+        if b"\x00" in data:
+            out.append("NUL byte in a text file: " + r)
+        try:
+            text = data.decode("utf-8")
+        except UnicodeDecodeError:
+            out.append("not UTF-8: " + r)
+            continue
+        for n, line in enumerate(text.splitlines(), 1):
+            if INSTALL_LINE.search(line):
+                out.append("install or download command shown in text (link to the tool's own instructions instead): %s:%d" % (r, n))
+    return out
+
+
 if __name__ == "__main__":
+    if "--community" in sys.argv:
+        folder = Path(sys.argv[sys.argv.index("--community") + 1])
+        block, held = check(folder)
+        refused = community(folder)
+        for line in block:
+            print("BLOCKS  ", line)
+        for line in held:
+            print("HELD    ", line)
+        for line in refused:
+            print("REFUSED ", line)
+        n = sum(1 for p in folder.rglob("*") if p.is_file())
+        print("%s: %d files. %d blocking, %d held, %d refused from an organization that is not Verified." % (folder, n, len(block), len(held), len(refused)))
+        sys.exit(1 if block or held or refused else 0)
     block, held = check()
     restricted = verified_only()
     if restricted:

@@ -1,0 +1,47 @@
+name: Directory edition
+
+# Builds the code-free edition of the plugin (scripts/build_plugin.py --lite) and publishes it to the branch
+# claude-directory, which the Claude plugin directory tracks (plugin path: plugin). A commit is made only when the
+# edition's files changed, because the directory treats every new commit on that branch as a new version to scan.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: directory-edition
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Fetch the published branch, if there is one
+        run: |
+          git clone --quiet --depth 1 --branch claude-directory "https://github.com/${GITHUB_REPOSITORY}.git" "$RUNNER_TEMP/edition" \
+            || { mkdir -p "$RUNNER_TEMP/edition" && git -C "$RUNNER_TEMP/edition" init --quiet --initial-branch claude-directory; }
+      - name: Build the edition
+        run: python scripts/build_plugin.py --lite "$RUNNER_TEMP/edition"
+      - name: Check it against the directory's rules
+        run: python scripts/check_plugin.py --community "$RUNNER_TEMP/edition/plugin"
+      - name: Publish if it changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/edition"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "The edition did not change. Nothing to publish."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet -m "Directory edition from ${GITHUB_SHA::7}"
+          git push --quiet "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" claude-directory

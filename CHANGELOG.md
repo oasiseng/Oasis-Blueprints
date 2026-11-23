@@ -14,6 +14,10 @@ Versions follow `plugin/.claude-plugin/plugin.json`. Each entry says what change
 - `plugin/README.md` states everything the plugin runs, sends and fetches, including the video skill's one-time
   setup (six Python packages from PyPI, Playwright's Chromium, and the Kokoro voice model).
 - The voice model download is now checked against a pinned SHA-256, and a file that does not match is deleted.
+- New **plan and review edition** for the Claude plugin directory (`directory-edition/`, built by
+  `scripts/build_plugin.py --lite`, published to the branch `claude-directory`): instructions and reference data
+  only, no code. It proposes the sheet list and candidate details for a project type, writes the project file, and
+  reviews an existing set for gaps. It does not draw sheets and says so; it points to the full edition.
 
 - New skill, **sheet-video** (`skills/sheet-video/`): a narrated, captioned video from a drawing set (PDF or
   HTML) and a script, as a self-contained HTML player and a 1080p MP4, in the user's branding (`brand.json`,
