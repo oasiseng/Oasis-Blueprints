@@ -1,2 +1,4 @@
 # Python packages for the documentation build (scripts/build_examples.py runs the skill's print.py).
 playwright==1.65.2
+# read by tests/test_plugin_bundle.py (the ClawHub SKILL.md front matter), which the docs workflow runs
+pyyaml==6.0.3
