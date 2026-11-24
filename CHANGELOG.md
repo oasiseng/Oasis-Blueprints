@@ -2,6 +2,12 @@
 
 Versions follow `plugin/.claude-plugin/plugin.json`. Each entry says what changed for someone using the skill.
 
+## Unreleased
+
+- Fixed: the `sunroom` section drew the slab, decking and roofing to fixed lengths (152 and 145 in), so a roof
+  deeper or shallower than the sample's 144 in showed roofing that stopped short of, or ran past, the rafters.
+  They now follow `geometry.roofD`. The sample draws exactly as before.
+
 ## 0.4.0 - 2026-11-23
 
 - **The plugin now lives in `plugin/`**, a folder that holds only what an installed copy needs: the two skills, the

@@ -71,11 +71,12 @@ function viewPlan(P, G, den = 24) {
 // ------------------------------------------------------------------ 2  SECTION
 function viewSection(P, G, den = 32) {
   const g = P.geometry, v = new View(den, 'sect'), { yo, rb, bt, slope } = G, RD = g.rafterDepth, BD = g.beamDepth, h = g.post / 2, WT = g.wallT, top = rb(0) + RD + 14;
-  v.rect(0, -4, 152, 0, 'exw', { fill: v.pat('conc') }); v.line(152, -3, 178, -3, 'o2');
+  const RE = g.roofD + 1.5;   // roof edge: decking and roofing run 1.5 in past the rafter tails (as in the picture)
+  v.rect(0, -4, g.roofD + 8, 0, 'exw', { fill: v.pat('conc') }); v.line(g.roofD + 8, -3, g.roofD + 34, -3, 'o2');
   v.rect(-WT, -4, 0, top, 'exw', { fill: v.pat('wall') });
   v.poly([[-WT - 3, top], [-WT * 0.6, top], [-WT * 0.5, top + 3], [-WT * 0.4, top - 3], [-WT * 0.3, top], [3, top]], 'o2', false);
   // roof: decking + roofing over the rafters
-  v.line(0, rb(0) + RD + 0.6, 145, rb(145) + RD + 0.6, 'o2'); v.line(0, rb(0) + RD + 1.3, 145.5, rb(145.5) + RD + 1.3, 'o'); v.line(145.5, rb(145.5) + RD + 1.3, 145.5, rb(145.5) - 0.5, 'o');
+  v.line(0, rb(0) + RD + 0.6, RE - 0.5, rb(RE - 0.5) + RD + 0.6, 'o2'); v.line(0, rb(0) + RD + 1.3, RE, rb(RE) + RD + 1.3, 'o'); v.line(RE, rb(RE) + RD + 1.3, RE, rb(RE) - 0.5, 'o');
   v.poly([[1.5, rb(1.5)], [g.roofD - 0.75, rb(g.roofD - 0.75)], [g.roofD - 0.75, rb(g.roofD - 0.75) + RD], [1.5, rb(1.5) + RD]], 'new');
   v.lumber(0, rb(0) - 1, 1.5, rb(0) + RD, 'ex');
   v.lumber(yo - 1.5, bt - BD, yo, bt, 'ex'); v.lumber(yo, bt - BD, yo + 1.5, bt, 'ex');
@@ -83,14 +84,14 @@ function viewSection(P, G, den = 32) {
   v.rect(yo - 2.2, 0, yo + 2.2, 1, 'steel'); v.rect(yo - 2.05, 1, yo - h, 6.5, 'steel'); v.rect(yo + h, 1, yo + 2.05, 6.5, 'steel');
   v.rect(yo + 1.5, bt - 3, yo + 2.2, bt + 3.5, 'steel');
   // slope symbol
-  const sx = 104, sy = rb(sx) + RD + 6; v.poly([[sx, sy], [sx + 24, sy], [sx, sy + 24 * slope]], 'o2');
+  const sx = g.roofD - 40, sy = rb(sx) + RD + 6; v.poly([[sx, sy], [sx + 24, sy], [sx, sy + 24 * slope]], 'o2');
   v.text(String(g.slopeRun), sx + 12, sy - 4.6, { cls: 'ts', anchor: 'middle' }); v.text(String(g.slopeRise), sx - 3, sy - 0.6, { cls: 'ts', anchor: 'middle' });
   // dimensions and levels
   v.dimH(0, yo, -15, -4, { text: `RAFTER SPAN ${ftin(yo, true)} (FACE OF WALL TO C.L. BEAM)` });
   v.dimH(0, g.clearD, 20, 20, { text: ftin(g.clearD) + ' CLEAR' });
   v.datum(`U/S OF RAFTER AT HOUSE\n${ftin(g.h0, true)}  V.I.F.`, -34, g.h0, -WT);
   v.datum(`TOP OF (E) SLAB\n0'-0"`, -34, 0, -WT);
-  v.datum(`B.O. (E) BEAM\n${ftin(bt - BD, true)}  V.I.F.`, 196, bt - BD, yo + 6);
+  v.datum(`B.O. (E) BEAM\n${ftin(bt - BD, true)}  V.I.F.`, g.roofD + 52, bt - BD, yo + 6);
   // notes
   v.note(`(E) PLYWOOD DECKING + SELF-ADHERED MOD. BIT. ROOFING\n${P.project.relatedPermit ? 'PERMIT ' + P.project.relatedPermit + '. ' : ''}VERIFY THICKNESS & EXTENT`, 30, rb(30) + RD + 1.3, 40, rb(0) + RD + 13, { side: 'r' });
   v.note(`(N) 2×8 RAFTERS @ ${g.rafterSpacing}" O.C.`, 60, rb(60) + 3.5, 74, 70, { side: 'r', kind: 'N' });
