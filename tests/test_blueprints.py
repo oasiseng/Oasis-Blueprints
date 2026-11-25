@@ -141,6 +141,34 @@ class BlueprintTests(unittest.TestCase):
         self.assertIs(public.pop("credit", None), True)
         self.assertEqual(public, self.sample())
 
+    def test_manufactured_home_sample_draws_three_field_sheets_with_clean_audit(self):
+        project = self.sample("manufactured-home")
+        self.open(self.build(project, "manufactured-home"))
+        self.assertEqual(self.page.evaluate("window.__audit"), [])
+        self.assertEqual(self.page.locator(".sheet").count(), len(project["sheets"]))
+        text = self.page.locator("#set").inner_text().upper()
+        for title in ("SITE PLAN", "ENLARGED PLAN AT THE HOME", "FOUNDATION PLAN", "SECTION ACROSS THE HOME",
+                      "FRAMING AND FOOTING PLAN", "STAIR AND STRINGER PAD"):
+            self.assertIn(title, text)
+        # every open item is still open, so the set stays a draft that cannot be issued
+        self.assertEqual(project["status"], "draft")
+        self.assertTrue(all(not o["answer"] for o in project["openItems"]))
+
+    def test_manufactured_home_notes_name_a_general_note_only_when_the_set_has_them(self):
+        project = self.sample("manufactured-home")
+        self.open(self.build(project, "mh-no-notes"))
+        text = self.page.locator("#set").inner_text().upper()
+        self.assertIn("SEE GENERAL NOTES", text)
+        self.assertNotIn("GENERAL NOTE A1", text)
+        project["generalNotes"] = [{"title": "A — Anchorage", "items": ["Anchors per the listing."]}]
+        self.open(self.build(project, "mh-notes"))
+        self.assertIn("SEE GENERAL NOTE A1", self.page.locator("#set").inner_text().upper())
+
+    def test_public_manufactured_home_example_matches_the_bundled_sample(self):
+        public = json.loads((SKILL.parents[1] / "examples" / "sheet-sets" / "manufactured-home" / "project.json").read_text(encoding="utf-8"))
+        self.assertIs(public.pop("credit", None), True)
+        self.assertEqual(public, self.sample("manufactured-home"))
+
     def test_sunroom_views_use_the_scale_in_the_project_file(self):
         project = self.sample("sunroom")
         self.assertNotIn("scales", project)

@@ -112,7 +112,7 @@ function sheetField(P, G, sh, i, n) {
       <section class="panel grow"><div class="ph">How the job goes</div><div class="steps">${steps}</div><div class="fine" data-fit>${esc(P.summary.sequenceNote || '')}</div></section>
     </div>
   </div>
-  <div class="dets" style="grid-template-columns:repeat(${Math.max(1, dets.length)},1fr)">${dets.map((d, j) => view(d, 'd' + (j + 1))).join('')}</div>`;
+  <div class="dets" style="grid-template-columns:repeat(${Math.max(1, dets.length)},1fr)">${dets.map((d, j) => view(d, 'd' + (j + 1), d.nts ? { scale: 'Not to scale' } : {})).join('')}</div>`;
   return sheet(P, sh, i, n, 's-field', body);
 }
 

@@ -4,6 +4,16 @@ Versions follow `plugin/.claude-plugin/plugin.json`. Each entry says what change
 
 ## Unreleased
 
+- New job type, `manufactured-home`: a permanent pier foundation, a site plan and freestanding entry decks for a
+  multi-section HUD-code manufactured home. It draws three field sheets from one project file, each with its own
+  view (`sheets[].view`: `site`, `foundation`, `deck`) and, through `sheetData`, its own summary, facts and
+  construction steps. The site plan is laid out from the lot, the home and the services, so it works for other lots
+  of about the same size. Data reference: `references/manufactured-home.md`. Sample:
+  `assets/samples/manufactured-home/`; example: `examples/sheet-sets/manufactured-home/` (a draft, with the
+  engineer's questions open). It started as a real job and was anonymized: the lot, the address, the names and the
+  home model are placeholders, and the engineering values are left to the engineer.
+- Fixed: a detail marked `nts: true` (a table, a legend) printed a scale and a scale bar. It now says "Not to
+  scale", as extras already did. 1:64 now prints as 3/16" = 1'-0".
 - Fixed: the `sunroom` section drew the slab, decking and roofing to fixed lengths (152 and 145 in), so a roof
   deeper or shallower than the sample's 144 in showed roofing that stopped short of, or ran past, the rafters.
   They now follow `geometry.roofD`. The sample draws exactly as before.
