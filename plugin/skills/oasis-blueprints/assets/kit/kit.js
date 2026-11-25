@@ -26,7 +26,7 @@ function ftin(v, approx) {
 // den is what the drafter would say: 24 for ½" = 1'-0", 50 for 1:50.
 let UPI = 1, FMT = ftin;
 function setUnits(u) { UPI = u === 'mm' ? 25.4 : 1; FMT = u === 'mm' ? ((v, approx) => String(Math.round(v)) + (approx ? ' ±' : '')) : ftin; }
-const SCALE_LABEL = { 4: '3" = 1\'-0"', 6: '2" = 1\'-0"', 8: '1½" = 1\'-0"', 12: '1" = 1\'-0"', 16: '¾" = 1\'-0"', 24: '½" = 1\'-0"', 32: '3/8" = 1\'-0"', 48: '¼" = 1\'-0"', 96: '1/8" = 1\'-0"' };
+const SCALE_LABEL = { 4: '3" = 1\'-0"', 6: '2" = 1\'-0"', 8: '1½" = 1\'-0"', 12: '1" = 1\'-0"', 16: '¾" = 1\'-0"', 24: '½" = 1\'-0"', 32: '3/8" = 1\'-0"', 48: '¼" = 1\'-0"', 64: '3/16" = 1\'-0"', 96: '1/8" = 1\'-0"' };
 const scaleText = den => UPI === 1 && SCALE_LABEL[den] ? SCALE_LABEL[den] : '1:' + den;
 // graphic scale bar, so a print at any size can still be measured
 function scaleBar(den) {

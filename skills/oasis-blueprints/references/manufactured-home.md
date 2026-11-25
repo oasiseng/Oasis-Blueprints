@@ -64,9 +64,10 @@ Labels are placed from the lot and the home; check the preview and move a label 
 One freestanding deck, typical of the decks on the site plan: `L`, `D`, `gap` (clear of the home), `deckH`,
 `threshold`, `post`, `postInset`, `postInsetHome`, `joistX[]`, `joistSpacing`, `joistT`, `joistDepth`, `beamDepth`,
 `beamPlies`, `plyT`, `deckingT`, `footingDia`, `footingDepth`, `stemDia`, `stemTop`, `standoff`, `guardH`, `stairW`,
-`stairRun`, `risers`, `tread`, `padD`, `padT`, and the printed names and notes (`joistName`, `beamName`, `postName`,
-`deckingName`, `stringerName`, `stringerCount`, `lumber`, `…Note`). `guardLoadRef` names the code table for the guard
-load, if any.
+`stairRun`, `risers`, `tread`, `padD`, `padT`, `landing` (the level landing at grade beyond the stair pad), and the printed names and notes (`joistName`, `beamName`, `postName`,
+`deckingName`, `stringerName`, `stringerCount`, `lumber`, `…Note`). `clearText` labels the clearance between the home's
+wall footing and the first deck footing on the section. Guard posts sit inside each deck corner (`guardPostNote`,
+`guardFixNote`, `guardBlockNote`). `guardLoadRef` names the code table for the guard load, if any.
 
 ## General notes
 

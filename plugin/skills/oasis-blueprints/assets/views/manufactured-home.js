@@ -101,7 +101,7 @@ function fdPlan(P, G, den) {
   const bo = G.beams.filter(b => b.outer);
   for (const x of G.ti.xs) for (const [yb, ya] of [[bo[0].y, t], [bo[1].y, W - t]]) { v.line(x, yb, x, ya, 'anchOk'); v.circle(x, ya, I(2.6), 'newS'); }
   // end ties at each end of each I-beam
-  for (const b of G.beams) for (const [xa, xb] of [[t, G.fr.xs[0] + I(14)], [L - t, G.fr.xs[G.fr.xs.length - 1] - I(14)]]) for (const dy of [-I(10), I(10)]) { v.line(xb, b.y + dy * 0.4, xa, b.y + dy, 'anchOk'); v.circle(xa, b.y + dy, I(2), 'newS'); }
+  for (const b of G.beams) for (const [xa, xb] of [[t, G.fr.xs[0] + I(14)], [L - t, G.fr.xs[G.fr.xs.length - 1] - I(14)]]) for (let k = 0; k < g.endTies; k++) { const dy = I(12) * (k - (g.endTies - 1) / 2); v.line(xb, b.y + dy * 0.3, xa, b.y + dy, 'anchOk'); v.circle(xa, b.y + dy, I(2), 'newS'); }
   // dimensions
   const xs = G.fr.xs, top = W + fo;
   v.dimH(0, xs[0], top + I(24), top); v.dimH(xs[0], xs[1], top + I(24), top, { text: Q(G.fr.s) });
@@ -400,7 +400,7 @@ function siteZoom(P, G, den) {
   siteWork(f, { s, drive: [[s.drive.x0, s.drive.yTop], [s.drive.x1, s.drive.yTop], [s.drive.x1, y0], [s.drive.x0, y0]] }, true, y0);
   f.text('(N) MANUFACTURED HOME', (h[0] + h[2]) / 2, (h[1] + h[3]) / 2 + 1.5, { cls: 'tN', anchor: 'middle' }); f.text(UP(s.homeModel), (h[0] + h[2]) / 2, (h[1] + h[3]) / 2 - 3, { cls: 'ts', anchor: 'middle' }); f.text('FOUNDATION: SEE SHEET ' + s.foundSheet, (h[0] + h[2]) / 2, (h[1] + h[3]) / 2 - 7.5, { cls: 'ts', anchor: 'middle' });
   f.text('FRONT · ' + UP(s.street), (h[0] + h[2]) / 2 - 10, y0 + 1, { cls: 'ts', anchor: 'middle' });
-  for (const [k, vt] of s.vents.entries()) { f.rect(vt[0] - 0.7, vt[1] - 0.45, vt[0] + 0.7, vt[1] + 0.45, 'steel'); f.text('V' + (k + 1), vt[0], vt[1] + (vt[1] > h[1] + 1 ? -2.6 : 1.3), { cls: 'ts', anchor: 'middle', size: 8 }); }
+  for (const vt of s.vents) f.rect(vt[0] - 0.5, vt[1] - 0.5, vt[0] + 0.5, vt[1] + 0.5, 'steel');
   f.rect(s.access[0] - 0.75, h[1] - 0.45, s.access[0] + 0.75, h[1] + 0.45, 'steel');
   // dimensions
   f.dimH(h[0], h[2], h[3] + 12, h[3], { text: ftin0(h[2] - h[0]) }); f.dimH(0, h[0], h[3] + 12, h[3], { text: ftin0(h[0]) }); f.dimH(h[2], b[3][0], h[3] + 12, h[3], { text: ftin0(b[3][0] - h[2]) });
@@ -416,7 +416,7 @@ function siteZoom(P, G, den) {
   f.note('(N) ELECTRIC (UE) AND\nMETER / DISCONNECT (M/D)', s.md[0] - 1.25, s.md[1], lx, h[1] + 2.6, { side: 'l', kind: 'N' });
   f.note('(N) CRAWL SPACE ACCESS\n18" × 24", CLEAR OF STAIRS', s.access[0], h[1], lx, h[1] - 11.4, { side: 'l', kind: 'N' });
   f.note('(N) HVAC PAD 4\' × 4\'', s.hvac[2], s.hvac[3] - 1, nx, h[3] + 9.3, { side: 'r', kind: 'N' });
-  f.note('(N) FOUNDATION VENTS V1–V4.\nSEE ' + GN(P, 'M8'), s.vents[3][0] + 0.7, s.vents[3][1], nx, h[3] + 1.3, { side: 'r', kind: 'N' });
+  f.note('(N) FOUNDATION VENTS PER\n' + GN(P, 'M8'), s.vents[s.vents.length - 1][0] + 0.5, s.vents[s.vents.length - 1][1], nx, h[3] + 1.3, { side: 'r', kind: 'N' });
   f.note(`(N) ASPHALT DRIVEWAY\n${UP(s.drive.label)}`, s.drive.x1, h[1] + 12.6, nx, h[3] - 11.7, { side: 'r', kind: 'N' });
   f.note('(N) FRONT ENTRY DECK 5\' × 5\',\nSTAIR 4\' WIDE × 5\' MAX. ON A\nCONCRETE PAD. SEE ' + s.deckSheet, fd.stair[2], fd.stair[1] + 2, nx, h[1] - 1.4, { side: 'r', kind: 'N' });
   return v.svg();
@@ -466,19 +466,19 @@ const SITE_STEPS = { stake: { util: 0, home: 0, drive: 0, decks: 0 }, util: { ut
 const SITE = {
   derive: siteDerive,
   picture: (P, G, o) => siteIso(P, G, o),
-  labels(P, G, iso) {
-    const s = G.s, T = iso._T, L = lab(iso), X1 = G.X1, Y1 = G.Y1, at = (x, y, z) => { const t = T(x, y); return [t[0], t[1], z * K]; }, sp = p => [(p[0] - p[1]) * 0.866, (p[0] + p[1]) / 2 - p[2]];
-    const h = s.home, top = sp(at(X1 / 2, Y1 + 1.6, 0))[1] - 160, bot = sp(at(X1 / 2, G.Y0 - 22, 0))[1] + 150;
-    if (s.woodland) L(UP(s.woodland), at(X1 / 2, Y1 * 0.77, 0), sp(at(0, Y1 * 0.91, 0))[0] - 200, top, { side: 'r' });
-    L(`(N) MANUFACTURED HOME\n${UP(s.homeSize)}`, at((h[0] + h[2]) / 2, h[3], 11), sp(at(X1, Y1 * 0.72, 0))[0] - 100, top + 330, { side: 'l', kind: 'N' });
-    L('(N) ASPHALT DRIVEWAY', at(s.drive.x1 - 6, h[1] - 13.4, 0), sp(at(X1, 20, 0))[0] - 520, bot, { side: 'l', kind: 'N' });
-    L('(N) WATER, SEWER AND ELECTRIC', at(s.sewer[1][0], h[1] - 23.4, 0), sp(at(0, 0, 0))[0] + 260, bot + 150, { side: 'r', kind: 'N' });
-    L(UP(s.street), at(X1 * 0.44, G.arcY(X1 * 0.44) - 34, 0), sp(at(X1 * 0.44, G.arcY(X1 * 0.44) - 34, 0))[0] + 300, bot + 300, { side: 'r' });
+  labels(P, G, iso) {                                                  // each label sits at a fixed offset from its own anchor, in picture units
+    const s = G.s, T = iso._T, X1 = G.X1, Y1 = G.Y1, h = s.home, at = (x, y, z) => { const t = T(x, y); return [t[0], t[1], z * K]; }, sp = p => [(p[1] - p[0]) * 0.866, (p[0] + p[1]) / 2 - p[2]];
+    const L = (t, a, dx, dy, o) => { const q = sp(a); iso.label(t, a, q[0] + dx, q[1] + dy, o); };
+    if (s.woodland) L(UP(s.woodland), at(X1 / 2, Y1 * 0.77, 0), 648, -420, { side: 'r' });
+    L(`(N) MANUFACTURED HOME\n${UP(s.homeSize)}`, at((h[0] + h[2]) / 2, h[3], 11), 668, -380, { side: 'r', kind: 'N' });
+    L('(N) ASPHALT DRIVEWAY', at(s.drive.x1 - 6, h[1] - 13.4, 0), 362, -272, { side: 'r', kind: 'N' });
+    L('(N) WATER, SEWER AND ELECTRIC', at(s.sewer[1][0], h[1] - 23.4, 0), -614, 268, { side: 'l', kind: 'N' });
+    L(UP(s.street), at(X1 * 0.44, G.arcY(X1 * 0.44) - 34, 0), -666, 560, { side: 'l' });
   },
   stepPicture: (P, G, step, k) => siteIso(P, G, { den: 1150, id: 'sst' + k, quiet: true, mode: SITE_STEPS[step.pic] || SITE_STEPS.all }).svg(),
   field: {
     pictureNote: 'Seen from the street. Trees not shown.',
-    planHeight: 8.3, pictureDen: 460, coverDen: 520,
+    planHeight: 8.3, pictureDen: 400, coverDen: 520,
     plan:    { title: 'Site plan', den: 360, draw: sitePlan, note: P => (P.site && P.site.sourceNote) || 'From owner-furnished information. Not a boundary or topographic survey' },
     section: { title: 'Enlarged plan at the home', den: 180, draw: siteZoom },
     details: [
@@ -509,15 +509,16 @@ function deckPlan(P, G, den) {
   v.rect(0, 0, L, jt, 'new'); v.rect(0, D - jt, L, D, 'new');
   for (const p of G.posts) v.rect(p.x - h, p.y - h, p.x + h, p.y + h, 'newS');
   // stair and lower landing
-  v.rect(G.sx0, G.yPad0, G.sx1, G.yPad1, 'newH'); v.rect(G.sx0, D, G.sx1, G.yEnd, 'new'); for (let k = 1; k < G.nT; k++) v.line(G.sx0, D + k * d.tread, G.sx1, D + k * d.tread, 'new');
+  v.rect(G.sx0, G.yEnd, G.sx1, G.yEnd + d.landing, 'newH'); v.rect(G.sx0, G.yPad0, G.sx1, G.yPad1, 'new'); v.rect(G.sx0, D, G.sx1, G.yEnd, 'new'); for (let k = 1; k < G.nT; k++) v.line(G.sx0, D + k * d.tread, G.sx1, D + k * d.tread, 'new');
   v.text('DN', L / 2, D + I(4), { cls: 'ts', anchor: 'middle' });
   // dimensions
   v.dimH(0, G.xP[0], -d.gap - I(14), -d.gap - I(8)); v.dimH(G.xP[0], G.xP[1], -d.gap - I(14), -d.gap - I(8)); v.dimH(G.xP[1], L, -d.gap - I(14), -d.gap - I(8));
   v.dimH(0, L, -d.gap - I(24), -d.gap - I(8), { text: FMT(L) + ' OUT TO OUT' });
-  const ys = [0, G.yB[0], G.yB[1], D, G.yEnd], tx = [null, null, null, '±' + FMT(G.yEnd - D) + ' STAIR'];
+  const ys = [0, G.yB[0], G.yB[1], D, G.yEnd, G.yEnd + d.landing], tx = [null, null, null, '±' + FMT(G.yEnd - D) + ' STAIR', FMT(d.landing) + ' MIN.'];
   for (let i = 0; i < ys.length - 1; i++) v.dimV(ys[i], ys[i + 1], lx + I(14), i > 2 ? G.sx0 : 0, tx[i] ? { text: tx[i] } : {});
   v.dimV(0, D, lx, 0, { text: FMT(D) + ' OUT TO OUT' });
-  v.dimH(G.sx0, G.sx1, G.yPad1 + I(10), G.yPad1, { text: FMT(d.stairW) + ' STAIR AND PAD' });
+  v.note('LEVEL LANDING AT GRADE,\n' + FMT(d.landing) + ' MIN. × WIDTH OF STAIR', G.sx1, G.yEnd + d.landing * 0.7, nx, G.yEnd + d.landing * 0.8, { side: 'r' });
+  v.dimH(G.sx0, G.sx1, G.yEnd + d.landing + I(10), G.yEnd + d.landing, { text: FMT(d.stairW) + ' STAIR AND PAD' });
   // notes
   v.note('NO LEDGER. DECK IS NOT\nCONNECTED TO THE HOME', L * 0.8, -d.gap / 2, nx, -I(4), { side: 'r' });
   v.note(`(N) ${d.beamName} BEAM BELOW\nJOISTS. SEE ${REF.d2}/${REF.sheet}`, L, G.yB[0], nx, G.yB[0] + I(3), { side: 'r', kind: 'N' });
@@ -528,7 +529,7 @@ function deckPlan(P, G, den) {
   v.note(`(N) CONCRETE PAD UNDER THE\nSTRINGERS. SEE ${REF.d4}/${REF.sheet}`, G.sx1, G.yPad1 - I(1.5), nx, G.yPad1 + I(4), { side: 'r', kind: 'N' });
   // section cut
   const sx = L * 0.42, ty = -d.gap - I(34);
-  v.line(sx, G.yPad1 + I(4), sx, -d.gap - I(26), 'cutl'); v.line(sx, ty, sx, ty - I(6), 'cutl2'); v.line(sx, ty - I(6), sx + I(8), ty - I(6), 'cutl2'); v.arrow(sx + I(8), ty - I(6), sx, ty - I(6));
+  v.line(sx, G.yEnd + d.landing + I(4), sx, -d.gap - I(26), 'cutl'); v.line(sx, ty, sx, ty - I(6), 'cutl2'); v.line(sx, ty - I(6), sx + I(8), ty - I(6), 'cutl2'); v.arrow(sx + I(8), ty - I(6), sx, ty - I(6));
   v.bubble(sx - I(10), ty - I(4), String(REF.section), REF.sheet);
   return v.svg();
 }
@@ -565,9 +566,8 @@ function deckSection(P, G, den) {
   // guard at the deck side and handrail along the stair, shown beyond
   { const zb = d.deckH + I(2.5), gp = I(3.5);                                                       // deck guard: 4x4 posts, 2x4 rails, 2x2 balusters at 5 in
     v.rect(I(1), top - I(1.5), D, top, 'new'); v.rect(I(1), zb, D, zb + I(1.5), 'new');
-    for (const y of [G.yB[0] - gp / 2, G.yB[1] - gp / 2]) v.rect(y, G.zBeamTop, y + gp, top, 'new', { fill: '#fff' });
-    for (let y = G.yB[0] + gp / 2 + I(2.5); y + I(1.5) < G.yB[1] - gp / 2; y += I(5)) v.rect(y, zb + I(1.5), y + I(1.5), top - I(1.5), 'new');
-    for (let y = G.yB[0] - gp / 2 - I(4.5); y > I(1.5); y -= I(5)) v.rect(y, zb + I(1.5), y + I(1.5), top - I(1.5), 'new'); }
+    const ps = [jt, (D - gp) / 2, D - gp]; for (const y of ps.slice(0, 2)) v.rect(y, G.zBeamTop, y + gp, top, 'new', { fill: '#fff' });
+    for (let k = 0; k < 2; k++) { const a0 = ps[k] + gp, a1 = ps[k + 1], n = Math.max(1, Math.round((a1 - a0) / I(5))), st = (a1 - a0) / n; for (let q = 1; q < n; q++) v.rect(a0 + q * st - I(0.75), zb + I(1.5), a0 + q * st + I(0.75), top - I(1.5), 'new'); } }
   const hr = I(36), y0 = D, y1 = yEnd, sl = G.rise / d.tread, zN = y => d.deckH - (y - y0) * sl, z1 = zN(y1);
   { const gp = I(3.5);                                                                                // stair guard and handrail, parallel to the nosing line
     v.poly([[y0, d.deckH + hr], [y1, z1 + hr], [y1, z1 + hr - I(1.5)], [y0, d.deckH + hr - I(1.5)]], 'new', true); v.poly([[y0, d.deckH + I(4)], [y1, z1 + I(4)], [y1, z1 + I(2.5)], [y0, d.deckH + I(2.5)]], 'new', true);
@@ -575,12 +575,13 @@ function deckSection(P, G, den) {
     for (let y = y0 + I(2.5); y + I(1.5) < y1 - gp; y += I(5)) v.poly([[y, zN(y) + I(4)], [y + I(1.5), zN(y + I(1.5)) + I(4)], [y + I(1.5), zN(y + I(1.5)) + hr - I(1.5)], [y, zN(y) + hr - I(1.5)]], 'new', true); }
   // dimensions and datums
   v.dimH(0, G.yB[0], -d.footingDepth - I(9), -d.footingDepth); v.dimH(G.yB[0], G.yB[1], -d.footingDepth - I(9), -d.footingDepth); v.dimH(G.yB[1], D, -d.footingDepth - I(9), -d.footingDepth);
-  v.dimH(D, G.yEnd, -d.footingDepth - I(9), 0, { text: '±' + FMT(G.yEnd - D) + ' STAIR' });
+  v.dimH(D, G.yEnd, -d.footingDepth - I(9), 0, { text: '±' + FMT(G.yEnd - D) + ' STAIR' }); v.dimH(G.yEnd, G.yEnd + d.landing, -d.footingDepth - I(9), 0, { text: FMT(d.landing) + ' MIN. LEVEL LANDING AT GRADE' });
+  v.dimH(-d.gap + (F.ftgB - F.wallT) / 2, G.yB[0] - d.footingDia / 2, -d.footingDepth - I(17), -d.footingDepth, { text: d.clearText });
   v.dimV(-d.footingDepth, 0, G.yB[1] + I(20), G.yB[1] + d.footingDia / 2, { text: FMT(d.footingDepth) + ' MIN.' });
   v.dimV(d.deckH, top, D + I(10), D, { text: FMT(d.guardH) + ' MIN.' });
   v.datum(`TOP OF DECK ${FMT(d.deckH, true)}\nMATCH THRESHOLD, V.I.F.`, lx, d.deckH, -d.gap - I(26)); v.datum('FINISHED GRADE', lx, 0, -d.gap - I(14));
   // notes above
-  const ny = top + I(26);
+  const ny = top + I(22);
   v.note('HOME AND PERIMETER\nWALL. SEE SHEET ' + P.site.foundSheet, -d.gap - I(3), top + I(8), -d.gap - I(8), ny, { side: 'l' });
   v.note(`(N) GUARD ${FMT(d.guardH)} MIN.: 4×4 POSTS,\n2×4 RAILS, 2×2 @ 5" O.C. SEE ${REF.d3}/${REF.sheet}`, D * 0.45, top, D * 0.2, ny, { side: 'r', kind: 'N' });
   v.note('(N) GRASPABLE HANDRAIL 34" TO 38"\nABOVE THE NOSINGS, CONTINUOUS FOR\nTHE FLIGHT, ENDS RETURNED', (y0 + y1) / 2, (d.deckH + hr + hr) / 2, D + I(26), ny + I(5), { side: 'r', kind: 'N' });
@@ -626,28 +627,31 @@ function deckBeam(P, G, den) {
 }
 
 // ------------------------------------------------------------------ 5  GUARD AT THE DECK EDGE
-function deckGuard(P, G, den) {                                         // guard elevation at a beam: post on the beam, rails and balusters
-  const d = G.d, v = new View(den, 'dguard'), ply = d.plyT, zb0 = -d.beamDepth, zt = d.joistDepth, zd = zt + d.deckingT, top = zd + d.guardH, gp = I(1.75), x0 = -I(15), x1 = I(15), nx = x1 + I(5), lx = x0 - I(5), zbr = zd + I(2.5);
-  v.rect(x0, 0, x1, zt, 'newF'); v.line(x0, 0, x1, 0, 'new'); v.line(x0, zt, x1, zt, 'new'); v.rect(x0, zt, x1, zd, 'new');           // end joist and decking, beyond
-  v.lumber(-ply, zb0, 0, 0, 'new'); v.lumber(0, zb0, ply, 0, 'new');                                                                    // beam, cut
-  v.rect(-gp, 0, gp, top, 'new', { fill: '#fff' }); v.rect(-gp, 0, gp, top, 'newF');                                                    // 4x4 guard post on the beam
-  for (const k of [-1, 1]) v.poly([[k * gp, I(3)], [k * (gp + I(0.2)), I(3)], [k * (gp + I(0.2)), -I(3)], [k * ply, -I(3)], [k * ply, 0], [k * gp, 0]], 'steel', true);   // LPC4Z each side
-  for (const k of [-1, 1]) { const a = k * gp, b = k > 0 ? x1 : x0;
-    v.rect(Math.min(a, b), top - I(1.5), Math.max(a, b), top, 'new'); v.rect(Math.min(a, b), zbr, Math.max(a, b), zbr + I(1.5), 'new');   // 2x4 top and bottom rails
-    for (let x = gp + I(3.2); x + I(1.5) <= I(15); x += I(5)) v.rect(k > 0 ? x : -x - I(1.5), zbr + I(1.5), k > 0 ? x + I(1.5) : -x, top - I(1.5), 'new');
-    for (const z of [top - I(1.5), zbr]) v.rect(k > 0 ? a : a - I(1.4), z - I(1.4), k > 0 ? a + I(1.4) : a, z, 'steel'); }
-  for (const x of [x0, x1]) v.poly([[x, -I(0.8)], [x - I(0.4), zt * 0.3], [x + I(0.4), zt * 0.7], [x, zd + I(0.8)]], 'o2', false);
-  v.dimV(zd, top, nx + I(27), x1, { text: FMT(d.guardH) + ' MIN.' }); v.dimV(zd, zbr, x0 - I(2), x0, { text: '4" MAX.' });
-  v.dimH(gp + I(3.2) + I(0.75), gp + I(8.2) + I(0.75), top + I(5), top, { text: '5" O.C.' });
-  v.note('(N) ' + wrap(UP(d.guardRailNote), 28), I(9), top, nx, top + I(2), { side: 'r', kind: 'N' });
-  v.note('(N) ' + wrap(UP(d.guardBalNote), 28), gp + I(9.7), zd + d.guardH * 0.62, nx, zd + d.guardH * 0.7, { side: 'r', kind: 'N' });
-  v.note('(N) ' + wrap(UP(d.guardPostNote), 28), gp, zd + d.guardH * 0.36, nx, zd + d.guardH * 0.38, { side: 'r', kind: 'N' });
-  v.note('(N) ' + wrap(UP(d.guardClipNote), 28), gp + I(0.7), zbr - I(0.7), nx, zd + I(1), { side: 'r', kind: 'N' });
-  v.note('(N) ' + wrap(UP(d.guardFixNote), 28), gp + I(0.2), -I(1.5), nx, -I(5), { side: 'r', kind: 'N' });
-  v.note('GUARD AND HANDRAIL RESIST\n200 LB AT THE TOP, ANY\nDIRECTION' + (d.guardLoadRef ? ` (${UP(d.guardLoadRef)})` : ''), -I(8), top, lx, top + I(3), { side: 'l' });
-  v.note('A 4" SPHERE SHALL NOT\nPASS ANY OPENING', -I(7.5), zd + d.guardH * 0.5, lx, zd + d.guardH * 0.55, { side: 'l' });
-  v.note(`END JOIST AND DECKING`, -I(10), zt * 0.5, lx, zt * 1.6, { side: 'l' });
-  v.note(`(N) ${d.beamName} BEAM`, -ply, zb0 * 0.6, lx, zb0 * 0.7, { side: 'l', kind: 'N' });
+function deckGuard(P, G, den) {                                         // guard post inside the deck corner, seen from the deck: rim cut at the left, end joist beyond
+  const d = G.d, v = new View(den, 'dguard'), jt = d.joistT, zt = d.joistDepth, zd = zt + d.deckingT, top = zd + d.guardH, gp = I(3.5), x1 = I(24), nx = x1 + I(5), lx = -I(9), zbr = zd + I(2.5);
+  v.rect(gp, 0, x1, zt, 'newF'); v.line(gp, 0, x1, 0, 'new'); v.line(gp, zt, x1, zt, 'new');                       // end joist, beyond
+  v.lumber(-jt, 0, 0, zt, 'new');                                                                                  // rim, cut
+  v.rect(0, 0, gp, top, 'new', { fill: '#fff' }); v.rect(0, 0, gp, top, 'newF');                                   // 4x4 guard post
+  v.lumber(gp, 0, gp + jt, zt, 'new');                                                                             // full-depth blocking against the post
+  v.rect(-jt - I(0.75), zt, 0, zd, 'new'); v.rect(gp, zt, x1, zd, 'new');                                          // decking, notched at the post
+  for (const z of [I(1.75), I(4.5)]) { v.line(-jt - I(0.6), z, gp + I(0.6), z, 'anchOk'); v.rect(-jt - I(0.35), z - I(0.6), -jt, z + I(0.6), 'steel'); v.rect(gp, z - I(0.6), gp + I(0.35), z + I(0.6), 'steel'); }   // bolts through the rim
+  for (const z of [I(3.1), I(5.75)]) { v.circle(gp / 2, z, I(0.55), 'steel'); v.circle(gp / 2, z, I(0.22), 'newS'); }                                                                                         // bolts through the end joist
+  v.rect(gp, top - I(1.5), x1, top, 'new'); v.rect(gp, zbr, x1, zbr + I(1.5), 'new');
+  for (let x = gp + I(3.2); x + I(1.5) <= x1 - I(1); x += I(5)) v.rect(x, zbr + I(1.5), x + I(1.5), top - I(1.5), 'new');
+  for (const z of [top - I(1.5), zbr]) v.rect(gp, z - I(1.4), gp + I(1.4), z, 'steel');
+  v.poly([[x1, -I(0.8)], [x1 - I(0.4), zt * 0.3], [x1 + I(0.4), zt * 0.7], [x1, zd + I(0.8)]], 'o2', false);
+  v.dimV(zd, top, nx + I(27), x1, { text: FMT(d.guardH) + ' MIN.' }); v.dimV(zd, zbr, x1 + I(2), x1, { text: '4" MAX.' });
+  v.dimH(gp + I(3.95), gp + I(8.95), top + I(5), top, { text: '5" O.C.' });
+  v.note('(N) ' + wrap(UP(d.guardRailNote), 28), I(16), top, nx, top + I(2), { side: 'r', kind: 'N' });
+  v.note('(N) ' + wrap(UP(d.guardBalNote), 28), gp + I(14.7), zd + d.guardH * 0.66, nx, zd + d.guardH * 0.74, { side: 'r', kind: 'N' });
+  v.note('(N) ' + wrap(UP(d.guardPostNote), 28), gp, zd + d.guardH * 0.42, nx, zd + d.guardH * 0.46, { side: 'r', kind: 'N' });
+  v.note('(N) ' + wrap(UP(d.guardClipNote), 28), gp + I(1.4), zbr - I(0.7), nx, zd + I(4.5), { side: 'r', kind: 'N' });
+  v.note('(N) ' + wrap(UP(d.guardBlockNote), 28), gp + jt, zt * 0.6, nx, zt * 0.55, { side: 'r', kind: 'N' });
+  v.note('(N) ' + wrap(UP(d.guardFixNote), 28), gp / 2 + I(0.5), I(3.1), nx, -I(2.5), { side: 'r', kind: 'N' });
+  v.note('GUARD AND HANDRAIL RESIST\n200 LB AT THE TOP, ANY\nDIRECTION' + (d.guardLoadRef ? ` (${UP(d.guardLoadRef)})` : ''), I(1), top, lx, top + I(3), { side: 'l' });
+  v.note('A 4" SPHERE SHALL NOT\nPASS ANY OPENING', I(0.5), zd + d.guardH * 0.5, lx, zd + d.guardH * 0.55, { side: 'l' });
+  v.note(`(N) ${d.joistName} RIM`, -jt, zt * 0.75, lx, zt * 1.5, { side: 'l', kind: 'N' });
+  v.note('END JOIST BEYOND', gp + I(4), I(0.6), lx, -I(3), { side: 'l' });
   return v.svg();
 }
 
@@ -656,7 +660,7 @@ function deckStair(P, G, den) {
   const d = G.d, v = new View(den, 'dstair'), D = d.D, jt = d.joistT, ny = d.deckH + I(16);
   v.lumber(D - jt, G.zBeamTop, D, G.zJoistTop, 'new'); v.rect(D - I(14), G.zJoistTop, D + I(0.75), d.deckH, 'new'); v.rect(D - I(14), G.zBeamTop, D - jt, G.zJoistTop, 'newF');
   const yEnd = dkStair(v, G); v.line(D - I(16), 0, D + I(2), 0, 'o');
-  v.rect(G.yPad0, -d.padT, G.yPad1, 0, 'new', { fill: v.pat('conc') }); v.line(D + I(2), 0, G.yPad0, 0, 'o'); v.line(G.yPad1, 0, G.yPad1 + I(24), 0, 'o');
+  v.rect(G.yPad0, -d.padT, G.yPad1, 0, 'new', { fill: v.pat('conc') }); v.line(D + I(2), 0, G.yPad0, 0, 'o'); v.line(G.yPad1, 0, G.yEnd + d.landing + I(4), 0, 'o'); v.dimH(yEnd, yEnd + d.landing, -d.padT - I(15), 0, { text: FMT(d.landing) + ' MIN. LANDING AT GRADE' });
   v.poly([[yEnd - I(4.6), 0], [yEnd - I(7), 0], [yEnd - I(7), I(0.3)], [yEnd - I(4.9), I(0.3)], [yEnd - I(4.9), I(2.4)], [yEnd - I(4.6), I(2.4)]], 'steel', true);   // angle at the stringer toe
   v.dimV(0, d.deckH, D - I(24), D - I(14), { text: `${FMT(d.deckH, true)} V.I.F.` });
   v.dimH(D, yEnd, -d.padT - I(15), 0, { text: `${G.nT} TREADS` }); v.dimH(G.yPad0, G.yPad1, -d.padT - I(8), -d.padT); v.dimV(-d.padT, 0, G.yPad1 + I(8), G.yPad1);
@@ -709,13 +713,13 @@ const DECK = {
   stepPicture: (P, G, step, k) => deckIso(P, G, { den: 64, id: 'dst' + k, quiet: true, mode: DECK_STEPS[step.pic] || DECK_STEPS.all }).svg(),
   field: {
     pictureNote: 'Front entry shown. Rear entry is the same. Stair handrails not shown.',
-    planHeight: 8.9, pictureDen: 30, coverDen: 30,
+    planHeight: 8.6, pictureDen: 30, coverDen: 30,
     plan:    { title: 'Framing and footing plan', den: 24, draw: deckPlan, note: 'Typical of 2 · front and rear entries' },
     section: { title: 'Section through deck and stair', den: 24, draw: deckSection },
     details: [
       { title: 'Footing and post base', den: 12, draw: deckFooting, note: 'Typical of 4 per deck' },
       { title: 'Joist, beam and post', den: 8, draw: deckBeam, note: 'Typical of 4 per deck' },
-      { title: 'Guard post at beam', den: 12, draw: deckGuard, note: 'Each open side' },
+      { title: 'Guard post at deck corner', den: 12, draw: deckGuard, note: 'Each corner; mid-side post similar' },
       { title: 'Stair and stringer pad', den: 16, draw: deckStair },
     ],
   },
