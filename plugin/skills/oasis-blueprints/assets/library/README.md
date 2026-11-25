@@ -22,6 +22,7 @@ Reference material the drawing skill can pull from. Each library keeps its data 
 |---|---|---|---|
 | `deck` | Freestanding rectangular deck on posts and footings | Floor or deck framing plan, Sections, Details, 3D view, Assembly steps | Deck, no sets mapped yet (`freestanding`) |
 | `sunroom` | Sloped roof on posts against a house | Roof framing plan, Sections, Elevations, Details, 3D view, Assembly steps | Patio / lanai addition (`sunroom-monoslope`, `sunroom`, `covered-porch`, `covered-patio`) |
+| `manufactured-home` | Pier foundation, site plan and entry decks for a multi-section HUD-code manufactured home | Site plan, Foundation plan, Sections, Details, Decking plan, Stair, 3D view, Assembly steps | none mapped yet |
 | `library` | Sheets of library details only | nothing | none |
 
 Any other project type needs its own drawing code beside the project file (see `skills/oasis-blueprints/references/writing-views.md`).

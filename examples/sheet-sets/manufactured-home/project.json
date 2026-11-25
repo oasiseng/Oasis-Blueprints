@@ -1,0 +1,911 @@
+{
+ "schema": "oasis-blueprints/0.2",
+ "jobType": "manufactured-home",
+ "status": "draft",
+ "firm": {
+  "name": "Your Company",
+  "wordmark": "Your Company",
+  "lines": [
+   "Street address",
+   "City, State ZIP",
+   "License no.",
+   "Phone",
+   "website"
+  ]
+ },
+ "project": {
+  "number": "EX-007",
+  "title": "Manufactured Home Foundation, Site Plan and Entry Decks",
+  "subtitle": "Permanent pier foundation, site plan and entry decks for a manufactured home",
+  "address": "456 Sample Ave",
+  "locality": "Anytown, ST 00000",
+  "permit": "",
+  "relatedPermit": "",
+  "use": "Multi-section HUD-code manufactured home. Foundation, support and anchorage system, site plan and freestanding entry decks."
+ },
+ "people": {
+  "drawnBy": "Drafter",
+  "checkedBy": "Engineer",
+  "engineer": ""
+ },
+ "issue": {
+  "date": "2026-11-25",
+  "rev": "0",
+  "revisions": []
+ },
+ "summary": {
+  "headline": "Block piers on concrete pads, a perimeter wall and a strapped-down frame.",
+  "text": "The home is supported on block piers under each main frame I-beam and along the marriage line. Each pier bears on a reinforced concrete pad 24 in. below grade. A reinforced masonry perimeter wall on a continuous footing encloses the crawl space and provides resistance to anchorage forces.",
+  "howToRead": "Start with the site plan for where the home sits, then the foundation sheet, then the entry decks. On each sheet, read the overview and the construction sequence first. Blue is new work. Grey is the manufactured home or an existing site feature.",
+  "sequenceNote": "The illustrated construction sequence is provided to communicate general design intent. Construction means, methods, sequencing, temporary supports, equipment and jobsite safety shall be the responsibility of the contractor/installer. Maintain structural stability throughout all phases of installation.",
+  "reserved": "",
+  "reservedTitle": "Reserved: engineer's general notes",
+  "coverTop": 15.4
+ },
+ "facts": [
+  {
+   "k": "Home",
+   "tag": "",
+   "v": "26'-4\" × 48'",
+   "s": "Two 13'-2\" sections. Verify in field"
+  },
+  {
+   "k": "Frame piers",
+   "tag": "N",
+   "v": "Block @ 8'-0\" max.",
+   "s": "28 single-stack 8×8×16 CMU piers, mortared"
+  },
+  {
+   "k": "Pads",
+   "tag": "N",
+   "v": "24\" × 24\" × 8\"",
+   "s": "#3 @ 12 in. both directions. 26 in. at the 2 column piers"
+  },
+  {
+   "k": "Perimeter wall",
+   "tag": "N",
+   "v": "8\" CMU, reinforced",
+   "s": "On a 16 × 10 in. continuous footing"
+  },
+  {
+   "k": "Footing depth",
+   "tag": "N",
+   "v": "24\" below grade",
+   "s": "Frost depth 18 in."
+  },
+  {
+   "k": "Tie-downs",
+   "tag": "N",
+   "v": "Straps @ 8'-0\" max.",
+   "s": "Anchors 6 in. above grade. 4 end ties per I-beam end"
+  }
+ ],
+ "steps": [
+  {
+   "pic": "footings",
+   "title": "Lay out, excavate and place concrete",
+   "text": "Set out the pads from the home's main frame lines and the wall footing around the perimeter. Excavate to 24 in. below finished grade on undisturbed soil. Place the reinforcing and dowels, then place the pads and the wall footing.",
+   "hold": "Footing inspection, and observation of the bearing soil, before concrete is placed.",
+   "ref": "Details {d1} and {d2}"
+  },
+  {
+   "pic": "piers",
+   "title": "Build the piers and the perimeter wall",
+   "text": "Lay the block piers on the pads in mortar: single-stack under the frame I-beams, double-stack and interlocked along the marriage line. Lay the perimeter wall, set the strap anchors in the anchor course and grout the reinforced cells.",
+   "hold": "Reinforcing and anchor inspection before grouting.",
+   "ref": "Details {d1}, {d2} and {d3}"
+  },
+  {
+   "pic": "home",
+   "title": "Set the home",
+   "text": "Set and level both sections on the piers with solid caps, shims and wedges, then join the sections per the manufacturer's instructions. Set the ridge-beam column piers and the door piers before the sections are joined.",
+   "ref": "Section {section}"
+  },
+  {
+   "pic": "ties",
+   "title": "Tie down and close up",
+   "text": "Install the diagonal frame ties from each outer I-beam to the wall anchors, and the 4 end ties at each end of every I-beam, then tension them. Install the ground cover, vents and access, backfill both faces of the wall together and grade away from the home.",
+   "hold": "Tie-down inspection before the crawl space is closed.",
+   "ref": "Details {d2} and {d4}"
+  }
+ ],
+ "scope": [
+  {
+   "kind": "n",
+   "item": "Pads",
+   "text": "Reinforced concrete pads, 8 in. thick, bottom 24 in. below grade: 24 × 24 in. under the main frame I-beams and along the marriage line, 26 × 26 in. at the 2 ridge-beam column piers."
+  },
+  {
+   "kind": "n",
+   "item": "Piers",
+   "text": "Single-stack 8×8×16 CMU frame piers at 8 ft max. Double-stack 16×16 CMU marriage-line piers at 8 ft max."
+  },
+  {
+   "kind": "n",
+   "item": "Perimeter wall",
+   "text": "8 in. reinforced CMU perimeter foundation wall on a 16 × 10 in. continuous footing, bottom 24 in. below grade. Non-bearing; carries the strap anchors 6 in. above grade and encloses the crawl space. Ground cover, vents and access."
+  },
+  {
+   "kind": "n",
+   "item": "Tie-downs",
+   "text": "Diagonal frame ties at 8 ft max. each side and 4 end ties at each end of each I-beam, to listed anchors in the wall."
+  },
+  {
+   "kind": "n",
+   "item": "Entry decks",
+   "text": "Two freestanding 5 × 5 ft entry decks with stairs, front and rear. Not connected to the home."
+  },
+  {
+   "kind": "n",
+   "item": "Site plan",
+   "text": "Placement of the home, driveway, decks and services on the lot."
+  },
+  {
+   "kind": "e",
+   "item": "The home",
+   "text": "Multi-section manufactured home built to the HUD Code. Structure, set-up and close-up are by the manufacturer and the installer."
+  },
+  {
+   "kind": "o",
+   "tag": "By others",
+   "item": "Utilities, survey, grading",
+   "text": "Utility connections, boundary survey, grading and drainage design, driveway construction."
+  }
+ ],
+ "notes": [
+  {
+   "title": "Home",
+   "start": 1,
+   "items": [
+    "Manufactured home: two sections, 13'-2\" × 48'-0\" each. Main frame I-beams at 99½\" o.c., 29¼\" from each section edge, per the manufacturer's support drawing. Verify against the actual chassis prior to footing layout. Refer discrepancies to the engineer of record."
+   ]
+  },
+  {
+   "title": "Supports",
+   "start": 2,
+   "items": [
+    "Provide 28 main frame support piers and 7 marriage-line piers on 24\" × 24\" × 8\" pads, and 26\" × 26\" × 8\" pads at the 2 ridge-beam columns, as drawn. Pier and pad sizes are subject to the support reactions (open item)."
+   ]
+  },
+  {
+   "title": "Construction",
+   "start": 3,
+   "items": [
+    "Locate underground utilities before excavation. [HOLD]",
+    "Bearing soil at each footing shall be observed by the installer before concrete is placed. [HOLD]",
+    "Sequence the perimeter wall and the home setting to maintain access; means and methods are by the installer."
+   ]
+  },
+  {
+   "title": "Site and decks",
+   "start": 6,
+   "items": [
+    "Site plan is drawn from owner-furnished information, the recorded plat and aerial imagery. It is not a boundary or topographic survey. Stake the home from the property corners and verify the setbacks before excavation. [HOLD]",
+    "Entry decks are freestanding and are not connected to the home. See sheet S2.0."
+   ]
+  }
+ ],
+ "criteria": [
+  {
+   "k": "Governing code",
+   "v": ""
+  },
+  {
+   "k": "Home",
+   "v": "HUD-code, two sections, 26'-4\" × 48'-0\", HUD Wind Zone I"
+  },
+  {
+   "k": "Basic wind speed and exposure",
+   "v": ""
+  },
+  {
+   "k": "Ground snow load",
+   "v": ""
+  },
+  {
+   "k": "Seismic",
+   "v": ""
+  },
+  {
+   "k": "Frost depth",
+   "v": ""
+  },
+  {
+   "k": "Allowable soil bearing pressure",
+   "v": ""
+  },
+  {
+   "k": "Concrete / grout / reinforcing",
+   "v": ""
+  },
+  {
+   "k": "Flood zone",
+   "v": ""
+  }
+ ],
+ "openItems": [
+  {
+   "key": "home",
+   "title": "Home data",
+   "text": "Chassis length, section widths, I-beam spacing and the ridge-beam column locations are from the manufacturer's support drawing.",
+   "who": "Field verify, then engineer",
+   "answer": ""
+  },
+  {
+   "key": "reactions",
+   "title": "Support reactions",
+   "text": "Reactions at the outer and inner frame piers, the marriage-line piers and the ridge-beam columns set the pier and pad sizes.",
+   "who": "Engineer",
+   "answer": ""
+  },
+  {
+   "key": "bearing",
+   "title": "Soil bearing and footing depth",
+   "text": "No geotechnical report. Pads are drawn 24 × 24 × 8 in., bottom 24 in. below grade.",
+   "who": "Engineer",
+   "answer": ""
+  },
+  {
+   "key": "wind",
+   "title": "Wind and anchorage",
+   "text": "Diagonal frame ties are drawn at 8'-0\" max. each side with 4 end ties per I-beam end. Strap and anchor capacities depend on the design wind speed.",
+   "who": "Engineer",
+   "answer": ""
+  },
+  {
+   "key": "loads",
+   "title": "Snow and seismic",
+   "text": "Ground snow load and seismic design category for the site.",
+   "who": "Engineer",
+   "answer": ""
+  },
+  {
+   "key": "survey",
+   "title": "Lot lines and setbacks",
+   "text": "The site plan is drawn from the plat and aerial imagery, not a survey.",
+   "who": "Owner, then surveyor if corners are missing",
+   "answer": ""
+  },
+  {
+   "key": "decks",
+   "title": "Entry decks",
+   "text": "Footing size and depth, lumber species and grade, and the guard load for the two freestanding decks.",
+   "who": "Engineer",
+   "answer": ""
+  }
+ ],
+ "sheets": [
+  {
+   "no": "S0.0",
+   "type": "cover",
+   "name": "Cover, scope and notes",
+   "what": "Scope, design criteria, project-specific design notes and general notes."
+  },
+  {
+   "no": "C1.0",
+   "type": "field",
+   "view": "site",
+   "name": "Site plan",
+   "what": "Home placement, setbacks, driveway, services and lot coverage."
+  },
+  {
+   "no": "S1.0",
+   "type": "field",
+   "view": "foundation",
+   "name": "Foundation plan, section and details",
+   "what": "Foundation system overview, construction sequence, plan, sections and details."
+  },
+  {
+   "no": "S2.0",
+   "type": "field",
+   "view": "deck",
+   "name": "Entry decks",
+   "what": "Freestanding entry deck framing, footings, guard and stair. Typical of 2."
+  }
+ ],
+ "sheetData": {
+  "site": {
+   "pictureTitle": "Site overview",
+   "summary": {
+    "headline": "The home sits 18 ft from each side line and 30 ft back from the frontage.",
+    "text": "The lot fronts Example Drive. The home is set parallel to the side lot lines, with a 12 ft driveway on the right and the water, sewer and electric services entering on the left. The woodland at the rear of the lot remains.",
+    "sequenceNote": "The illustrated construction sequence is provided to communicate general design intent. Construction means, methods, sequencing, temporary supports, equipment and jobsite safety shall be the responsibility of the contractor/installer. Maintain structural stability throughout all phases of installation."
+   },
+   "facts": [
+    {
+     "k": "Lot",
+     "tag": "",
+     "v": "15,067 sq ft",
+     "s": "Lot 00, Example Subdivision. Zoning R-1"
+    },
+    {
+     "k": "Home",
+     "tag": "N",
+     "v": "26'-4\" × 48'",
+     "s": "Long side facing the street"
+    },
+    {
+     "k": "Side yards",
+     "tag": "N",
+     "v": "18'-0\" each",
+     "s": "To both side lot lines"
+    },
+    {
+     "k": "Front yard",
+     "tag": "N",
+     "v": "30'-0\"",
+     "s": "From the frontage arc to the nearest corner"
+    },
+    {
+     "k": "Driveway",
+     "tag": "N",
+     "v": "12' asphalt",
+     "s": "3 ft from the home, on the right"
+    },
+    {
+     "k": "Coverage",
+     "tag": "",
+     "v": "14.0%",
+     "s": "2,116 sq ft of 7,534 sq ft allowed"
+    }
+   ],
+   "steps": [
+    {
+     "pic": "stake",
+     "title": "Find the corners and stake the home",
+     "text": "Locate the property corners. Stake the four corners of the home 18 ft from each side line and 30 ft from the frontage, and check the diagonals.",
+     "hold": "Setback verification before excavation.",
+     "ref": "Plan {plan} and {section}"
+    },
+    {
+     "pic": "util",
+     "title": "Locate and rough in the services",
+     "text": "Have existing utilities located. Trench the water, sewer and underground electric services along the left side of the lot to the home.",
+     "hold": "Utility inspections as required by the authority having jurisdiction."
+    },
+    {
+     "pic": "home",
+     "title": "Build the foundation and set the home",
+     "text": "Construct the foundation and set the home per sheet S1.0. Keep trees and woodland outside the work area protected.",
+     "ref": "Sheet S1.0"
+    },
+    {
+     "pic": "finish",
+     "title": "Decks, driveway and final grade",
+     "text": "Build the entry decks per sheet S2.0, set the HVAC pad, pave the driveway and grade to drain away from the home on all sides.",
+     "ref": "Sheet S2.0"
+    }
+   ]
+  },
+  "foundation": {},
+  "deck": {
+   "pictureTitle": "Entry deck overview",
+   "summary": {
+    "headline": "Two freestanding decks on their own footings, one at each door.",
+    "text": "Each deck is 5 ft square on four 6×6 posts and four 12 in. concrete pier footings. The deck stands 1 in. clear of the home and is not fastened to it. A 4 ft wide stair leads down to grade, with the stringers anchored to a small concrete pad. The front and rear decks are the same.",
+    "sequenceNote": "The illustrated construction sequence is provided to communicate general design intent. Construction means, methods, sequencing, temporary supports, equipment and jobsite safety shall be the responsibility of the contractor/installer. Maintain structural stability throughout all phases of installation."
+   },
+   "facts": [
+    {
+     "k": "Deck",
+     "tag": "N",
+     "v": "5'-0\" × 5'-0\"",
+     "s": "Freestanding. Typical of 2"
+    },
+    {
+     "k": "Posts",
+     "tag": "N",
+     "v": "(4) 6×6",
+     "s": "On listed standoff post bases"
+    },
+    {
+     "k": "Footings",
+     "tag": "N",
+     "v": "12\" dia. × 24\"",
+     "s": "Cast-in-place concrete pier footings"
+    },
+    {
+     "k": "Framing",
+     "tag": "N",
+     "v": "2×8 @ 16\" o.c.",
+     "s": "On two (2) 2×8 beams"
+    },
+    {
+     "k": "Guard",
+     "tag": "N",
+     "v": "36\" min.",
+     "s": "4×4 posts, 2×2 balusters @ 5 in."
+    },
+    {
+     "k": "Stair",
+     "tag": "N",
+     "v": "4'-0\" wide",
+     "s": "2×12 stringers @ 12 in. Handrail 34 to 38 in."
+    }
+   ],
+   "steps": [
+    {
+     "pic": "footings",
+     "title": "Footings",
+     "text": "Lay out four footings per deck from the door centerline. Drill or dig 12 in. diameter holes to 24 in. minimum below grade and place the concrete. Keep the footings clear of the home's wall footing.",
+     "hold": "Footing inspection before concrete is placed.",
+     "ref": "Detail {d1}"
+    },
+    {
+     "pic": "frame",
+     "title": "Posts, beams and joists",
+     "text": "Set the post bases and posts, then the two double 2×8 beams and the 2×8 joists and rims. Hold the deck 1 in. clear of the home.",
+     "ref": "Details {d1} and {d2}"
+    },
+    {
+     "pic": "decking",
+     "title": "Decking and stair",
+     "text": "Lay the decking. Measure the finished height, place the concrete pad at the foot of the stair, cut the stringers for equal risers and anchor them to the pad.",
+     "ref": "Detail {d4}"
+    },
+    {
+     "pic": "guards",
+     "title": "Guards and handrails",
+     "text": "Install the guards on the open sides of the deck and a graspable handrail along the stair.",
+     "hold": "Final inspection.",
+     "ref": "Detail {d3}"
+    }
+   ]
+  }
+ },
+ "geometry": {
+  "units": "in",
+  "source": "Home configuration per the manufacturer's support drawing; verify in field.",
+  "L": 576,
+  "Ws": 158,
+  "nSec": 2,
+  "iBeamSpacing": 99.5,
+  "endDist": 24,
+  "tieEnd": 16,
+  "pierSpacing": 96,
+  "mlSpacing": 96,
+  "anchorSpacing": 96,
+  "padFrame": 24,
+  "padML": 24,
+  "padT": 8,
+  "embed": 24,
+  "pierH": 30,
+  "pierW": 16,
+  "pierT": 8,
+  "blockH": 8,
+  "iBeamDepth": 10,
+  "floorDepth": 20,
+  "wallT": 7.625,
+  "wallName": "8\" CMU",
+  "ftgB": 16,
+  "ftgH": 10,
+  "wallTop": 23,
+  "anchorH": 6,
+  "strapAngle": 40,
+  "endTieAngle": 35,
+  "endTies": 4,
+  "clearText": "1'-2\" (12\" MIN.)",
+  "gradeNote": "Finished grade,\nslope 5% away",
+  "padBars": "#3 @ 12\" each way, 3\" clear from the bottom",
+  "padNote": "Projection past pier ≤ pad thickness",
+  "pierName": "Single-stack 8×8×16 CMU pier",
+  "pierNote": "Open cells vertical, long side across the I-beam, Type S mortar. Cure mortar 96 hrs before the home is set",
+  "capNote": "Cap: 4\" solid CMU or 2× hardwood. Shims ≤ 1\" plus (2) ¾\" wedges driven tight. Level within ¼\" between adjacent piers",
+  "pierMLName": "Double-stack 16×16 CMU pier, interlocked",
+  "pierMLNote": "16×16 solid cap. Also support at crossover duct penetrations of the rim joist",
+  "columnNote": "Ridge-beam column piers at 15'-6\" and 30'-0\" from the hitch end, on 26\" × 26\" × 8\" pads",
+  "columnDetailNote": "At ridge-beam column piers: 26\" × 26\" × 8\" pad",
+  "wallNote": "#4 @ 24\" in grouted cells, hooked into the footing. Top course grouted, (1) #4 cont.",
+  "gapNote": "1\" gap with compressible seal. Wall does not bear",
+  "anchorNote": "(N) Strap anchor, inside face, in grouted anchor course with (2) #4. See general notes",
+  "ftgNote": "(2) #4 cont. plus corner bars",
+  "clampNote": "(N) Beam clamp at the top flange of the outer I-beam, rated for the strap load",
+  "strapSpec": "(N) Galv. strap 1¼\" × 0.035\" min., ASTM D3953 Type 1, Grade 1, Finish B, tensioner each strap. Radius clips at sharp corners",
+  "strapNote": "Strap tension per the engineer",
+  "endTieNote": "(N) End ties, 4 per I-beam end at 35°. Attach to factory bracket, approved beam clamp or crossmember within 3\" of the I-beam. Straps spread ≥ 12\" o.c.",
+  "endTieClear": "Strap must clear the end pier: offset each anchor ≥ 10\" to the side of the I-beam line",
+  "endAnchorNote": "(N) Strap anchors in the end wall anchor course, inside face",
+  "padCol": 26,
+  "mlStations": [
+   24,
+   120,
+   216,
+   303,
+   390,
+   471,
+   552
+  ],
+  "colStations": [
+   216,
+   390
+  ],
+  "doorPiers": [
+   {
+    "x": 443.5,
+    "side": "front"
+   },
+   {
+    "x": 405.5,
+    "side": "front"
+   },
+   {
+    "x": 169.5,
+    "side": "rear"
+   },
+   {
+    "x": 135,
+    "side": "rear"
+   }
+  ],
+  "doorPierNote": "Door piers each side of exterior doors, on 16\" × 16\" × 8\" pads min. See general notes"
+ },
+ "site": {
+  "street": "Example Drive",
+  "frontageNote": "Frontage 86.55' along the arc",
+  "homeSize": "26'-4\" × 48'-0\"",
+  "homeModel": "Multi-section HUD-code home · 26'-4\" × 48'-0\"",
+  "deckSheet": "S2.0",
+  "foundSheet": "S1.0",
+  "north": [
+   -0.208,
+   0.978
+  ],
+  "boundary": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    196.0
+   ],
+   [
+    84.0,
+    186.0
+   ],
+   [
+    84.0,
+    20.23
+   ]
+  ],
+  "arc": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    8.4,
+    2.85
+   ],
+   [
+    16.8,
+    5.51
+   ],
+   [
+    25.2,
+    7.99
+   ],
+   [
+    33.6,
+    10.29
+   ],
+   [
+    42.0,
+    12.41
+   ],
+   [
+    50.4,
+    14.34
+   ],
+   [
+    58.8,
+    16.09
+   ],
+   [
+    67.2,
+    17.65
+   ],
+   [
+    75.6,
+    19.03
+   ],
+   [
+    84.0,
+    20.23
+   ]
+  ],
+  "sideA": {
+   "label": "N 12°00' E · 196.00'"
+  },
+  "sideB": {
+   "label": "N 12°00' E · 165.77'"
+  },
+  "rear": {
+   "label": "S 71°13' E · 84.59'"
+  },
+  "woodland": "Existing woodland to remain",
+  "easement": "Utility easement along this side line. Verify width from the recorded plat",
+  "home": [
+   18.0,
+   47.86,
+   66.0,
+   74.19
+  ],
+  "decks": [
+   {
+    "deck": [
+     52.0,
+     42.86,
+     57.0,
+     47.86
+    ],
+    "stair": [
+     52.5,
+     37.86,
+     56.5,
+     42.86
+    ],
+    "pad": [
+     52.5,
+     36.86,
+     56.5,
+     37.86
+    ]
+   },
+   {
+    "deck": [
+     28.0,
+     74.19,
+     33.0,
+     79.19
+    ],
+    "stair": [
+     28.5,
+     79.19,
+     32.5,
+     84.19
+    ],
+    "pad": [
+     28.5,
+     84.19,
+     32.5,
+     85.19
+    ]
+   }
+  ],
+  "hvac": [
+   47.83,
+   77.36,
+   51.83,
+   81.36
+  ],
+  "drive": {
+   "x0": 69.0,
+   "x1": 81.0,
+   "yTop": 74.19,
+   "label": "12' wide, 3' from the home"
+  },
+  "water": [
+   [
+    10.5,
+    3.53
+   ],
+   [
+    10.5,
+    64.08
+   ],
+   [
+    18.0,
+    64.08
+   ]
+  ],
+  "sewer": [
+   [
+    6.5,
+    2.22
+   ],
+   [
+    6.5,
+    57.78
+   ],
+   [
+    18.0,
+    57.78
+   ]
+  ],
+  "electric": [
+   [
+    -2.5,
+    -2.5
+   ],
+   [
+    3.0,
+    1.04
+   ],
+   [
+    3.0,
+    54.08
+   ],
+   [
+    12.42,
+    54.08
+   ]
+  ],
+  "md": [
+   13.67,
+   54.06
+  ],
+  "pole": [
+   -2.5,
+   -2.5
+  ],
+  "vents": [
+   [
+    24.0,
+    47.86
+   ],
+   [
+    60.0,
+    47.86
+   ],
+   [
+    24.0,
+    74.19
+   ],
+   [
+    60.0,
+    74.19
+   ]
+  ],
+  "access": [
+   41.0,
+   47.86
+  ],
+  "frontSetback": {
+   "from": [
+    66.0,
+    47.86
+   ],
+   "to": [
+    70.86,
+    18.25
+   ],
+   "label": "30'-0\" front"
+  },
+  "rearClear": {
+   "from": [
+    66.0,
+    74.19
+   ],
+   "to": [
+    79.38,
+    186.55
+   ],
+   "label": "113'-2\" ± to the rear line"
+  },
+  "coverage": [
+   [
+    "Lot 00, Example Subdivision",
+    "",
+    "h"
+   ],
+   [
+    "Zoning district",
+    "R-1"
+   ],
+   [
+    "Lot area",
+    "15,067 sq ft"
+   ],
+   [
+    "Side yards provided",
+    "18'-0\" each side"
+   ],
+   [
+    "Front yard provided",
+    "30'-0\""
+   ],
+   [
+    "Rear yard provided",
+    "113'-2\" ±"
+   ],
+   [
+    "Home roof footprint",
+    "1,339 sq ft"
+   ],
+   [
+    "Driveway",
+    "663 sq ft"
+   ],
+   [
+    "Entry decks, stairs and pads",
+    "98 sq ft"
+   ],
+   [
+    "HVAC pad",
+    "16 sq ft"
+   ],
+   [
+    "Total impervious coverage",
+    "2,116 sq ft · 14.0%",
+    "b"
+   ],
+   [
+    "Maximum coverage, R-1",
+    "50% · 7,534 sq ft"
+   ]
+  ],
+  "coverageNote": "Areas and zoning data as furnished by the owner. Verify required yards with the local zoning administrator.",
+  "utilityNote": "Service routes are schematic. Locate existing utilities before excavation. Utility connections, sizes and materials are by others and per the authority having jurisdiction.",
+  "generalNotes": [
+   "This site plan is not a boundary or topographic survey. It was prepared from owner-furnished information, the recorded plat and aerial imagery. Property lines, easements and existing features are approximate; verify in the field.",
+   "No topography was furnished and no grades are shown. Grade the finished site to drain away from the home on all sides.",
+   "Locate the property corners, stake the home and verify the setbacks before excavation (hold point). Have missing corners set by a licensed land surveyor.",
+   "Verify required yards, easements, lot coverage and the driveway entrance with the local jurisdiction.",
+   "Call 811 before digging. Service routes are schematic; connections, sizes and materials are by others, per the utility and the authority having jurisdiction.",
+   "The woodland at the rear remains. Protect trees outside the work area. Erosion and sediment control per local requirements."
+  ],
+  "sourceNote": "From owner-furnished information, the recorded plat and aerial imagery. Not a boundary or topographic survey"
+ },
+ "deck": {
+  "L": 60,
+  "D": 60,
+  "gap": 1,
+  "threshold": 1,
+  "joistT": 1.5,
+  "plyT": 1.5,
+  "joistDepth": 7.25,
+  "beamDepth": 7.25,
+  "beamPlies": 2,
+  "post": 5.5,
+  "postInset": 6,
+  "postInsetHome": 14,
+  "joistX": [
+   0.75,
+   16,
+   32,
+   48,
+   59.25
+  ],
+  "joistSpacing": 16,
+  "footingDia": 12,
+  "footingDepth": 24,
+  "stemDia": 12,
+  "stemTop": 2,
+  "standoff": 1,
+  "deckH": 34,
+  "deckingT": 1,
+  "guardH": 36,
+  "stairW": 48,
+  "stairRun": 60,
+  "padD": 12,
+  "padT": 4,
+  "risers": 5,
+  "tread": 10,
+  "joistName": "2×8",
+  "beamName": "(2) 2×8",
+  "postName": "6×6",
+  "deckingName": "5/4 × 6",
+  "stringerName": "2×12",
+  "stringerCount": 5,
+  "lumber": "No. 2 PT Southern Pine",
+  "baseNote": "Listed post base with 1\" standoff, anchored to the footing per its listing",
+  "footingNote": "Cast-in-place concrete pier footing, 12\" dia. × 24\" deep min., 3,000 psi",
+  "bearingNote": "Firm undisturbed soil",
+  "joistTieNote": "Joist to beam connection per the local deck construction guide",
+  "capNote": "Listed post cap, beam to post",
+  "guardNote": "Guard post and infill, 36\" min. above the deck",
+  "guardFixNote": "(2) Simpson LPC4Z, guard post to beam",
+  "stringerNote": "2×12 stringers @ 12\" o.c. max. Attach to the rim per the local deck guide",
+  "riserNote": "Equal risers within 3/8\"; treads 10\" run. Closed risers, or open risers that do not pass a 4\" sphere. Fit to the measured threshold height within the 5'-0\" stair length",
+  "padNote": "Concrete pad 12\" wide × 4\" thick × width of the stair, 3,000 psi",
+  "treadNote": "Treads 2×4 min., attached to each stringer with (2) 8d threaded nails or (2) #8 × 2½\" screws",
+  "toeNote": "Simpson A34 each stringer to the pad",
+  "guardRailNote": "2×4 top rail and 2×4 bottom rail",
+  "guardBalNote": "2×2 balusters @ 5\" o.c.",
+  "guardPostNote": "4×4 guard post @ 4'-0\" o.c. max., No. 2 PT Southern Pine",
+  "guardClipNote": "Simpson A34 each rail end",
+  "guardLoadRef": "IRC Table R301.5"
+ },
+ "credit": true
+}

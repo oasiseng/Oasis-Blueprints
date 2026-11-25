@@ -27,6 +27,7 @@ SITE = json.loads((SITE_DIR / "site.json").read_text(encoding="utf-8"))
 PAGES = {
     "skills/oasis-blueprints/references/project-file.md": ("reference/project-file", "Project file"),
     "skills/oasis-blueprints/references/writing-views.md": ("reference/drawing-api", "Drawing API and writing a job type"),
+    "skills/oasis-blueprints/references/manufactured-home.md": ("reference/manufactured-home", "Job type: manufactured home"),
     "library/details/README.md": ("reference/detail-library", "Detail library"),
     "skills/oasis-blueprints/references/sheet-standard.md": ("concepts/sheet-standard", "The sheet standard"),
     "CHANGELOG.md": ("project/changelog", "Changelog"),

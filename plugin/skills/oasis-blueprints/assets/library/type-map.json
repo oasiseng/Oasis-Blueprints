@@ -51,6 +51,21 @@
    ]
   },
   {
+   "job_type": "manufactured-home",
+   "draws": "Pier foundation, site plan and entry decks for a multi-section HUD-code manufactured home",
+   "field_sheet_covers": [
+    "site_plan",
+    "foundation_plan",
+    "sections",
+    "details",
+    "decking_plan",
+    "stair",
+    "view_3d",
+    "assembly_steps"
+   ],
+   "drawing_map": []
+  },
+  {
    "job_type": "library",
    "draws": "Sheets of library details only",
    "field_sheet_covers": [],

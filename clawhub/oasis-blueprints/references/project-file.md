@@ -2,14 +2,14 @@
 
 One JSON file per job. Everything on the sheets that is not linework comes from here, so a change of
 address, a new note or an engineer's answer is an edit to this file and a rebuild. Complete examples:
-`assets/samples/sunroom/project.json`, `assets/samples/deck/project.json`.
+`assets/samples/sunroom/project.json`, `assets/samples/deck/project.json`, `assets/samples/manufactured-home/project.json`.
 
 ## Top level
 
 | Key | Required | What it is |
 |---|---|---|
 | `schema` | no | `"oasis-blueprints/0.2"` |
-| `jobType` | yes | Which drawing code to use: `sunroom`, `deck`, or the name of your own `<jobType>.js` |
+| `jobType` | yes | Which drawing code to use: `sunroom`, `deck`, `manufactured-home`, `library`, or the name of your own `<jobType>.js` |
 | `status` | no | `draft` (default), `review`, `permit`, `construction`. See below |
 | `firm` | no | Company block. Usually left out and supplied by `brand.json` |
 | `project` | yes | Title block: what and where |
@@ -58,6 +58,9 @@ For `deck`: `L`, `D`, `deckH`, `post`, `postName`, `postsX[]`, `beamY[]`, `beamD
 For `sunroom`: `clearL`, `clearD`, `post`, `roofL`, `roofD`, `longBays[]`, `door[y0,y1]`, `rightMid`,
 `slopeRise`, `slopeRun`, `h0`, `rafterDepth`, `beamDepth`, `rafterSpacing`, `wallT`,
 `openings[{x0,x1,label,sill,head}]`.
+
+For `manufactured-home`: three field sheets (site, foundation, deck), each with its own data block. See
+[manufactured-home.md](manufactured-home.md).
 
 ## `scales`
 

@@ -45,6 +45,7 @@ sample branding or infer a license number.
 |---|---|---|
 | `deck` | Freestanding rectangular deck; inches or millimetres | [assets/views/deck.js](assets/views/deck.js) |
 | `sunroom` | Sloped roof on posts against a house; inches only | [assets/views/sunroom.js](assets/views/sunroom.js) |
+| `manufactured-home` | Pier foundation, site plan and entry decks for a multi-section HUD-code home; three field sheets | [assets/views/manufactured-home.js](assets/views/manufactured-home.js), data in [references/manufactured-home.md](references/manufactured-home.md) |
 | `library` | A set made only of sheets of standard details | [assets/views/library.js](assets/views/library.js) |
 | Custom | A scope the supplied views do not represent | Read [references/writing-views.md](references/writing-views.md), then adapt `deck.js` beside the project file |
 

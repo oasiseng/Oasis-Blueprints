@@ -64,6 +64,7 @@ export default defineConfig({
 					items: [
 						{ slug: 'reference/project-file' },
 						{ slug: 'reference/drawing-api' },
+						{ slug: 'reference/manufactured-home' },
 						{ slug: 'reference/detail-library' },
 					],
 				},

@@ -77,7 +77,7 @@ When the person wants the plan as a file, write `<job-name>.project.json` by the
   dimension and criterion with this project's evidence, or leave it out.
 - If the person gave company details, write a `brand.json` from `assets/brand.example.json`. Leave unknown
   fields blank and say which are blank. Do not infer a license number.
-- A `jobType` the full edition already draws is `deck`, `sunroom` or `library`. For any other scope, set the
+- A `jobType` the full edition already draws is `deck`, `sunroom`, `manufactured-home` or `library`. For any other scope, set the
   job type to a short name for the scope and say that the full edition needs a custom view written for it.
 
 ## Review an existing set

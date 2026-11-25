@@ -75,6 +75,11 @@ bundled with the skill, which the tests also use; they are not the same sets. To
 - **Detached ADU** is a 23-sheet draft set for a small accessory dwelling, with mechanical and plumbing
   sheets as well. It is published as a pre-drawn HTML copy; its project file follows when the job is final.
   Names, address and parcel are placeholders, and the site plan, maps and rendering are left out.
+- **Manufactured home foundation** is a draft four-sheet set for a multi-section HUD-code home: a cover, a site
+  plan, a foundation sheet (pier plan, two sections, four details and an illustrated construction sequence) and an
+  entry deck sheet. It uses the `manufactured-home` job type, which ships with the kit. It started as a real job;
+  the lot, address, names and home model are placeholders, and the loads, anchorage and design criteria are left
+  as open items for the engineer.
 - **Freestanding deck** is a draft. It is the example that shows open items in red: the values the
   engineer still owes, counted in the title block and blocking the set from being issued.
 
@@ -85,6 +90,7 @@ bundled with the skill, which the tests also use; they are not the same sets. To
 | Residential set from CAD | `cadset` (CAD linework in kit panels, native notes and tables), 14 sheets | [About and how to build](examples/sheet-sets/residential-set/README.md) · [`project.json`](examples/sheet-sets/residential-set/project.json) · [cover](examples/sheet-sets/residential-set/preview-cover.png) |
 | Detached ADU | pre-drawn copy of a full small-building set (civil, architectural, mechanical, plumbing, electrical, structural), 23 sheets, draft | [About](examples/sheet-sets/adu/README.md) · [`sheet-set.html`](examples/sheet-sets/adu/sheet-set.html) · [cover](examples/sheet-sets/adu/preview-cover.png) |
 | Detail library | `library` (sheets of standard details only), 12 sheets | [`project.json`](examples/sheet-sets/detail-library/project.json) · [sheet pictures](library/details/typical/sheets/) |
+| Manufactured home foundation | `manufactured-home` (site, foundation and deck sheets from one project file), 4 sheets, draft with open items | [`project.json`](examples/sheet-sets/manufactured-home/project.json) · [cover](examples/sheet-sets/manufactured-home/preview-cover.png) · [site plan](examples/sheet-sets/manufactured-home/preview-site.png) · [foundation](examples/sheet-sets/manufactured-home/preview-foundation.png) · [entry decks](examples/sheet-sets/manufactured-home/preview-deck.png) |
 | Freestanding deck | `deck` (all new, inches or millimeters), draft with open items | [Live sheet set](https://oasisengineering.com/blueprints/examples/deck/) · [PDF](https://oasisengineering.com/blueprints/examples/deck/sheet-set.pdf) · [`project.json`](examples/sheet-sets/deck/project.json) |
 
 ![Cover of the sunroom repair example](examples/sheet-sets/sunroom-repair/preview-cover.png)
